@@ -4,22 +4,15 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
 
-public class CharacterController : MonoBehaviour
+public class CharacterController2 : MonoBehaviour
 {
     //아직 여기 뭔지 모름
     [Header("Events")]
     [Space]
-
     public UnityEvent OnFallEvent;
     public UnityEvent OnLandEvent;
 
-    [System.Serializable]
-    public class BoolEvent : UnityEvent<bool> { }
-    ////////
-
-
     [SerializeField] private float m_JumpForce = 400f;                          // Amount of force added when the player jumps.
-    [Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;  // How much to smooth out the movement
     [SerializeField] private bool m_AirControl = false;                         // Whether or not a player can steer while jumping;
     [SerializeField] private LayerMask m_WhatIsGround;                          // A mask determining what is ground to the character
     [SerializeField] private Transform m_GroundCheck;                           // A position marking where to check if the player is grounded.
@@ -31,6 +24,8 @@ public class CharacterController : MonoBehaviour
     private Animator animator;
     public ParticleSystem particleJumpUp; //Trail particles
     public ParticleSystem particleJumpDown; //Explosion particles
+
+    private float m_MovementSmoothing = .05f;  // How much to smooth out the movement
 
 
     private bool m_Grounded;
@@ -78,11 +73,10 @@ public class CharacterController : MonoBehaviour
 
     private void FixedUpdate()
     {
-
+        print(m_AirControl);
         //땅에 닿아 있는지 판별하는 변수
         bool wasGrounded = m_Grounded;
         m_Grounded = false;
-        print(m_Grounded);
 
         //colliders : 닿아있는 바닥수만큼 존재, 공중에 떠있으면 0개 바닥에 닿아있으면 1개
         Collider2D[] colliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
@@ -90,20 +84,16 @@ public class CharacterController : MonoBehaviour
         {
             //gameobject = plsyer, colliders[i].gameObject = player와 접촉하고 있는 obj
             if (colliders[i].gameObject != gameObject)
-                
-            {
                 m_Grounded = true;
-                if (!wasGrounded) //여기 아직 안 봄
-                {
-                    OnLandEvent.Invoke();
-                    if (!m_IsWall && !isDashing)
-                        particleJumpDown.Play();
-                    canDoubleJump = true;
-                    if (m_Rigidbody2D.velocity.y < 0f)
-                        limitVelOnWallJump = false;
-                }
+            if (!wasGrounded) //여기 아직 안 봄
+            {
+                OnLandEvent.Invoke();
+                if (!m_IsWall && !isDashing)
+                    particleJumpDown.Play();
+                canDoubleJump = true;
+                if (m_Rigidbody2D.velocity.y < 0f)
+                    limitVelOnWallJump = false;
             }
-
         }
 
 
