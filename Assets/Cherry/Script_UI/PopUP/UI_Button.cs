@@ -43,10 +43,10 @@ public class UI_Button : UI_Popup
         Bind<GameObject>(typeof(GameObjects));  // 빈 오브젝트들 가져와 dictionary인 _objects에 바인딩. 
         Bind<Image>(typeof(Images));  // 이미지 오브젝트들 가져와 dictionary인 _objects에 바인딩. 
 
-        // (확장 메서드) 버튼(go)에 📜UI_EventHandler를 붙이고 액션에 OnButtonClicked 함수를 OnClickHandler (디폴트)등록한다.
+        // 버튼에 UI_EventHandler를 붙이고 원하는 액션 할당
         GetButton((int)Buttons.PointButton).gameObject.BindEvent(OnButtonClicked);
 
-        // 이미지(go)에 📜UI_EventHandler를 붙이고 파라미터로 넘긴 람다 함수를 OnDragHandler 액션에 등록한다.
+        // 이미지에 UI_EventHandler를 붙이고 파라미터로 넘긴 람다 함수를 OnDragHandler 액션에 등록한다.
         GameObject go = GetImage((int)Images.ItemIcon).gameObject;
         BindEvent(go, (PointerEventData data) => { go.transform.position = data.position; }, Define.UIEvent.Drag);
     }

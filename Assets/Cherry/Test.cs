@@ -6,6 +6,6 @@ public class Test : MonoBehaviour
 {
     void Start()
     {
-        Managers.UI.ShowPopupUI<UI_Button>();
+        Managers.UI.ShowPopupUI<UI_Setting>();
     }
 }
