@@ -132,7 +132,7 @@ public class DrawingUI : MonoBehaviour
         // 기본 텍스처 초기화 (투명으로 시작)
         for (int i = 0; i < canvasColors.Length; i++)
         {
-            canvasColors[i] = Color.clear;
+            canvasColors[i] = Color.white;
         }
 
         canvasTexture.SetPixels(canvasColors);
@@ -145,12 +145,12 @@ public class DrawingUI : MonoBehaviour
         finishButton.onClick.AddListener(FinishDrawing);
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (isDrawing || isErasing)
-        {
+        { 
             Vector2 localPoint;
-            if (RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, Input.mousePosition, null, out localPoint))
+            if (RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, new Vector2(Input.mousePosition.x + 220.3f, Input.mousePosition.y + 113.3f), null, out localPoint))
             {
                 int x = Mathf.FloorToInt(localPoint.x);
                 int y = Mathf.FloorToInt(localPoint.y);
@@ -166,7 +166,8 @@ public class DrawingUI : MonoBehaviour
                     }
                     else if (isErasing)
                     {
-                        canvasColors[index] = Color.clear; // 지우기 모드
+                        canvasColors[index] = Color.white; // 지우기 모드
+                       
                     }
 
                     canvasTexture.SetPixels(canvasColors);
@@ -213,19 +214,45 @@ public class DrawingUI : MonoBehaviour
     void CreateNewLineRenderer()
     {
         currentLine = Instantiate(lineRendererPrefab, drawingArea.transform);
+      //  currentLine = 
+        currentLine.startWidth = 300f; // 시작 두께를 조절합니다.
+       // currentLine.endWidth = 3f;   // 끝 두께를 조절합니다.
         currentLine.positionCount = 0;
         lineVertexCount = 0;
     }
 
-    void UpdateLineRenderer(Vector2 point)
+    void UpdateLineRenderer(Vector3 point)
     {
         if (currentLine == null)
         {
             CreateNewLineRenderer();
         }
 
-        currentLine.positionCount = lineVertexCount + 1;
-        currentLine.SetPosition(lineVertexCount, point);
-        lineVertexCount++;
+        // 이전 위치
+        Vector3 prevPoint = currentLine.positionCount > 0 ? currentLine.GetPosition(currentLine.positionCount - 1) : point;
+
+        // 마우스 이동 벡터
+        Vector3 dir = point - prevPoint;
+        float distance = dir.magnitude;
+
+        // 선을 부드럽게 그리기 위해 샘플링
+        int segments = Mathf.CeilToInt(distance / 0.01f); // 0.1f는 세그먼트 간격입니다.
+
+        // 선의 시작점 추가
+        if (currentLine.positionCount == 0)
+        {
+            currentLine.positionCount++;
+            currentLine.SetPosition(lineVertexCount, point);
+            lineVertexCount++;
+        }
+
+        for (int i = 0; i < segments; i++)
+        {
+            float t = (i + 1) / (float)segments; // 시작점을 이미 추가했으므로 t를 1/segments부터 시작합니다.
+            Vector3 newPosition = Vector3.Lerp(prevPoint, point, t);
+            currentLine.positionCount++;
+            currentLine.SetPosition(lineVertexCount, newPosition);
+            lineVertexCount++;
+        }
     }
 }
