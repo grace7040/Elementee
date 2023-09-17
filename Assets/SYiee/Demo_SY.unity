@@ -1429,6 +1429,7 @@ GameObject:
   - component: {fileID: 427283246}
   - component: {fileID: 427283245}
   - component: {fileID: 427283247}
+  - component: {fileID: 427283248}
   m_Layer: 0
   m_Name: Tower
   m_TagString: Untagged
@@ -1529,6 +1530,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.75, y: 2.09}
   m_EdgeRadius: 0
+--- !u!114 &427283248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 427283244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa8e9841afd15f647bbaf2c09e0008de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &464853731
 GameObject:
   m_ObjectHideFlags: 0
@@ -2616,21 +2629,20 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 867121465}
-  - component: {fileID: 867121464}
-  - component: {fileID: 867121463}
-  - component: {fileID: 867121462}
   - component: {fileID: 867121461}
+  - component: {fileID: 867121466}
   - component: {fileID: 867121460}
   - component: {fileID: 867121459}
   - component: {fileID: 867121458}
   - component: {fileID: 867121457}
+  - component: {fileID: 867121467}
   m_Layer: 0
   m_Name: Player_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!82 &867121457
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2836,128 +2848,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &867121462
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 867121456}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50f85538eb788c6489d509f590fb5997, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controller: {fileID: 867121464}
-  animator: {fileID: 867121461}
-  runSpeed: 40
---- !u!114 &867121463
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 867121456}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e3c405b67aeaf442b3335b5be8c8d97, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnFallEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 867121462}
-        m_TargetAssemblyTypeName: CharacterMove, Assembly-CSharp
-        m_MethodName: OnFall
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnLandEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 867121462}
-        m_TargetAssemblyTypeName: CharacterMove, Assembly-CSharp
-        m_MethodName: OnLanding
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  m_JumpForce: 850
-  m_AirControl: 1
-  m_WhatIsGround:
-    serializedVersion: 2
-    m_Bits: 53
-  m_GroundCheck: {fileID: 37703355}
-  m_WallCheck: {fileID: 1209243698}
-  m_DashForce: 25
-  particleJumpUp: {fileID: 1586187759}
-  particleJumpDown: {fileID: 2113017799}
-  canDoubleJump: 1
---- !u!114 &867121464
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 867121456}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca2930566007a9e40a0f59a6c6f1d14f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_JumpForce: 850
-  m_MovementSmoothing: 0.05
-  m_DashForce: 25
-  m_AirControl: 1
-  m_WhatIsGround:
-    serializedVersion: 2
-    m_Bits: 53
-  m_GroundCheck: {fileID: 37703355}
-  m_WallCheck: {fileID: 1209243698}
-  particleJumpUp: {fileID: 1586187759}
-  particleJumpDown: {fileID: 2113017799}
-  OnFallEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 867121462}
-        m_TargetAssemblyTypeName: CharacterMove, Assembly-CSharp
-        m_MethodName: OnFall
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnLandEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 867121462}
-        m_TargetAssemblyTypeName: CharacterMove, Assembly-CSharp
-        m_MethodName: OnLanding
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  canDoubleJump: 1
 --- !u!4 &867121465
 Transform:
   m_ObjectHideFlags: 0
@@ -2978,6 +2868,73 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &867121466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 867121456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d24199674478c0645ac91135cf1fd33f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MovementSmoothing: 0.05
+  m_DashForce: 25
+  m_AirControl: 1
+  m_WhatIsGround:
+    serializedVersion: 2
+    m_Bits: 53
+  m_GroundCheck: {fileID: 37703355}
+  m_WallCheck: {fileID: 1209243698}
+  particleJumpUp: {fileID: 1586187759}
+  particleJumpDown: {fileID: 2113017799}
+  OnFallEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 867121467}
+        m_TargetAssemblyTypeName: CharacterMove, Assembly-CSharp
+        m_MethodName: OnFall
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnLandEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 867121467}
+        m_TargetAssemblyTypeName: CharacterMove, Assembly-CSharp
+        m_MethodName: OnLanding
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &867121467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 867121456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50f85538eb788c6489d509f590fb5997, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controller: {fileID: 867121466}
+  animator: {fileID: 867121461}
+  runSpeed: 40
 --- !u!1 &921398308
 GameObject:
   m_ObjectHideFlags: 0
@@ -8294,7 +8251,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!50 &1152450284
 Rigidbody2D:
   serializedVersion: 4
@@ -8405,7 +8362,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  canDoubleJump: 0
 --- !u!212 &1152450288
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8490,7 +8446,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50f85538eb788c6489d509f590fb5997, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 1152450287}
+  controller: {fileID: 0}
   animator: {fileID: 1152450286}
   runSpeed: 40
 --- !u!82 &1152450291
@@ -15519,7 +15475,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd1bb6f7ea8d98240b62d28060018fd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Target: {fileID: 1152450289}
+  Target: {fileID: 867121465}
   shakeDuration: 0
   shakeAmount: 0.1
   decreaseFactor: 1

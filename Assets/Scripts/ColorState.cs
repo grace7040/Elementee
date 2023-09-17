@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class ColorState 
 {
-    public abstract int JumpForce { get; }
+    public abstract float JumpForce { get; }
     public abstract void Attack();
 
 }
