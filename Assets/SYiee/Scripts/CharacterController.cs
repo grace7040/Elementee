@@ -6,7 +6,26 @@ using UnityEngine.Events;
 
 public class CharacterController : MonoBehaviour
 {
-    //아직 여기 뭔지 모름
+
+
+    [Header("Movement Customizing")]
+    [SerializeField] private float m_JumpForce = 400f;                          // Amount of force added when the player jumps.
+    [Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;  // How much to smooth out the movement
+    [SerializeField] private float m_DashForce = 25f;
+    [SerializeField] private bool m_AirControl = false;                         // Whether or not a player can steer while jumping;
+
+
+    [Header("Collision Checking")]
+    [SerializeField] private LayerMask m_WhatIsGround;                          // A mask determining what is ground to the character
+    [SerializeField] private Transform m_GroundCheck;                           // A position marking where to check if the player is grounded.
+    [SerializeField] private Transform m_WallCheck;                             //Posicion que controla si el personaje toca una pared
+
+
+    [Header("ParticleSystem")]
+    public ParticleSystem particleJumpUp; //Trail particles
+    public ParticleSystem particleJumpDown; //Explosion particles
+
+    //
     [Header("Events")]
     [Space]
 
@@ -18,20 +37,8 @@ public class CharacterController : MonoBehaviour
     ////////
 
 
-    [SerializeField] private float m_JumpForce = 400f;                          // Amount of force added when the player jumps.
-    [Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;  // How much to smooth out the movement
-    [SerializeField] private bool m_AirControl = false;                         // Whether or not a player can steer while jumping;
-    [SerializeField] private LayerMask m_WhatIsGround;                          // A mask determining what is ground to the character
-    [SerializeField] private Transform m_GroundCheck;                           // A position marking where to check if the player is grounded.
-    [SerializeField] private Transform m_WallCheck;                             //Posicion que controla si el personaje toca una pared
-    [SerializeField] private float m_DashForce = 25f;
-
-
     private Rigidbody2D m_Rigidbody2D;
     private Animator animator;
-    public ParticleSystem particleJumpUp; //Trail particles
-    public ParticleSystem particleJumpDown; //Explosion particles
-
 
     private bool m_Grounded;
     const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
@@ -58,7 +65,7 @@ public class CharacterController : MonoBehaviour
     private float limitFallSpeed = 25f; // Limit fall speed
     private Vector3 velocity = Vector3.zero;
     //-점프
-    public bool canDoubleJump = true; //If player can double jump
+    private bool canDoubleJump = true; //If player can double jump
     //-벽타기
     private bool oldWallSlidding = false; //If player is sliding in a wall in the previous frame
     private bool canSlide = false; //For check if player is wallsliding
@@ -203,13 +210,11 @@ public class CharacterController : MonoBehaviour
                 // If the input is moving the player right and the player is facing left...
                 if (move > 0 && !m_FacingRight && !isWallSliding)
                 {
-                    // ... flip the player.
                     Flip();
                 }
                 // Otherwise if the input is moving the player left and the player is facing right...
                 else if (move < 0 && m_FacingRight && !isWallSliding)
                 {
-                    // ... flip the player.
                     Flip();
                 }
             }
@@ -220,7 +225,7 @@ public class CharacterController : MonoBehaviour
             {
                 // Add a vertical force to the player.
                 animator.SetBool("IsJumping", true);
-                //animator.SetBool("JumpUp", true);
+                animator.SetBool("JumpUp", true);
                 m_Grounded = false;
                 m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
                 canDoubleJump = true;
@@ -235,6 +240,14 @@ public class CharacterController : MonoBehaviour
                 m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce / 1.2f));
                 animator.SetBool("IsDoubleJumping", true);
             }
+
+            else if (!m_Grounded && dash && canDash)
+            {
+                    //m_WallCheck.localPosition = new Vector3(Mathf.Abs(m_WallCheck.localPosition.x), m_WallCheck.localPosition.y, 0);
+                    //canDoubleJump = true;
+                    StartCoroutine(DashCooldown());
+            }
+                
 
             //Wallsliding
             //플레이어 앞에 벽이 있고 땅에 닿아있지 않을
