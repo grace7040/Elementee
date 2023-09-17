@@ -41,20 +41,20 @@ public class UI_Setting  : UI_Popup
     {
         base.Init(); // 📜UI_Button 의 부모인 📜UI_PopUp 의 Init() 호출
 
-        Bind<Button>(typeof(Buttons)); // 버튼 오브젝트들 가져와 dictionary인 _objects에 바인딩. 
-        //Bind<TMP_Text>(typeof(Texts));  // 텍스트 오브젝트들 가져와 dictionary인 _objects에 바인딩. 
-        //Bind<GameObject>(typeof(GameObjects));  // 빈 오브젝트들 가져와 dictionary인 _objects에 바인딩. 
-        //Bind<Image>(typeof(Images));  // 이미지 오브젝트들 가져와 dictionary인 _objects에 바인딩. 
-
+        Bind<Button>(typeof(Buttons)); 
+        //Bind<TMP_Text>(typeof(Texts)); 
+        //Bind<GameObject>(typeof(GameObjects)); 
+        //Bind<Image>(typeof(Images)); 
 
         GetButton((int)Buttons.BackBtn).gameObject.BindEvent(OnBackBtnClicked);
-
+        GetButton((int)Buttons.ResumeBtn).gameObject.BindEvent(OnBackBtnClicked);
         //GameObject go = GetImage((int)Images.ItemIcon).gameObject;
         //BindEvent(go, (PointerEventData data) => { go.transform.position = data.position; }, Define.UIEvent.Drag);
     }
 
     public void OnBackBtnClicked(PointerEventData data)
     {
+        Managers.UI.ClosePopupUI();
         Debug.Log("끄자");
     }
 }
