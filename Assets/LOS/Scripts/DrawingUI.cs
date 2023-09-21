@@ -216,7 +216,7 @@ public class DrawingUI : MonoBehaviour
         currentLine = Instantiate(lineRendererPrefab, drawingArea.transform);
       //  currentLine = 
         currentLine.startWidth = 300f; // 시작 두께를 조절합니다.
-       // currentLine.endWidth = 3f;   // 끝 두께를 조절합니다.
+        currentLine.endWidth = 300f;   // 끝 두께를 조절합니다.
         currentLine.positionCount = 0;
         lineVertexCount = 0;
     }

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7360026746883601304}
   - component: {fileID: 7735846786781996979}
   m_Layer: 5
-  m_Name: RetryText
+  m_Name: TutoText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC7AC\uC2DC\uC791"
+  m_text: "\uD29C\uD1A0\uB9AC\uC5BC"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d3e81720a8519984faba5d7934f41974, type: 2}
   m_sharedMaterial: {fileID: 1143585803273493843, guid: d3e81720a8519984faba5d7934f41974, type: 2}
@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 8987178546622814633}
   - component: {fileID: 989916877719853500}
   m_Layer: 5
-  m_Name: ResumeText
+  m_Name: SoundText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -201,7 +201,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uACC4\uC18D\uD558\uAE30"
+  m_text: "\uC0AC\uC6B4\uB4DC"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d3e81720a8519984faba5d7934f41974, type: 2}
   m_sharedMaterial: {fileID: 1143585803273493843, guid: d3e81720a8519984faba5d7934f41974, type: 2}
@@ -358,9 +358,8 @@ GameObject:
   - component: {fileID: 2981682265872985595}
   - component: {fileID: 2981682265872985594}
   - component: {fileID: 2981682265872985593}
-  - component: {fileID: 22837620416345487}
   m_Layer: 5
-  m_Name: UI_Setting
+  m_Name: UI_MainSetting
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -380,9 +379,9 @@ RectTransform:
   m_Children:
   - {fileID: 2981682266301111493}
   - {fileID: 2981682265560479966}
-  - {fileID: 2981682267404380947}
-  - {fileID: 2687841166944905579}
   - {fileID: 3963321682642303312}
+  - {fileID: 2687841166944905579}
+  - {fileID: 2981682267404380947}
   - {fileID: 3688474513568558077}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -453,18 +452,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &22837620416345487
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2981682265872985591}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 609f0fda05ea593438774372ffbc81fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2981682266301111492
 GameObject:
   m_ObjectHideFlags: 0
@@ -709,7 +696,7 @@ RectTransform:
   m_Children:
   - {fileID: 2981682266894766385}
   m_Father: {fileID: 2981682265872985596}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -933,7 +920,7 @@ GameObject:
   - component: {fileID: 6752060863229355147}
   - component: {fileID: 879222189706086734}
   m_Layer: 5
-  m_Name: ResumeBtn
+  m_Name: SoundBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -953,7 +940,7 @@ RectTransform:
   m_Children:
   - {fileID: 2427750583237984203}
   m_Father: {fileID: 2981682265872985596}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1190,7 +1177,7 @@ GameObject:
   - component: {fileID: 5387899787032126733}
   - component: {fileID: 1943973258019941568}
   m_Layer: 5
-  m_Name: RetryBtn
+  m_Name: TutoBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

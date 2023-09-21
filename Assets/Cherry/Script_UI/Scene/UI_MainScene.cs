@@ -54,6 +54,6 @@ public class UI_MainScene : UI_Scene
 
     public void SettingBtnClicked(PointerEventData data)
     {
-        Managers.UI.ShowPopupUI<UI_Setting>();
+        Managers.UI.ShowPopupUI<UI_MainSetting>();
     }
 }
