@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     [Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;  // How much to smooth out the movement
     [SerializeField] private float m_DashForce = 25f;
     [SerializeField] private bool m_AirControl = false;                         // Whether or not a player can steer while jumping;
+    [SerializeField] private bool m_WallSliding = false;                         // 플레이어 벽타기 할 수 있는지 없는지
 
 
     [Header("Collision Checking")]
@@ -74,7 +75,8 @@ public class PlayerController : MonoBehaviour
     private bool canDoubleJump = true; //If player can double jump
     //-벽타기
     private bool oldWallSlidding = false; //If player is sliding in a wall in the previous frame
-    private bool canSlide = false; //For check if player is wallsliding
+    private bool canCheck = false; //For check if player is wallsliding
+    
 
 
     private void Start()
@@ -191,15 +193,63 @@ public class PlayerController : MonoBehaviour
     {
         if (canMove)
         {
-            Dash(move, jump, dash);
-            Jump(jump, dash);
-
-            //Wallsliding
-            //플레이어 앞에 벽이 있고 땅에 닿아있지 않을
-            /**
-            else if (m_IsWall && !m_Grounded)
+            if (dash && canDash && !isWallSliding)
             {
-                //이전프레임에서 벽을 안 탔고 fallingf중일때 or dash중일 때
+                //m_Rigidbody2D.AddForce(new Vector2(transform.localScale.x * m_DashForce, 0f));
+                StartCoroutine(DashCooldown());
+            }
+            // If crouching, check to see if the character can stand up
+            if (isDashing)
+            {
+                m_Rigidbody2D.velocity = new Vector2(transform.localScale.x * m_DashForce, 0);
+            }
+            //only control the player if grounded or airControl is turned on
+            else if (m_Grounded || m_AirControl)
+            {
+                if (m_Rigidbody2D.velocity.y < -limitFallSpeed)
+                    m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, -limitFallSpeed);
+                // Move the character by finding the target velocity
+                Vector3 targetVelocity = new Vector2(move * 10f, m_Rigidbody2D.velocity.y);
+                // And then smoothing it out and applying it to the character
+                m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref velocity, m_MovementSmoothing);
+
+                // If the input is moving the player right and the player is facing left...
+                if (move > 0 && !m_FacingRight && !isWallSliding)
+                {
+                    // ... flip the player.
+                    Flip();
+                }
+                // Otherwise if the input is moving the player left and the player is facing right...
+                else if (move < 0 && m_FacingRight && !isWallSliding)
+                {
+                    // ... flip the player.
+                    Flip();
+                }
+            }
+            // If the player should jump...
+            if (m_Grounded && jump)
+            {
+                // Add a vertical force to the player.
+                animator.SetBool("IsJumping", true);
+                animator.SetBool("JumpUp", true);
+                m_Grounded = false;
+                m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+                canDoubleJump = true;
+                particleJumpDown.Play();
+                particleJumpUp.Play();
+            }
+            else if (!m_Grounded && jump && canDoubleJump && !isWallSliding)
+            {
+                canDoubleJump = false;
+                m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, 0);
+                m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce / 1.2f));
+                animator.SetBool("IsDoubleJumping", true);
+            }
+
+            //Wall Sliding
+
+            else if (m_WallSliding && m_IsWall && !m_Grounded)
+            {
                 if (!oldWallSlidding && m_Rigidbody2D.velocity.y < 0 || isDashing)
                 {
                     isWallSliding = true;
@@ -249,7 +299,7 @@ public class PlayerController : MonoBehaviour
                     StartCoroutine(DashCooldown());
                 }
             }
-            else if (isWallSliding && !m_IsWall && canSlide)
+            else if (isWallSliding && !m_IsWall && canCheck)
             {
                 isWallSliding = false;
                 animator.SetBool("IsWallSliding", false);
@@ -257,52 +307,15 @@ public class PlayerController : MonoBehaviour
                 m_WallCheck.localPosition = new Vector3(Mathf.Abs(m_WallCheck.localPosition.x), m_WallCheck.localPosition.y, 0);
                 canDoubleJump = true;
             }
-            **/
 
         }
-
-
-
-
     }
+
+
 
     private void Dash(float move, bool jump, bool dash)
     {
-        //1. dash ON
-        if (dash && canDash && !isWallSliding)
-        {
-            StartCoroutine(DashCooldown());
-        }
-        // do dashing
-        if (isDashing)
-        {
-            m_Rigidbody2D.velocity = new Vector2(transform.localScale.x * m_DashForce, 0);
-        }
-
-        //isDashing: false & ( 땅에 닿아있음 or 공중에 떠 있는 중 컨트롤이 가능할 때 )
-        else if (m_Grounded || m_AirControl)
-        {
-            // 1) 하강 속도가 제한보다 빠르지 않도록 조정
-            if (m_Rigidbody2D.velocity.y < -limitFallSpeed)
-                m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, -limitFallSpeed);
-
-            // 2) 떠 있을 때 현재로부터 target velocity 까지 스무스하게 내려오도록 설정
-            Vector3 targetVelocity = new Vector2(move * 10f, m_Rigidbody2D.velocity.y); //move에 10f는 왜 곱하지?
-            m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref velocity, m_MovementSmoothing);
-
-
-            //3) 내가 누르는것과 반대로 플레이어가 움직이고 있는 경우 바꿔준다.
-            // If the input is moving the player right and the player is facing left...
-            if (move > 0 && !m_FacingRight && !isWallSliding)
-            {
-                Flip();
-            }
-            // Otherwise if the input is moving the player left and the player is facing right...
-            else if (move < 0 && m_FacingRight && !isWallSliding)
-            {
-                Flip();
-            }
-        }
+        
 
     }
 
@@ -350,14 +363,11 @@ public class PlayerController : MonoBehaviour
         canDash = true;
     }
 
-    //Wall slide cooroutine
-    /**
-    //canSlide인지 확인, canSlide : 플레이어가 벽을 타고 있는지
     IEnumerator WaitToCheck(float time)
     {
-        canSlide = false;
+        canCheck = false;
         yield return new WaitForSeconds(time);
-        canSlide = true;
+        canCheck = true;
     }
 
     IEnumerator WaitToEndSliding()
@@ -369,6 +379,7 @@ public class PlayerController : MonoBehaviour
         oldWallSlidding = false;
         m_WallCheck.localPosition = new Vector3(Mathf.Abs(m_WallCheck.localPosition.x), m_WallCheck.localPosition.y, 0);
     }
-    **/
+
+
 
 }
