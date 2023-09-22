@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DefaultColor : ColorState
 {
-    public override float JumpForce { get { return 400f; } }
+    public override float JumpForce { get { return 850f; } }
     public override void Attack()
     {
         Debug.Log("Default");

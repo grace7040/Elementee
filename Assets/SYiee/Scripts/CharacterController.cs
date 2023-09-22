@@ -319,16 +319,7 @@ public class CharacterController : MonoBehaviour
 
 
 
-        IEnumerator DashCooldown()
-        {
-            animator.SetBool("IsDashing", true);
-            isDashing = true;
-            canDash = false;
-            yield return new WaitForSeconds(0.1f); // dash 지속시간
-            isDashing = false;
-            yield return new WaitForSeconds(0.5f); // dash cooltime
-            canDash = true;
-        }
+
 
         //Wall slide cooroutine
         /**
@@ -351,6 +342,17 @@ public class CharacterController : MonoBehaviour
         }
         **/
 
+    }
+
+    IEnumerator DashCooldown()
+    {
+        animator.SetBool("IsDashing", true);
+        isDashing = true;
+        canDash = false;
+        yield return new WaitForSeconds(0.1f); // dash 지속시간
+        isDashing = false;
+        yield return new WaitForSeconds(0.5f); // dash cooltime
+        canDash = true;
     }
 
 }

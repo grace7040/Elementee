@@ -97,7 +97,7 @@ public class PlayerController : MonoBehaviour
         //땅에 닿아 있는지 판별하는 변수
         bool wasGrounded = m_Grounded;
         m_Grounded = false;
-        print(m_Grounded);
+        //print(m_Grounded);
 
         //colliders : 닿아있는 바닥수만큼 존재, 공중에 떠있으면 0개 바닥에 닿아있으면 1개
         Collider2D[] colliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
@@ -191,71 +191,8 @@ public class PlayerController : MonoBehaviour
     {
         if (canMove)
         {
-            //1. dash ON
-            if (dash && canDash && !isWallSliding)
-            {
-                StartCoroutine(DashCooldown());
-            }
-            // do dashing
-            if (isDashing)
-            {
-                m_Rigidbody2D.velocity = new Vector2(transform.localScale.x * m_DashForce, 0);
-            }
-
-            //isDashing: false & ( 땅에 닿아있음 or 공중에 떠 있는 중 컨트롤이 가능할 때 )
-            else if (m_Grounded || m_AirControl)
-            {
-                // 1) 하강 속도가 제한보다 빠르지 않도록 조정
-                if (m_Rigidbody2D.velocity.y < -limitFallSpeed)
-                    m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, -limitFallSpeed);
-
-                // 2) 떠 있을 때 현재로부터 target velocity 까지 스무스하게 내려오도록 설정
-                Vector3 targetVelocity = new Vector2(move * 10f, m_Rigidbody2D.velocity.y); //move에 10f는 왜 곱하지?
-                m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref velocity, m_MovementSmoothing);
-
-
-                //3) 내가 누르는것과 반대로 플레이어가 움직이고 있는 경우 바꿔준다.
-                // If the input is moving the player right and the player is facing left...
-                if (move > 0 && !m_FacingRight && !isWallSliding)
-                {
-                    Flip();
-                }
-                // Otherwise if the input is moving the player left and the player is facing right...
-                else if (move < 0 && m_FacingRight && !isWallSliding)
-                {
-                    Flip();
-                }
-            }
-
-            //2. JUMP
-            // 땅에 닿아있을 때 jump를 누르면
-            if (m_Grounded && jump) // do jump
-            {
-                // Add a vertical force to the player.
-                animator.SetBool("IsJumping", true);
-                animator.SetBool("JumpUp", true);
-                m_Grounded = false;
-                m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
-                canDoubleJump = true;
-                particleJumpDown.Play();
-                particleJumpUp.Play();
-            }
-            //땅에서 떠 있는데 점프를 할 수 있는 상태 + 벽을 타고 있지 않으면 => 더블 점프
-            else if (!m_Grounded && jump && canDoubleJump && !isWallSliding)
-            {
-                canDoubleJump = false;
-                m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, 0);
-                m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce / 1.2f));
-                animator.SetBool("IsDoubleJumping", true);
-            }
-
-            else if (!m_Grounded && dash && canDash)
-            {
-                //m_WallCheck.localPosition = new Vector3(Mathf.Abs(m_WallCheck.localPosition.x), m_WallCheck.localPosition.y, 0);
-                //canDoubleJump = true;
-                StartCoroutine(DashCooldown());
-            }
-
+            Dash(move, jump, dash);
+            Jump(jump, dash);
 
             //Wallsliding
             //플레이어 앞에 벽이 있고 땅에 닿아있지 않을
@@ -322,43 +259,116 @@ public class PlayerController : MonoBehaviour
             }
             **/
 
-
         }
 
 
 
-        IEnumerator DashCooldown()
-        {
-            animator.SetBool("IsDashing", true);
-            isDashing = true;
-            canDash = false;
-            yield return new WaitForSeconds(0.1f); // dash 지속시간
-            isDashing = false;
-            yield return new WaitForSeconds(0.5f); // dash cooltime
-            canDash = true;
-        }
-
-        //Wall slide cooroutine
-        /**
-        //canSlide인지 확인, canSlide : 플레이어가 벽을 타고 있는지
-        IEnumerator WaitToCheck(float time)
-        {
-            canSlide = false;
-            yield return new WaitForSeconds(time);
-            canSlide = true;
-        }
-
-        IEnumerator WaitToEndSliding()
-        {
-            yield return new WaitForSeconds(0.1f);
-            canDoubleJump = true;
-            isWallSliding = false;
-            animator.SetBool("IsWallSliding", false);
-            oldWallSlidding = false;
-            m_WallCheck.localPosition = new Vector3(Mathf.Abs(m_WallCheck.localPosition.x), m_WallCheck.localPosition.y, 0);
-        }
-        **/
 
     }
+
+    private void Dash(float move, bool jump, bool dash)
+    {
+        //1. dash ON
+        if (dash && canDash && !isWallSliding)
+        {
+            StartCoroutine(DashCooldown());
+        }
+        // do dashing
+        if (isDashing)
+        {
+            m_Rigidbody2D.velocity = new Vector2(transform.localScale.x * m_DashForce, 0);
+        }
+
+        //isDashing: false & ( 땅에 닿아있음 or 공중에 떠 있는 중 컨트롤이 가능할 때 )
+        else if (m_Grounded || m_AirControl)
+        {
+            // 1) 하강 속도가 제한보다 빠르지 않도록 조정
+            if (m_Rigidbody2D.velocity.y < -limitFallSpeed)
+                m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, -limitFallSpeed);
+
+            // 2) 떠 있을 때 현재로부터 target velocity 까지 스무스하게 내려오도록 설정
+            Vector3 targetVelocity = new Vector2(move * 10f, m_Rigidbody2D.velocity.y); //move에 10f는 왜 곱하지?
+            m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref velocity, m_MovementSmoothing);
+
+
+            //3) 내가 누르는것과 반대로 플레이어가 움직이고 있는 경우 바꿔준다.
+            // If the input is moving the player right and the player is facing left...
+            if (move > 0 && !m_FacingRight && !isWallSliding)
+            {
+                Flip();
+            }
+            // Otherwise if the input is moving the player left and the player is facing right...
+            else if (move < 0 && m_FacingRight && !isWallSliding)
+            {
+                Flip();
+            }
+        }
+
+    }
+
+    private void Jump(bool jump, bool dash)
+    {
+        //2. JUMP
+        // 땅에 닿아있을 때 jump를 누르면
+        if (m_Grounded && jump) // do jump
+        {
+            // Add a vertical force to the player.
+            animator.SetBool("IsJumping", true);
+            animator.SetBool("JumpUp", true);
+            m_Grounded = false;
+            m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+            canDoubleJump = true;
+            particleJumpDown.Play();
+            particleJumpUp.Play();
+        }
+        //땅에서 떠 있는데 점프를 할 수 있는 상태 + 벽을 타고 있지 않으면 => 더블 점프
+        else if (!m_Grounded && jump && canDoubleJump && !isWallSliding)
+        {
+            canDoubleJump = false;
+            m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, 0);
+            m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce / 1.2f));
+            animator.SetBool("IsDoubleJumping", true);
+        }
+
+        //else if (!m_Grounded && dash && canDash)
+        //{
+        //    //m_WallCheck.localPosition = new Vector3(Mathf.Abs(m_WallCheck.localPosition.x), m_WallCheck.localPosition.y, 0);
+        //    //canDoubleJump = true;
+        //    StartCoroutine(DashCooldown());
+        //}
+    }
+
+
+    IEnumerator DashCooldown()
+    {
+        animator.SetBool("IsDashing", true);
+        isDashing = true;
+        canDash = false;
+        yield return new WaitForSeconds(0.1f); // dash 지속시간
+        isDashing = false;
+        yield return new WaitForSeconds(0.5f); // dash cooltime
+        canDash = true;
+    }
+
+    //Wall slide cooroutine
+    /**
+    //canSlide인지 확인, canSlide : 플레이어가 벽을 타고 있는지
+    IEnumerator WaitToCheck(float time)
+    {
+        canSlide = false;
+        yield return new WaitForSeconds(time);
+        canSlide = true;
+    }
+
+    IEnumerator WaitToEndSliding()
+    {
+        yield return new WaitForSeconds(0.1f);
+        canDoubleJump = true;
+        isWallSliding = false;
+        animator.SetBool("IsWallSliding", false);
+        oldWallSlidding = false;
+        m_WallCheck.localPosition = new Vector3(Mathf.Abs(m_WallCheck.localPosition.x), m_WallCheck.localPosition.y, 0);
+    }
+    **/
 
 }
