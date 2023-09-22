@@ -6,10 +6,7 @@ using UnityEngine.UI;
 
 public class ColorButton : MonoBehaviour
 {
-    public enum Colors
-    {
-        def, red
-    }
+    
 
     public Colors color;
 
