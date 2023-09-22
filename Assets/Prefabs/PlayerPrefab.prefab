@@ -41,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4660076192433278}
   - component: {fileID: 175512587402798207}
-  - component: {fileID: 114435281327171648}
+  - component: {fileID: 6573837211137545286}
   - component: {fileID: 212971026275759962}
   - component: {fileID: 95975118031919256}
   - component: {fileID: 50738830109512580}
@@ -90,6 +90,7 @@ MonoBehaviour:
   m_MovementSmoothing: 0.05
   m_DashForce: 25
   m_AirControl: 1
+  m_WallSliding: 0
   m_WhatIsGround:
     serializedVersion: 2
     m_Bits: 53
@@ -127,7 +128,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &114435281327171648
+--- !u!114 &6573837211137545286
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -136,7 +137,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1377240496476148}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9955788a5eaffa49a9297f38eaa6202, type: 3}
+  m_Script: {fileID: 11500000, guid: ac4f4fe12f1181a40bd271548bedc025, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dmgValue: 4
