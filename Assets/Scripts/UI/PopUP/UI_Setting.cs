@@ -13,7 +13,7 @@ public class UI_Setting  : UI_Popup
         ToMainBtn,
         RetryBtn,
         ResumeBtn,
-        BackBtn,
+
     }
 
     //enum Texts
@@ -46,15 +46,22 @@ public class UI_Setting  : UI_Popup
         //Bind<GameObject>(typeof(GameObjects)); 
         //Bind<Image>(typeof(Images)); 
 
-        GetButton((int)Buttons.BackBtn).gameObject.BindEvent(OnBackBtnClicked);
-        GetButton((int)Buttons.ResumeBtn).gameObject.BindEvent(OnBackBtnClicked);
+    //    GetButton((int)Buttons.BackBtn).gameObject.BindEvent(OnBackBtnClicked);
+        GetButton((int)Buttons.ResumeBtn).gameObject.BindEvent(OnResumeBtnClicked);
+        GetButton((int)Buttons.RetryBtn).gameObject.BindEvent(OnRetryBtnClicked);
         //GameObject go = GetImage((int)Images.ItemIcon).gameObject;
         //BindEvent(go, (PointerEventData data) => { go.transform.position = data.position; }, Define.UIEvent.Drag);
     }
 
-    public void OnBackBtnClicked(PointerEventData data)
+    public void OnResumeBtnClicked(PointerEventData data)
     {
+        GameManager.Instance.ResumeGame();
         Managers.UI.ClosePopupUI();
-        Debug.Log("끄자");
+    }    
+    
+    public void OnRetryBtnClicked(PointerEventData data)
+    {
+        GameManager.Instance.RetryGame();
+        Managers.UI.ClosePopupUI();
     }
 }
