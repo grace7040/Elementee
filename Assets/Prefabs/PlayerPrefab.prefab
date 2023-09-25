@@ -41,13 +41,13 @@ GameObject:
   m_Component:
   - component: {fileID: 4660076192433278}
   - component: {fileID: 175512587402798207}
+  - component: {fileID: 248749117310158783}
   - component: {fileID: 6573837211137545286}
   - component: {fileID: 212971026275759962}
   - component: {fileID: 95975118031919256}
   - component: {fileID: 50738830109512580}
   - component: {fileID: 70405055242815152}
   - component: {fileID: 82701611152381692}
-  - component: {fileID: 248749117310158783}
   m_Layer: 1
   m_Name: PlayerPrefab
   m_TagString: Player
@@ -128,6 +128,22 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &248749117310158783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1377240496476148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50f85538eb788c6489d509f590fb5997, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controller: {fileID: 175512587402798207}
+  animator: {fileID: 95975118031919256}
+  joystick: {fileID: 0}
+  runSpeed: 40
 --- !u!114 &6573837211137545286
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -352,21 +368,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!114 &248749117310158783
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1377240496476148}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50f85538eb788c6489d509f590fb5997, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controller: {fileID: 175512587402798207}
-  animator: {fileID: 95975118031919256}
-  runSpeed: 40
 --- !u!1 &1393053470196254
 GameObject:
   m_ObjectHideFlags: 0

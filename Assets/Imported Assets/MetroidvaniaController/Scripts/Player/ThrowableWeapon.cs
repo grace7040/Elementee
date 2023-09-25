@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ThrowableWeapon : MonoBehaviour
 {
+	PlayerController player;
 	public Vector2 direction;
 	public bool hasHit = false;
 	public float speed = 10f;
@@ -11,26 +12,26 @@ public class ThrowableWeapon : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
-    }
+		player = FindObjectOfType<PlayerController>();
+	}
 
     // Update is called once per frame
     void FixedUpdate()
     {
 		if ( !hasHit)
-		GetComponent<Rigidbody2D>().velocity = direction * speed;
+			player.GetComponent<Rigidbody2D>().velocity = direction * speed;
 	}
 
-	void OnCollisionEnter2D(Collision2D collision)
-	{
-		if (collision.gameObject.tag == "Enemy")
-		{
-			collision.gameObject.SendMessage("ApplyDamage", Mathf.Sign(direction.x) * 2f);
-			Destroy(gameObject);
-		}
-		else if (collision.gameObject.tag != "Player")
-		{
-			Destroy(gameObject);
-		}
-	}
+	//void OnCollisionEnter2D(Collision2D collision)
+	//{
+	//	if (collision.gameObject.tag == "Enemy")
+	//	{
+	//		collision.gameObject.SendMessage("ApplyDamage", Mathf.Sign(direction.x) * 2f);
+	//		Destroy(gameObject);
+	//	}
+	//	else if (collision.gameObject.tag != "Player")
+	//	{
+	//		Destroy(gameObject);
+	//	}
+	//}
 }

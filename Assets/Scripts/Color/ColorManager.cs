@@ -10,7 +10,7 @@ public class ColorManager : Singleton<ColorManager>
     {
         player = FindObjectOfType<PlayerController>();
     }
-    public void SetColorState(ColorState _color)
+    public void SetColorState(IColorState _color)
     {
         player.Color = _color;
     }

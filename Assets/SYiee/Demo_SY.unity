@@ -1445,6 +1445,7 @@ GameObject:
   - component: {fileID: 427283246}
   - component: {fileID: 427283245}
   - component: {fileID: 427283247}
+  - component: {fileID: 427283248}
   m_Layer: 0
   m_Name: Tower
   m_TagString: Untagged
@@ -1545,6 +1546,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.75, y: 2.09}
   m_EdgeRadius: 0
+--- !u!114 &427283248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 427283244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de7da89eca62dd441b9288afba0f8e1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &464853731
 GameObject:
   m_ObjectHideFlags: 0
@@ -8251,6 +8264,22 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4660076192433278, guid: 656c8934973bef04fbb2a3c676402a1f, type: 3}
   m_PrefabInstance: {fileID: 1411368344}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &1063793063 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 95975118031919256, guid: 656c8934973bef04fbb2a3c676402a1f, type: 3}
+  m_PrefabInstance: {fileID: 1411368344}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1063793067 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 175512587402798207, guid: 656c8934973bef04fbb2a3c676402a1f, type: 3}
+  m_PrefabInstance: {fileID: 1411368344}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d24199674478c0645ac91135cf1fd33f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1067815939
 GameObject:
   m_ObjectHideFlags: 0
@@ -13602,6 +13631,13 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  animator: {fileID: 0}
+  throwableObject: {fileID: 0}
+  attackCheck: {fileID: 0}
+  cam: {fileID: 0}
+  doAttack: 0
+  canAttack: 1
+  isTimeToCheck: 0
 --- !u!1 &1167156511
 GameObject:
   m_ObjectHideFlags: 0
@@ -19536,6 +19572,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 175512587402798207, guid: 656c8934973bef04fbb2a3c676402a1f, type: 3}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 1686728646}
+    - target: {fileID: 175512587402798207, guid: 656c8934973bef04fbb2a3c676402a1f, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1063793067}
+    - target: {fileID: 175512587402798207, guid: 656c8934973bef04fbb2a3c676402a1f, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 1063793063}
+    - target: {fileID: 175512587402798207, guid: 656c8934973bef04fbb2a3c676402a1f, type: 3}
+      propertyPath: attackCheck
+      value: 
+      objectReference: {fileID: 2115930459}
+    - target: {fileID: 175512587402798207, guid: 656c8934973bef04fbb2a3c676402a1f, type: 3}
+      propertyPath: throwableObject
+      value: 
+      objectReference: {fileID: 5532974359214069763, guid: 340067e8e5a097546ad175f1d00a6ece, type: 3}
     - target: {fileID: 248749117310158783, guid: 656c8934973bef04fbb2a3c676402a1f, type: 3}
       propertyPath: joystick
       value: 
@@ -19544,6 +19600,10 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 1686728646}
+    - target: {fileID: 6573837211137545286, guid: 656c8934973bef04fbb2a3c676402a1f, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 656c8934973bef04fbb2a3c676402a1f, type: 3}
 --- !u!1 &1427435421
@@ -36478,6 +36538,11 @@ Transform:
   m_Father: {fileID: 867121465}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &2115930459 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4370582630649528, guid: 656c8934973bef04fbb2a3c676402a1f, type: 3}
+  m_PrefabInstance: {fileID: 1411368344}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2116104115
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,7 +10,7 @@ public class ColorButton : MonoBehaviour
 
     public Colors color;
 
-    ColorState buttonColor;
+    IColorState buttonColor;
 
     private Button button;
 

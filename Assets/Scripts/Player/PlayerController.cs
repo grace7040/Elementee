@@ -4,8 +4,8 @@ using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour
 {
-    private ColorState color;
-    public ColorState Color
+    private IColorState color;
+    public IColorState Color
     {
         get { return color; }
         set { 
@@ -15,7 +15,6 @@ public class PlayerController : MonoBehaviour
     }
 
     [Header("Movement Customizing")]
-     private float m_JumpForce;                          // Amount of force added when the player jumps.
     [Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;  // How much to smooth out the movement
     [SerializeField] private float m_DashForce = 25f;
     [SerializeField] private bool m_AirControl = false;                         // Whether or not a player can steer while jumping;
@@ -45,7 +44,10 @@ public class PlayerController : MonoBehaviour
 
 
     private Rigidbody2D m_Rigidbody2D;
-    private Animator animator;
+    public Animator animator;
+
+    private float m_JumpForce;                          // Amount of force added when the player jumps.
+
 
     private bool m_Grounded;
     const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
@@ -76,7 +78,19 @@ public class PlayerController : MonoBehaviour
     //-벽타기
     private bool oldWallSlidding = false; //If player is sliding in a wall in the previous frame
     private bool canCheck = false; //For check if player is wallsliding
-    
+
+
+    //Attack
+    [Header("Attack")]
+    public GameObject throwableObject;
+    public Transform attackCheck;
+    public GameObject cam;
+
+
+    public bool doAttack = false; //attack input
+    public bool canAttack = true;
+    public bool isTimeToCheck = false;
+
 
 
     private void Start()
@@ -93,13 +107,22 @@ public class PlayerController : MonoBehaviour
             OnLandEvent = new UnityEvent();
     }
 
+    private void Update()
+    {
+        //Attack input -> x
+        if (Input.GetKeyDown(KeyCode.X) && canAttack)
+        {
+            doAttack = true;
+        }
+        Debug.Log(Color);
+    }
+
     private void FixedUpdate()
     {
 
         //땅에 닿아 있는지 판별하는 변수
         bool wasGrounded = m_Grounded;
         m_Grounded = false;
-        //print(m_Grounded);
 
         //colliders : 닿아있는 바닥수만큼 존재, 공중에 떠있으면 0개 바닥에 닿아있으면 1개
         Collider2D[] colliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
@@ -107,7 +130,6 @@ public class PlayerController : MonoBehaviour
         {
             //gameobject = plsyer, colliders[i].gameObject = player와 접촉하고 있는 obj
             if (colliders[i].gameObject != gameObject)
-
             {
                 m_Grounded = true;
                 if (!wasGrounded) //여기 아직 안 봄
@@ -120,7 +142,6 @@ public class PlayerController : MonoBehaviour
                         limitVelOnWallJump = false;
                 }
             }
-
         }
 
 
@@ -167,8 +188,8 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-
-
+        color.Attack(this);
+        doAttack = false;
 
     }
 
@@ -311,8 +332,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
-
     private void Dash(float move, bool jump, bool dash)
     {
         
@@ -380,6 +399,15 @@ public class PlayerController : MonoBehaviour
         m_WallCheck.localPosition = new Vector3(Mathf.Abs(m_WallCheck.localPosition.x), m_WallCheck.localPosition.y, 0);
     }
 
+    IEnumerator AttackCooldown()
+    {
+        yield return new WaitForSeconds(0.25f);
+        canAttack = true;
+    }
 
+    public void UpdateCanAttack()
+    {
+        StartCoroutine(AttackCooldown());
+    }
 
 }
