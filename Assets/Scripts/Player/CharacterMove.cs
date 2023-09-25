@@ -6,6 +6,7 @@ public class CharacterMove : MonoBehaviour
 {
 	public PlayerController controller;
 	public Animator animator;
+	public VariableJoystick joystick;
 
 	public float runSpeed = 40f;
 
@@ -15,7 +16,8 @@ public class CharacterMove : MonoBehaviour
 
 	void Update()
 	{
-		horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
+		
+		horizontalMove = joystick.Horizontal * runSpeed;
 
 		animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
 
