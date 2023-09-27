@@ -34,6 +34,20 @@ public class GooglePlayManager : MonoBehaviour
         OnLogin.Invoke();
     }
 
+    public void Login()
+    {
+        if (!Social.localUser.authenticated)
+        {
+            Social.localUser.Authenticate((bool isSuccess, string error) =>
+            {
+                if (!isSuccess)
+                    Debug.Log($"Fail: {error}");
+
+                return;
+            });
+        }
+    }
+
     public void OnShowLeaderBoard()
     {
         Login(Social.ShowLeaderboardUI);
