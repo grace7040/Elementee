@@ -5,16 +5,24 @@ using FreeDraw;
 
 public class DrawManager : Singleton<DrawManager>
 {
-    public GameObject drawing;
+    public GameObject DrawbleObject;
     Colors color;
     public Sprite[] sprites;
+
+    [HideInInspector]
+    public DrawingSettings DrawSetting;
+
+    private void Awake()
+    {
+        DrawSetting = GetComponentInChildren<DrawingSettings>();
+    }
     public void SetBrushColor(Colors color)
     {
         this.color = color;
         Color c = new Color(0, 0, 0);
 
-        drawing.GetComponent<SpriteRenderer>().sprite = sprites[(int)color];
-        GetComponentInChildren<Drawable>().UpdateCanvas();
+        DrawbleObject.GetComponent<SpriteRenderer>().sprite = sprites[(int)color];
+        DrawbleObject.GetComponent<Drawable>().UpdateCanvas();
         switch (color)
         {
             case Colors.def:
@@ -24,6 +32,17 @@ public class DrawManager : Singleton<DrawManager>
                 c = Color.red;
                 break;
         }
-        GetComponentInChildren<DrawingSettings>().SetMarkerColour(c);
+
+        DrawSetting.SetMarkerColour(c);
+    }
+
+    public void OpenDrwableObject()
+    {
+        DrawbleObject.SetActive(true);
+    }
+
+    public void CloseDrawbleObject()
+    {
+        DrawbleObject.SetActive(false);
     }
 }

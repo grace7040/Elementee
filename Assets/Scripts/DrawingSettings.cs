@@ -36,44 +36,44 @@ namespace FreeDraw
         }
 
 
-        // Call these these to change the pen settings
-        public void SetMarkerRed()
-        {
-            Color c = Color.red;
-            c.a = Transparency;
-            SetMarkerColour(c);
-            Drawable.drawable.SetPenBrush();
-        }
-        public void SetMarkerGreen()
-        {
-            Color c = Color.green;
-            c.a = Transparency;
-            SetMarkerColour(c);
-            Drawable.drawable.SetPenBrush();
-        }
-        public void SetMarkerBlue()
-        {
-            Color c = Color.blue;
-            c.a = Transparency;
-            SetMarkerColour(c);
-            Drawable.drawable.SetPenBrush();
-        }
+        //// Call these these to change the pen settings
+        //public void SetMarkerRed()
+        //{
+        //    Color c = Color.red;
+        //    c.a = Transparency;
+        //    SetMarkerColour(c);
+        //    Drawable.drawable.SetPenBrush();
+        //}
+        //public void SetMarkerGreen()
+        //{
+        //    Color c = Color.green;
+        //    c.a = Transparency;
+        //    SetMarkerColour(c);
+        //    Drawable.drawable.SetPenBrush();
+        //}
+        //public void SetMarkerBlue()
+        //{
+        //    Color c = Color.blue;
+        //    c.a = Transparency;
+        //    SetMarkerColour(c);
+        //    Drawable.drawable.SetPenBrush();
+        //}
 
-        public void SetMarkerYellow()
-        {
-            Color c = Color.yellow;
-            c.a = Transparency;
-            SetMarkerColour(c);
-            Drawable.drawable.SetPenBrush();
-        }
+        //public void SetMarkerYellow()
+        //{
+        //    Color c = Color.yellow;
+        //    c.a = Transparency;
+        //    SetMarkerColour(c);
+        //    Drawable.drawable.SetPenBrush();
+        //}
 
-        public void SetMarkerBlack()
-        {
-            Color c = Color.black;
-            c.a = Transparency;
-            SetMarkerColour(c);
-            Drawable.drawable.SetPenBrush();
-        }
+        //public void SetMarkerBlack()
+        //{
+        //    Color c = Color.black;
+        //    c.a = Transparency;
+        //    SetMarkerColour(c);
+        //    Drawable.drawable.SetPenBrush();
+        //}
 
 
         public void SetEraser()
