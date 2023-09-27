@@ -308,5 +308,12 @@ namespace FreeDraw
             if (Reset_Canvas_On_Play)
                 ResetCanvas();
         }
+
+        public void UpdateCanvas()
+        {
+            drawable_sprite = this.GetComponent<SpriteRenderer>().sprite;
+            drawable_texture = drawable_sprite.texture;
+            drawable_texture.Apply();
+        }
     }
 }
