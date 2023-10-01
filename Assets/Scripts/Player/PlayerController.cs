@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
             m_JumpForce = value.JumpForce; 
         }
     }
+    public GameObject drawable;
+    
 
     [Header("Movement Customizing")]
     [Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;  // How much to smooth out the movement
@@ -96,7 +98,6 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         Color = new DefaultColor();
-
         m_Rigidbody2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 
@@ -188,11 +189,24 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        color.Attack(this);
-        doAttack = false;
+        if (doAttack)
+        {
+            Color.Attack(this);
+            doAttack = false;
+        }
+        
 
     }
 
+    public void SetCustomWeapon()
+    {
+        /* :: TEST :: */
+        //해당 컬러로 설정하고, sprite 설정하기 ㅇㅇ 실제론 Color 설정 따로 하니까 상관없음 */
+        Color = new RedColor();
+        /* :: TEST :: */
+
+        Color.sprite = drawable.GetComponent<SpriteRenderer>().sprite;
+    }
     private void Flip()
     {
         // Switch the way the player is labelled as facing.

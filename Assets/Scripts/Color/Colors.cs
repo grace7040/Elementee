@@ -4,6 +4,6 @@ using UnityEngine;
 
 public enum Colors
 {
-    def, red
+    def, red, yellow, blue, orange, green, purple, black
 }
 

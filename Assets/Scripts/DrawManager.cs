@@ -19,17 +19,34 @@ public class DrawManager : Singleton<DrawManager>
     public void SetBrushColor(Colors color)
     {
         this.color = color;
-        Color c = new Color(0, 0, 0);
+        Color c = Color.clear;
 
         DrawbleObject.GetComponent<SpriteRenderer>().sprite = sprites[(int)color];
         DrawbleObject.GetComponent<Drawable>().UpdateCanvas();
         switch (color)
         {
             case Colors.def:
-                c = Color.black;
                 break;
             case Colors.red:
                 c = Color.red;
+                break;
+            case Colors.yellow:
+                c = Color.yellow;
+                break;
+            case Colors.blue:
+                c = Color.blue;
+                break;
+            case Colors.orange:
+                c = new Color32(255, 127, 0, 255);
+                break;
+            case Colors.green:
+                c = Color.green;
+                break;
+            case Colors.purple:
+                c = new Color32(128, 65, 127, 255);
+                break;
+            case Colors.black:
+                c = Color.black;
                 break;
         }
 

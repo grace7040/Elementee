@@ -6,12 +6,9 @@ public class ColorManager : Singleton<ColorManager>
 {
     PlayerController player;
 
-    private void Start()
-    {
-        player = FindObjectOfType<PlayerController>();
-    }
     public void SetColorState(IColorState _color)
     {
+        player = FindObjectOfType<PlayerController>();
         player.Color = _color;
     }
 }

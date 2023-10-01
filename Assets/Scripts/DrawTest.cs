@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class DrawTest : MonoBehaviour
 {
-    public GameObject canvas;
+    public GameObject drawCanvas;
     public void SetTexture()
     {
-        GetComponent<SpriteRenderer>().sprite = canvas.GetComponent<SpriteRenderer>().sprite;
+        GetComponent<SpriteRenderer>().sprite = drawCanvas.GetComponent<SpriteRenderer>().sprite;
     }
 }

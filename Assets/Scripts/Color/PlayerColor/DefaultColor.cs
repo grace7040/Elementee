@@ -9,6 +9,9 @@ public class DefaultColor : MonoBehaviour, IColorState
 {
     public float JumpForce { get { return 850f; } }
 
+    public GameObject throwableObject { get; set; }
+    public Sprite sprite { get; set; }
+
     //Temporal Setting : Default Color Attack -> Sword
     public void Attack(PlayerController player)
     {
