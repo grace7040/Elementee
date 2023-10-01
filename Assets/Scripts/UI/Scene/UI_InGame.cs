@@ -11,6 +11,7 @@ public class UI_InGame : UI_Scene
     enum Buttons
     {
         SettingBtn,
+        Palette,
     }
 
     //enum Texts
@@ -45,6 +46,7 @@ public class UI_InGame : UI_Scene
 
         //    GetButton((int)Buttons.BackBtn).gameObject.BindEvent(OnBackBtnClicked);
         GetButton((int)Buttons.SettingBtn).gameObject.BindEvent(OnSettingBtnClicked);
+        GetButton((int)Buttons.Palette).gameObject.BindEvent(PaletteBtnClicked);
         //GameObject go = GetImage((int)Images.ItemIcon).gameObject;
         //BindEvent(go, (PointerEventData data) => { go.transform.position = data.position; }, Define.UIEvent.Drag);
     }
@@ -56,4 +58,13 @@ public class UI_InGame : UI_Scene
         GameManager.Instance.PauseGame();
         Managers.UI.ShowPopupUI<UI_Setting>();
     }
+
+    public void PaletteBtnClicked(PointerEventData data) // 설정 버튼 눌렀을 때
+    {
+        // 게임 일시정지 후 설정UI 띄우기
+
+        GameManager.Instance.PauseGame();
+        Managers.UI.ShowPopupUI<UI_Palette>();
+    }
+
 }
