@@ -93,6 +93,7 @@ public class PlayerController : MonoBehaviour
     public bool canAttack = true;
     public bool isTimeToCheck = false;
 
+    private bool isAttack = false;
 
 
     private void Start()
@@ -111,11 +112,21 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         //Attack input -> x
-        if (Input.GetKeyDown(KeyCode.X) && canAttack)
+        if (isAttack && canAttack)
+        //if (Input.GetKeyDown(KeyCode.X) && canAttack)
         {
             doAttack = true;
         }
-        Debug.Log(Color);
+    }
+
+    public void AttackDown()
+    {
+        isAttack = true;
+    }
+
+    public void AttackUp()
+    {
+        isAttack = false;
     }
 
     private void FixedUpdate()
@@ -133,7 +144,7 @@ public class PlayerController : MonoBehaviour
             if (colliders[i].gameObject != gameObject)
             {
                 m_Grounded = true;
-                if (!wasGrounded) //여기 아직 안 봄
+                if (!wasGrounded) 
                 {
                     OnLandEvent.Invoke();
                     if (!m_IsWall && !isDashing)
