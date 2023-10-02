@@ -91,9 +91,9 @@ public class PlayerController : MonoBehaviour
 
     public bool doAttack = false; //attack input
     public bool canAttack = true;
-    public bool isTimeToCheck = false;
-
-    private bool isAttack = false;
+    public bool isTimeToCheck = false; 
+    private bool isAttack = false; //attack btn input
+    private float attackCoolTime = 0.25f;
 
 
     private void Start()
@@ -426,7 +426,7 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator AttackCooldown()
     {
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(attackCoolTime);
         canAttack = true;
     }
 
