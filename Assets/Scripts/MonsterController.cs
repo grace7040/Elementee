@@ -31,7 +31,7 @@ public class MonsterController : MonoBehaviour
     public GameObject itemPrefab; // ∂≥æÓ∂ﬂ∏± æ∆¿Ã≈€ «¡∏Æ∆’
 
     private float m_JumpForce;
-    private int m_damage;
+    public int m_damage;
 
     public bool canAttack = true;
 
@@ -130,9 +130,7 @@ public class MonsterController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Weapon")
         {
-            Debug.Log("Hit");
-            m_damage = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().damage;
-            TakeDamage(m_damage);
+            TakeDamage(GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().damage);
         }
     }
 }
