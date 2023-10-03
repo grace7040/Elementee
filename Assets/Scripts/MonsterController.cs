@@ -64,7 +64,10 @@ public class MonsterController : MonoBehaviour
     }
     void Start()
     {
-        Color = new M_DefaultColor();
+        //Color = new M_RedColor();
+        //Color = new M_BlueColor();
+        Color = new M_YellowColor();
+        //Color = new M_DefaultColor();
         currentHealth = maxHealth;
         player = GameObject.FindGameObjectWithTag("Player").transform; // "Player" 태그를 가진 오브젝트를 플레이어로 설정
         rb = GetComponent<Rigidbody2D>();
@@ -93,9 +96,14 @@ public class MonsterController : MonoBehaviour
             rb.velocity = Vector3.zero;
         }
     }
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, Vector3 playerPos)
     {
         currentHealth -= damage;
+
+        // 넉백
+        Vector2 damageDir = Vector3.Normalize(transform.position - playerPos) * 40f;
+        rb.velocity = Vector2.zero;
+        rb.AddForce(damageDir * 50);
 
         if (currentHealth <= 0)
         {
@@ -117,7 +125,7 @@ public class MonsterController : MonoBehaviour
     IEnumerator AttackCooldown()
     {
         canAttack = false;
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(2.0f);
         canAttack = true;
     }
 
@@ -130,7 +138,7 @@ public class MonsterController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Weapon")
         {
-            TakeDamage(GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().damage);
+            TakeDamage(GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().damage, collision.gameObject.transform.position);
         }
     }
 }

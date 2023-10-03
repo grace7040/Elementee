@@ -11,6 +11,12 @@ public class M_YellowColor : MonoBehaviour, M_IColorState
     public void Attack(MonsterController monster)
     {
         //monster.animator.SetBool("IsAttacking", true);
+        
         Debug.Log("Yellow");
+        //StartCoroutine(Light());
+    }
+    IEnumerator Light()
+    {
+        yield return new WaitForSeconds(2.0f);
     }
 }

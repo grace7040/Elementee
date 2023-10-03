@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1026699953542068
+--- !u!1 &3619461858946169290
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,40 +8,38 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4893345051804890}
-  - component: {fileID: 212253792376930504}
-  - component: {fileID: 70954002611658418}
-  - component: {fileID: 114989584718186818}
-  - component: {fileID: 344217625206671219}
-  m_Layer: 1
-  m_Name: M_Rock
-  m_TagString: Enemy
+  - component: {fileID: 3619461858946169288}
+  - component: {fileID: 3619461858946169291}
+  - component: {fileID: 3619461858946169289}
+  m_Layer: 0
+  m_Name: Water
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4893345051804890
+--- !u!4 &3619461858946169288
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1026699953542068}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.86, y: -4.08, z: 0}
+  m_GameObject: {fileID: 3619461858946169290}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &212253792376930504
+--- !u!212 &3619461858946169291
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1026699953542068}
+  m_GameObject: {fileID: 3619461858946169290}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -76,62 +74,30 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d65e1377b36ed9c4ea0eae748ccc6868, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 822a341929943494f99131199e8b873f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.74, y: 1.15}
+  m_Size: {x: 23.603092, y: 16.4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!70 &70954002611658418
-CapsuleCollider2D:
+--- !u!58 &3619461858946169289
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1026699953542068}
+  m_GameObject: {fileID: 3619461858946169290}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.74, y: 1.15}
-  m_Direction: 0
---- !u!114 &114989584718186818
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1026699953542068}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 011ed35a806124d4d9b783dea554b56d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  life: 3
---- !u!114 &344217625206671219
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1026699953542068}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1fe4afa26a09cf24aa791ba6a41e92be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 100
-  detectionRange: 10
-  attackRange: 2
-  moveSpeed: 3
-  playerPre: {fileID: 1377240496476148, guid: 50936cccdb69523458c1b42052ebafff, type: 3}
-  itemPrefab: {fileID: 5532974359214069763, guid: a95d68526b424ce468df04c3dcb6bbd6, type: 3}
-  canAttack: 1
+  m_Offset: {x: 0.4360932, y: 0.07261014}
+  serializedVersion: 2
+  m_Radius: 0.86733246
