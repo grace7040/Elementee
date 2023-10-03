@@ -8,10 +8,11 @@ using UnityEngine.EventSystems;
 
 public class UI_Palette : UI_Popup
 {
-    public enum Colors { White, Red, Yellow, Blue, Orange, Green, Purple, Black };
+
+    public Colors color;
     public GameObject canvas;
 
-    Colors currentColor = Colors.White;
+    Colors currentColor = Colors.def;
 
     enum Buttons
     {
@@ -69,7 +70,7 @@ public class UI_Palette : UI_Popup
 
     public void ResetBtnBtnClicked(PointerEventData data)
     {
-        currentColor = Colors.White;
+        currentColor = Colors.def;
         ChangeColor(currentColor);
     }
 
@@ -77,17 +78,17 @@ public class UI_Palette : UI_Popup
     {
         switch (currentColor)
         {
-            case Colors.White:
-                currentColor = Colors.Red;
+            case Colors.def:
+                currentColor = Colors.red;
                 break;
-            case Colors.Yellow:
-                currentColor = Colors.Orange;
+            case Colors.yellow:
+                currentColor = Colors.orange;
                 break;
-            case Colors.Blue:
-                currentColor = Colors.Purple;
+            case Colors.blue:
+                currentColor = Colors.purple;
                 break;
-            case Colors.Green:
-                currentColor = Colors.Black;
+            case Colors.green:
+                currentColor = Colors.black;
                 break;
         }
 
@@ -98,17 +99,17 @@ public class UI_Palette : UI_Popup
     {
         switch (currentColor)
         {
-            case Colors.White:
-                currentColor = Colors.Yellow;
+            case Colors.def:
+                currentColor = Colors.yellow;
                 break;
-            case Colors.Red:
-                currentColor = Colors.Orange;
+            case Colors.red:
+                currentColor = Colors.orange;
                 break;
-            case Colors.Blue:
-                currentColor = Colors.Green;
+            case Colors.blue:
+                currentColor = Colors.green;
                 break;            
-            case Colors.Purple:
-                currentColor = Colors.Black;
+            case Colors.purple:
+                currentColor = Colors.black;
                 break;
         }
 
@@ -120,17 +121,17 @@ public class UI_Palette : UI_Popup
     {
         switch (currentColor)
         {
-            case Colors.White:
-                currentColor = Colors.Blue;
+            case Colors.def:
+                currentColor = Colors.blue;
                 break;
-            case Colors.Yellow:
-                currentColor = Colors.Green;
+            case Colors.yellow:
+                currentColor = Colors.green;
                 break;
-            case Colors.Red:
-                currentColor = Colors.Purple;
+            case Colors.red:
+                currentColor = Colors.purple;
                 break;
-            case Colors.Orange:
-                currentColor = Colors.Black;
+            case Colors.orange:
+                currentColor = Colors.black;
                 break;
         }
 
@@ -144,28 +145,28 @@ public class UI_Palette : UI_Popup
 
         switch (color)
         {
-            case Colors.White:
+            case Colors.def:
                 canvasColor.color = Color.white;
                 break;
-            case Colors.Red:
+            case Colors.red:
                 canvasColor.color = Color.red;
                 break;
-            case Colors.Yellow:
+            case Colors.yellow:
                 canvasColor.color = Color.yellow;
                 break;
-            case Colors.Blue:
+            case Colors.blue:
                 canvasColor.color = Color.blue;
                 break;
-            case Colors.Orange:
+            case Colors.orange:
                 canvasColor.color = new Color32(255, 158, 66, 255);
                 break; 
-            case Colors.Green:
+            case Colors.green:
                 canvasColor.color = Color.green;
                 break; 
-            case Colors.Purple:
+            case Colors.purple:
                 canvasColor.color = new Color32(150, 54, 183, 255);
                 break;
-            case Colors.Black:
+            case Colors.black:
                 canvasColor.color = Color.black;
                 break;
         }

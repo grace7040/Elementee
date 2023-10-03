@@ -7,14 +7,19 @@ public class GameManager : Singleton<GameManager>
 
     public bool isGameOver;
 
+    [Header("Color State")]
+    public bool hasRed;
+    public bool hasBlue;
+    public bool hasYellow;
 
-    // Start is called before the first frame update
+
+
     void Start()
     {
         isGameOver = false;
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         // 게임오버 확인 (ex. 플레이어의 체력)
