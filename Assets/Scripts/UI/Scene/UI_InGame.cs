@@ -42,6 +42,7 @@ public class UI_InGame : UI_Popup
         RectTransform barSize = hpBar.GetComponent<RectTransform>();
         print(GameManager.Instance.playerHP);
         float width = GameManager.Instance.HPBar() * hpBarMAX;
+        print(width);
         barSize.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
     }
 

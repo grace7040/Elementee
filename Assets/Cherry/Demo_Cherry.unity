@@ -6163,6 +6163,26 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2116830961, guid: e532008528d172a4496d649d72588b69, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2116830961, guid: e532008528d172a4496d649d72588b69, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2116830961, guid: e532008528d172a4496d649d72588b69, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2116830961, guid: e532008528d172a4496d649d72588b69, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2116830961, guid: e532008528d172a4496d649d72588b69, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2981682265872985591, guid: e532008528d172a4496d649d72588b69, type: 3}
       propertyPath: m_Name
       value: UI_InGame
@@ -6582,7 +6602,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isGameOver: 0
-  playerHP: 100
+  playerHP: 50
   playerMAXHP: 100
 --- !u!4 &1866467540
 Transform:

@@ -22,7 +22,7 @@ public class GameManager : Singleton<GameManager>
 
     public float HPBar()
     {
-        return playerHP/playerMAXHP;
+        return (float)playerHP / playerMAXHP;
     }
 
     public void PauseGame()
