@@ -31,10 +31,11 @@ public class ColorManager : Singleton<ColorManager>
 
         if (!colorList.Contains(_color))
         {
+            // 게임 일시정지
+            GameManager.Instance.PauseGame();
+
             Managers.UI.ShowPopupUI<UI_DrawCanvas>();
             colorList.Add(_color);
-
-            //
 
             DrawManager.Instance.SetBrushColor(_color);
             DrawManager.Instance.OpenDrawing();

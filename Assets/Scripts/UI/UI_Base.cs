@@ -45,6 +45,7 @@ public abstract class UI_Base : MonoBehaviour
                 evt.OnDragHandler -= action; // »§Ω√≥™ ¿ÃπÃ ¿÷¿ª±Ó∫¡ ª©¡‹
                 evt.OnDragHandler += action;
                 break;
+
         }
     }
 

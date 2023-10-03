@@ -20,12 +20,15 @@ public class GameManager : Singleton<GameManager>
 
     public void PauseGame()
     {
+        
         // 게임 일시정지
+        Managers.UI.ClosePopupUI();
         print("일시정지");
     }
 
     public void ResumeGame()
     {
+        Managers.UI.ShowPopupUI<UI_InGame>();
         print("계속하자");
     }
 

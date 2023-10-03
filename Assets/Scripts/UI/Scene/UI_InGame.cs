@@ -6,33 +6,24 @@ using TMPro;
 using System;
 using UnityEngine.EventSystems;
 
-public class UI_InGame : UI_Scene
+public class UI_InGame : UI_Popup
 {
+    GameObject player;
     enum Buttons
     {
         SettingBtn,
         Palette,
+        Attack,
+        Jump,
+        Dash,
+        Joystick,
     }
 
-    //enum Texts
-    //{
-    //    PointText,
-    //    ScoreText
-    //}
-
-    //enum GameObjects
-    //{
-    //    TestObject,
-    //}
-
-    //enum Images
-    //{
-    //    ItemIcon,
-    //}
 
     private void Start()
     {
         Init();
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     public override void Init()
@@ -40,13 +31,13 @@ public class UI_InGame : UI_Scene
         base.Init();
 
         Bind<Button>(typeof(Buttons));
-        //Bind<TMP_Text>(typeof(Texts)); 
-        //Bind<GameObject>(typeof(GameObjects)); 
-        //Bind<Image>(typeof(Images)); 
 
         //    GetButton((int)Buttons.BackBtn).gameObject.BindEvent(OnBackBtnClicked);
         GetButton((int)Buttons.SettingBtn).gameObject.BindEvent(OnSettingBtnClicked);
         GetButton((int)Buttons.Palette).gameObject.BindEvent(PaletteBtnClicked);
+        GetButton((int)Buttons.Attack).gameObject.BindEvent(AttackBtnClicked);
+        GetButton((int)Buttons.Jump).gameObject.BindEvent(JumpBtnClicked);
+        GetButton((int)Buttons.Dash).gameObject.BindEvent(DashBtnClicked);
         //GameObject go = GetImage((int)Images.ItemIcon).gameObject;
         //BindEvent(go, (PointerEventData data) => { go.transform.position = data.position; }, Define.UIEvent.Drag);
     }
@@ -65,6 +56,21 @@ public class UI_InGame : UI_Scene
 
         GameManager.Instance.PauseGame();
         Managers.UI.ShowPopupUI<UI_Palette>();
+    }
+
+    public void AttackBtnClicked(PointerEventData data)
+    {
+        player.GetComponent<PlayerController>().AttackDown();
+    }
+
+    public void JumpBtnClicked(PointerEventData data)
+    {
+        player.GetComponent<PlayerController>().();
+    }
+
+    public void DashBtnClicked(PointerEventData data)
+    {
+        player.GetComponent<PlayerController>().AttackDown();
     }
 
 }

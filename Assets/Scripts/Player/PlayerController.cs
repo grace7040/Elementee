@@ -234,6 +234,8 @@ public class PlayerController : MonoBehaviour
 
     public void Move(float move, bool jump, bool dash)
     {
+        Debug.Log("move");
+
         if (canMove)
         {
             if (dash && canDash && !isWallSliding)

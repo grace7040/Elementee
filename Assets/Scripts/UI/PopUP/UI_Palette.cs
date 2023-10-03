@@ -61,6 +61,7 @@ public class UI_Palette : UI_Popup
             GetButton((int)Buttons.RedBtn).gameObject.BindEvent(RedBtnClicked);
         if (C_Mgr.hasYellow)
             GetButton((int)Buttons.YellowBtn).gameObject.BindEvent(YellowBtnClicked);
+
     }
 
 
