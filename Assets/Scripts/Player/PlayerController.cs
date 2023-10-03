@@ -106,7 +106,7 @@ public class PlayerController : MonoBehaviour
         //Health initiallize
         currentHealth = maxHealth;
 
-        Color = new RedColor();
+        Color = new DefaultColor();
         m_Rigidbody2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 
@@ -420,7 +420,6 @@ public class PlayerController : MonoBehaviour
             else
             {
                 StartCoroutine(MakeInvincible(1f));
-
             }
         }
 

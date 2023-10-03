@@ -21,12 +21,12 @@ public class CharacterMove : MonoBehaviour
 
 		animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
 
-		//if (Input.GetKeyDown(KeyCode.Z))
-		//{
-		//	jump = true;
-		//}
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+			jumpDown = true;
+        }
 
-		if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.C))
 		{
 			dash = true;
 		}
@@ -61,6 +61,15 @@ public class CharacterMove : MonoBehaviour
 	public void JumpUp()
 	{
 		jumpDown = false;
+	}
+	public void DashDown()
+	{
+		dash = true;
+
+	}
+	public void DashUp()
+	{
+		dash = false;
 	}
 
 }
