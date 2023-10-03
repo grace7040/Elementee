@@ -14,6 +14,9 @@ public class CharacterMove : MonoBehaviour
 	bool jump = false;
 	bool dash = false;
 
+	private bool jumpDown = false;
+
+
 	void Update()
 	{
 		
@@ -21,10 +24,10 @@ public class CharacterMove : MonoBehaviour
 
 		animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
 
-		if (Input.GetKeyDown(KeyCode.Z))
-		{
-			jump = true;
-		}
+		//if (Input.GetKeyDown(KeyCode.Z))
+		//{
+		//	jump = true;
+		//}
 
 		if (Input.GetKeyDown(KeyCode.C))
 		{
@@ -47,11 +50,21 @@ public class CharacterMove : MonoBehaviour
 	void FixedUpdate()
 	{
 		// Move our character
-		controller.Move(horizontalMove * Time.fixedDeltaTime, jump, dash);
+		controller.Move(horizontalMove * Time.fixedDeltaTime, jumpDown, dash);
 		jump = false;
 		dash = false;
 	}
 
 
+
+	public void JumpDown()
+	{
+		jumpDown = true;
+
+	}
+	public void JumpUp()
+	{
+		jumpDown = false;
+	}
 
 }

@@ -8354,9 +8354,9 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1063793067}
-          m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-          m_MethodName: AttackDown
+        - m_Target: {fileID: 1741931311}
+          m_TargetAssemblyTypeName: CharacterMove, Assembly-CSharp
+          m_MethodName: JumpDown
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -8370,9 +8370,9 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1063793067}
-          m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-          m_MethodName: AttackUp
+        - m_Target: {fileID: 1741931311}
+          m_TargetAssemblyTypeName: CharacterMove, Assembly-CSharp
+          m_MethodName: JumpUp
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -26283,6 +26283,17 @@ Transform:
   m_Father: {fileID: 1308352139}
   m_RootOrder: 39
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1741931311 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 248749117310158783, guid: 656c8934973bef04fbb2a3c676402a1f, type: 3}
+  m_PrefabInstance: {fileID: 1411368344}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50f85538eb788c6489d509f590fb5997, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1807041008
 GameObject:
   m_ObjectHideFlags: 0

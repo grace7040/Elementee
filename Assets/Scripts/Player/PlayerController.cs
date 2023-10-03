@@ -77,6 +77,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 velocity = Vector3.zero;
     //-점프
     private bool canDoubleJump = true; //If player can double jump
+    private bool jumpDown = false;
     //-벽타기
     private bool oldWallSlidding = false; //If player is sliding in a wall in the previous frame
     private bool canCheck = false; //For check if player is wallsliding
@@ -123,11 +124,13 @@ public class PlayerController : MonoBehaviour
     {
         isAttack = true;
     }
-
     public void AttackUp()
     {
         isAttack = false;
     }
+
+
+
 
     private void FixedUpdate()
     {
