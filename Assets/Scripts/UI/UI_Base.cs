@@ -45,6 +45,14 @@ public abstract class UI_Base : MonoBehaviour
                 evt.OnDragHandler -= action; // »§Ω√≥™ ¿ÃπÃ ¿÷¿ª±Ó∫¡ ª©¡‹
                 evt.OnDragHandler += action;
                 break;
+            case Define.UIEvent.DownClick:
+                evt.OnDownHandler -= action; // »§Ω√≥™ ¿ÃπÃ ¿÷¿ª±Ó∫¡ ª©¡‹
+                evt.OnDownHandler += action;
+                break;
+            case Define.UIEvent.UpClick:
+                evt.OnUPHandler -= action; // »§Ω√≥™ ¿ÃπÃ ¿÷¿ª±Ó∫¡ ª©¡‹
+                evt.OnUPHandler += action;
+                break;
 
         }
     }
@@ -79,6 +87,15 @@ public abstract class UI_Base : MonoBehaviour
                 evt.OnDragHandler -= action;
                 evt.OnDragHandler += action;
                 break;
+            case Define.UIEvent.DownClick:
+                evt.OnDownHandler -= action; // »§Ω√≥™ ¿ÃπÃ ¿÷¿ª±Ó∫¡ ª©¡‹
+                evt.OnDownHandler += action;
+                break;
+            case Define.UIEvent.UpClick:
+                evt.OnUPHandler -= action; // »§Ω√≥™ ¿ÃπÃ ¿÷¿ª±Ó∫¡ ª©¡‹
+                evt.OnUPHandler += action;
+                break;
+
         }
     }
 }

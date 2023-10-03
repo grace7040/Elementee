@@ -8,6 +8,8 @@ public class Define
     {
         Click,
         Drag,
+        DownClick,
+        UpClick,
     }
 
     public enum MouseEvent
