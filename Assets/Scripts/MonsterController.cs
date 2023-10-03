@@ -26,13 +26,12 @@ public class MonsterController : MonoBehaviour
     public float attackRange = 2f;
     public float moveSpeed = 3f;
     private Transform player;
-    public GameObject playerPre;
     private Rigidbody2D rb;
 
     public GameObject itemPrefab; // 떨어뜨릴 아이템 프리팹
 
     private float m_JumpForce;
-    private float m_damage;
+    private int m_damage;
 
     public bool canAttack = true;
 
@@ -67,18 +66,12 @@ public class MonsterController : MonoBehaviour
     {
         Color = new M_DefaultColor();
         currentHealth = maxHealth;
-        //player = GameObject.FindGameObjectWithTag("Player").transform; // "Player" 태그를 가진 오브젝트를 플레이어로 설정
-        player = playerPre.transform;
+        player = GameObject.FindGameObjectWithTag("Player").transform; // "Player" 태그를 가진 오브젝트를 플레이어로 설정
         rb = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
     {
-        //if (플레이어에게 공격 받을 시)
-        //{
-        //    TakeDamage(공격력);
-        //}
-
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
         // 플레이어가 공격 범위 안에 있고 공격 쿨다운이 끝났으면 공격 실행
@@ -131,5 +124,15 @@ public class MonsterController : MonoBehaviour
     public void UpdateCanAttack()
     {
         StartCoroutine(AttackCooldown());
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Weapon")
+        {
+            Debug.Log("Hit");
+            m_damage = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().damage;
+            TakeDamage(m_damage);
+        }
     }
 }
