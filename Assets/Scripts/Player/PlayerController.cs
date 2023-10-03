@@ -106,7 +106,7 @@ public class PlayerController : MonoBehaviour
         //Health initiallize
         currentHealth = maxHealth;
 
-        Color = new DefaultColor();
+        Color = new GreenColor();
         m_Rigidbody2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 

@@ -10,15 +10,16 @@ public class GreenColor : MonoBehaviour, IColorState
     public GameObject throwableObject { get; set; }
     public Sprite sprite { get; set; }
 
-    //Temporal Setting : Red Color Attack -> Throw obj
+    //Temporal Setting : Green Color Attack -> Throw leaf obj
     public void Attack(PlayerController player)
     {
-        GameObject throwableWeapon = Instantiate(Resources.Load("Projectile"), 
-            player.transform.position + new Vector3(player.transform.localScale.x * 0.5f, -0.2f), 
+        GameObject throwableWeapon = Instantiate(Resources.Load("GreenWeapon"),
+            player.transform.position + new Vector3(player.transform.localScale.x * 0.5f, -0.2f),
             Quaternion.identity) as GameObject;
-        throwableWeapon.GetComponent<SpriteRenderer>().sprite = this.sprite;
+
+        //throwableWeapon.GetComponent<SpriteRenderer>().sprite = this.sprite;
         Vector2 direction = new Vector2(player.transform.localScale.x, 0);
         throwableWeapon.GetComponent<ThrowableWeapon>().direction = direction;
-        throwableWeapon.name = "ThrowableWeapon";
+        throwableWeapon.name = "GreenWeapon";
     }
 }
