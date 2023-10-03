@@ -400,6 +400,7 @@ public class PlayerController : MonoBehaviour
 
     public void Die()
     {
+        Debug.Log("Die");
         Destroy(gameObject);
     }
 
@@ -417,7 +418,7 @@ public class PlayerController : MonoBehaviour
     {
         if(collision.gameObject.tag == "Enemy")
         {
-            TakeDamage(damage);
+            TakeDamage(collision.gameObject.GetComponent<MonsterController>().m_damage);
         }
     }
 

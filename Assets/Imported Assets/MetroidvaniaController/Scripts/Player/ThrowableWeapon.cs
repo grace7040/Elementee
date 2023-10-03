@@ -5,9 +5,13 @@ using UnityEngine;
 public class ThrowableWeapon : MonoBehaviour
 {
 	public Vector2 direction;
-	//public bool hasHit = false;
-	//public float speed = 10f;
+    //public bool hasHit = false;
+    public float speed = 10f;
 
+    private void FixedUpdate()
+    {
+        GetComponent<Rigidbody2D>().velocity = direction * speed;
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {

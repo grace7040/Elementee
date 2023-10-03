@@ -19,8 +19,7 @@ public class RedColor : MonoBehaviour, IColorState
 
         //throwableWeapon.GetComponent<SpriteRenderer>().sprite = this.sprite;
         Vector2 direction = new Vector2(player.transform.localScale.x, 0);
-        //throwableWeapon.GetComponent<ThrowableWeapon>().direction = direction;
-        player.GetComponent<Rigidbody2D>().velocity = direction * 20f;
+        throwableWeapon.GetComponent<ThrowableWeapon>().direction = direction;
         throwableWeapon.name = "ThrowableWeapon";
     }
 }
