@@ -105,6 +105,7 @@ public class PlayerController : MonoBehaviour
     {
         //Health initiallize
         currentHealth = maxHealth;
+        GameManager.Instance.playerMAXHP = maxHealth;
 
         Color = new GreenColor();
         m_Rigidbody2D = GetComponent<Rigidbody2D>();
@@ -410,6 +411,8 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Hit", true);
             //health --
             currentHealth -= damage;
+            //GameManagerø° Health ¿˙¿Â
+            GameManager.Instance.playerHP = currentHealth;
             //≥ÀπÈ
             Vector2 damageDir = Vector3.Normalize(transform.position - enemyPos) * 40f;
             m_Rigidbody2D.velocity = Vector2.zero;

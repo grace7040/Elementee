@@ -9,6 +9,8 @@ using UnityEngine.EventSystems;
 public class UI_InGame : UI_Popup
 {
     GameObject player;
+    GameObject hpBar;
+    public int hpBarMAX;
     public VariableJoystick joystick;
 
     enum Buttons
@@ -21,6 +23,11 @@ public class UI_InGame : UI_Popup
         Joystick,
     }
 
+    enum Images
+    {
+        HP,
+    }
+
 
     private void Start()
     {
@@ -30,15 +37,26 @@ public class UI_InGame : UI_Popup
         player.GetComponent<CharacterMove>().joystick = joystick;
     }
 
+    private void FixedUpdate()
+    {
+        RectTransform barSize = hpBar.GetComponent<RectTransform>();
+        print(GameManager.Instance.playerHP);
+        float width = GameManager.Instance.HPBar() * hpBarMAX;
+        barSize.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
+    }
+
     public override void Init()
     {
         base.Init();
 
         Bind<Button>(typeof(Buttons));
+        Bind<Image>(typeof(Images));
 
         GetButton((int)Buttons.SettingBtn).gameObject.BindEvent(OnSettingBtnClicked);
         GetButton((int)Buttons.Palette).gameObject.BindEvent(PaletteBtnClicked);
         GetButton((int)Buttons.Attack).gameObject.BindEvent(AttackBtnClicked);
+        hpBar =  GetImage((int)Images.HP).gameObject;
+        
 
         GameObject jump = GetButton((int)Buttons.Jump).gameObject;
         GameObject dash = GetButton((int)Buttons.Dash).gameObject;
@@ -64,7 +82,6 @@ public class UI_InGame : UI_Popup
         GameManager.Instance.PauseGame();
         Managers.UI.ShowPopupUI<UI_Palette>();
     }
-
 
 
     // 플레이어 컨트롤

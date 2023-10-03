@@ -6,6 +6,8 @@ public class GameManager : Singleton<GameManager>
 {
 
     public bool isGameOver;
+    public int playerHP = 100;
+    public int playerMAXHP = 100;
 
     void Start()
     {
@@ -16,6 +18,11 @@ public class GameManager : Singleton<GameManager>
     void Update()
     {
         // 게임오버 확인 (ex. 플레이어의 체력)
+    }
+
+    public float HPBar()
+    {
+        return playerHP/playerMAXHP;
     }
 
     public void PauseGame()
