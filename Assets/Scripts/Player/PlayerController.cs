@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
     [Header("ParticleSystem")]
     public ParticleSystem particleJumpUp; //Trail particles
     public ParticleSystem particleJumpDown; //Explosion particles
+    public GameObject yellowAttackEffect;
 
     [Header("Player Properties")]
     public int currentHealth;
@@ -107,7 +108,7 @@ public class PlayerController : MonoBehaviour
         currentHealth = maxHealth;
         GameManager.Instance.playerMAXHP = maxHealth;
 
-        Color = new GreenColor();
+        Color = new YellowColor();
         m_Rigidbody2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 
@@ -231,6 +232,10 @@ public class PlayerController : MonoBehaviour
         Vector3 theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;
+        Vector3 yellowScale = yellowAttackEffect.transform.localScale;
+        yellowScale.x *= -1;
+        yellowAttackEffect.transform.localScale = yellowScale;
+        //yellowAttackEffect.GetComponent<SpriteRenderer>().flipX = true;
     }
 
     public void Move(float move, bool jump, bool dash)

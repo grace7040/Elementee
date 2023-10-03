@@ -13,12 +13,13 @@ public class PurpleColor : MonoBehaviour, IColorState
     //Temporal Setting : Red Color Attack -> Throw obj
     public void Attack(PlayerController player)
     {
-        GameObject throwableWeapon = Instantiate(Resources.Load("Projectile"), 
-            player.transform.position + new Vector3(player.transform.localScale.x * 0.5f, -0.2f), 
-            Quaternion.identity) as GameObject;
-        throwableWeapon.GetComponent<SpriteRenderer>().sprite = this.sprite;
-        Vector2 direction = new Vector2(player.transform.localScale.x, 0);
-        throwableWeapon.GetComponent<ThrowableWeapon>().direction = direction;
-        throwableWeapon.name = "ThrowableWeapon";
+        if (player.doAttack && player.canAttack)
+        {
+            Debug.Log("Attak");
+            player.canAttack = false;
+            player.animator.SetBool("IsAttacking", true);
+            player.UpdateCanAttack();
+
+        }
     }
 }

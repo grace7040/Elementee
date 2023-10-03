@@ -10,15 +10,13 @@ public class YellowColor : MonoBehaviour, IColorState
     public GameObject throwableObject { get; set; }
     public Sprite sprite { get; set; }
 
-    //Temporal Setting : Red Color Attack -> Throw obj
+    //Temporal Setting : Yellow Color Attack -> 근접 공격
     public void Attack(PlayerController player)
     {
-        GameObject throwableWeapon = Instantiate(Resources.Load("Projectile"), 
-            player.transform.position + new Vector3(player.transform.localScale.x * 0.5f, -0.2f), 
-            Quaternion.identity) as GameObject;
-        throwableWeapon.GetComponent<SpriteRenderer>().sprite = this.sprite;
-        Vector2 direction = new Vector2(player.transform.localScale.x, 0);
-        throwableWeapon.GetComponent<ThrowableWeapon>().direction = direction;
-        throwableWeapon.name = "ThrowableWeapon";
+        //전기 
+        //playerprefab on
+        player.GetComponent<PlayerController>().yellowAttackEffect.SetActive(true);
+        //특정 시간 이후에 off
+
     }
 }
