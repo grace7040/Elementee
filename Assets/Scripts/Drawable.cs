@@ -45,8 +45,8 @@ namespace FreeDraw
 
 
 
-//////////////////////////////////////////////////////////////////////////////
-// BRUSH TYPES. Implement your own here
+        //////////////////////////////////////////////////////////////////////////////
+        // BRUSH TYPES. Implement your own here
 
 
         // When you want to make your own type of brush effects,
@@ -291,6 +291,7 @@ namespace FreeDraw
         
         void Awake()
         {
+
             drawable = this;
             // DEFAULT BRUSH SET HERE
             current_brush = PenBrush;

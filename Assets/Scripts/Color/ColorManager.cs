@@ -33,6 +33,9 @@ public class ColorManager : Singleton<ColorManager>
         {
             Managers.UI.ShowPopupUI<UI_DrawCanvas>();
             colorList.Add(_color);
+
+            //
+
             DrawManager.Instance.SetBrushColor(_color);
             DrawManager.Instance.OpenDrawing();
 
