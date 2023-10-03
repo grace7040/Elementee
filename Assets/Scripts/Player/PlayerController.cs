@@ -217,12 +217,7 @@ public class PlayerController : MonoBehaviour
 
     public void SetCustomWeapon()
     {
-        /* :: TEST :: */
-        //해당 컬러로 설정하고, sprite 설정하기 ㅇㅇ 실제론 Color 설정 따로 하니까 상관없음 */
-        Color = new RedColor();
-        /* :: TEST :: */
-
-        //Color.sprite = drawable.GetComponent<SpriteRenderer>().sprite;
+        Color.Sprite = DrawManager.Instance.DrawbleObject.GetComponent<SpriteRenderer>().sprite;
     }
     private void Flip()
     {

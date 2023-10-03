@@ -72,7 +72,6 @@ public class UI_Palette : UI_Popup
         GameManager.Instance.ResumeGame(); // 추가로 그림그릴 때는 이거 하면 안되는디
         C_Mgr.SetColorState(currentColor);
         
-        
     }
 
     public void ResetBtnBtnClicked(PointerEventData data)

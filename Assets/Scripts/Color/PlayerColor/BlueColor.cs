@@ -21,7 +21,7 @@ public class BlueColor : MonoBehaviour, IColorState
             player.transform.position + new Vector3(player.transform.localScale.x * 0.5f, -0.2f), 
             Quaternion.identity) as GameObject;
 
-        //throwableWeapon.GetComponent<SpriteRenderer>().sprite = this.sprite;
+        throwableWeapon.GetComponent<SpriteRenderer>().sprite = this.Sprite;
         Vector2 direction = new Vector2(player.transform.localScale.x, 0);
         throwableWeapon.GetComponent<ThrowableWeapon>().direction = direction;
         throwableWeapon.name = "BlueWeapon";
