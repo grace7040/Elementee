@@ -112,7 +112,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         //Attack input -> x
-        if (isAttack && canAttack)
+        if ((Input.GetKeyDown(KeyCode.X)|| isAttack) && canAttack)
         //if (Input.GetKeyDown(KeyCode.X) && canAttack)
         {
             doAttack = true;
@@ -357,44 +357,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Dash(float move, bool jump, bool dash)
-    {
-        
-
-    }
-
-    private void Jump(bool jump, bool dash)
-    {
-        //2. JUMP
-        // 땅에 닿아있을 때 jump를 누르면
-        if (m_Grounded && jump) // do jump
-        {
-            // Add a vertical force to the player.
-            animator.SetBool("IsJumping", true);
-            animator.SetBool("JumpUp", true);
-            m_Grounded = false;
-            m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
-            canDoubleJump = true;
-            particleJumpDown.Play();
-            particleJumpUp.Play();
-        }
-        //땅에서 떠 있는데 점프를 할 수 있는 상태 + 벽을 타고 있지 않으면 => 더블 점프
-        else if (!m_Grounded && jump && canDoubleJump && !isWallSliding)
-        {
-            canDoubleJump = false;
-            m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, 0);
-            m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce / 1.2f));
-            animator.SetBool("IsDoubleJumping", true);
-        }
-
-        //else if (!m_Grounded && dash && canDash)
-        //{
-        //    //m_WallCheck.localPosition = new Vector3(Mathf.Abs(m_WallCheck.localPosition.x), m_WallCheck.localPosition.y, 0);
-        //    //canDoubleJump = true;
-        //    StartCoroutine(DashCooldown());
-        //}
-    }
-
 
     IEnumerator DashCooldown()
     {
@@ -433,6 +395,11 @@ public class PlayerController : MonoBehaviour
     public void UpdateCanAttack()
     {
         StartCoroutine(AttackCooldown());
+    }
+
+    public void Die()
+    {
+
     }
 
 }
