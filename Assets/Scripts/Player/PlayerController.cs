@@ -404,6 +404,8 @@ public class PlayerController : MonoBehaviour
     {
         if(!invincible)
         {
+            //animation on 
+            animator.SetBool("Hit", true);
             //health --
             currentHealth -= damage;
             //³Ë¹é
@@ -414,6 +416,11 @@ public class PlayerController : MonoBehaviour
             if (currentHealth <= 0)
             {
                 Die();
+            }
+            else
+            {
+                StartCoroutine(MakeInvincible(1f));
+
             }
         }
 
@@ -426,6 +433,13 @@ public class PlayerController : MonoBehaviour
             TakeDamage(collision.gameObject.GetComponent<MonsterController>().m_damage,
                 collision.gameObject.transform.position);
         }
+    }
+
+    IEnumerator MakeInvincible(float time)
+    {
+        invincible = true;
+        yield return new WaitForSeconds(time);
+        invincible = false;
     }
 
 }
