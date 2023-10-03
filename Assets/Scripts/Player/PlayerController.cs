@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
         get { return color; }
         set { 
             color = value;
-            m_JumpForce = value.JumpForce; 
+            jumpForce = value.JumpForce; // jumpForce: player¿« jump force, JumpForce : Color¿« jumpforce
         }
     }
     public GameObject drawable;
@@ -48,7 +48,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D m_Rigidbody2D;
     public Animator animator;
 
-    private float m_JumpForce;                          // Amount of force added when the player jumps.
+    private float jumpForce;                          // Amount of force added when the player jumps.
 
 
     private bool m_Grounded;
@@ -282,7 +282,7 @@ public class PlayerController : MonoBehaviour
                 animator.SetBool("IsJumping", true);
                 animator.SetBool("JumpUp", true);
                 m_Grounded = false;
-                m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+                m_Rigidbody2D.AddForce(new Vector2(0f, jumpForce));
                 canDoubleJump = true;
                 particleJumpDown.Play();
                 particleJumpUp.Play();
@@ -291,7 +291,7 @@ public class PlayerController : MonoBehaviour
             {
                 canDoubleJump = false;
                 m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, 0);
-                m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce / 1.2f));
+                m_Rigidbody2D.AddForce(new Vector2(0f, jumpForce / 1.2f));
                 animator.SetBool("IsDoubleJumping", true);
             }
 
@@ -328,7 +328,7 @@ public class PlayerController : MonoBehaviour
                     animator.SetBool("IsJumping", true);
                     animator.SetBool("JumpUp", true);
                     m_Rigidbody2D.velocity = new Vector2(0f, 0f);
-                    m_Rigidbody2D.AddForce(new Vector2(transform.localScale.x * m_JumpForce * 1.2f, m_JumpForce));
+                    m_Rigidbody2D.AddForce(new Vector2(transform.localScale.x * jumpForce * 1.2f, jumpForce));
                     jumpWallStartX = transform.position.x;
                     limitVelOnWallJump = true;
                     canDoubleJump = true;
