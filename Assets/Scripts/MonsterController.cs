@@ -14,7 +14,8 @@ public class MonsterController : MonoBehaviour
         set
         {
             color = value;
-            m_JumpForce = value.JumpForce;
+            m_JumpForce = value.M_JumpForce;
+            m_damage = value.M_damage;
         }
     }
 
@@ -30,6 +31,7 @@ public class MonsterController : MonoBehaviour
     public GameObject itemPrefab; // ∂≥æÓ∂ﬂ∏± æ∆¿Ã≈€ «¡∏Æ∆’
 
     private float m_JumpForce;
+    private float m_damage;
 
     public bool canAttack = true;
 

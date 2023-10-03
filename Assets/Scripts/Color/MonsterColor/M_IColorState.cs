@@ -4,6 +4,9 @@ using UnityEngine;
 
 public interface M_IColorState
 {
-    public float JumpForce { get; }
+    public float M_JumpForce { get; }
+
+    public int M_damage { get; }
+
     public void Attack(MonsterController monster);
 }
