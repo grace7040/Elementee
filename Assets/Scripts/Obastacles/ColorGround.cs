@@ -9,8 +9,6 @@ public class ColorGround : MonoBehaviour
 
     IColorState groundColor;
 
-    public int force = 100;
-
     private void Start()
     {
         SetGroundColor();
