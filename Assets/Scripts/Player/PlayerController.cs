@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
@@ -449,6 +450,19 @@ public class PlayerController : MonoBehaviour
         invincible = true;
         yield return new WaitForSeconds(time);
         invincible = false;
+    }
+
+
+    //Delay Function 
+    public void CallDelay(float delay, Action onComplete)
+    {
+        StartCoroutine(DoCallDelay(delay, onComplete));
+    }
+
+    static IEnumerator DoCallDelay(float delay, Action onComplete)
+    {
+        yield return new WaitForSeconds(delay);
+        onComplete?.Invoke();
     }
 
 }

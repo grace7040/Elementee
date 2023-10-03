@@ -7,8 +7,11 @@ public class GreenColor : MonoBehaviour, IColorState
     public float JumpForce { get { return 800f; } }
     public int Damage { get { return 10; } }
 
-    public GameObject throwableObject { get; set; }
-    public Sprite sprite { get; set; }
+    public GameObject ThrowableObject { get; set; }
+
+    public GameObject CustomObject { get; set; }
+
+    public Sprite Sprite { get; set; }
 
     //Temporal Setting : Green Color Attack -> Throw leaf obj
     public void Attack(PlayerController player)
