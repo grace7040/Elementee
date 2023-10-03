@@ -11,6 +11,7 @@ public class UI_Palette : UI_Popup
 
     public Colors color;
     public GameObject canvas;
+    ColorManager C_Mgr;
 
     Colors currentColor = Colors.def;
 
@@ -34,20 +35,19 @@ public class UI_Palette : UI_Popup
     private void Start()
     {
         Init();
+        
     }
 
     public override void Init()
     {
         base.Init();
+        C_Mgr = ColorManager.Instance;
 
         Bind<Button>(typeof(Buttons));
-        Bind<Image>(typeof(Images)); 
+        Bind<Image>(typeof(Images));
 
-
+        SettingPalette();
         GetButton((int)Buttons.OkayBtn).gameObject.BindEvent(OkayBtnClicked);
-        GetButton((int)Buttons.RedBtn).gameObject.BindEvent(RedBtnClicked);
-        GetButton((int)Buttons.YellowBtn).gameObject.BindEvent(YellowBtnClicked);
-        GetButton((int)Buttons.BlueBtn).gameObject.BindEvent(BlueBtnClicked);
         GetButton((int)Buttons.ResetBtn).gameObject.BindEvent(ResetBtnBtnClicked);
         
         canvas = GetImage((int)Images.ColorImg).gameObject;
@@ -55,7 +55,12 @@ public class UI_Palette : UI_Popup
 
     public void SettingPalette()  // 가지고 있는 물감만 이벤트 바인딩
     {
-        // 플레이어가 어떤 물감을 가지고 있는 지 알아야함
+        if (C_Mgr.hasBlue)
+            GetButton((int)Buttons.BlueBtn).gameObject.BindEvent(BlueBtnClicked);
+        if (C_Mgr.hasRed)
+            GetButton((int)Buttons.RedBtn).gameObject.BindEvent(RedBtnClicked);
+        if (C_Mgr.hasYellow)
+            GetButton((int)Buttons.YellowBtn).gameObject.BindEvent(YellowBtnClicked);
     }
 
 
@@ -64,6 +69,45 @@ public class UI_Palette : UI_Popup
         // 플레이어의 State 바꾸는 부분 추가
         // 플레이어가 소유한 물감 수정
 
+        switch (currentColor)
+        {
+            case Colors.def:
+                break;
+            case Colors.red:
+                C_Mgr.hasRed = false;
+                C_Mgr.SetColorState(new RedColor());
+                break;
+            case Colors.yellow:
+                C_Mgr.hasYellow = false;
+                C_Mgr.SetColorState(new YellowColor());
+                break;
+            case Colors.blue:
+                C_Mgr.hasBlue = false;
+                C_Mgr.SetColorState(new BlueColor());
+                break;
+            case Colors.green:
+                C_Mgr.hasYellow = false;
+                C_Mgr.hasBlue = false;
+                C_Mgr.SetColorState(new GreenColor());
+                break;
+            case Colors.purple:
+                C_Mgr.hasRed = false;
+                C_Mgr.hasBlue = false;
+                C_Mgr.SetColorState(new PurpleColor());
+                break;
+            case Colors.orange:
+                C_Mgr.hasYellow = false;
+                C_Mgr.hasRed = false;
+                C_Mgr.SetColorState(new OrangeColor());
+                break;
+            case Colors.black:
+                C_Mgr.hasYellow = false;
+                C_Mgr.hasRed = false;
+                C_Mgr.hasBlue = false;
+                C_Mgr.SetColorState(new BlackColor());
+                break;
+        }
+       
         GameManager.Instance.ResumeGame();
         Managers.UI.ClosePopupUI();
     }
@@ -149,22 +193,22 @@ public class UI_Palette : UI_Popup
                 canvasColor.color = Color.white;
                 break;
             case Colors.red:
-                canvasColor.color = Color.red;
+                canvasColor.color = new Color32(254, 120, 120, 255);
                 break;
             case Colors.yellow:
-                canvasColor.color = Color.yellow;
+                canvasColor.color = new Color32(255, 229, 73, 255);
                 break;
             case Colors.blue:
-                canvasColor.color = Color.blue;
+                canvasColor.color = new Color32(133, 151, 255, 255);
                 break;
             case Colors.orange:
-                canvasColor.color = new Color32(255, 158, 66, 255);
+                canvasColor.color = new Color32(255, 175, 61, 255);
                 break; 
             case Colors.green:
-                canvasColor.color = Color.green;
+                canvasColor.color = new Color32(43, 202, 99, 255);
                 break; 
             case Colors.purple:
-                canvasColor.color = new Color32(150, 54, 183, 255);
+                canvasColor.color = new Color32(167, 54, 200, 255);
                 break;
             case Colors.black:
                 canvasColor.color = Color.black;
