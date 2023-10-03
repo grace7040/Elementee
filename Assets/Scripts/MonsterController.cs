@@ -26,7 +26,8 @@ public class MonsterController : MonoBehaviour
     public float attackRange = 2f;
     public float moveSpeed = 3f;
     private Transform player;
-    private Rigidbody rb;
+    public GameObject playerPre;
+    private Rigidbody2D rb;
 
     public GameObject itemPrefab; // 떨어뜨릴 아이템 프리팹
 
@@ -35,7 +36,7 @@ public class MonsterController : MonoBehaviour
 
     public bool canAttack = true;
 
-    public Animator animator;
+    //public Animator animator;
 
     private void Awake()
     {
@@ -64,8 +65,11 @@ public class MonsterController : MonoBehaviour
     }
     void Start()
     {
+        Color = new M_DefaultColor();
         currentHealth = maxHealth;
-        player = GameObject.FindGameObjectWithTag("Player").transform; // "Player" 태그를 가진 오브젝트를 플레이어로 설정
+        //player = GameObject.FindGameObjectWithTag("Player").transform; // "Player" 태그를 가진 오브젝트를 플레이어로 설정
+        player = playerPre.transform;
+        rb = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
@@ -81,13 +85,14 @@ public class MonsterController : MonoBehaviour
         if (distanceToPlayer <= attackRange && canAttack)
         {
             color.Attack(this);
+            //Debug.Log("attack");
             UpdateCanAttack();
         }
         // 플레이어가 감지 범위 안에 있으면 플레이어를 향해 이동
         else if (distanceToPlayer <= detectionRange)
         {
             Vector3 moveDirection = (player.position - transform.position).normalized;
-            rb.velocity = moveDirection * moveSpeed;
+            rb.velocity = moveDirection * moveSpeed; 
         }
         else
         {
@@ -119,7 +124,7 @@ public class MonsterController : MonoBehaviour
     IEnumerator AttackCooldown()
     {
         canAttack = false;
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(1.0f);
         canAttack = true;
     }
 

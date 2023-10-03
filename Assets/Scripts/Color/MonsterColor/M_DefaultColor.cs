@@ -11,7 +11,7 @@ public class M_DefaultColor : MonoBehaviour, M_IColorState
 
     public void Attack(MonsterController monster)
     {
-        monster.animator.SetBool("IsAttacking", true);
+        //monster.animator.SetBool("IsAttacking", true);
         Debug.Log("Default");
     }
 }

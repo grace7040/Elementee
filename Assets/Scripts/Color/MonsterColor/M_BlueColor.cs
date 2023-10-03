@@ -10,7 +10,7 @@ public class M_BlueColor : MonoBehaviour, M_IColorState
 
     public void Attack(MonsterController monster)
     {
-        monster.animator.SetBool("IsAttacking", true);
+        //monster.animator.SetBool("IsAttacking", true);
         Debug.Log("Blue");
     }
 }
