@@ -138,7 +138,7 @@ public class MonsterController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Weapon")
         {
-            TakeDamage(GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().damage, collision.gameObject.transform.position);
+            TakeDamage(collision.gameObject.GetComponent<PlayerController>().damage, collision.gameObject.transform.position);
         }
     }
 }
