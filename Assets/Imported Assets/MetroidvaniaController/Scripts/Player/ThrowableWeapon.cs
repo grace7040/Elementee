@@ -4,34 +4,30 @@ using UnityEngine;
 
 public class ThrowableWeapon : MonoBehaviour
 {
-	PlayerController player;
 	public Vector2 direction;
-	public bool hasHit = false;
-	public float speed = 10f;
+	//public bool hasHit = false;
+	//public float speed = 10f;
 
-    // Start is called before the first frame update
-    void Start()
+
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-		player = FindObjectOfType<PlayerController>();
-	}
+        if (!collision.gameObject.GetComponent<PlayerController>())
+        {
+            Destroy(gameObject);
+        }
+    }
 
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-		if ( !hasHit)
-			player.GetComponent<Rigidbody2D>().velocity = direction * speed;
-	}
 
-	//void OnCollisionEnter2D(Collision2D collision)
-	//{
-	//	if (collision.gameObject.tag == "Enemy")
-	//	{
-	//		collision.gameObject.SendMessage("ApplyDamage", Mathf.Sign(direction.x) * 2f);
-	//		Destroy(gameObject);
-	//	}
-	//	else if (collision.gameObject.tag != "Player")
-	//	{
-	//		Destroy(gameObject);
-	//	}
-	//}
+    //void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    if (collision.gameObject.tag == "Enemy")
+    //    {
+    //        collision.gameObject.SendMessage("ApplyDamage", Mathf.Sign(direction.x) * 2f);
+    //        Destroy(gameObject);
+    //    }
+    //    else if (collision.gameObject.tag != "Player")
+    //    {
+    //        Destroy(gameObject);
+    //    }
+    //}
 }

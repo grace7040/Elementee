@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
         set { 
             color = value;
             jumpForce = value.JumpForce; // jumpForce: player의 jump force, JumpForce : Color의 jumpforce
+            damage = value.Damage;
         }
     }
     public GameObject drawable;
@@ -33,6 +34,11 @@ public class PlayerController : MonoBehaviour
     public ParticleSystem particleJumpUp; //Trail particles
     public ParticleSystem particleJumpDown; //Explosion particles
 
+    [Header("Player Health")]
+    private int currentHealth;
+
+
+   
     //
     [Header("Events")]
     [Space]
@@ -77,7 +83,6 @@ public class PlayerController : MonoBehaviour
     private Vector3 velocity = Vector3.zero;
     //-점프
     private bool canDoubleJump = true; //If player can double jump
-    private bool jumpDown = false;
     //-벽타기
     private bool oldWallSlidding = false; //If player is sliding in a wall in the previous frame
     private bool canCheck = false; //For check if player is wallsliding
@@ -89,17 +94,23 @@ public class PlayerController : MonoBehaviour
     public Transform attackCheck;
     public GameObject cam;
 
-
     public bool doAttack = false; //attack input
     public bool canAttack = true;
     public bool isTimeToCheck = false; 
     private bool isAttack = false; //attack btn input
     private float attackCoolTime = 0.25f;
 
+    //Health
+    public int maxHealth = 100;
+    public int damage = 10;
+
 
     private void Start()
     {
-        Color = new DefaultColor();
+        //Health initiallize
+        currentHealth = maxHealth;
+
+        Color = new RedColor();
         m_Rigidbody2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 
@@ -114,7 +125,6 @@ public class PlayerController : MonoBehaviour
     {
         //Attack input -> x
         if ((Input.GetKeyDown(KeyCode.X)|| isAttack) && canAttack)
-        //if (Input.GetKeyDown(KeyCode.X) && canAttack)
         {
             doAttack = true;
         }
@@ -124,13 +134,6 @@ public class PlayerController : MonoBehaviour
     {
         isAttack = true;
     }
-    public void AttackUp()
-    {
-        isAttack = false;
-    }
-
-
-
 
     private void FixedUpdate()
     {
@@ -207,6 +210,7 @@ public class PlayerController : MonoBehaviour
         {
             Color.Attack(this);
             doAttack = false;
+            isAttack = false;
         }
         
 
@@ -219,7 +223,7 @@ public class PlayerController : MonoBehaviour
         Color = new RedColor();
         /* :: TEST :: */
 
-        Color.sprite = drawable.GetComponent<SpriteRenderer>().sprite;
+        //Color.sprite = drawable.GetComponent<SpriteRenderer>().sprite;
     }
     private void Flip()
     {
@@ -232,12 +236,6 @@ public class PlayerController : MonoBehaviour
         transform.localScale = theScale;
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="move"></param>
-    /// <param name="jump"></param>
-    /// <param name="dash"> dash 를 눌렀을 때 true </param>
     public void Move(float move, bool jump, bool dash)
     {
         if (canMove)
@@ -402,7 +400,25 @@ public class PlayerController : MonoBehaviour
 
     public void Die()
     {
+        Destroy(gameObject);
+    }
 
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Enemy")
+        {
+            TakeDamage(damage);
+        }
     }
 
 }

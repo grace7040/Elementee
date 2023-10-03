@@ -11,15 +11,12 @@ public class CharacterMove : MonoBehaviour
 	public float runSpeed = 40f;
 
 	float horizontalMove = 0f;
-	bool jump = false;
 	bool dash = false;
 
 	private bool jumpDown = false;
 
-
 	void Update()
 	{
-		
 		horizontalMove = joystick.Horizontal * runSpeed;
 
 		animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
@@ -51,10 +48,9 @@ public class CharacterMove : MonoBehaviour
 	{
 		// Move our character
 		controller.Move(horizontalMove * Time.fixedDeltaTime, jumpDown, dash);
-		jump = false;
+		jumpDown = false;
 		dash = false;
 	}
-
 
 
 	public void JumpDown()
