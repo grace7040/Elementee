@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,8 @@ public class ColorManager : Singleton<ColorManager>
 {
     PlayerController player;
     List<Colors> colorList = new List<Colors>();
+
+    public Action OnSetColor = null;
 
     [Header("Color State")]
     public bool hasRed = false;
@@ -83,5 +86,7 @@ public class ColorManager : Singleton<ColorManager>
                 SetColorState(new BlackColor());
                 break;
         }
+        OnSetColor?.Invoke();
     }
+
 }

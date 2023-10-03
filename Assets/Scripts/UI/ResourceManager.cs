@@ -13,7 +13,6 @@ public class ResourceManager
     public GameObject Instantiate(string path, Transform parent = null)
     {
         GameObject prefab = Load<GameObject>($"Prefabs/{path}");
-        Debug.Log("¶ç¿ö¶ó Á»");
         Debug.Log(path);
         if (prefab == null)
         {

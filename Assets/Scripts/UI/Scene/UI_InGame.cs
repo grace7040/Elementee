@@ -26,12 +26,18 @@ public class UI_InGame : UI_Popup
     enum Images
     {
         HP,
+        Red,
+        Yellow,
+        Blue,
     }
 
 
     private void Start()
     {
         Init();
+        SetPalette();
+
+        ColorManager.Instance.OnSetColor += SetPalette;
 
         player = GameObject.FindGameObjectWithTag("Player");
         player.GetComponent<CharacterMove>().joystick = joystick;
@@ -39,11 +45,20 @@ public class UI_InGame : UI_Popup
 
     private void FixedUpdate()
     {
+        // 플레이어 체력바
         RectTransform barSize = hpBar.GetComponent<RectTransform>();
-        print(GameManager.Instance.playerHP);
         float width = GameManager.Instance.HPBar() * hpBarMAX;
-        print(width);
         barSize.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
+    }
+
+    public void SetPalette()
+    {
+        if (!ColorManager.Instance.hasBlue)
+            GetImage((int)Images.Blue).gameObject.SetActive(false);
+        if (!ColorManager.Instance.hasRed)
+            GetImage((int)Images.Red).gameObject.SetActive(false);
+        if (!ColorManager.Instance.hasYellow)
+            GetImage((int)Images.Yellow).gameObject.SetActive(false);
     }
 
     public override void Init()
@@ -110,6 +125,11 @@ public class UI_InGame : UI_Popup
     public void DashBtnClickedUp(PointerEventData data)
     {
         player.GetComponent<CharacterMove>().DashUp();
+    }
+
+    private void OnDestroy()
+    {
+        ColorManager.Instance.OnSetColor -= SetPalette;
     }
 
 }

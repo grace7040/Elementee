@@ -42,6 +42,7 @@ public class GameManager : Singleton<GameManager>
     public void RetryGame()
     {
         // 게임 재시작
+        Managers.UI.ShowPopupUI<UI_InGame>();
         print("재시작");
     }
 

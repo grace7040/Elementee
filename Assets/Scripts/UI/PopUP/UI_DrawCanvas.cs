@@ -15,4 +15,9 @@ public class UI_DrawCanvas : UI_Popup
     {
         
     }
+
+    public void Exitt(Collision collision)
+    {
+        ClosePopupUI();
+    }
 }
