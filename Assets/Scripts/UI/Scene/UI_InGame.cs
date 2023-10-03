@@ -65,7 +65,7 @@ public class UI_InGame : UI_Popup
 
     public void JumpBtnClicked(PointerEventData data)
     {
-        player.GetComponent<PlayerController>().();
+        player.GetComponent<PlayerController>();
     }
 
     public void DashBtnClicked(PointerEventData data)
