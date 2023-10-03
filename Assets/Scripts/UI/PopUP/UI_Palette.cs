@@ -66,50 +66,12 @@ public class UI_Palette : UI_Popup
 
     public void OkayBtnClicked(PointerEventData data)
     {
-        // 플레이어의 State 바꾸는 부분 추가
-        // 플레이어가 소유한 물감 수정
 
-        switch (currentColor)
-        {
-            case Colors.def:
-                break;
-            case Colors.red:
-                C_Mgr.hasRed = false;
-                C_Mgr.SetColorState(new RedColor());
-                break;
-            case Colors.yellow:
-                C_Mgr.hasYellow = false;
-                C_Mgr.SetColorState(new YellowColor());
-                break;
-            case Colors.blue:
-                C_Mgr.hasBlue = false;
-                C_Mgr.SetColorState(new BlueColor());
-                break;
-            case Colors.green:
-                C_Mgr.hasYellow = false;
-                C_Mgr.hasBlue = false;
-                C_Mgr.SetColorState(new GreenColor());
-                break;
-            case Colors.purple:
-                C_Mgr.hasRed = false;
-                C_Mgr.hasBlue = false;
-                C_Mgr.SetColorState(new PurpleColor());
-                break;
-            case Colors.orange:
-                C_Mgr.hasYellow = false;
-                C_Mgr.hasRed = false;
-                C_Mgr.SetColorState(new OrangeColor());
-                break;
-            case Colors.black:
-                C_Mgr.hasYellow = false;
-                C_Mgr.hasRed = false;
-                C_Mgr.hasBlue = false;
-                C_Mgr.SetColorState(new BlackColor());
-                break;
-        }
-       
-        GameManager.Instance.ResumeGame();
         Managers.UI.ClosePopupUI();
+        GameManager.Instance.ResumeGame(); // 추가로 그림그릴 때는 이거 하면 안되는디
+        C_Mgr.SetColorState(currentColor);
+        
+        
     }
 
     public void ResetBtnBtnClicked(PointerEventData data)

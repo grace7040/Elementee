@@ -5,6 +5,7 @@ using FreeDraw;
 
 public class DrawManager : Singleton<DrawManager>
 {
+    public GameObject Drawing;
     public GameObject DrawbleObject;
     Colors color;
     public Sprite[] sprites;
@@ -53,13 +54,13 @@ public class DrawManager : Singleton<DrawManager>
         DrawSetting.SetMarkerColour(c);
     }
 
-    public void OpenDrwableObject()
+    public void OpenDrawing()
     {
-        DrawbleObject.SetActive(true);
+        Drawing.SetActive(true);
     }
 
-    public void CloseDrawbleObject()
+    public void CloseDrawing()
     {
-        DrawbleObject.SetActive(false);
+        Drawing.SetActive(false);
     }
 }
