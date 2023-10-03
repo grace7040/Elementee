@@ -34,11 +34,18 @@ public class PlayerController : MonoBehaviour
     public ParticleSystem particleJumpUp; //Trail particles
     public ParticleSystem particleJumpDown; //Explosion particles
 
-    [Header("Player Health")]
-    private int currentHealth;
+    [Header("Player Properties")]
+    public int currentHealth;
+    private Rigidbody2D m_Rigidbody2D;
+    public Animator animator;
+
+    [Header("Attack")]
+    //public GameObject throwableObject;
+    public Transform attackCheck;
+    public GameObject cam;
+    public bool invincible = false;
 
 
-   
     //
     [Header("Events")]
     [Space]
@@ -50,10 +57,6 @@ public class PlayerController : MonoBehaviour
     public class BoolEvent : UnityEvent<bool> { }
     ////////
 
-
-    private Rigidbody2D m_Rigidbody2D;
-    public Animator animator;
-
     private float jumpForce;                          // Amount of force added when the player jumps.
 
 
@@ -62,9 +65,7 @@ public class PlayerController : MonoBehaviour
 
     private bool m_IsWall = false; //If there is a wall in front of the player
     private bool isDashing = false; //If player is dashing
-
     private float prevVelocityX = 0f;
-
 
     private bool limitVelOnWallJump = false; //For limit wall jump distance with low fps
     private float jumpWallDistX = 0; //Distance between player and wall
@@ -89,20 +90,15 @@ public class PlayerController : MonoBehaviour
 
 
     //Attack
-    [Header("Attack")]
-    public GameObject throwableObject;
-    public Transform attackCheck;
-    public GameObject cam;
-
-    public bool doAttack = false; //attack input
-    public bool canAttack = true;
-    public bool isTimeToCheck = false; 
+    [HideInInspector] public bool doAttack = false; //attack input
+    [HideInInspector] public bool canAttack = true;
+    //private bool isTimeToCheck = false; 
     private bool isAttack = false; //attack btn input
     private float attackCoolTime = 0.25f;
 
     //Health
-    public int maxHealth = 100;
-    public int damage = 10;
+    [HideInInspector] public int maxHealth = 100;
+    [HideInInspector] public int damage = 10;
 
 
     private void Start()
@@ -404,21 +400,31 @@ public class PlayerController : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, Vector3 enemyPos)
     {
-        currentHealth -= damage;
-
-        if (currentHealth <= 0)
+        if(!invincible)
         {
-            Die();
+            //health --
+            currentHealth -= damage;
+            //³Ë¹é
+            Vector2 damageDir = Vector3.Normalize(transform.position - enemyPos) * 40f;
+            m_Rigidbody2D.velocity = Vector2.zero;
+            m_Rigidbody2D.AddForce(damageDir * 10);
+
+            if (currentHealth <= 0)
+            {
+                Die();
+            }
         }
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.tag == "Enemy")
         {
-            TakeDamage(collision.gameObject.GetComponent<MonsterController>().m_damage);
+            TakeDamage(collision.gameObject.GetComponent<MonsterController>().m_damage,
+                collision.gameObject.transform.position);
         }
     }
 

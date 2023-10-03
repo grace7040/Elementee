@@ -42,7 +42,6 @@ GameObject:
   - component: {fileID: 4660076192433278}
   - component: {fileID: 175512587402798207}
   - component: {fileID: 248749117310158783}
-  - component: {fileID: 6573837211137545286}
   - component: {fileID: 212971026275759962}
   - component: {fileID: 95975118031919256}
   - component: {fileID: 50738830109512580}
@@ -87,6 +86,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d24199674478c0645ac91135cf1fd33f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  drawable: {fileID: 0}
   m_MovementSmoothing: 0.05
   m_DashForce: 25
   m_AirControl: 1
@@ -98,6 +98,10 @@ MonoBehaviour:
   m_WallCheck: {fileID: 4986330650710208}
   particleJumpUp: {fileID: 198584872278178884}
   particleJumpDown: {fileID: 198967111524372206}
+  currentHealth: 100
+  animator: {fileID: 95975118031919256}
+  attackCheck: {fileID: 4370582630649528}
+  cam: {fileID: 0}
   OnFallEvent:
     m_PersistentCalls:
       m_Calls:
@@ -128,6 +132,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  doAttack: 0
+  canAttack: 1
+  maxHealth: 100
+  damage: 10
 --- !u!114 &248749117310158783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,25 +152,6 @@ MonoBehaviour:
   animator: {fileID: 95975118031919256}
   joystick: {fileID: 0}
   runSpeed: 40
---- !u!114 &6573837211137545286
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1377240496476148}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac4f4fe12f1181a40bd271548bedc025, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dmgValue: 4
-  throwableObject: {fileID: 5532974359214069763, guid: 340067e8e5a097546ad175f1d00a6ece, type: 3}
-  attackCheck: {fileID: 4370582630649528}
-  animator: {fileID: 95975118031919256}
-  canAttack: 1
-  isTimeToCheck: 0
-  cam: {fileID: 0}
 --- !u!212 &212971026275759962
 SpriteRenderer:
   m_ObjectHideFlags: 0
