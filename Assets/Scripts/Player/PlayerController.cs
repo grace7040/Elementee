@@ -109,7 +109,7 @@ public class PlayerController : MonoBehaviour
         currentHealth = maxHealth;
         GameManager.Instance.playerMAXHP = maxHealth;
 
-        Color = new YellowColor();
+        Color = new DefaultColor();
         m_Rigidbody2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 
@@ -241,8 +241,6 @@ public class PlayerController : MonoBehaviour
 
     public void Move(float move, bool jump, bool dash)
     {
-        Debug.Log("move");
-
         if (canMove)
         {
             if (dash && canDash && !isWallSliding)

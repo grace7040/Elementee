@@ -14258,6 +14258,7 @@ MonoBehaviour:
   m_WallCheck: {fileID: 1676349540}
   particleJumpUp: {fileID: 1071786676}
   particleJumpDown: {fileID: 1951184175}
+  yellowAttackEffect: {fileID: 0}
   currentHealth: 0
   animator: {fileID: 0}
   attackCheck: {fileID: 0}
@@ -20318,6 +20319,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1920087944, guid: 656c8934973bef04fbb2a3c676402a1f, type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 1377240496476148, guid: 656c8934973bef04fbb2a3c676402a1f, type: 3}
       propertyPath: m_Name
       value: PlayerPrefab
@@ -20394,6 +20399,22 @@ PrefabInstance:
       propertyPath: joystick
       value: 
       objectReference: {fileID: 286207031}
+    - target: {fileID: 1299262301694252417, guid: 656c8934973bef04fbb2a3c676402a1f, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2966610303752750338, guid: 656c8934973bef04fbb2a3c676402a1f, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4469641616290963807, guid: 656c8934973bef04fbb2a3c676402a1f, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5593871760870967025, guid: 656c8934973bef04fbb2a3c676402a1f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6573837211137545286, guid: 656c8934973bef04fbb2a3c676402a1f, type: 3}
       propertyPath: cam
       value: 

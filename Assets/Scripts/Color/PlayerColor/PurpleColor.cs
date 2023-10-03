@@ -21,8 +21,11 @@ public class PurpleColor : MonoBehaviour, IColorState
             Debug.Log("Attak");
             player.canAttack = false;
             player.animator.SetBool("IsAttacking", true);
-            player.UpdateCanAttack();
-
+            //player.UpdateCanAttack();
+            player.CallDelay(3f, () =>
+            {
+                player.canAttack = true;
+            });
         }
     }
 }

@@ -20,24 +20,15 @@ public class YellowColor : MonoBehaviour, IColorState
         //전기 
         //playerprefab on
         player.GetComponent<PlayerController>().yellowAttackEffect.SetActive(true);
-        //특정 시간 이후에 off
-        //StartCoroutine(AttackCooldown(player.GetComponent<PlayerController>().yellowAttackEffect));
+
+        //3초 이후에 off
         player.CallDelay(3f, () =>
         {
-
+            player.GetComponent<PlayerController>().yellowAttackEffect.SetActive(false);
         }
         );
 
 
     }
-
-
-    IEnumerator AttackCooldown(GameObject effect)
-    {
-        yield return new WaitForSeconds(5f);
-        effect.SetActive(false);
-    }
-
-
 
 }
