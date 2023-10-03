@@ -65,8 +65,8 @@ public class MonsterController : MonoBehaviour
     void Start()
     {
         //Color = new M_RedColor();
-        //Color = new M_BlueColor();
-        Color = new M_YellowColor();
+        Color = new M_BlueColor();
+        //Color = new M_YellowColor();
         //Color = new M_DefaultColor();
         currentHealth = maxHealth;
         player = GameObject.FindGameObjectWithTag("Player").transform; // "Player" 태그를 가진 오브젝트를 플레이어로 설정
