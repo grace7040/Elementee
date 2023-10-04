@@ -22,7 +22,7 @@ public class YellowColor : MonoBehaviour, IColorState
         player.GetComponent<PlayerController>().yellowAttackEffect.SetActive(true);
 
         //3초 이후에 off
-        player.CallDelay(3f, () =>
+        player.CallOnDelay(3f, () =>
         {
             player.GetComponent<PlayerController>().yellowAttackEffect.SetActive(false);
         }

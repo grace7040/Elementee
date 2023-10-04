@@ -22,7 +22,7 @@ public class RedColor : MonoBehaviour, IColorState
             player.canAttack = false;
             player.animator.SetBool("IsAttacking", true);
             //player.UpdateCanAttack();
-            player.CallDelay(3f, () =>
+            player.CallOnDelay(3f, () =>
             {
                 player.canAttack = true;
             });

@@ -417,13 +417,12 @@ public class PlayerController : MonoBehaviour
             m_Rigidbody2D.velocity = Vector2.zero;
             m_Rigidbody2D.AddForce(damageDir * 10);
 
-            if (currentHealth <= 0)
-            {
+            if (currentHealth <= 0) 
                 Die();
-            }
             else
             {
-                StartCoroutine(MakeInvincible(1f));
+                invincible = true;
+                this.CallOnDelay(1f, () => { invincible = false; });
             }
         }
 
@@ -431,31 +430,11 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.tag == "Enemy")
         {
             TakeDamage(collision.gameObject.GetComponent<MonsterController>().m_damage,
                 collision.gameObject.transform.position);
         }
-    }
-
-    IEnumerator MakeInvincible(float time)
-    {
-        invincible = true;
-        yield return new WaitForSeconds(time);
-        invincible = false;
-    }
-
-
-    //Delay Function 
-    public void CallDelay(float delay, Action onComplete)
-    {
-        StartCoroutine(DoCallDelay(delay, onComplete));
-    }
-
-    static IEnumerator DoCallDelay(float delay, Action onComplete)
-    {
-        yield return new WaitForSeconds(delay);
-        onComplete?.Invoke();
     }
 
 }

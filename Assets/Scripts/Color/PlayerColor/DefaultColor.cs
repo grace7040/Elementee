@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-
 public class DefaultColor : MonoBehaviour, IColorState
 {
     public float JumpForce { get { return 850f; } }
@@ -26,10 +25,11 @@ public class DefaultColor : MonoBehaviour, IColorState
             player.canAttack = false;
             player.animator.SetBool("IsAttacking", true);
             //player.UpdateCanAttack();
-            player.CallDelay(3f, () =>
+            player.CallOnDelay(3f, () =>
             {
                 player.canAttack = true;
             });
+            
         }
     }
 
