@@ -5,41 +5,39 @@ using UnityEngine;
 public class Singleton<T> : MonoBehaviour where T: MonoBehaviour
 {
     private static T instance;
-    public static bool isShutDown = false;
-    private static object Lock = new object();
+    public static bool shuttingDown = false;
     public static T Instance
     {
         get
         {
-            if (isShutDown) 
-                return null;
-
-            lock (Lock)
+            if (shuttingDown)
             {
+                return null;
+            }
+
+            if(instance == null)
+            {
+                instance = (T)FindObjectOfType(typeof(T));
+
                 if (instance == null)
                 {
-                    instance = (T)FindObjectOfType(typeof(T));
+                    GameObject obj = new GameObject();
+                    instance = obj.AddComponent(typeof(T)) as T;
+                    obj.name = typeof(T).ToString();
 
-                    if (instance == null)
-                    {
-                        GameObject obj = new GameObject();
-                        instance = obj.AddComponent(typeof(T)) as T;
-                        obj.name = typeof(T).ToString();
-
-                        DontDestroyOnLoad(obj);
-                    }
+                    DontDestroyOnLoad(obj);
                 }
-                return instance;
             }
+            return instance;
         }
     }
 
     private void OnApplicationQuit()
     {
-        isShutDown = true;
+        shuttingDown = true;
     }
     private void OnDestroy()
     {
-        isShutDown = true;
+        shuttingDown = true;
     }
 }
