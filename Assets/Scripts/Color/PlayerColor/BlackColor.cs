@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlackColor : MonoBehaviour, IColorState
+public class BlackColor : IColorState
 {
     public float JumpForce { get { return 800f; } }
     public int Damage { get { return 10; } }

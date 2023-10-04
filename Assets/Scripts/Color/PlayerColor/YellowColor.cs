@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class YellowColor : MonoBehaviour, IColorState
+public class YellowColor :  IColorState
 {
     public float JumpForce { get { return 800f; } }
     public int Damage { get { return 10; } }

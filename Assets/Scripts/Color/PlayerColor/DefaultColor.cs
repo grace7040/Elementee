@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class DefaultColor : MonoBehaviour, IColorState
+public class DefaultColor : IColorState
 {
     public float JumpForce { get { return 850f; } }
     public int Damage { get { return 10; } }
