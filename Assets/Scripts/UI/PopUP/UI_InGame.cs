@@ -129,7 +129,8 @@ public class UI_InGame : UI_Popup
 
     private void OnDestroy()
     {
-        ColorManager.Instance.OnSetColor -= SetPalette;
+        if(ColorManager.Instance != null)
+            ColorManager.Instance.OnSetColor -= SetPalette;
     }
 
 }
