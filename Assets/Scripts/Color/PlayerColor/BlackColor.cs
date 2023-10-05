@@ -24,7 +24,7 @@ public class BlackColor : IColorState
     //    throwableWeapon.name = "ThrowableWeapon";
     //}
 
-    public float pullForce = 5f; // 끌어당기는 힘 조절용 변수
+    public float pullForce = 12f; // 끌어당기는 힘 조절용 변수
     public float throwForce = 20f; // 던지는 힘 조절용 변수
     private bool isHoldingEnemy = false; // 적을 가지고 있는지 여부
     private Rigidbody2D heldEnemyRigidbody; // 가지고 있는 적의 Rigidbody2D
@@ -69,7 +69,13 @@ public class BlackColor : IColorState
             {
                 isHoldingEnemy = true;
                 heldEnemyRigidbody = closestEnemy.GetComponent<Rigidbody2D>();
-            }
+
+                closestEnemy.GetComponent<Animator>().enabled = false;
+                closestEnemy.GetComponent<MonsterController>().enabled = false;
+
+                Vector2 throwDirection = (playerTransform.position - heldEnemyRigidbody.transform.position).normalized;
+                heldEnemyRigidbody.AddForce(throwDirection * pullForce, ForceMode2D.Impulse);
+;            }
         }
     }
 
@@ -80,7 +86,7 @@ public class BlackColor : IColorState
         {
             isHoldingEnemy = false;
             Vector2 throwDirection = (playerTransform.position - heldEnemyRigidbody.transform.position).normalized;
-            heldEnemyRigidbody.AddForce(throwDirection * throwForce, ForceMode2D.Impulse);
+            heldEnemyRigidbody.velocity = throwDirection * 5f;
             heldEnemyRigidbody = null;
         }
     }
