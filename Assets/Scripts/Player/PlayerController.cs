@@ -15,7 +15,9 @@ public class PlayerController : MonoBehaviour
             damage = value.Damage;
         }
     }
-    public GameObject drawable;
+
+    public Colors myColor = Colors.def;
+    public SpriteRenderer[] colorWeapons;
     
 
     [Header("Movement Customizing")]
@@ -217,7 +219,7 @@ public class PlayerController : MonoBehaviour
 
     public void SetCustomWeapon()
     {
-        Color.Sprite = DrawManager.Instance.DrawbleObject.GetComponent<SpriteRenderer>().sprite;
+        colorWeapons[(int)myColor].sprite = DrawManager.Instance.DrawbleObject.GetComponent<SpriteRenderer>().sprite;
     }
     private void Flip()
     {

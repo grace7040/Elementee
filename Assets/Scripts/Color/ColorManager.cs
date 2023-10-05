@@ -9,6 +9,7 @@ public class ColorManager : Singleton<ColorManager>
     List<Colors> colorList = new List<Colors>();
 
     public Action OnSetColor = null;
+    public Action OnSaveColor = null;
 
     [Header("Color State")]
     public bool hasRed = false;
@@ -19,16 +20,14 @@ public class ColorManager : Singleton<ColorManager>
     {
         colorList.Add(Colors.def);
     }
-    public void SetColorState(IColorState _color)
+    private void SetColorState(IColorState _color)
     {
-
         player = FindObjectOfType<PlayerController>();
         player.Color = _color;
     }
 
     public void SetColorState(Colors _color)
     {
-        
         player = FindObjectOfType<PlayerController>();
         // player.Color = _color;
 
@@ -86,7 +85,13 @@ public class ColorManager : Singleton<ColorManager>
                 SetColorState(new BlackColor());
                 break;
         }
+        player.myColor = _color;
         OnSetColor?.Invoke();
     }
 
+    public void SetPlayerCustomWeapon()
+    {
+        player.SetCustomWeapon();
+        OnSaveColor?.Invoke();
+    }
 }

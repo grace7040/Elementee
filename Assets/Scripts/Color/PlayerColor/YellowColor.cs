@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class YellowColor :  IColorState
+public class YellowColor : MonoBehaviour, IColorState
 {
     public float JumpForce { get { return 800f; } }
     public int Damage { get { return 10; } }
@@ -14,6 +14,10 @@ public class YellowColor :  IColorState
 
     public Sprite Sprite { get; set; }
 
+    void Start()
+    {
+        ColorManager.Instance.OnSaveColor += SetCustomSprite;
+    }
     //Temporal Setting : Yellow Color Attack -> 근접 공격
     public void Attack(PlayerController player)
     {
@@ -26,9 +30,18 @@ public class YellowColor :  IColorState
         {
             player.GetComponent<PlayerController>().yellowAttackEffect.SetActive(false);
         }
-        );
+        ); 
+    }
 
+    void SetCustomSprite()
+    {
+        PlayerController player = FindObjectOfType<PlayerController>();
+        
+        // ::TEST::
+        player.yellowAttackEffect.GetComponent<SpriteRenderer>().sprite = player.colorWeapons[(int)Colors.yellow].sprite;
+        // ::TEST::
 
+        ColorManager.Instance.OnSaveColor -= SetCustomSprite;
     }
 
 }

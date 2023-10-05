@@ -20,7 +20,7 @@ public class RedColor :  IColorState
         {
             Debug.Log("Attak");
             player.canAttack = false;
-            player.animator.SetBool("IsAttacking", true);
+            player.animator.SetBool("IsRedAttacking", true);
             //player.UpdateCanAttack();
             player.CallOnDelay(0.25f, () =>
             {

@@ -43,6 +43,7 @@ public class UI_DrawCanvas : UI_Popup
         ClosePopupUI();
         GameManager.Instance.ResumeGame();
         DrawManager.Instance.CloseDrawing();
+        ColorManager.Instance.SetPlayerCustomWeapon();
     }
 
     public void ResetBtnClicked(PointerEventData data)
