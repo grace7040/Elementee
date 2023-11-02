@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public Colors myColor = Colors.def;
+
     public SpriteRenderer[] colorWeapons;
     
 
@@ -113,7 +114,7 @@ public class PlayerController : MonoBehaviour
         currentHealth = maxHealth;
         GameManager.Instance.playerMAXHP = maxHealth;
 
-        Color = new PurpleColor();
+        Color = new DefaultColor();
         m_Rigidbody2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 
@@ -122,6 +123,9 @@ public class PlayerController : MonoBehaviour
 
         if (OnLandEvent == null)
             OnLandEvent = new UnityEvent();
+
+        //TEST CODE
+        //ColorManager.Instance.SetColorState(Colors.blue);
     }
 
     private void Update()

@@ -12,10 +12,14 @@ public class Sponge : MonoBehaviour
     }
 
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.tag == "Player")
         {
+            if (collision.GetComponent<PlayerController>().myColor == Colors.def) 
+                return;
+
+            GetComponent<SpriteRenderer>().color = ColorManager.Instance.GetColor(collision.GetComponent<PlayerController>().myColor);
             ColorManager.Instance.SetColorState(Colors.def);
         }
     }
