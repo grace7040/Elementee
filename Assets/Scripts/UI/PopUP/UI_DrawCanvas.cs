@@ -41,9 +41,11 @@ public class UI_DrawCanvas : UI_Popup
     {
         player.GetComponent<PlayerController>().SetCustomWeapon();
         ClosePopupUI();
+        
+        // 그림 그린 것 적용
         GameManager.Instance.ResumeGame();
-        DrawManager.Instance.CloseDrawing();
-        ColorManager.Instance.SetPlayerCustomWeapon();
+        DrawManager.Instance.CloseDrawing(); 
+        ColorManager.Instance.SetPlayerCustomWeapon(); 
     }
 
     public void ResetBtnClicked(PointerEventData data)

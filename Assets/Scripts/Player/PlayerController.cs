@@ -419,8 +419,13 @@ public class PlayerController : MonoBehaviour
             m_Rigidbody2D.velocity = Vector2.zero;
             m_Rigidbody2D.AddForce(damageDir * 10);
 
-            if (currentHealth <= 0) 
+            if (currentHealth <= 0)
+            {
+                // 게임 오버 (채연이가 손댐)
+                GameManager.Instance.GameOver();
+
                 Die();
+            }
             else
             {
                 invincible = true;

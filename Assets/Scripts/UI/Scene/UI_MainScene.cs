@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class UI_MainScene : UI_Scene
 {
@@ -50,6 +51,9 @@ public class UI_MainScene : UI_Scene
     public void StartBtnClicked(PointerEventData data)
     {
         Debug.Log("게임 시작!");
+
+        // 게임씬으로 이동
+        SceneManager.LoadScene("Demo_Cherry");
     }
 
     public void SettingBtnClicked(PointerEventData data)

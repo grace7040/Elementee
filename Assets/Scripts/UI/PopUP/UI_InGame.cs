@@ -10,7 +10,7 @@ public class UI_InGame : UI_Popup
 {
     GameObject player;
     GameObject hpBar;
-    public int hpBarMAX;
+    public float hpBarMAX;
     public VariableJoystick joystick;
 
     enum Buttons
@@ -41,6 +41,8 @@ public class UI_InGame : UI_Popup
 
         player = GameObject.FindGameObjectWithTag("Player");
         player.GetComponent<CharacterMove>().joystick = joystick;
+
+        hpBarMAX = hpBar.GetComponent<RectTransform>().rect.width;
     }
 
     private void FixedUpdate()
@@ -97,6 +99,8 @@ public class UI_InGame : UI_Popup
 
         GameManager.Instance.PauseGame();
         Managers.UI.ShowPopupUI<UI_Palette>();
+        Managers.UI.ShowPopupUI<UI_Palette>();
+
     }
 
 

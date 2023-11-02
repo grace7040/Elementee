@@ -14,7 +14,6 @@ public class GameManager : Singleton<GameManager>
         isGameOver = false;
     }
 
-
     void Update()
     {
         // 게임오버 확인 (ex. 플레이어의 체력)
@@ -46,18 +45,24 @@ public class GameManager : Singleton<GameManager>
         print("재시작");
     }
 
-    public void GameOver(bool isWin)
+    public void GameOver()
     {
-        if (isWin)
-        {
-            // 승리 UI 띄우기
-            isGameOver = true;
-        }
-        else
-        {
-            // 패배 UI 띄우기
-            isGameOver = true;
-        }
+        
+        // 패배 UI 띄우기
+        isGameOver = true;
+
+        // 왜 안띄ㅜ어질까?
+        Managers.UI.ShowPopupUI<UI_GameOver>();
+        print("GameOver");
+        PauseGame();
+       
     }
+
+    public void GameWin()
+    {
+        // 승리 UI 띄우기
+        isGameOver = true;
+        PauseGame();
+}
 
 }

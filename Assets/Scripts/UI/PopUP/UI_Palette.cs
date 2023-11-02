@@ -53,13 +53,24 @@ public class UI_Palette : UI_Popup
         canvas = GetImage((int)Images.ColorImg).gameObject;
     }
 
-    public void SettingPalette()  // 가지고 있는 물감만 이벤트 바인딩
+    public void SettingPalette()  // 가지고 있는 물감에 이벤트 바인딩 & 없는 물감은 끄기
     {
-        if (C_Mgr.hasBlue)
+        // Blue 물감
+        if (!C_Mgr.hasBlue)
+            GetButton((int)Buttons.BlueBtn).gameObject.SetActive(false);
+        else
             GetButton((int)Buttons.BlueBtn).gameObject.BindEvent(BlueBtnClicked);
-        if (C_Mgr.hasRed)
+
+        // Red 물감
+        if (!C_Mgr.hasRed)
+            GetButton((int)Buttons.RedBtn).gameObject.SetActive(false);
+        else
             GetButton((int)Buttons.RedBtn).gameObject.BindEvent(RedBtnClicked);
-        if (C_Mgr.hasYellow)
+
+        // Yellow 물감
+        if (!C_Mgr.hasYellow)
+            GetButton((int)Buttons.YellowBtn).gameObject.SetActive(false);
+        else
             GetButton((int)Buttons.YellowBtn).gameObject.BindEvent(YellowBtnClicked);
 
     }
@@ -69,8 +80,8 @@ public class UI_Palette : UI_Popup
     {
 
         Managers.UI.ClosePopupUI();
-        GameManager.Instance.ResumeGame(); // 추가로 그림그릴 때는 이거 하면 안되는디
-        C_Mgr.SetColorState(currentColor);
+        GameManager.Instance.ResumeGame(); 
+        C_Mgr.SetColorState(currentColor);  // 플레이어의 현재 Color에 적용
         
     }
 
@@ -145,6 +156,7 @@ public class UI_Palette : UI_Popup
     }
 
 
+    // 물감 클릭했을 때 UI 색 변경
     public void ChangeColor(Colors color)
     {
         Image canvasColor = canvas.GetComponent<Image>();
