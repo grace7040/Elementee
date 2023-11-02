@@ -14246,7 +14246,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d24199674478c0645ac91135cf1fd33f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  drawable: {fileID: 0}
+  myColor: 0
+  colorWeapons: []
   m_MovementSmoothing: 0.05
   m_DashForce: 25
   m_AirControl: 0
@@ -14259,6 +14260,7 @@ MonoBehaviour:
   particleJumpUp: {fileID: 1071786676}
   particleJumpDown: {fileID: 1951184175}
   yellowAttackEffect: {fileID: 0}
+  orangeAttackEffect: {fileID: 0}
   currentHealth: 0
   animator: {fileID: 0}
   attackCheck: {fileID: 0}
@@ -20402,6 +20404,14 @@ PrefabInstance:
     - target: {fileID: 1299262301694252417, guid: 656c8934973bef04fbb2a3c676402a1f, type: 3}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975305393455804576, guid: 656c8934973bef04fbb2a3c676402a1f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2667280296181097999, guid: 656c8934973bef04fbb2a3c676402a1f, type: 3}
+      propertyPath: m_RootOrder
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2966610303752750338, guid: 656c8934973bef04fbb2a3c676402a1f, type: 3}
       propertyPath: m_RootOrder

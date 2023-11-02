@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour
     public ParticleSystem particleJumpUp; //Trail particles
     public ParticleSystem particleJumpDown; //Explosion particles
     public GameObject yellowAttackEffect;
+    public GameObject orangeAttackEffect;
 
     [Header("Player Properties")]
     public int currentHealth;
@@ -111,7 +112,7 @@ public class PlayerController : MonoBehaviour
         currentHealth = maxHealth;
         GameManager.Instance.playerMAXHP = maxHealth;
 
-        Color = new BlackColor();
+        Color = new OrangeColor();
         m_Rigidbody2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 

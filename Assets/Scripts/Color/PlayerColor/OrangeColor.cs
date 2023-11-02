@@ -13,15 +13,21 @@ public class OrangeColor : MonoBehaviour, IColorState
 
     public Sprite Sprite { get; set; }
 
-    //Temporal Setting : Red Color Attack -> Throw obj
+    //¸ð·¡ ÆøÇ³
     public void Attack(PlayerController player)
     {
-        GameObject throwableWeapon = Instantiate(Resources.Load("Projectile"), 
-            player.transform.position + new Vector3(player.transform.localScale.x * 0.5f, -0.2f), 
-            Quaternion.identity) as GameObject;
-        throwableWeapon.GetComponent<SpriteRenderer>().sprite = this.Sprite;
-        Vector2 direction = new Vector2(player.transform.localScale.x, 0);
-        throwableWeapon.GetComponent<ThrowableWeapon>().direction = direction;
-        throwableWeapon.name = "ThrowableWeapon";
+
+        //playerprefab on
+        player.GetComponent<PlayerController>().orangeAttackEffect.SetActive(true);
+        player.animator.SetBool("IsOrangeAttacking", true);
+
+        //4ÃÊ ÀÌÈÄ¿¡ off
+        player.CallOnDelay(4f, () =>
+        {
+            player.animator.SetBool("IsOrangeAttacking", false);
+            player.GetComponent<PlayerController>().orangeAttackEffect.SetActive(false);
+        }
+        );
+
     }
 }
