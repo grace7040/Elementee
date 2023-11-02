@@ -24,7 +24,7 @@ public class BlackColor : IColorState
     //    throwableWeapon.name = "ThrowableWeapon";
     //}
 
-    public float pullForce = 12f; // 끌어당기는 힘 조절용 변수
+    public float pullForce = 20f; // 끌어당기는 힘 조절용 변수
     public float throwForce = 20f; // 던지는 힘 조절용 변수
     private bool isHoldingEnemy = false; // 적을 가지고 있는지 여부
     private Rigidbody2D heldEnemyRigidbody; // 가지고 있는 적의 Rigidbody2D
@@ -72,6 +72,11 @@ public class BlackColor : IColorState
 
                 closestEnemy.GetComponent<Animator>().enabled = false;
                 closestEnemy.GetComponent<MonsterController>().enabled = false;
+                
+                // Player가 데미지도 안받고, 넉백도 안되게 해야함. Collision 끄면 될듯.
+                // 그리고 몬스터가 플레이어한테 붙어있어야함.
+                // 점프 상태에서도 잘 끌고 와야 함.
+                // 원하는 방향으로 날리고 싶음.
 
                 Vector2 throwDirection = (playerTransform.position - heldEnemyRigidbody.transform.position).normalized;
                 heldEnemyRigidbody.AddForce(throwDirection * pullForce, ForceMode2D.Impulse);
@@ -85,8 +90,8 @@ public class BlackColor : IColorState
         if (heldEnemyRigidbody != null)
         {
             isHoldingEnemy = false;
-            Vector2 throwDirection = (playerTransform.position - heldEnemyRigidbody.transform.position).normalized;
-            heldEnemyRigidbody.velocity = throwDirection * 5f;
+            Vector2 throwDirection = (heldEnemyRigidbody.transform.position - playerTransform.position).normalized;
+            heldEnemyRigidbody.velocity = throwDirection * throwForce;
             heldEnemyRigidbody = null;
         }
     }

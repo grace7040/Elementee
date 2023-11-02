@@ -111,7 +111,7 @@ public class PlayerController : MonoBehaviour
         currentHealth = maxHealth;
         GameManager.Instance.playerMAXHP = maxHealth;
 
-        Color = new BlueColor();
+        Color = new BlackColor();
         m_Rigidbody2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 
