@@ -6,6 +6,7 @@ public class BlackColor : IColorState
 {
     public float JumpForce { get { return 800f; } }
     public int Damage { get { return 10; } }
+    public bool WallSliding { get { return false; } }
 
     public GameObject ThrowableObject { get; set; }
     public GameObject CustomObject { get; set; }

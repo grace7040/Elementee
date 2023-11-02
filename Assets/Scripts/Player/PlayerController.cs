@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
             color = value;
             jumpForce = value.JumpForce; // jumpForce: player¿« jump force, JumpForce : Color¿« jumpforce
             damage = value.Damage;
+            m_WallSliding = value.WallSliding;
         }
     }
 
@@ -112,7 +113,7 @@ public class PlayerController : MonoBehaviour
         currentHealth = maxHealth;
         GameManager.Instance.playerMAXHP = maxHealth;
 
-        Color = new OrangeColor();
+        Color = new PurpleColor();
         m_Rigidbody2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 
@@ -234,7 +235,6 @@ public class PlayerController : MonoBehaviour
         Vector3 yellowScale = yellowAttackEffect.transform.localScale;
         yellowScale.x *= -1;
         yellowAttackEffect.transform.localScale = yellowScale;
-        //yellowAttackEffect.GetComponent<SpriteRenderer>().flipX = true;
     }
 
     public void Move(float move, bool jump, bool dash)

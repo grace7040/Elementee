@@ -53,6 +53,6 @@ public class FollowCamera : MonoBehaviour
 	public void ShakeCamera()
 	{
 		originalPos = camTransform.localPosition;
-		shakeDuration = 0.2f;
+		shakeDuration = 0.5f;
 	}
 }

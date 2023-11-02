@@ -6,6 +6,7 @@ public interface IColorState
 {
     public float JumpForce { get; }
     public int Damage { get; }
+    public bool WallSliding { get; }
     public void Attack(PlayerController player);
     public GameObject ThrowableObject { get; set; }
 

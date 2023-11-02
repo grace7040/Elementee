@@ -6,6 +6,7 @@ public class OrangeColor : MonoBehaviour, IColorState
 {
     public float JumpForce { get { return 800f; } }
     public int Damage { get { return 10; } }
+    public bool WallSliding { get { return false; } }
 
     public GameObject ThrowableObject { get; set; }
 
@@ -22,6 +23,7 @@ public class OrangeColor : MonoBehaviour, IColorState
         player.animator.SetBool("IsOrangeAttacking", true);
 
         //4초 이후에 off
+        //Animation 안 먹어 왜 그럴까?
         player.CallOnDelay(4f, () =>
         {
             player.animator.SetBool("IsOrangeAttacking", false);
