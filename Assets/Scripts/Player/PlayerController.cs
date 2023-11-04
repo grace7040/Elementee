@@ -227,6 +227,16 @@ public class PlayerController : MonoBehaviour
     {
         colorWeapons[(int)myColor].sprite = DrawManager.Instance.DrawbleObject.GetComponent<SpriteRenderer>().sprite;
     }
+
+    public void ShowWeapon()
+    {
+        colorWeapons[(int)myColor].gameObject.SetActive(true);
+    }
+
+    public void HideWeapon()
+    {
+        colorWeapons[(int)myColor].gameObject.SetActive(false);
+    }
     private void Flip()
     {
         // Switch the way the player is labelled as facing.
