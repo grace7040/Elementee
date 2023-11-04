@@ -24,6 +24,8 @@ public class GreenColor : MonoBehaviour, IColorState
                 player.transform.position + new Vector3(player.transform.localScale.x * 0.5f, -0.2f),
                 Quaternion.identity) as GameObject;
 
+            player.animator.SetBool("IsGreenAttacking", true);
+            throwableWeapon.GetComponent<SpriteRenderer>().sprite = player.colorWeapons[(int)Colors.green].sprite;
             //throwableWeapon.GetComponent<SpriteRenderer>().sprite = this.Sprite;
             Vector2 direction = new Vector2(player.transform.localScale.x, 0);
             throwableWeapon.GetComponent<ThrowableWeapon>().direction = direction;
