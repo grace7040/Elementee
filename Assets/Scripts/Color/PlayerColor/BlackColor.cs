@@ -5,7 +5,7 @@ using UnityEngine;
 public class BlackColor : IColorState
 {
     public float JumpForce { get { return 800f; } }
-    public int Damage { get { return 10; } }
+    public int Damage { get { return 15; } }
     public bool WallSliding { get { return false; } }
 
     public GameObject ThrowableObject { get; set; }
@@ -73,7 +73,9 @@ public class BlackColor : IColorState
 
                 closestEnemy.GetComponent<Animator>().enabled = false;
                 closestEnemy.GetComponent<MonsterController>().enabled = false;
-                
+                //heldEnemyRigidbody.isKinematic = true;
+                //heldEnemyRigidbody.collisionDetectionMode = CollisionDetectionMode2D.Discrete;
+
                 // Player가 데미지도 안받고, 넉백도 안되게 해야함. Collision 끄면 될듯.
                 // 그리고 몬스터가 플레이어한테 붙어있어야함.
                 // 점프 상태에서도 잘 끌고 와야 함.
