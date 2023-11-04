@@ -27,13 +27,13 @@ public class ColorChargingStation : MonoBehaviour
             switch (paintColor)
             {
                 case Colors.red:
-                    ColorManager.Instance.hasRed = true;
+                    ColorManager.Instance.HasRed = true;
                     break;
                 case Colors.blue:
-                    ColorManager.Instance.hasBlue = true;
+                    ColorManager.Instance.HasBlue = true;
                     break;
                 case Colors.yellow:
-                    ColorManager.Instance.hasYellow = true;
+                    ColorManager.Instance.HasYellow = true;
                     break;
             }
 

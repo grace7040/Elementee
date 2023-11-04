@@ -56,19 +56,19 @@ public class UI_Palette : UI_Popup
     public void SettingPalette()  // 가지고 있는 물감에 이벤트 바인딩 & 없는 물감은 끄기
     {
         // Blue 물감
-        if (!C_Mgr.hasBlue)
+        if (!C_Mgr.HasBlue)
             GetButton((int)Buttons.BlueBtn).gameObject.SetActive(false);
         else
             GetButton((int)Buttons.BlueBtn).gameObject.BindEvent(BlueBtnClicked);
 
         // Red 물감
-        if (!C_Mgr.hasRed)
+        if (!C_Mgr.HasRed)
             GetButton((int)Buttons.RedBtn).gameObject.SetActive(false);
         else
             GetButton((int)Buttons.RedBtn).gameObject.BindEvent(RedBtnClicked);
 
         // Yellow 물감
-        if (!C_Mgr.hasYellow)
+        if (!C_Mgr.HasYellow)
             GetButton((int)Buttons.YellowBtn).gameObject.SetActive(false);
         else
             GetButton((int)Buttons.YellowBtn).gameObject.BindEvent(YellowBtnClicked);

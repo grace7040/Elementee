@@ -12,9 +12,41 @@ public class ColorManager : Singleton<ColorManager>
     public Action OnSaveColor = null;
 
     [Header("Color State")]
-    public bool hasRed = false;
-    public bool hasBlue = false;
-    public bool hasYellow = false;
+    [SerializeField]
+    private bool hasRed = false;
+    [SerializeField]
+    private bool hasBlue = false;
+    [SerializeField]
+    private bool hasYellow = false;
+
+    public bool HasRed
+    {
+        get { return hasRed; }
+        set { 
+            hasRed = value;
+            OnSetColor.Invoke();
+        }
+    }
+
+    public bool HasBlue
+    {
+        get { return hasBlue; }
+        set
+        {
+            hasBlue = value;
+            OnSetColor.Invoke();
+        }
+    }
+
+    public bool HasYellow
+    {
+        get { return hasYellow; }
+        set
+        {
+            hasYellow = value;
+            OnSetColor.Invoke();
+        }
+    }
 
     private void Start()
     {

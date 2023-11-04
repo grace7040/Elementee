@@ -55,12 +55,9 @@ public class UI_InGame : UI_Popup
 
     public void SetPalette()
     {
-        if (!ColorManager.Instance.hasBlue)
-            GetImage((int)Images.Blue).gameObject.SetActive(false);
-        if (!ColorManager.Instance.hasRed)
-            GetImage((int)Images.Red).gameObject.SetActive(false);
-        if (!ColorManager.Instance.hasYellow)
-            GetImage((int)Images.Yellow).gameObject.SetActive(false);
+        GetImage((int)Images.Blue).gameObject.SetActive(ColorManager.Instance.HasBlue);
+        GetImage((int)Images.Red).gameObject.SetActive(ColorManager.Instance.HasRed);
+        GetImage((int)Images.Yellow).gameObject.SetActive(ColorManager.Instance.HasYellow);
     }
 
     public override void Init()
