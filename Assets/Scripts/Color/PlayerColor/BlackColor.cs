@@ -25,11 +25,12 @@ public class BlackColor : IColorState
     //    throwableWeapon.name = "ThrowableWeapon";
     //}
 
-    public float pullForce = 20f; // 끌어당기는 힘 조절용 변수
+    public float pullForce = 1f; // 끌어당기는 힘 조절용 변수
     public float throwForce = 20f; // 던지는 힘 조절용 변수
-    private bool isHoldingEnemy = false; // 적을 가지고 있는지 여부
+    public bool isHoldingEnemy = false; // 적을 가지고 있는지 여부
     private Rigidbody2D heldEnemyRigidbody; // 가지고 있는 적의 Rigidbody2D
     private Transform playerTransform; // 플레이어의 Transform
+    private GameObject Enemy;
 
     // 플레이어와 충돌했을 때 호출되는 함수
     public void Attack(PlayerController player)
@@ -43,7 +44,7 @@ public class BlackColor : IColorState
         {
             // 플레이어와 충돌했을 때, 적을 가지게 합니다.
             playerTransform = player.transform; // 플레이어의 Transform 얻기
-            PullClosestEnemy(player.transform);
+            PullClosestEnemy(playerTransform);
         }
     }
 
@@ -53,7 +54,7 @@ public class BlackColor : IColorState
         if (!isHoldingEnemy)
         {
             GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-            float closestDistance = Mathf.Infinity;
+            float closestDistance = 10.0f;
             Transform closestEnemy = null;
 
             foreach (GameObject enemy in enemies)
@@ -68,33 +69,42 @@ public class BlackColor : IColorState
 
             if (closestEnemy != null)
             {
-                isHoldingEnemy = true;
+                isHoldingEnemy = true; // 타이밍이 문제
                 heldEnemyRigidbody = closestEnemy.GetComponent<Rigidbody2D>();
+                Enemy = closestEnemy.gameObject;
 
                 closestEnemy.GetComponent<Animator>().enabled = false;
                 closestEnemy.GetComponent<MonsterController>().enabled = false;
+                closestEnemy.GetComponent<Rigidbody2D>().mass = 0.1f;
                 //heldEnemyRigidbody.isKinematic = true;
                 //heldEnemyRigidbody.collisionDetectionMode = CollisionDetectionMode2D.Discrete;
 
-                // Player가 데미지도 안받고, 넉백도 안되게 해야함. Collision 끄면 될듯.
-                // 그리고 몬스터가 플레이어한테 붙어있어야함.
-                // 점프 상태에서도 잘 끌고 와야 함.
-                // 원하는 방향으로 날리고 싶음.
+                //Debug.Log(playerTransform.position);
+                //Enemy.transform.Translate(playerTransform.position * pullForce * Time.deltaTime);
+                //Debug.Log(Enemy.transform.position);
 
                 Vector2 throwDirection = (playerTransform.position - heldEnemyRigidbody.transform.position).normalized;
                 heldEnemyRigidbody.AddForce(throwDirection * pullForce, ForceMode2D.Impulse);
-;            }
+                ;            }
         }
     }
 
     // 가지고 있는 적을 던집니다.
     private void ThrowHeldEnemy()
     {
-        if (heldEnemyRigidbody != null)
+     Rigidbody2D rb = Enemy.AddComponent<Rigidbody2D>();
+        if (rb != null)
         {
+            // 하위 객체(child)의 Transform을 얻어옵니다.
+            Transform childTransform = Enemy.gameObject.transform;
+
+            // 부모-자식 관계를 해제합니다.
+            childTransform.SetParent(null);
+
             isHoldingEnemy = false;
-            Vector2 throwDirection = (heldEnemyRigidbody.transform.position - playerTransform.position).normalized;
-            heldEnemyRigidbody.velocity = throwDirection * throwForce;
+            Vector2 throwDirection = (rb.transform.position - playerTransform.position).normalized;
+            rb.velocity = throwDirection * throwForce;
+            rb.gameObject.tag = "WeaponB"; // 태그 변경
             heldEnemyRigidbody = null;
         }
     }

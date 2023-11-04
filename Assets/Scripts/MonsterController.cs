@@ -75,6 +75,8 @@ public class MonsterController : MonoBehaviour
 
     private void Update()
     {
+        //Debug.Log(rb.velocity);
+
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
         // 플레이어가 공격 범위 안에 있고 공격 쿨다운이 끝났으면 공격 실행
@@ -139,6 +141,11 @@ public class MonsterController : MonoBehaviour
         if (collision.gameObject.tag == "Weapon")
         {
             TakeDamage(collision.gameObject.GetComponent<PlayerController>().damage, collision.gameObject.transform.position);
+        }
+        else if (collision.gameObject.tag == "WeaponB")
+        {
+            TakeDamage(20, collision.gameObject.transform.position);
+            Destroy(collision.gameObject, 0.1f);
         }
     }
 }

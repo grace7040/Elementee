@@ -114,7 +114,7 @@ public class PlayerController : MonoBehaviour
         currentHealth = maxHealth;
         GameManager.Instance.playerMAXHP = maxHealth;
 
-        Color = new PurpleColor();
+        Color = new BlackColor();
         m_Rigidbody2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 
@@ -458,7 +458,7 @@ public class PlayerController : MonoBehaviour
             if (Color.Damage == 15f)
             {
                 // 상위 객체(부모)의 Transform을 얻어옵니다.
-                Transform parentTransform = transform;
+                Transform parentTransform = gameObject.transform;
 
                 // 하위 객체(자식)의 Transform을 얻어옵니다.
                 Transform childTransform = collision.gameObject.transform;
@@ -466,6 +466,11 @@ public class PlayerController : MonoBehaviour
                 // 하위 객체(child)를 상위 객체(parent)의 하위로 만듭니다.
                 childTransform.SetParent(parentTransform);
 
+                //collision.gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+                Destroy(collision.gameObject.GetComponent<Rigidbody2D>(), 0.1f);
+                //Debug.Log(collision.gameObject.GetComponent<Rigidbody2D>().velocity);
+
+                //collision.gameObject.GetComponent<BlackColor>().isHoldingEnemy = true;
                 //Rigidbody2D rb = collision.gameObject.GetComponent<Rigidbody2D>();
                 //rb.constraints = RigidbodyConstraints2D.FreezePositionX; // X축 방향으로의 움직임을 제한
                 //rb.constraints = RigidbodyConstraints2D.FreezePositionY; // Y축 방향으로의 움직임을 제한
