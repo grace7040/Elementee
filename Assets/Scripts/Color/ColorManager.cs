@@ -93,9 +93,9 @@ public class ColorManager : Singleton<ColorManager>
         switch (_color)
         {
             case Colors.def:
-                hasRed = false;
-                hasYellow = false;
-                hasBlue = false;
+                //hasRed = false;
+                //hasYellow = false;
+                //hasBlue = false;
                 SetColorState(new DefaultColor());
                 break;
             case Colors.red:

@@ -78,11 +78,11 @@ public class UI_Palette : UI_Popup
 
     public void OkayBtnClicked(PointerEventData data)
     {
-
         Managers.UI.ClosePopupUI();
         GameManager.Instance.ResumeGame(); 
-        C_Mgr.SetColorState(currentColor);  // 플레이어의 현재 Color에 적용
-        
+
+        if(currentColor != Colors.def)
+            C_Mgr.SetColorState(currentColor);  // 플레이어의 현재 Color에 적용
     }
 
     public void ResetBtnBtnClicked(PointerEventData data)
