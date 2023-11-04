@@ -19,6 +19,7 @@ public class MonsterController : MonoBehaviour
         }
     }
 
+    public Colors myColor;
     public int maxHealth = 100;
     private int currentHealth;
 
@@ -47,18 +48,22 @@ public class MonsterController : MonoBehaviour
         {
             case M_DefaultColor:
                 Color = new M_DefaultColor();
+                myColor = Colors.def;
                 break;
 
             case M_RedColor:
                 Color = new M_RedColor();
+                myColor = Colors.red;
                 break;
 
             case M_BlueColor:
                 Color = new M_BlueColor();
+                myColor = Colors.blue;
                 break;
 
             case M_YellowColor:
                 Color = new M_YellowColor();
+                myColor = Colors.yellow;
                 break;
         }
     }
@@ -118,9 +123,21 @@ public class MonsterController : MonoBehaviour
         // Á×ÀÌ¸é »ö±ò ¹°Åë ¶³¾î¶ß¸®±â
         if (itemPrefab != null)
         {
-            GameObject item = Instantiate(itemPrefab, transform.position, Quaternion.identity);
+            switch (myColor)
+            {
+                case Colors.def:
+                    break;
+                case Colors.red:
+                    ColorManager.Instance.HasRed = true;
+                    break;
+                case Colors.blue:
+                    ColorManager.Instance.HasBlue = true;
+                    break;
+                case Colors.yellow:
+                    ColorManager.Instance.HasYellow = true;
+                    break;
+            }
         }
-
         Destroy(gameObject);
     }
 
