@@ -24,12 +24,12 @@ public class OrangeColor : IColorState
 
         //4초 이후에 off
         //Animation 안 먹어 왜 그럴까?
-        player.CallOnDelay(4f, () =>
-        {
-            player.animator.SetBool("IsOrangeAttacking", false);
-            player.GetComponent<PlayerController>().orangeAttackEffect.SetActive(false);
-        }
-        );
+        //player.CallOnDelay(4f, () =>
+        //{
+        //    player.animator.SetBool("IsOrangeAttacking", false);
+        //    player.GetComponent<PlayerController>().orangeAttackEffect.SetActive(false);
+        //}
+        //);
 
     }
 }
