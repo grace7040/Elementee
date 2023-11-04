@@ -160,34 +160,8 @@ public class UI_Palette : UI_Popup
     public void ChangeColor(Colors color)
     {
         Image canvasColor = canvas.GetComponent<Image>();
-
-        switch (color)
-        {
-            case Colors.def:
-                canvasColor.color = Color.white;
-                break;
-            case Colors.red:
-                canvasColor.color = new Color32(254, 120, 120, 255);
-                break;
-            case Colors.yellow:
-                canvasColor.color = new Color32(255, 229, 73, 255);
-                break;
-            case Colors.blue:
-                canvasColor.color = new Color32(133, 151, 255, 255);
-                break;
-            case Colors.orange:
-                canvasColor.color = new Color32(255, 175, 61, 255);
-                break; 
-            case Colors.green:
-                canvasColor.color = new Color32(43, 202, 99, 255);
-                break; 
-            case Colors.purple:
-                canvasColor.color = new Color32(167, 54, 200, 255);
-                break;
-            case Colors.black:
-                canvasColor.color = Color.black;
-                break;
-        }
+        canvasColor.color = ColorManager.Instance.GetColor(color);
+       
     }
 
 

@@ -27,19 +27,19 @@ public class ColorManager : Singleton<ColorManager>
         switch (color)
         {
             case Colors.def:
-                return Color.black;
+                return Color.white;
             case Colors.red:
-                return Color.red;
+                return new Color32(254, 120, 120, 255); 
             case Colors.yellow:
-                return Color.yellow;
+                return new Color32(255, 229, 73, 255);
             case Colors.blue:
-                return Color.blue;
+                return new Color32(133, 151, 255, 255);
             case Colors.orange:
-                return new Color32(255, 127, 0, 255);
+                return new Color32(255, 175, 61, 255);
             case Colors.green:
-                return Color.green;
+                return new Color32(43, 202, 99, 255);
             case Colors.purple:
-                return new Color32(128, 65, 127, 255);
+                return new Color32(167, 54, 200, 255);
             case Colors.black:
                 return Color.black;
             default:

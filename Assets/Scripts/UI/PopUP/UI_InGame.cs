@@ -99,7 +99,7 @@ public class UI_InGame : UI_Popup
 
         GameManager.Instance.PauseGame();
         Managers.UI.ShowPopupUI<UI_Palette>();
-        Managers.UI.ShowPopupUI<UI_Palette>();
+      //  Managers.UI.ShowPopupUI<UI_Palette>();
 
     }
 
