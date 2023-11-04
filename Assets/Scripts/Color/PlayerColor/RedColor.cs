@@ -17,7 +17,7 @@ public class RedColor :  IColorState
     //Temporal Setting : Red Color Attack -> Throw obj
     public void Attack(PlayerController player)
     {
-        if (player.doAttack && player.canAttack)
+        if (player.canAttack)
         {
             Debug.Log("Attak");
             player.canAttack = false;
