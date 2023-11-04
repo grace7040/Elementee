@@ -114,7 +114,7 @@ public class PlayerController : MonoBehaviour
         currentHealth = maxHealth;
         GameManager.Instance.playerMAXHP = maxHealth;
 
-        Color = new BlackColor();
+        Color = new PurpleColor();
         m_Rigidbody2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 
@@ -407,6 +407,7 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Die");
         Destroy(gameObject);
+
     }
 
     public void TakeDamage(int damage, Vector3 enemyPos)
@@ -427,9 +428,9 @@ public class PlayerController : MonoBehaviour
             if (currentHealth <= 0)
             {
                 // 게임 오버 (채연이가 손댐)
-                GameManager.Instance.GameOver();
-
-                Die();
+                //GameManager.Instance.GameOver();
+                StartCoroutine(WaitToDead());
+                //Die();
             }
             else
             {
@@ -466,6 +467,17 @@ public class PlayerController : MonoBehaviour
                 collision.gameObject.transform.position);
             }
         }
+    }
+
+    IEnumerator WaitToDead()
+    {
+        animator.SetBool("IsDead", true);
+        canMove = false;
+        invincible = true;
+        yield return new WaitForSeconds(0.4f);
+        m_Rigidbody2D.velocity = new Vector2(0, m_Rigidbody2D.velocity.y);
+        yield return new WaitForSeconds(1.1f);
+        // 새롭게 씬 로드할 코드 추가
     }
 
 }
