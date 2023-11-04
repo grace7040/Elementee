@@ -488,6 +488,8 @@ public class PlayerController : MonoBehaviour
         m_Rigidbody2D.velocity = new Vector2(0, m_Rigidbody2D.velocity.y);
         yield return new WaitForSeconds(1.1f);
         // 새롭게 씬 로드할 코드 추가
+
+        GameManager.Instance.GameOver();
     }
 
 }
