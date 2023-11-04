@@ -222,6 +222,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fe4afa26a09cf24aa791ba6a41e92be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myColor: 0
   maxHealth: 100
   detectionRange: 10
   attackRange: 2
@@ -247,6 +248,10 @@ PrefabInstance:
     - target: {fileID: 2251810525892171736, guid: 5b9231df63db6f34a9493f3d7b3713cc, type: 3}
       propertyPath: m_Name
       value: Volt
+      objectReference: {fileID: 0}
+    - target: {fileID: 2251810525892171736, guid: 5b9231df63db6f34a9493f3d7b3713cc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6197711106607237462, guid: 5b9231df63db6f34a9493f3d7b3713cc, type: 3}
       propertyPath: m_RootOrder

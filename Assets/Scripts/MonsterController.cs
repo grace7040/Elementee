@@ -106,6 +106,7 @@ public class MonsterController : MonoBehaviour
     public void TakeDamage(int damage, Vector3 playerPos)
     {
         currentHealth -= damage;
+        Debug.Log(currentHealth);
 
         // ³Ë¹é
         Vector2 damageDir = Vector3.Normalize(transform.position - playerPos) * 40f;
@@ -157,6 +158,7 @@ public class MonsterController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Weapon")
         {
+            Debug.Log(123);
             TakeDamage(collision.gameObject.GetComponent<PlayerController>().damage, collision.gameObject.transform.position);
         }
         else if (collision.gameObject.tag == "WeaponB")
