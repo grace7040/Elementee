@@ -54,7 +54,7 @@ public class BlackColor : IColorState
         if (!isHoldingEnemy)
         {
             GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-            float closestDistance = 10.0f;
+            float closestDistance = Mathf.Infinity;
             Transform closestEnemy = null;
 
             foreach (GameObject enemy in enemies)

@@ -458,17 +458,20 @@ public class PlayerController : MonoBehaviour
         {
             if (Color.Damage == 15f)
             {
-                // 상위 객체(부모)의 Transform을 얻어옵니다.
-                Transform parentTransform = gameObject.transform;
+                if (!collision.gameObject.GetComponent<MonsterController>().isActiveAndEnabled)
+                {
+                    // 상위 객체(부모)의 Transform을 얻어옵니다.
+                    Transform parentTransform = gameObject.transform;
 
-                // 하위 객체(자식)의 Transform을 얻어옵니다.
-                Transform childTransform = collision.gameObject.transform;
+                    // 하위 객체(자식)의 Transform을 얻어옵니다.
+                    Transform childTransform = collision.gameObject.transform;
 
-                // 하위 객체(child)를 상위 객체(parent)의 하위로 만듭니다.
-                childTransform.SetParent(parentTransform);
+                    // 하위 객체(child)를 상위 객체(parent)의 하위로 만듭니다.
+                    childTransform.SetParent(parentTransform);
 
-                //collision.gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-                Destroy(collision.gameObject.GetComponent<Rigidbody2D>(), 0.1f);
+                    Destroy(collision.gameObject.GetComponent<Rigidbody2D>(), 0.1f);
+                }
+                
                 //Debug.Log(collision.gameObject.GetComponent<Rigidbody2D>().velocity);
 
                 //collision.gameObject.GetComponent<BlackColor>().isHoldingEnemy = true;
