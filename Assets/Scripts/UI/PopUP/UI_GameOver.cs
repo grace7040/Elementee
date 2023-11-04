@@ -46,7 +46,7 @@ public class UI_GameOver : UI_Popup
         //Bind<GameObject>(typeof(GameObjects)); 
         //Bind<Image>(typeof(Images)); 
 
-        //    GetButton((int)Buttons.BackBtn).gameObject.BindEvent(OnBackBtnClicked);
+        GetButton((int)Buttons.ToMainBtn).gameObject.BindEvent(ToMainBtnClicked);
         GetButton((int)Buttons.ResumeBtn).gameObject.BindEvent(OnResumeBtnClicked);
         GetButton((int)Buttons.RetryBtn).gameObject.BindEvent(OnRetryBtnClicked);
         //GameObject go = GetImage((int)Images.ItemIcon).gameObject;
@@ -63,5 +63,10 @@ public class UI_GameOver : UI_Popup
     {
         GameManager.Instance.RetryGame();
         Managers.UI.ClosePopupUI();
+    }
+
+    public void ToMainBtnClicked(PointerEventData data)
+    {
+        GameManager.Instance.GoToMainMenu();
     }
 }

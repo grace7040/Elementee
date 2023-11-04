@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -41,8 +42,7 @@ public class GameManager : Singleton<GameManager>
     public void RetryGame()
     {
         // 게임 재시작
-        Managers.UI.ShowPopupUI<UI_InGame>();
-        print("재시작");
+        SceneManager.LoadScene(2);
     }
 
     public void GameOver()
@@ -53,8 +53,7 @@ public class GameManager : Singleton<GameManager>
 
         // 왜 안띄ㅜ어질까?
         Managers.UI.ShowPopupUI<UI_GameOver>();
-        print("GameOver");
-        PauseGame();
+
        
     }
 
@@ -63,6 +62,11 @@ public class GameManager : Singleton<GameManager>
         // 승리 UI 띄우기
         isGameOver = true;
         PauseGame();
-}
+    }
+
+    public void GoToMainMenu()
+    {
+        SceneManager.LoadScene(1);
+    }
 
 }
