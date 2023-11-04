@@ -16,10 +16,14 @@ public class ColorGround : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.gameObject.GetComponent<PlayerController>().myColor != groundColor)
+        if (collision.gameObject.tag == "Player")
         {
-            collision.gameObject.GetComponent<PlayerController>().TakeDamage(damage, this.transform.position);
+            if (collision.gameObject.GetComponent<PlayerController>().myColor != groundColor)
+            {
+                collision.gameObject.GetComponent<PlayerController>().TakeDamage(damage, this.transform.position);
+            }
         }
+        
 
     }
 

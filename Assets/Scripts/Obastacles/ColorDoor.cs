@@ -18,10 +18,14 @@ public class ColorDoor : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.GetComponent<PlayerController>().myColor == doorColor)
-            boxcollider.enabled = false;
-        else
-            collision.rigidbody.AddForce((collision.transform.position - transform.position) * force, ForceMode2D.Impulse);
+        if (collision.gameObject.tag == "Player")
+        {
+            if (collision.gameObject.GetComponent<PlayerController>().myColor == doorColor)
+                boxcollider.enabled = false;
+            else
+                collision.rigidbody.AddForce((collision.transform.position - transform.position) * force, ForceMode2D.Impulse);
+        }
+            
     }
 
 
