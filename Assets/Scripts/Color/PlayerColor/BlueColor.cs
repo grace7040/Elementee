@@ -25,6 +25,8 @@ public class BlueColor : MonoBehaviour, IColorState
                 player.transform.position + new Vector3(player.transform.localScale.x * 0.5f, -0.2f),
                 Quaternion.identity) as GameObject;
 
+            player.animator.SetBool("IsBlueAttacking", true);
+            throwableWeapon.GetComponent<SpriteRenderer>().sprite = player.colorWeapons[(int)Colors.blue].sprite;
             //throwableWeapon.GetComponent<SpriteRenderer>().sprite = this.Sprite;
             Vector2 direction = new Vector2(player.transform.localScale.x, 0);
             throwableWeapon.GetComponent<ThrowableWeapon>().direction = direction;
