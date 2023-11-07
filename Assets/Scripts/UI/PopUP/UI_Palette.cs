@@ -21,6 +21,7 @@ public class UI_Palette : UI_Popup
         OkayBtn,
         ResetBtn,
         HowtoBtn,
+        BackBtn,
         RedBtn,
         YellowBtn,
         BlueBtn,
@@ -52,6 +53,7 @@ public class UI_Palette : UI_Popup
         SettingPalette();
         GetButton((int)Buttons.OkayBtn).gameObject.BindEvent(OkayBtnClicked);
         GetButton((int)Buttons.ResetBtn).gameObject.BindEvent(ResetBtnBtnClicked);
+        GetButton((int)Buttons.BackBtn).gameObject.BindEvent(BackBtnClicked);
         GetButton((int)Buttons.ReDrawItem).gameObject.BindEvent(ReDraw);
         
         canvas = GetImage((int)Images.ColorImg).gameObject;
@@ -86,6 +88,11 @@ public class UI_Palette : UI_Popup
             GetButton((int)Buttons.ReDrawItem).gameObject.GetComponent<Image>().color = ColorManager.Instance.GetColor(redrawColor);
     }
 
+    public void BackBtnClicked(PointerEventData data)
+    {
+        Managers.UI.ClosePopupUI();
+        GameManager.Instance.ResumeGame();
+    }
 
     public void OkayBtnClicked(PointerEventData data)
     {
