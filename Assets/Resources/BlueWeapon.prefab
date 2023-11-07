@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 5532974359214069772}
   - component: {fileID: 5532974359214069768}
   - component: {fileID: 5532974359214069775}
+  - component: {fileID: 1602451467754018930}
   m_Layer: 6
   m_Name: BlueWeapon
-  m_TagString: Weapon
+  m_TagString: WeaponB
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -138,3 +139,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   direction: {x: 0, y: 400}
   speed: 10
+--- !u!58 &1602451467754018930
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5532974359214069763}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.42231268, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.71231395
