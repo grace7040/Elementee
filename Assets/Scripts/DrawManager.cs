@@ -18,6 +18,7 @@ public class DrawManager : Singleton<DrawManager>
 
     private void Awake()
     {
+        Cam = GameObject.Find("Camera");
         DrawSetting = GetComponentInChildren<DrawingSettings>();
     }
     public void SetBrushColor(Colors color)
