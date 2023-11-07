@@ -23,7 +23,7 @@ public class ColorDoor : MonoBehaviour
             if (collision.gameObject.GetComponent<PlayerController>().myColor == doorColor)
                 boxcollider.enabled = false;
             else
-                collision.rigidbody.AddForce((collision.transform.position - transform.position) * force, ForceMode2D.Impulse);
+                collision.rigidbody.AddForce(new Vector2(collision.transform.position.x - transform.position.x,0) * force, ForceMode2D.Impulse);
         }
             
     }
