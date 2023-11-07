@@ -82,7 +82,7 @@ public class MonsterController : MonoBehaviour
     {
         //Debug.Log(rb.velocity);
 
-        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
         // 플레이어가 공격 범위 안에 있고 공격 쿨다운이 끝났으면 공격 실행
         if (distanceToPlayer <= attackRange && canAttack)
@@ -94,13 +94,13 @@ public class MonsterController : MonoBehaviour
         // 플레이어가 감지 범위 안에 있으면 플레이어를 향해 이동
         else if (distanceToPlayer <= detectionRange)
         {
-            Vector3 moveDirection = (player.position - transform.position).normalized;
+            Vector2 moveDirection = new Vector2(player.position.x - transform.position.x,0).normalized;
             rb.velocity = moveDirection * moveSpeed; 
         }
         else
         {
             // 감지 범위를 벗어난 경우 이동 중지
-            rb.velocity = Vector3.zero;
+            rb.velocity = Vector2.zero;
         }
     }
     public void TakeDamage(int damage, Vector3 playerPos)
@@ -109,7 +109,7 @@ public class MonsterController : MonoBehaviour
         Debug.Log(currentHealth);
 
         // 넉백
-        Vector2 damageDir = Vector3.Normalize(transform.position - playerPos) * 40f;
+        Vector2 damageDir = new Vector3(transform.position.x - playerPos.x, 0, 0).normalized * 40f;
         rb.velocity = Vector2.zero;
         rb.AddForce(damageDir * 50);
 
@@ -154,17 +154,32 @@ public class MonsterController : MonoBehaviour
         StartCoroutine(AttackCooldown());
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    if (collision.gameObject.tag == "Weapon")
+    //    {
+    //        Debug.Log(123);
+    //        TakeDamage(collision.gameObject.GetComponentInParent<PlayerController>().damage, collision.gameObject.transform.position);
+    //    }
+    //    else if (collision.gameObject.tag == "WeaponB")
+    //    {
+    //        TakeDamage(20, collision.gameObject.transform.position);
+    //        Destroy(collision.gameObject, 0.1f);
+    //    }
+    //}
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (collision.gameObject.tag == "Weapon")
+        Debug.Log(other.tag);
+        if (other.tag == "Weapon")
         {
             Debug.Log(123);
-            TakeDamage(collision.gameObject.GetComponent<PlayerController>().damage, collision.gameObject.transform.position);
+            TakeDamage(other.GetComponentInParent<PlayerController>().damage, other.transform.position);
         }
-        else if (collision.gameObject.tag == "WeaponB")
+        else if (other.tag == "WeaponB")
         {
-            TakeDamage(20, collision.gameObject.transform.position);
-            Destroy(collision.gameObject, 0.1f);
+            TakeDamage(20, other.transform.position);
+            Destroy(other.gameObject, 0.1f);
         }
     }
 }

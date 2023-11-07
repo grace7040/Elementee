@@ -3441,6 +3441,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 143441906958983532, guid: 656c8934973bef04fbb2a3c676402a1f, type: 3}
+      propertyPath: m_BodyType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 175512587402798207, guid: 656c8934973bef04fbb2a3c676402a1f, type: 3}
       propertyPath: cam
       value: 
@@ -3448,6 +3452,30 @@ PrefabInstance:
     - target: {fileID: 248749117310158783, guid: 656c8934973bef04fbb2a3c676402a1f, type: 3}
       propertyPath: joystick
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2047264727744267253, guid: 656c8934973bef04fbb2a3c676402a1f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4659771621703042495, guid: 656c8934973bef04fbb2a3c676402a1f, type: 3}
+      propertyPath: m_BodyType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4659771621703042495, guid: 656c8934973bef04fbb2a3c676402a1f, type: 3}
+      propertyPath: m_Simulated
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7116786285842233396, guid: 656c8934973bef04fbb2a3c676402a1f, type: 3}
+      propertyPath: m_BodyType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7882964214442036755, guid: 656c8934973bef04fbb2a3c676402a1f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7882964214442036755, guid: 656c8934973bef04fbb2a3c676402a1f, type: 3}
+      propertyPath: m_TagString
+      value: Weapon
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 656c8934973bef04fbb2a3c676402a1f, type: 3}
@@ -4623,6 +4651,10 @@ PrefabInstance:
     - target: {fileID: 4567782686879236, guid: 061600cc71b08b947a704a7416146101, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1337917207602846156, guid: 061600cc71b08b947a704a7416146101, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 061600cc71b08b947a704a7416146101, type: 3}
