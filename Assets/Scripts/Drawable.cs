@@ -15,7 +15,7 @@ namespace FreeDraw
         // PEN COLOUR
         public static Color Pen_Colour;     // Change these to change the default drawing settings
         // PEN WIDTH (actually, it's a radius, in pixels)
-        public static int Pen_Width = 3;
+        public static int Pen_Width = 6;
 
 
         public delegate void Brush_Function(Vector2 world_position);
