@@ -15,17 +15,17 @@ public class YellowColor : MonoBehaviour, IColorState
 
     public Sprite Sprite { get; set; }
 
-    void Start()
-    {
-        ColorManager.Instance.OnSaveColor += SetCustomSprite;
-    }
+    //void Start()
+    //{
+    //    ColorManager.Instance.OnSaveColor += SetCustomSprite;
+    //}
     //Temporal Setting : Yellow Color Attack -> 근접 공격
     public void Attack(PlayerController player)
     {
         //전기 
         //playerprefab on
         player.GetComponent<PlayerController>().yellowAttackEffect.SetActive(true);
-
+        player.yellowAttackEffect.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = player.colorWeapons[(int)Colors.yellow].sprite;
         //3초 이후에 off
         player.CallOnDelay(3f, () =>
         {
@@ -34,15 +34,15 @@ public class YellowColor : MonoBehaviour, IColorState
         ); 
     }
 
-    void SetCustomSprite()
-    {
-        PlayerController player = FindObjectOfType<PlayerController>();
+    //void SetCustomSprite()
+    //{
+    //    PlayerController player = FindObjectOfType<PlayerController>();
         
-        // ::TEST::
-        player.yellowAttackEffect.GetComponent<SpriteRenderer>().sprite = player.colorWeapons[(int)Colors.yellow].sprite;
-        // ::TEST::
+    //    // ::TEST::
+    //    player.yellowAttackEffect.GetComponent<SpriteRenderer>().sprite = player.colorWeapons[(int)Colors.yellow].sprite;
+    //    // ::TEST::
 
-        ColorManager.Instance.OnSaveColor -= SetCustomSprite;
-    }
+    //    ColorManager.Instance.OnSaveColor -= SetCustomSprite;
+    //}
 
 }
