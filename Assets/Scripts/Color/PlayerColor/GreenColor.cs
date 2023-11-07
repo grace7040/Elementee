@@ -8,11 +8,6 @@ public class GreenColor : MonoBehaviour, IColorState
     public int Damage { get { return 10; } }
     public bool WallSliding { get { return false; } }
 
-    public GameObject ThrowableObject { get; set; }
-
-    public GameObject CustomObject { get; set; }
-
-    public Sprite Sprite { get; set; }
 
     //Temporal Setting : Green Color Attack -> Throw leaf obj
     public void Attack(PlayerController player)

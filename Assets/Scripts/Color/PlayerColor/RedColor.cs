@@ -8,12 +8,6 @@ public class RedColor :  IColorState
     public int Damage { get { return 10; } }
     public bool WallSliding { get { return false; } }
 
-    public GameObject ThrowableObject { get; set; }
-
-    public GameObject CustomObject { get; set; }
-
-    public Sprite Sprite { get; set; }
-
     //Temporal Setting : Red Color Attack -> Throw obj
     public void Attack(PlayerController player)
     {
