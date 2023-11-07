@@ -29,14 +29,19 @@ public class GameManager : Singleton<GameManager>
 
     public void PauseGame()
     {
-        
+
         // 게임 일시정지
+        Time.timeScale = 0;
+            
         Managers.UI.ClosePopupUI();
         print("일시정지");
     }
 
     public void ResumeGame()
     {
+        // 게임 다시 활성화
+        Time.timeScale = 1;
+
         Managers.UI.ShowPopupUI<UI_InGame>();
         print("계속하자");
     }
