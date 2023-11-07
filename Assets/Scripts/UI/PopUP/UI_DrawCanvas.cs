@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using FreeDraw;
 using UnityEngine.EventSystems;
 
 public class UI_DrawCanvas : UI_Popup
@@ -33,7 +34,6 @@ public class UI_DrawCanvas : UI_Popup
 
         GetButton((int)Buttons.SaveBtn).gameObject.BindEvent(SaveBtnClicked);
         GetButton((int)Buttons.ResetBtn).gameObject.BindEvent(ResetBtnClicked);
-      //  GetButton((int)Buttons.ResetBtn).gameObject.BindEvent(ResetBtnBtnClicked);
 
     }
 
@@ -50,7 +50,7 @@ public class UI_DrawCanvas : UI_Popup
 
     public void ResetBtnClicked(PointerEventData data)
     {
-
+        DrawManager.Instance.DrawbleObject.GetComponent<Drawable>().ResetCanvas();
     }
 
 

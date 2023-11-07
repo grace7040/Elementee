@@ -10,6 +10,8 @@ public class GameManager : Singleton<GameManager>
     public int playerHP = 100;
     public int playerMAXHP = 100;
 
+    public Colors ReDrawItemColor = Colors.def;
+
     void Start()
     {
         isGameOver = false;

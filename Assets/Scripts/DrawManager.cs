@@ -7,6 +7,9 @@ public class DrawManager : Singleton<DrawManager>
 {
     public GameObject Drawing;
     public GameObject DrawbleObject;
+    public GameObject Cam;
+    public GameObject DrawCam;
+
     Colors color;
     public Sprite[] sprites;
 
@@ -29,11 +32,19 @@ public class DrawManager : Singleton<DrawManager>
 
     public void OpenDrawing()
     {
+        // Draw용 카메라로
+        Cam.SetActive(false);
+        DrawCam.SetActive(true);
+
         Drawing.SetActive(true);
     }
 
     public void CloseDrawing()
     {
+        // 다시 원래 카메라로
+        Cam.SetActive(true);
+        DrawCam.SetActive(false);
+
         Drawing.SetActive(false);
     }
 }
