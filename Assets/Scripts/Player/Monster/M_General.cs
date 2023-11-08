@@ -24,10 +24,7 @@ public class M_General : MonoBehaviour
     }
     private void Update()
     {
-        //if (플레이어에게 공격 받을 시)
-        //{
-        //    TakeDamage(공격력);
-        //}
+        
     }
 
     public void TakeDamage(int damage)
@@ -70,5 +67,20 @@ public class M_General : MonoBehaviour
         NavMesh.SamplePosition(randomDirection, out hit, 10f, NavMesh.AllAreas);
 
         return hit.position;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log(other.tag);
+        if (other.tag == "Weapon")
+        {
+            Debug.Log(123);
+            TakeDamage(other.GetComponentInParent<PlayerController>().damage); // 이거 맞나?
+        }
+        else if (other.tag == "WeaponB")
+        {
+            TakeDamage(20);
+            Destroy(other.gameObject, 0.1f);
+        }
     }
 }

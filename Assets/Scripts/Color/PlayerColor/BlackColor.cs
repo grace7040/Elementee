@@ -66,6 +66,7 @@ public class BlackColor : IColorState
             {
                 isHoldingEnemy = true; // 타이밍이 문제
                 heldEnemyRigidbody = closestEnemy.GetComponent<Rigidbody2D>();
+                closestEnemy.GetComponent<CapsuleCollider>().enabled = false;
                 Enemy = closestEnemy.gameObject;
 
                 closestEnemy.GetComponent<Animator>().enabled = false;
@@ -92,6 +93,8 @@ public class BlackColor : IColorState
         {
             // 하위 객체(child)의 Transform을 얻어옵니다.
             Transform childTransform = Enemy.gameObject.transform;
+
+            childTransform.GetComponent<CapsuleCollider>().enabled = true;
 
             // 부모-자식 관계를 해제합니다.
             childTransform.SetParent(null);
