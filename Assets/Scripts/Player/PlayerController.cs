@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     public IColorState Color
     {
         get { return color; }
-        set { 
+        set {
             color = value;
             jumpForce = value.JumpForce; // jumpForce: player¿« jump force, JumpForce : Color¿« jumpforce
             damage = value.Damage;
@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     public Colors myColor = Colors.def;
 
     public SpriteRenderer[] colorWeapons;
-    
+
 
     [Header("Movement Customizing")]
     [Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;  // How much to smooth out the movement
@@ -115,7 +115,7 @@ public class PlayerController : MonoBehaviour
         GameManager.Instance.playerMAXHP = maxHealth;
         GameManager.Instance.playerHP = maxHealth;
 
-        Color = new DefaultColor();
+        Color = new RedColor();
         m_Rigidbody2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 
@@ -134,10 +134,12 @@ public class PlayerController : MonoBehaviour
         print("Now:" + animator.GetBool("IsJumping"));
 
         //Attack input -> x
-        if ((Input.GetKeyDown(KeyCode.X)|| isAttack) && canAttack)
+        if ( (Input.GetKeyDown(KeyCode.X) || isAttack) && canAttack)
         {
             doAttack = true;
-            //canAttack = false;
+            canAttack = false;
+            isAttack = false;
+
         }
     }
 
@@ -220,7 +222,6 @@ public class PlayerController : MonoBehaviour
         {
             Color.Attack(this);
             doAttack = false;
-            isAttack = false;
         }
         
 
