@@ -115,7 +115,7 @@ public class PlayerController : MonoBehaviour
         GameManager.Instance.playerMAXHP = maxHealth;
         GameManager.Instance.playerHP = maxHealth;
 
-        Color = new BlackColor();
+        Color = new DefaultColor();
         m_Rigidbody2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 
@@ -131,10 +131,13 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        print("Now:" + animator.GetBool("IsJumping"));
+
         //Attack input -> x
         if ((Input.GetKeyDown(KeyCode.X)|| isAttack) && canAttack)
         {
             doAttack = true;
+            //canAttack = false;
         }
     }
 
@@ -145,7 +148,6 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-
         //땅에 닿아 있는지 판별하는 변수
         bool wasGrounded = m_Grounded;
         m_Grounded = false;
@@ -279,13 +281,11 @@ public class PlayerController : MonoBehaviour
                 // If the input is moving the player right and the player is facing left...
                 if (move > 0 && !m_FacingRight && !isWallSliding)
                 {
-                    // ... flip the player.
                     Flip();
                 }
                 // Otherwise if the input is moving the player left and the player is facing right...
                 else if (move < 0 && m_FacingRight && !isWallSliding)
                 {
-                    // ... flip the player.
                     Flip();
                 }
             }
@@ -407,11 +407,6 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(attackCoolTime);
         canAttack = true;
-    }
-
-    public void UpdateCanAttack()
-    {
-        StartCoroutine(AttackCooldown());
     }
 
     public void Die()
