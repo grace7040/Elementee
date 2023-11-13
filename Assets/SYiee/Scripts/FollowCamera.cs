@@ -7,6 +7,7 @@ public class FollowCamera : MonoBehaviour
 	[Header("Target Player")]
 
 	public Transform Target;
+	public float Target_y;
 
 	[Header("Shaking")]
 	// How long the object should shake for.
@@ -39,7 +40,8 @@ public class FollowCamera : MonoBehaviour
 	private void Update()
 	{
 		Vector3 newPosition = Target.position;
-		newPosition.z = -10;
+		newPosition.z = -8;
+		newPosition.y = newPosition.y + Target_y;
 		transform.position = Vector3.Slerp(transform.position, newPosition, FollowSpeed * Time.deltaTime);
 
 		if (shakeDuration > 0)
