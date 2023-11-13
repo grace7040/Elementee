@@ -5,11 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
-
+    [Header("GameManage")]
     public bool isGameOver;
+
+    [Header("Player")]
+    public Colors playerColor = Colors.def;
+
     public int playerHP = 100;
     public int playerMAXHP = 100;
 
+    [Header("Item")]
     public Colors ReDrawItemColor = Colors.def;
 
     void Start()

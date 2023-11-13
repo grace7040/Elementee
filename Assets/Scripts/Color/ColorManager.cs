@@ -85,6 +85,8 @@ public class ColorManager : Singleton<ColorManager>
     {
         player = FindObjectOfType<PlayerController>();
         player.myColor = _color;
+        GameManager.Instance.playerColor = _color;
+       
 
         // 새로운 색 사용할 때 무기 그리도록 UI 띄우기
         if (!colorList.Contains(_color))

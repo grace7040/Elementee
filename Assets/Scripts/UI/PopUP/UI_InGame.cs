@@ -9,7 +9,17 @@ using UnityEngine.EventSystems;
 public class UI_InGame : UI_Popup
 {
     GameObject player;
-    GameObject hpBar;
+    Colors player_color = Colors.def;
+
+    GameObject jump;
+    GameObject dash;
+    Image hpBar;
+
+    // 팔레트 물감
+    Image Red_IMG;
+    Image Yellow_IMG;
+    Image Blue_IMG;
+
     public float hpBarMAX;
     public VariableJoystick joystick;
 
@@ -35,14 +45,7 @@ public class UI_InGame : UI_Popup
     private void Start()
     {
         Init();
-        SetPalette();
 
-        ColorManager.Instance.OnSetColor += SetPalette;
-
-        player = GameObject.FindGameObjectWithTag("Player");
-        player.GetComponent<CharacterMove>().joystick = joystick;
-
-        hpBarMAX = hpBar.GetComponent<RectTransform>().rect.width;
     }
 
     private void FixedUpdate()
@@ -55,9 +58,26 @@ public class UI_InGame : UI_Popup
 
     public void SetPalette()
     {
-        GetImage((int)Images.Blue).gameObject.SetActive(ColorManager.Instance.HasBlue);
-        GetImage((int)Images.Red).gameObject.SetActive(ColorManager.Instance.HasRed);
-        GetImage((int)Images.Yellow).gameObject.SetActive(ColorManager.Instance.HasYellow);
+        Blue_IMG.gameObject.SetActive(ColorManager.Instance.HasBlue);
+        Red_IMG.gameObject.SetActive(ColorManager.Instance.HasRed);
+        Yellow_IMG.gameObject.SetActive(ColorManager.Instance.HasYellow);
+
+        Colors current_color32 = GameManager.Instance.playerColor;
+        // 플레이어 state에 따른 색 변경
+        if (player_color != current_color32)
+        {
+            player_color = current_color32;
+
+            Color32 color32 = ColorManager.Instance.GetColor(player_color);
+            Color32 alpha_color32_1 = new Color32(color32.r, color32.g, color32.b, 150);
+            Color32 alpha_color32_2 = new Color32(color32.r, color32.g, color32.b, 200);
+
+            hpBar.color = alpha_color32_2;
+            GetButton((int)Buttons.Attack).gameObject.GetComponent<Image>().color = alpha_color32_2;
+            jump.GetComponent<Image>().color = alpha_color32_1;
+            dash.GetComponent<Image>().color = alpha_color32_1;
+
+        }
     }
 
     public override void Init()
@@ -70,16 +90,38 @@ public class UI_InGame : UI_Popup
         GetButton((int)Buttons.SettingBtn).gameObject.BindEvent(OnSettingBtnClicked);
         GetButton((int)Buttons.Palette).gameObject.BindEvent(PaletteBtnClicked);
         GetButton((int)Buttons.Attack).gameObject.BindEvent(AttackBtnClicked);
-        hpBar =  GetImage((int)Images.HP).gameObject;
+        hpBar = GetImage((int)Images.HP);
         
 
-        GameObject jump = GetButton((int)Buttons.Jump).gameObject;
-        GameObject dash = GetButton((int)Buttons.Dash).gameObject;
+        jump = GetButton((int)Buttons.Jump).gameObject;
+        dash = GetButton((int)Buttons.Dash).gameObject;
     
         BindEvent(jump, JumpBtnClickedDown, Define.UIEvent.DownClick);
         BindEvent(jump, JumpBtnClickedUp, Define.UIEvent.UpClick);
         BindEvent(dash, DashBtnClickedDown, Define.UIEvent.DownClick);
         BindEvent(dash, DashBtnClickedUp, Define.UIEvent.UpClick);
+
+
+        // 물감 오브젝트 받아두기 + ColorManger에 저장된 색으로 변경
+        Red_IMG = GetImage((int)Images.Red);
+        Red_IMG.color = ColorManager.Instance.GetColor(Colors.red);
+        print("dpd");
+
+        Yellow_IMG = GetImage((int)Images.Yellow);
+        Yellow_IMG.color = ColorManager.Instance.GetColor(Colors.yellow);
+
+        Blue_IMG = GetImage((int)Images.Blue);
+        Blue_IMG.color = ColorManager.Instance.GetColor(Colors.blue);
+
+        // Palette 세팅
+        SetPalette();
+        ColorManager.Instance.OnSetColor += SetPalette;
+
+        player = GameObject.FindGameObjectWithTag("Player");
+        player.GetComponent<CharacterMove>().joystick = joystick;
+
+        // hpBar 길이 받아두기
+        hpBarMAX = hpBar.gameObject.GetComponent<RectTransform>().rect.width;
     }
 
     public void OnSettingBtnClicked(PointerEventData data) // 설정 버튼 눌렀을 때
