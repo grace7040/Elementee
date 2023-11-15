@@ -12,7 +12,7 @@ public class UI_GameOver : UI_Popup
     {
         ToMainBtn,
         RetryBtn,
-        ResumeBtn,
+        //ResumeBtn,
 
     }
 
@@ -47,8 +47,9 @@ public class UI_GameOver : UI_Popup
         //Bind<Image>(typeof(Images)); 
 
         GetButton((int)Buttons.ToMainBtn).gameObject.BindEvent(ToMainBtnClicked);
-        GetButton((int)Buttons.ResumeBtn).gameObject.BindEvent(OnResumeBtnClicked);
+        //GetButton((int)Buttons.ResumeBtn).gameObject.BindEvent(OnResumeBtnClicked);
         GetButton((int)Buttons.RetryBtn).gameObject.BindEvent(OnRetryBtnClicked);
+
         //GameObject go = GetImage((int)Images.ItemIcon).gameObject;
         //BindEvent(go, (PointerEventData data) => { go.transform.position = data.position; }, Define.UIEvent.Drag);
     }
