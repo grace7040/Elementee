@@ -16,6 +16,7 @@ public class Mic : MonoBehaviour
     public void PlaySnd()
     {
         aud.Play();
+        SavWav.Save("C:/Users/user/wkspaces/Elementee/Assets/Cherry/Records/Test", aud.clip);
     }
 
     public void RecSnd()
@@ -25,15 +26,19 @@ public class Mic : MonoBehaviour
             Debug.Log("Name: " + device);
         }
 
-        record = Microphone.Start(Microphone.devices[1].ToString(), false, 3, 44100);
-
-        float[] samples = new float[record.samples];
-        record.GetData(samples, 0);
+        record = Microphone.Start(Microphone.devices[0].ToString(), false, 1, 44100);
         aud.clip = record;
 
-        AudioClip recording = AudioClip.Create("제발", samples.Length, 1, 44100, false);
-        recording.SetData(samples, 0);
+        //float[] samples = new float[record.samples];
+        //record.GetData(samples, 0);
+        
 
-        SavWav.Save("C:/Users/Cherry/Documents/GitHub/Elementee/Assets/Cherry/Records/Test", recording);
+        //AudioClip recording = AudioClip.Create("제발", samples.Length, 1, 44100, false);
+        //recording.SetData(samples, 0);
+
+        
+
+
+        // 데탑용 path : "C:/Users/Cherry/Documents/GitHub/Elementee/Assets/Cherry/Records/Test"
     }
 }
