@@ -20,7 +20,7 @@ public class BlackColor : MonoBehaviour, IColorState
     //    throwableWeapon.name = "ThrowableWeapon";
     //}
 
-    public float pullForce = 1.5f; // 끌어당기는 힘 조절용 변수
+    public float pullForce = 1.0f; // 끌어당기는 힘 조절용 변수
     public float throwForce = 15f; // 던지는 힘 조절용 변수
     public bool isHoldingEnemy = false; // 적을 가지고 있는지 여부
     private Rigidbody2D heldEnemyRigidbody; // 가지고 있는 적의 Rigidbody2D
