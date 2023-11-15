@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlackColor : IColorState
+public class BlackColor : MonoBehaviour, IColorState
 {
     public float JumpForce { get { return 800f; } }
     public int Damage { get { return 15; } }
@@ -20,8 +20,8 @@ public class BlackColor : IColorState
     //    throwableWeapon.name = "ThrowableWeapon";
     //}
 
-    public float pullForce = 1f; // 끌어당기는 힘 조절용 변수
-    public float throwForce = 20f; // 던지는 힘 조절용 변수
+    public float pullForce = 1.5f; // 끌어당기는 힘 조절용 변수
+    public float throwForce = 15f; // 던지는 힘 조절용 변수
     public bool isHoldingEnemy = false; // 적을 가지고 있는지 여부
     private Rigidbody2D heldEnemyRigidbody; // 가지고 있는 적의 Rigidbody2D
     private Transform playerTransform; // 플레이어의 Transform
@@ -30,6 +30,7 @@ public class BlackColor : IColorState
     // 플레이어와 충돌했을 때 호출되는 함수
     public void Attack(PlayerController player)
     {
+        //Debug.Log(player.canAttack);
         if (isHoldingEnemy)
         {
             // 이미 가지고 있는 적을 던집니다.
@@ -40,6 +41,7 @@ public class BlackColor : IColorState
             // 플레이어와 충돌했을 때, 적을 가지게 합니다.
             playerTransform = player.transform; // 플레이어의 Transform 얻기
             PullClosestEnemy(playerTransform);
+            player.canAttack = true;
         }
     }
 
@@ -49,7 +51,7 @@ public class BlackColor : IColorState
         if (!isHoldingEnemy)
         {
             GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-            float closestDistance = Mathf.Infinity;
+            float closestDistance = 7.5f;
             Transform closestEnemy = null;
 
             foreach (GameObject enemy in enemies)
@@ -66,12 +68,14 @@ public class BlackColor : IColorState
             {
                 isHoldingEnemy = true; // 타이밍이 문제
                 heldEnemyRigidbody = closestEnemy.GetComponent<Rigidbody2D>();
-                closestEnemy.GetComponent<CapsuleCollider>().enabled = false;
+                //closestEnemy.GetComponent<CapsuleCollider2D>().enabled = false;
                 Enemy = closestEnemy.gameObject;
 
                 closestEnemy.GetComponent<Animator>().enabled = false;
                 closestEnemy.GetComponent<MonsterController>().enabled = false;
                 closestEnemy.GetComponent<Rigidbody2D>().mass = 0.1f;
+                closestEnemy.GetComponent<Rigidbody2D>().gravityScale = 0.0f;
+                closestEnemy.GetComponent<CapsuleCollider2D>().isTrigger = true;
                 //heldEnemyRigidbody.isKinematic = true;
                 //heldEnemyRigidbody.collisionDetectionMode = CollisionDetectionMode2D.Discrete;
 
@@ -79,31 +83,53 @@ public class BlackColor : IColorState
                 //Enemy.transform.Translate(playerTransform.position * pullForce * Time.deltaTime);
                 //Debug.Log(Enemy.transform.position);
 
+                //StartCoroutine(Pull());
+
+                //IEnumerator Pull()
+                //{
+                //    Vector2 throwDirection = (playerTransform.position - heldEnemyRigidbody.transform.position).normalized;
+                //    heldEnemyRigidbody.AddForce(throwDirection * pullForce, ForceMode2D.Impulse);
+
+                //    yield return null;
+                //}
+
                 Vector2 throwDirection = (playerTransform.position - heldEnemyRigidbody.transform.position).normalized;
                 heldEnemyRigidbody.AddForce(throwDirection * pullForce, ForceMode2D.Impulse);
-                ;            }
+            }
         }
     }
 
     // 가지고 있는 적을 던집니다.
     private void ThrowHeldEnemy()
     {
-     Rigidbody2D rb = Enemy.AddComponent<Rigidbody2D>();
+        Rigidbody2D rb = Enemy.AddComponent<Rigidbody2D>();
         if (rb != null)
         {
             // 하위 객체(child)의 Transform을 얻어옵니다.
             Transform childTransform = Enemy.gameObject.transform;
 
-            childTransform.GetComponent<CapsuleCollider>().enabled = true;
+            //childTransform.GetComponent<CapsuleCollider2D>().enabled = true;
 
             // 부모-자식 관계를 해제합니다.
             childTransform.SetParent(null);
 
             isHoldingEnemy = false;
+            Enemy.GetComponent<CapsuleCollider2D>().isTrigger = false;
+            Enemy.GetComponent<Rigidbody2D>().gravityScale = 0.0f;
+
             Vector2 throwDirection = (rb.transform.position - playerTransform.position).normalized;
             rb.velocity = throwDirection * throwForce;
             rb.gameObject.tag = "WeaponB"; // 태그 변경
             heldEnemyRigidbody = null;
+
+            Destroy(Enemy.gameObject, 3.0f);
         }
+        //if (heldEnemyRigidbody != null)
+        //{
+        //    isHoldingEnemy = false;
+        //    Vector2 throwDirection = (heldEnemyRigidbody.transform.position - playerTransform.position).normalized;
+        //    heldEnemyRigidbody.AddForce(throwDirection * throwForce, ForceMode2D.Impulse);
+        //    heldEnemyRigidbody = null;
+        //}
     }
 }

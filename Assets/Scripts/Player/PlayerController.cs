@@ -107,6 +107,9 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public int maxHealth = 100;
     [HideInInspector] public int damage = 10;
 
+    // weapon position
+    public GameObject WeaponPosition;
+
 
     private void Start()
     {
@@ -115,7 +118,7 @@ public class PlayerController : MonoBehaviour
         GameManager.Instance.playerMAXHP = maxHealth;
         GameManager.Instance.playerHP = maxHealth;
 
-        Color = new RedColor();
+        Color = new BlackColor();
         m_Rigidbody2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 
@@ -452,12 +455,24 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy")
         {
+            TakeDamage(collision.gameObject.GetComponent<MonsterController>().m_damage,
+            collision.gameObject.transform.position);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
             if (Color.Damage == 15f)
             {
                 if (!collision.gameObject.GetComponent<MonsterController>().isActiveAndEnabled)
                 {
+                    collision.gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+                    collision.gameObject.transform.position = WeaponPosition.transform.position;
+
                     // 상위 객체(부모)의 Transform을 얻어옵니다.
-                    Transform parentTransform = gameObject.transform;
+                    Transform parentTransform = WeaponPosition.transform;
 
                     // 하위 객체(자식)의 Transform을 얻어옵니다.
                     Transform childTransform = collision.gameObject.transform;
@@ -466,20 +481,9 @@ public class PlayerController : MonoBehaviour
                     childTransform.SetParent(parentTransform);
 
                     Destroy(collision.gameObject.GetComponent<Rigidbody2D>(), 0.1f);
+
+                    //StopCoroutine("Pull");
                 }
-                
-                //Debug.Log(collision.gameObject.GetComponent<Rigidbody2D>().velocity);
-
-                //collision.gameObject.GetComponent<BlackColor>().isHoldingEnemy = true;
-                //Rigidbody2D rb = collision.gameObject.GetComponent<Rigidbody2D>();
-                //rb.constraints = RigidbodyConstraints2D.FreezePositionX; // X축 방향으로의 움직임을 제한
-                //rb.constraints = RigidbodyConstraints2D.FreezePositionY; // Y축 방향으로의 움직임을 제한
-
-            }
-            else
-            {
-                TakeDamage(collision.gameObject.GetComponent<MonsterController>().m_damage,
-                collision.gameObject.transform.position);
             }
         }
     }
