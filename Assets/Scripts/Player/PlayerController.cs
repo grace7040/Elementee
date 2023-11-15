@@ -469,7 +469,7 @@ public class PlayerController : MonoBehaviour
                 if (!collision.gameObject.GetComponent<MonsterController>().isActiveAndEnabled)
                 {
                     collision.gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-                    collision.gameObject.transform.position = WeaponPosition.transform.position;
+                    //collision.gameObject.transform.position = WeaponPosition.transform.position;
 
                     // 상위 객체(부모)의 Transform을 얻어옵니다.
                     Transform parentTransform = WeaponPosition.transform;
@@ -479,6 +479,8 @@ public class PlayerController : MonoBehaviour
 
                     // 하위 객체(child)를 상위 객체(parent)의 하위로 만듭니다.
                     childTransform.SetParent(parentTransform);
+
+                    collision.gameObject.transform.localPosition = new Vector3(0, 0, 0);
 
                     Destroy(collision.gameObject.GetComponent<Rigidbody2D>(), 0.1f);
 
