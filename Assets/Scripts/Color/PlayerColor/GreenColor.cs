@@ -12,7 +12,7 @@ public class GreenColor : MonoBehaviour, IColorState
     //Temporal Setting : Green Color Attack -> Throw leaf obj
     public void Attack(PlayerController player)
     {
-        if (player.canAttack)
+        //if (player.canAttack)
         {
             player.canAttack = false;
             GameObject throwableWeapon = Instantiate(Resources.Load("GreenWeapon"),

@@ -12,7 +12,7 @@ public class PurpleColor : IColorState
     public void Attack(PlayerController player)
     {
         player.GetComponent<PlayerController>().cam.GetComponent<FollowCamera>().ShakeCamera();
-        if (player.canAttack)
+        //if (player.canAttack)
         {
             Debug.Log("Attak");
             player.canAttack = false;

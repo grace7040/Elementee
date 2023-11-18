@@ -12,7 +12,7 @@ public class BlueColor : MonoBehaviour, IColorState
     //Temporal Setting : BLue Color Attack -> Throw Water obj
     public void Attack(PlayerController player)
     {
-        if(player.canAttack)
+        //if(player.canAttack)
         {
             player.canAttack = false;
             GameObject throwableWeapon = Instantiate(Resources.Load("BlueWeapon"),
