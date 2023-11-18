@@ -119,7 +119,7 @@ public class PlayerController : MonoBehaviour
         GameManager.Instance.playerMAXHP = maxHealth;
         GameManager.Instance.playerHP = maxHealth;
 
-        Color = new RedColor();
+        Color = new BlackColor();
         m_Rigidbody2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 
@@ -156,7 +156,10 @@ public class PlayerController : MonoBehaviour
                     {
                         if (child_.name.Contains("EnemySimple"))
                         {
-                            child_.transform.localPosition = new Vector2(0, 0);
+                            if (child_.transform.localPosition.x != 0 || child_.transform.localPosition.y != 0)
+                            {
+                                child_.transform.localPosition = new Vector2(0, 0);
+                            }
                         }
                     }
                 }
@@ -492,6 +495,7 @@ public class PlayerController : MonoBehaviour
                 if (!collision.gameObject.GetComponent<MonsterController>().isActiveAndEnabled)
                 {
                     collision.gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+                    collision.gameObject.GetComponent<OB_VerticlaMovement>().enabled = true;
                     //collision.gameObject.transform.position = WeaponPosition.transform.position;
 
                     // 상위 객체(부모)의 Transform을 얻어옵니다.

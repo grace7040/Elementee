@@ -12,12 +12,6 @@ public class OB_VerticlaMovement : MonoBehaviour
 
     void Start()
     {
-        if (centerPoint == null)
-        {
-            Debug.LogError("Center point not assigned! Please assign a center point in the Inspector.");
-            enabled = false; // Disable the script to prevent errors
-        }
-
         initialPosition = transform.position; // 초기 위치 저장
     }
 
