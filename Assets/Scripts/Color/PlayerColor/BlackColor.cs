@@ -20,28 +20,43 @@ public class BlackColor : MonoBehaviour, IColorState
     //    throwableWeapon.name = "ThrowableWeapon";
     //}
 
-    public float pullForce = 1.0f; // 끌어당기는 힘 조절용 변수
+    public float pullForce = 2.0f; // 끌어당기는 힘 조절용 변수
     public float throwForce = 15f; // 던지는 힘 조절용 변수
     public bool isHoldingEnemy = false; // 적을 가지고 있는지 여부
     private Rigidbody2D heldEnemyRigidbody; // 가지고 있는 적의 Rigidbody2D
     private Transform playerTransform; // 플레이어의 Transform
     private GameObject Enemy;
 
-    // 플레이어와 충돌했을 때 호출되는 함수
     public void Attack(PlayerController player)
     {
-        //Debug.Log(player.canAttack);
+        player.canAttack = true;
+        foreach (Transform child in player.transform)
+        {
+            if (child.name == "WeaponPosition")
+            {
+                foreach (Transform child_ in child.transform)
+                {
+                    if (child_.name.Contains("EnemySimple"))
+                    {
+                        isHoldingEnemy = true;
+                    }
+                }
+            }
+            //Debug.Log(isHoldingEnemy);
+        }
+
+        Debug.Log(player.canAttack);
         if (isHoldingEnemy)
         {
-            // 이미 가지고 있는 적을 던집니다.
+            Debug.Log("던짐");
             ThrowHeldEnemy();
         }
         else
         {
-            // 플레이어와 충돌했을 때, 적을 가지게 합니다.
-            playerTransform = player.transform; // 플레이어의 Transform 얻기
+            Debug.Log("당김");
+            playerTransform = player.transform;
             PullClosestEnemy(playerTransform);
-            player.canAttack = true;
+            //player.canAttack = true;
         }
     }
 
@@ -66,7 +81,7 @@ public class BlackColor : MonoBehaviour, IColorState
 
             if (closestEnemy != null)
             {
-                isHoldingEnemy = true; // 타이밍이 문제
+                //isHoldingEnemy = true; // 타이밍이 문제
                 heldEnemyRigidbody = closestEnemy.GetComponent<Rigidbody2D>();
                 //closestEnemy.GetComponent<CapsuleCollider2D>().enabled = false;
                 Enemy = closestEnemy.gameObject;
@@ -114,7 +129,7 @@ public class BlackColor : MonoBehaviour, IColorState
             childTransform.SetParent(null);
 
             isHoldingEnemy = false;
-            Enemy.GetComponent<CapsuleCollider2D>().isTrigger = false;
+            //Enemy.GetComponent<CapsuleCollider2D>().isTrigger = false;
             Enemy.GetComponent<Rigidbody2D>().gravityScale = 0.0f;
 
             Vector2 throwDirection = (rb.transform.position - playerTransform.position).normalized;

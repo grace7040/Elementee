@@ -1,3 +1,4 @@
+using GooglePlayGames.BasicApi;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -134,7 +135,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        print("Now:" + animator.GetBool("IsJumping"));
+        //print("Now:" + animator.GetBool("IsJumping"));
 
         //Attack input -> x
         if ( (Input.GetKeyDown(KeyCode.X) || isAttack) && canAttack)
@@ -143,6 +144,23 @@ public class PlayerController : MonoBehaviour
             canAttack = false;
             isAttack = false;
 
+        }
+
+        if (Color.Damage == 15f)
+        {
+            foreach (Transform child in gameObject.transform)
+            {
+                if (child.name == "WeaponPosition")
+                {
+                    foreach (Transform child_ in child.transform)
+                    {
+                        if (child_.name.Contains("EnemySimple"))
+                        {
+                            child_.transform.localPosition = new Vector2(0, 0);
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -480,7 +498,10 @@ public class PlayerController : MonoBehaviour
                     // 하위 객체(child)를 상위 객체(parent)의 하위로 만듭니다.
                     childTransform.SetParent(parentTransform);
 
-                    collision.gameObject.transform.localPosition = new Vector3(0, 0, 0);
+                    //childTransform.localPosition = new Vector2(0, 0);       
+
+                    //collision.gameObject.transform.localPosition = Vector2.zero;
+                    //Debug.Log(collision.gameObject.transform.localPosition);
 
                     Destroy(collision.gameObject.GetComponent<Rigidbody2D>(), 0.1f);
 
@@ -489,6 +510,18 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+
+    //private void OnTriggerStay2D(Collider2D collision)
+    //{
+    //    if (collision.gameObject.tag == "Enemy")
+    //    {
+    //        if (Color.Damage == 15f)
+    //        {
+    //            Debug.Log("Stay");
+    //            collision.gameObject.transform.localPosition = new Vector2(0, 0);
+    //        }
+    //    }
+    //}
 
     IEnumerator WaitToDead()
     {

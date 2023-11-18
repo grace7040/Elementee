@@ -170,15 +170,16 @@ public class MonsterController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log(other.tag);
+        Debug.Log(other.gameObject.tag);
         if (other.tag == "Weapon")
         {
-            Debug.Log(123);
+            //Debug.Log(123);
             TakeDamage(other.GetComponentInParent<PlayerController>().damage, other.transform.position);
         }
-        else if (other.tag == "WeaponB")
+        else if (other.gameObject.tag == "WeaponB")
         {
-            TakeDamage(20, other.transform.position);
+            Debug.Log(123);
+            TakeDamage(100, other.transform.position);
             Destroy(other.gameObject, 0.1f);
         }
     }
