@@ -131,6 +131,10 @@ public class BlackColor : MonoBehaviour, IColorState
             isHoldingEnemy = false;
             //Enemy.GetComponent<CapsuleCollider2D>().isTrigger = false;
             Enemy.GetComponent<Rigidbody2D>().gravityScale = 0.0f;
+            //Enemy.GetComponent<Rigidbody2D>().mass = 0.0f;
+            //rb.velocity= Vector2.zero;
+
+            rb.gameObject.GetComponent<OB_VerticlaMovement>().enabled = false;
 
             Vector2 throwDirection = (rb.transform.position - playerTransform.position).normalized;
             rb.velocity = throwDirection * throwForce;
