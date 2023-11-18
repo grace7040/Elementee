@@ -5,8 +5,8 @@ using UnityEngine;
 public class OB_HorizontalMovement : MonoBehaviour
 {
     public Transform pivotPoint; // Point to pivot around
-    public float horizontalSpeed = 2.0f; // Speed control variable for horizontal movement
-    public float horizontalRange = 2.0f; // Range control variable for horizontal movement
+    public float horizontalSpeed = 1.0f; // Speed control variable for horizontal movement
+    public float horizontalRange = 1.0f; // Range control variable for horizontal movement
     private Vector3 initialPosition;
 
     void Start()
@@ -17,7 +17,7 @@ public class OB_HorizontalMovement : MonoBehaviour
     void Update()
     {
         // Calculate horizontal movement
-        float horizontalMovementValue = Mathf.Sin(Time.time * horizontalSpeed) * horizontalRange;
+        float horizontalMovementValue = Mathf.Sin(Time.time * horizontalSpeed) * horizontalRange * 0.01f;
 
         // Set the new position based on the pivot point
         Vector3 offsetFromPivot = transform.position - pivotPoint.position;
@@ -26,4 +26,6 @@ public class OB_HorizontalMovement : MonoBehaviour
         // Update the object's position
         transform.position = newPosition;
     }
+
+
 }
