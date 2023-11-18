@@ -13,6 +13,7 @@ public class UI_InGame : UI_Popup
 
     GameObject jump;
     GameObject dash;
+    GameObject attack;
     Image hpBar;
 
     // 팔레트 물감
@@ -89,17 +90,20 @@ public class UI_InGame : UI_Popup
 
         GetButton((int)Buttons.SettingBtn).gameObject.BindEvent(OnSettingBtnClicked);
         GetButton((int)Buttons.Palette).gameObject.BindEvent(PaletteBtnClicked);
-        GetButton((int)Buttons.Attack).gameObject.BindEvent(AttackBtnClicked);
+      //  GetButton((int)Buttons.Attack).gameObject.BindEvent(AttackBtnClicked);
         hpBar = GetImage((int)Images.HP);
         
 
         jump = GetButton((int)Buttons.Jump).gameObject;
         dash = GetButton((int)Buttons.Dash).gameObject;
+        attack = GetButton((int)Buttons.Attack).gameObject;
     
         BindEvent(jump, JumpBtnClickedDown, Define.UIEvent.DownClick);
         BindEvent(jump, JumpBtnClickedUp, Define.UIEvent.UpClick);
         BindEvent(dash, DashBtnClickedDown, Define.UIEvent.DownClick);
         BindEvent(dash, DashBtnClickedUp, Define.UIEvent.UpClick);
+        BindEvent(attack, AttackBtnClickedDown, Define.UIEvent.DownClick);
+        BindEvent(attack, AttackBtnClickedUp, Define.UIEvent.UpClick);
 
 
         // 물감 오브젝트 받아두기 + ColorManger에 저장된 색으로 변경
@@ -145,9 +149,14 @@ public class UI_InGame : UI_Popup
 
     // 플레이어 컨트롤
 
-    public void AttackBtnClicked(PointerEventData data)
+    public void AttackBtnClickedDown(PointerEventData data)
     {
         player.GetComponent<PlayerController>().AttackDown();
+    }
+
+    public void AttackBtnClickedUp(PointerEventData data)
+    {
+        player.GetComponent<PlayerController>().AttackUp();
     }
 
     public void JumpBtnClickedDown(PointerEventData data)

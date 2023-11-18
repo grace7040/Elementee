@@ -101,7 +101,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public bool doAttack = false; //attack input
     [HideInInspector] public bool canAttack = true;
     //private bool isTimeToCheck = false; 
-    private bool isAttack = false; //attack btn input
+    public bool isAttack = false; //attack btn input
     private float attackCoolTime = 0.25f;
 
     //Health
@@ -167,6 +167,11 @@ public class PlayerController : MonoBehaviour
     public void AttackDown()
     {
         isAttack = true;
+    }
+
+    public void AttackUp()
+    {
+        isAttack = false;
     }
 
     private void FixedUpdate()
@@ -241,8 +246,8 @@ public class PlayerController : MonoBehaviour
 
         if (doAttack)
         {
-            Color.Attack(this);
             doAttack = false;
+            Color.Attack(this);
         }
         
 
