@@ -154,7 +154,7 @@ public class PlayerController : MonoBehaviour
                 {
                     foreach (Transform child_ in child.transform)
                     {
-                        if (child_.name.Contains("EnemySimple"))
+                        if (child_.name.Contains("M_"))
                         {
                             if (child_.transform.localPosition.x != 0 || child_.transform.localPosition.y != 0)
                             {
@@ -484,6 +484,11 @@ public class PlayerController : MonoBehaviour
             TakeDamage(collision.gameObject.GetComponent<MonsterController>().m_damage,
             collision.gameObject.transform.position);
         }
+        //else if (collision.gameObject.tag == "EnemyWeapon")
+        //{
+        //    TakeDamage(10, collision.gameObject.transform.position);
+        //    Destroy(collision.gameObject, 0.1f);
+        //}
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -517,6 +522,11 @@ public class PlayerController : MonoBehaviour
                     //StopCoroutine("Pull");
                 }
             }
+        }
+        else if (collision.gameObject.tag == "EnemyWeapon")
+        {
+            TakeDamage(10, collision.gameObject.transform.position);
+            Destroy(collision.gameObject, 0.1f);
         }
     }
 

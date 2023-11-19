@@ -36,7 +36,7 @@ public class BlackColor : MonoBehaviour, IColorState
             {
                 foreach (Transform child_ in child.transform)
                 {
-                    if (child_.name.Contains("EnemySimple"))
+                    if (child_.name.Contains("M_"))
                     {
                         isHoldingEnemy = true;
                     }

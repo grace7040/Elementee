@@ -4,12 +4,18 @@ using UnityEngine;
 
 public class M_Water : MonoBehaviour
 {
-    public Vector2 direction;
+    public Vector3 direction;
     public float speed = 10f;
 
+    private void Start()
+    {
+        direction = GameObject.FindGameObjectWithTag("Player").transform.position - gameObject.transform.position;
+    }
     private void FixedUpdate()
     {
-        GetComponent<Rigidbody2D>().velocity = direction * speed;
+        //direction = GameObject.FindGameObjectWithTag("Player").transform.position - gameObject.transform.position;
+
+        GetComponent<Rigidbody2D>().velocity = direction.normalized * speed;
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -17,5 +23,9 @@ public class M_Water : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        //else if (collision.gameObject.tag == "Player")
+        //{
+
+        //}
     }
 }

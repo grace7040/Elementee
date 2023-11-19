@@ -36,6 +36,8 @@ public class MonsterController : MonoBehaviour
 
     public bool canAttack = true;
 
+    private SpriteRenderer monsterSpriteRenderer;
+
     //public Animator animator;
 
     private void Awake()
@@ -70,17 +72,33 @@ public class MonsterController : MonoBehaviour
     void Start()
     {
         //Color = new M_RedColor();
-        //Color = new M_BlueColor();
-        Color = new M_YellowColor();
+        Color = new M_BlueColor();
+        //Color = new M_YellowColor();
         //Color = new M_DefaultColor();
         currentHealth = maxHealth;
         player = GameObject.FindGameObjectWithTag("Player").transform; // "Player" 태그를 가진 오브젝트를 플레이어로 설정
+        monsterSpriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
     {
-        //Debug.Log(rb.velocity);
+        if (player != null)
+        {
+            // 몬스터와 플레이어의 위치 차이를 계산합니다.
+            float distance = player.position.x - transform.position.x;
+
+            // 플레이어가 몬스터의 왼쪽에 있으면 좌우를 뒤집습니다.
+            if (distance < 0f)
+            {
+                monsterSpriteRenderer.flipX = false;
+            }
+            // 플레이어가 몬스터의 오른쪽에 있으면 좌우를 뒤집지 않습니다.
+            else if (distance > 0f)
+            {
+                monsterSpriteRenderer.flipX = true;
+            }
+        }
 
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
@@ -94,12 +112,14 @@ public class MonsterController : MonoBehaviour
         // 플레이어가 감지 범위 안에 있으면 플레이어를 향해 이동
         else if (distanceToPlayer <= detectionRange)
         {
+            gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
             Vector2 moveDirection = new Vector2(player.position.x - transform.position.x,0).normalized;
             rb.velocity = moveDirection * moveSpeed; 
         }
         else
         {
             // 감지 범위를 벗어난 경우 이동 중지
+            gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
             rb.velocity = Vector2.zero;
         }
     }
