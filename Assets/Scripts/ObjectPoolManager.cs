@@ -15,7 +15,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
         public int count;
     }
 
-    public string currentColorName = null;
+    string currentColorName = null;
     // 오브젝트풀 매니저 준비 완료표시
     public bool IsReady { get; private set; }
 
