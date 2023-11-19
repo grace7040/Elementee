@@ -225,7 +225,7 @@ public class MonsterController : MonoBehaviour
         // ³Ë¹é
         Vector2 damageDir = new Vector3(transform.position.x - playerPos.x, 0, 0).normalized * 40f;
         rb.velocity = Vector2.zero;
-        rb.AddForce(damageDir * 50);
+        rb.AddForce(damageDir * 5);
 
         if (currentHealth <= 0)
         {
@@ -253,7 +253,7 @@ public class MonsterController : MonoBehaviour
                     break;
             }
         }
-        Destroy(gameObject);
+        Destroy(gameObject, 0.5f);
     }
 
     IEnumerator AttackCooldown()
