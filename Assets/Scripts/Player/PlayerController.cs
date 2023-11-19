@@ -129,7 +129,7 @@ public class PlayerController : MonoBehaviour
         GameManager.Instance.playerMAXHP = maxHealth;
         GameManager.Instance.playerHP = maxHealth;
 
-        Color = new BlueColor();
+        Color = new BlackColor();
         m_Rigidbody2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 
@@ -494,10 +494,6 @@ public class PlayerController : MonoBehaviour
             TakeDamage(collision.gameObject.GetComponent<MonsterController>().m_damage,
             collision.gameObject.transform.position);
         }
-        else if (collision.gameObject.tag == "General_Enemy")
-        {
-            TakeDamage(5, collision.gameObject.transform.position);
-        }
         //else if (collision.gameObject.tag == "EnemyWeapon")
         //{
         //    TakeDamage(10, collision.gameObject.transform.position);
@@ -511,10 +507,6 @@ public class PlayerController : MonoBehaviour
         {
             TakeDamage(collision.gameObject.GetComponent<MonsterController>().m_damage,
             collision.gameObject.transform.position);
-        }
-        else if (collision.gameObject.tag == "General_Enemy")
-        {
-            TakeDamage(5, collision.gameObject.transform.position);
         }
     }
 

@@ -12,6 +12,5 @@ public class M_YellowColor : MonoBehaviour, M_IColorState
     {
         monster.GetComponent<Animator>().SetBool("IsAttacking", true);
         GameObject Volt = Instantiate(Resources.Load("Volt"), monster.transform.position, Quaternion.identity) as GameObject;
-        Destroy(Volt, 2f);
     }
 }

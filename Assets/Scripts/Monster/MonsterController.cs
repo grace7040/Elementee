@@ -39,6 +39,11 @@ public class MonsterController : MonoBehaviour
 
     private SpriteRenderer monsterSpriteRenderer;
 
+    public Transform[] waypoints; // AI가 이동할 Waypoint들의 배열
+
+    private int currentWaypointIndex = 0;
+    private Transform currentWaypoint;
+
     //public Animator animator;
 
     private void Awake()
@@ -74,13 +79,18 @@ public class MonsterController : MonoBehaviour
     {
         //Color = new M_RedColor();
         //Color = new M_BlueColor();
-        Color = new M_YellowColor();
-        //Color = new M_DefaultColor();
+        //Color = new M_YellowColor();
+        Color = new M_DefaultColor();
 
         currentHealth = maxHealth;
         player = GameObject.FindGameObjectWithTag("Player").transform; // "Player" 태그를 가진 오브젝트를 플레이어로 설정
         monsterSpriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
+
+        if (waypoints.Length > 0)
+        {
+            currentWaypoint = waypoints[currentWaypointIndex];
+        }
     }
 
     private void Update()
@@ -104,7 +114,15 @@ public class MonsterController : MonoBehaviour
 
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
-        if (Color.M_damage == 20)
+        if (Color.M_damage == 5) // Default
+        {
+            if (currentWaypoint != null)
+            {
+                MoveTowardsWaypoint();
+            }
+        }
+
+        else  if (Color.M_damage == 20) // Red, Yellow
         {
             if (distanceToPlayer <= attackRange && canAttack)
             {
@@ -130,7 +148,7 @@ public class MonsterController : MonoBehaviour
                 rb.velocity = Vector2.zero;
             }
         }
-        else if (Color.M_damage == 10)
+        else if (Color.M_damage == 10) // Blue
         {
             // 플레이어가 공격 범위 안에 있고 공격 쿨다운이 끝났으면 공격 실행
             if (distanceToPlayer <= attackRange && canAttack)
@@ -153,6 +171,25 @@ public class MonsterController : MonoBehaviour
                 rb.velocity = Vector2.zero;
             }
         }
+    }
+
+    private void MoveTowardsWaypoint()
+    {
+        // 현재 Waypoint로 이동
+        transform.position = Vector2.MoveTowards(transform.position, currentWaypoint.position, moveSpeed * Time.deltaTime);
+
+        // 만약 AI가 현재 Waypoint에 도착했다면 다음 Waypoint로 변경
+        if (Vector2.Distance(transform.position, currentWaypoint.position) < 0.1f)
+        {
+            SetNextWaypoint();
+        }
+    }
+
+    private void SetNextWaypoint()
+    {
+        // 다음 Waypoint을 설정하고, 배열의 끝에 도달하면 처음 Waypoint으로 돌아감
+        currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Length;
+        currentWaypoint = waypoints[currentWaypointIndex];
     }
     public void TakeDamage(int damage, Vector3 playerPos)
     {
@@ -215,7 +252,7 @@ public class MonsterController : MonoBehaviour
         }
         else if (other.gameObject.tag == "WeaponB")
         {
-            Debug.Log(123);
+            //Debug.Log(123);
             TakeDamage(100, other.transform.position);
             Destroy(other.gameObject, 0.1f);
         }

@@ -5,10 +5,9 @@ using UnityEngine;
 public class M_Volt : MonoBehaviour
 {
     public float moveSpeed = 1f;   // 따라다니는 속도
-
-    private void Start()
+    void Start()
     {
-        
+        Destroy(gameObject, 2.0f);
     }
     void Update()
     {
