@@ -24,7 +24,7 @@ public class ColorManager : Singleton<ColorManager>
         get { return hasRed; }
         set { 
             hasRed = value;
-            OnSetColor.Invoke();
+            OnSetColor?.Invoke();
         }
     }
 
@@ -34,7 +34,7 @@ public class ColorManager : Singleton<ColorManager>
         set
         {
             hasBlue = value;
-            OnSetColor.Invoke();
+            OnSetColor?.Invoke();
         }
     }
 
@@ -44,7 +44,7 @@ public class ColorManager : Singleton<ColorManager>
         set
         {
             hasYellow = value;
-            OnSetColor.Invoke();
+            OnSetColor?.Invoke();
         }
     }
 
