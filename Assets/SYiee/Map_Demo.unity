@@ -8849,8 +8849,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed492f8145402c649a059f34ef3b2ed6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2
-  changeDestinationTime: 5
+  waypoints: []
+  movementSpeed: 3
   maxHealth: 100
 --- !u!195 &1562486323
 NavMeshAgent:
