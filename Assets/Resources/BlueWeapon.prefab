@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5532974359214069768}
   - component: {fileID: 5532974359214069775}
   - component: {fileID: 1602451467754018930}
+  - component: {fileID: 2065462091233755148}
   m_Layer: 6
   m_Name: BlueWeapon
   m_TagString: WeaponB
@@ -155,3 +156,15 @@ CircleCollider2D:
   m_Offset: {x: 0.42231268, y: 0}
   serializedVersion: 2
   m_Radius: 0.71231395
+--- !u!114 &2065462091233755148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5532974359214069763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bb24004fa75ffc44a3d6c7aad360ee2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

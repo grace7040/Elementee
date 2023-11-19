@@ -16,7 +16,7 @@ public class BlueColor : MonoBehaviour, IColorState
         {
             player.canAttack = false;
             GameObject throwableWeapon = Instantiate(Resources.Load("BlueWeapon"),
-                player.transform.position + new Vector3(player.transform.localScale.x * 0.5f, -0.2f),
+                player.transform.position + new Vector3(player.transform.localScale.x * 0.5f, 0.2f),
                 Quaternion.identity) as GameObject;
 
             player.animator.SetBool("IsBlueAttacking", true);

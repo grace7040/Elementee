@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3507864612459049204
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3507864612459049210}
+  - component: {fileID: 3507864612459049205}
+  m_Layer: 0
+  m_Name: ObjectPoolManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3507864612459049210
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3507864612459049204}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.5472336, y: -3.3436904, z: 0.009450138}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3507864612459049205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3507864612459049204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20bd6bb5cca7b834dbd777b77923cf8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentColorName: 
+  objectInfos:
+  - objectName: RedBlood
+    perfab: {fileID: 8414648424815299743, guid: 81db9cc8e6bbd2e4d86e7eb1c634e192, type: 3}
+    count: 3
+  - objectName: YellowBlood
+    perfab: {fileID: 2121182351626877047, guid: 7f28ddee342b3124faa7606f763d9dc3, type: 3}
+    count: 3
+  - objectName: BlueBlood
+    perfab: {fileID: 2294974195892277643, guid: ba5338b7b1ae8944fb235d6ef7e3ea91, type: 3}
+    count: 3
+  - objectName: OrangeBlood
+    perfab: {fileID: 2294974195892277643, guid: 8d4d1e378ba0da341b3837881acfd82a, type: 3}
+    count: 3
+  - objectName: GreenBlood
+    perfab: {fileID: 2294974195892277643, guid: 7b0b1f056efbd29449db45c1e60a70b5, type: 3}
+    count: 3
+  - objectName: PurpleBlood
+    perfab: {fileID: 2294974195892277643, guid: 7a528f2fd7f2e0849846c61599cf9670, type: 3}
+    count: 3
+  - objectName: BlackBlood
+    perfab: {fileID: 2294974195892277643, guid: 07e7582ee05cadd4fa45744448096d51, type: 3}
+    count: 3

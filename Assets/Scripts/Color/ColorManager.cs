@@ -139,6 +139,7 @@ public class ColorManager : Singleton<ColorManager>
                 break;
         }
         player.myColor = _color;
+        ObjectPoolManager.Instance.SetColorName(_color);
         OnSetColor?.Invoke();
     }
 

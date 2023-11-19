@@ -22,7 +22,7 @@ public class YellowColor : MonoBehaviour, IColorState
         player.yellowAttackEffect.SetActive(true);
         player.yellowAttackEffect.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = player.colorWeapons[(int)Colors.yellow].sprite;
         //3초 이후에 off
-        player.CallOnDelay(3f, () =>
+        player.CallOnDelay(0.5f, () =>
         {
             player.GetComponent<PlayerController>().yellowAttackEffect.SetActive(false);
             player.canAttack = true;
