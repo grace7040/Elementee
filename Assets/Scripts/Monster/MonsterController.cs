@@ -95,23 +95,6 @@ public class MonsterController : MonoBehaviour
 
     private void Update()
     {
-        if (player != null)
-        {
-            // 몬스터와 플레이어의 위치 차이를 계산합니다.
-            float distance = player.position.x - transform.position.x;
-
-            // 플레이어가 몬스터의 왼쪽에 있으면 좌우를 뒤집습니다.
-            if (distance < 0f)
-            {
-                monsterSpriteRenderer.flipX = false;
-            }
-            // 플레이어가 몬스터의 오른쪽에 있으면 좌우를 뒤집지 않습니다.
-            else if (distance > 0f)
-            {
-                monsterSpriteRenderer.flipX = true;
-            }
-        }
-
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
         if (Color.M_damage == 5) // Default
@@ -124,6 +107,23 @@ public class MonsterController : MonoBehaviour
 
         else  if (Color.M_damage == 20) // Red, Yellow
         {
+            if (player != null)
+            {
+                // 몬스터와 플레이어의 위치 차이를 계산합니다.
+                float distance = player.position.x - transform.position.x;
+
+                // 플레이어가 몬스터의 왼쪽에 있으면 좌우를 뒤집습니다.
+                if (distance < 0f)
+                {
+                    monsterSpriteRenderer.flipX = false;
+                }
+                // 플레이어가 몬스터의 오른쪽에 있으면 좌우를 뒤집지 않습니다.
+                else if (distance > 0f)
+                {
+                    monsterSpriteRenderer.flipX = true;
+                }
+            }
+
             if (distanceToPlayer <= attackRange && canAttack)
             {
                 Debug.Log("Attack");
@@ -150,6 +150,23 @@ public class MonsterController : MonoBehaviour
         }
         else if (Color.M_damage == 10) // Blue
         {
+            if (player != null)
+            {
+                // 몬스터와 플레이어의 위치 차이를 계산합니다.
+                float distance = player.position.x - transform.position.x;
+
+                // 플레이어가 몬스터의 왼쪽에 있으면 좌우를 뒤집습니다.
+                if (distance < 0f)
+                {
+                    monsterSpriteRenderer.flipX = false;
+                }
+                // 플레이어가 몬스터의 오른쪽에 있으면 좌우를 뒤집지 않습니다.
+                else if (distance > 0f)
+                {
+                    monsterSpriteRenderer.flipX = true;
+                }
+            }
+
             // 플레이어가 공격 범위 안에 있고 공격 쿨다운이 끝났으면 공격 실행
             if (distanceToPlayer <= attackRange && canAttack)
             {
@@ -187,6 +204,14 @@ public class MonsterController : MonoBehaviour
 
     private void SetNextWaypoint()
     {
+        if (!monsterSpriteRenderer.flipX)
+        {
+            monsterSpriteRenderer.flipX = true;
+        }
+        else
+        {
+            monsterSpriteRenderer.flipX = false;
+        }
         // 다음 Waypoint을 설정하고, 배열의 끝에 도달하면 처음 Waypoint으로 돌아감
         currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Length;
         currentWaypoint = waypoints[currentWaypointIndex];
