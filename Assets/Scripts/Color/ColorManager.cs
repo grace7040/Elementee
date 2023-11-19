@@ -103,6 +103,7 @@ public class ColorManager : Singleton<ColorManager>
             case Colors.red:
                 hasRed = false;
                 SetColorState(new RedColor());
+                player.red_Weapon.SetActive(true);
                 break;
             case Colors.yellow:
                 hasYellow = false;
@@ -111,16 +112,19 @@ public class ColorManager : Singleton<ColorManager>
             case Colors.blue:
                 hasBlue = false;
                 SetColorState(new BlueColor());
+                player.blue_Weapon.SetActive(true);
                 break;
             case Colors.green:
                 hasYellow = false;
                 hasBlue = false;
                 SetColorState(new GreenColor());
+                player.green_Weapon.SetActive(true);
                 break;
             case Colors.purple:
                 hasRed = false;
                 hasBlue = false;
                 SetColorState(new PurpleColor());
+                player.purple_Weapon.SetActive(true);
                 break;
             case Colors.orange:
                 hasYellow = false;
@@ -141,6 +145,10 @@ public class ColorManager : Singleton<ColorManager>
     private void SetColorState(IColorState _color)
     {
         player.Color = _color;
+        player.red_Weapon.SetActive(false);
+        player.purple_Weapon.SetActive(false);
+        player.green_Weapon.SetActive(false);
+        player.blue_Weapon.SetActive(false);
     }
 
     public void StartDrawing(Colors _color)

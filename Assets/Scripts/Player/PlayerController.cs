@@ -53,6 +53,11 @@ public class PlayerController : MonoBehaviour
     public GameObject cam;
     public bool invincible = false;
 
+    [Header("WeaponPosition")]
+    public GameObject red_Weapon;
+    public GameObject purple_Weapon;
+    public GameObject green_Weapon;
+    public GameObject blue_Weapon;
 
     //
     [Header("Events")]
@@ -60,6 +65,11 @@ public class PlayerController : MonoBehaviour
 
     public UnityEvent OnFallEvent;
     public UnityEvent OnLandEvent;
+
+
+
+
+
 
     [System.Serializable]
     public class BoolEvent : UnityEvent<bool> { }
@@ -119,7 +129,7 @@ public class PlayerController : MonoBehaviour
         GameManager.Instance.playerMAXHP = maxHealth;
         GameManager.Instance.playerHP = maxHealth;
 
-        Color = new BlackColor();
+        Color = new BlueColor();
         m_Rigidbody2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 
