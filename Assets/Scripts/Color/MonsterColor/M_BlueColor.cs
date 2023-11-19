@@ -10,7 +10,6 @@ public class M_BlueColor : MonoBehaviour, M_IColorState
 
     public void Attack(MonsterController monster)
     {
-
         monster.GetComponent<Animator>().SetBool("IsAttacking", true);
         GameObject Water = Instantiate(Resources.Load("Water"), monster.transform.position, Quaternion.identity) as GameObject;
         //Debug.Log("Blue");
