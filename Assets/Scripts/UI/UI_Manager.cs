@@ -55,8 +55,6 @@ public class UIManager
         if (string.IsNullOrEmpty(name)) // 이름을 안받았다면 T로 ㄱㄱ
             name = typeof(T).Name;
 
-        Debug.Log(name);
-
         GameObject go = Managers.Resource.Instantiate($"UI/Popup/{name}");
         T popup = Util.GetOrAddComponent<T>(go);
         _popupStack.Push(popup);
@@ -73,7 +71,6 @@ public class UIManager
 
         if (_popupStack.Peek() != popup)
         {
-            Debug.Log("Close Popup Failed");
             return;
         }
 

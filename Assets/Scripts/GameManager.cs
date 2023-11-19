@@ -7,6 +7,7 @@ public class GameManager : Singleton<GameManager>
 {
     [Header("GameManage")]
     public bool isGameOver;
+    public int totalScore;
 
     [Header("Player")]
     public Colors playerColor = Colors.def;

@@ -109,7 +109,6 @@ public class UI_InGame : UI_Popup
         // 물감 오브젝트 받아두기 + ColorManger에 저장된 색으로 변경
         Red_IMG = GetImage((int)Images.Red);
         Red_IMG.color = ColorManager.Instance.GetColor(Colors.red);
-        print("dpd");
 
         Yellow_IMG = GetImage((int)Images.Yellow);
         Yellow_IMG.color = ColorManager.Instance.GetColor(Colors.yellow);
