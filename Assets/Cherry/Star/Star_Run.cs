@@ -10,9 +10,12 @@ public class Star_Run : Star
 
     private bool follow = false;
 
+    private Animator animator;
+
     // Start is called before the first frame update
     void Start()
     {
+        animator = GetComponent<Animator>();
         InvokeRepeating("UpdateTarget", 0f, 0.2f);
     }
 
@@ -33,8 +36,9 @@ public class Star_Run : Star
             {
                 if (colliders[i].tag == "Player") // 콜라이더의 태그가 플레이어면
                 {
-                    print("감지");
-                    follow = true;
+                    animator.SetBool("isAwake", true);
+                    StartCoroutine(star_walk());
+                    //follow = true;
                     target = colliders[i].gameObject; // 타겟 위치 저장
                     break;
                 }
@@ -45,12 +49,6 @@ public class Star_Run : Star
 
     private void TargetConfirm()
     {
-        //if (follow)
-        //{
-        //    print("따라와");   
-        //    Vector2 direction = transform.position - target.position;
-        //    transform.Translate(direction.normalized * speed * Time.deltaTime);
-        //}
 
         if (follow)
         {
@@ -69,5 +67,12 @@ public class Star_Run : Star
             GameManager.Instance.totalScore += score;
             Destroy(this.gameObject);
         }
+    }
+
+    IEnumerator star_walk()
+    {
+        yield return new WaitForSeconds(1f);
+        follow = true;
+        animator.SetBool("isWalk", true);
     }
 }
