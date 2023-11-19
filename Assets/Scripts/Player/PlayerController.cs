@@ -494,11 +494,28 @@ public class PlayerController : MonoBehaviour
             TakeDamage(collision.gameObject.GetComponent<MonsterController>().m_damage,
             collision.gameObject.transform.position);
         }
+        else if (collision.gameObject.tag == "General_Enemy")
+        {
+            TakeDamage(5, collision.gameObject.transform.position);
+        }
         //else if (collision.gameObject.tag == "EnemyWeapon")
         //{
         //    TakeDamage(10, collision.gameObject.transform.position);
         //    Destroy(collision.gameObject, 0.1f);
         //}
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            TakeDamage(collision.gameObject.GetComponent<MonsterController>().m_damage,
+            collision.gameObject.transform.position);
+        }
+        else if (collision.gameObject.tag == "General_Enemy")
+        {
+            TakeDamage(5, collision.gameObject.transform.position);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

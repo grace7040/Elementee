@@ -7,24 +7,49 @@ using UnityEngine.AI;
 
 public class M_General : MonoBehaviour
 {
-    public float moveSpeed = 2f;         // 몬스터 이동 속도
-    public float changeDestinationTime = 5f; // 목적지 변경 주기 (초)
+    public Transform[] waypoints; // AI가 이동할 Waypoint들의 배열
+
+    private int currentWaypointIndex = 0;
+    private Transform currentWaypoint;
+    public float movementSpeed = 3f;
 
     public int maxHealth = 100;
     private int currentHealth;
 
-    private Vector3 randomDestination;    // 랜덤 목적지
-    private NavMeshAgent navMeshAgent;    // NavMeshAgent 컴포넌트
-
-    void Start()
+    private void Start()
     {
-        navMeshAgent = GetComponent<NavMeshAgent>();
-        StartCoroutine(ChangeDestination());
         currentHealth = maxHealth;
+        if (waypoints.Length > 0)
+        {
+            currentWaypoint = waypoints[currentWaypointIndex];
+        }
     }
+
     private void Update()
     {
-        
+        if (currentWaypoint != null)
+        {
+            MoveTowardsWaypoint();
+        }
+    }
+
+    private void MoveTowardsWaypoint()
+    {
+        // 현재 Waypoint로 이동
+        transform.position = Vector2.MoveTowards(transform.position, currentWaypoint.position, movementSpeed * Time.deltaTime);
+
+        // 만약 AI가 현재 Waypoint에 도착했다면 다음 Waypoint로 변경
+        if (Vector2.Distance(transform.position, currentWaypoint.position) < 0.1f)
+        {
+            SetNextWaypoint();
+        }
+    }
+
+    private void SetNextWaypoint()
+    {
+        // 다음 Waypoint을 설정하고, 배열의 끝에 도달하면 처음 Waypoint으로 돌아감
+        currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Length;
+        currentWaypoint = waypoints[currentWaypointIndex];
     }
 
     public void TakeDamage(int damage)
@@ -41,34 +66,6 @@ public class M_General : MonoBehaviour
     {
         Destroy(gameObject);
     }
-
-    IEnumerator ChangeDestination()
-    {
-        while (true)
-        {
-            // 랜덤한 목적지 생성
-            randomDestination = GetRandomDestination();
-
-            // 목적지 설정
-            navMeshAgent.SetDestination(randomDestination);
-
-            // 다음 목적지 변경 대기
-            yield return new WaitForSeconds(changeDestinationTime);
-        }
-    }
-
-    Vector3 GetRandomDestination()
-    {
-        // 랜덤한 위치를 생성하여 반환
-        Vector3 randomDirection = Random.insideUnitSphere * 10f; // 반경 10의 랜덤 위치 생성
-        randomDirection += transform.position; // 현재 위치를 중심으로 이동
-
-        NavMeshHit hit;
-        NavMesh.SamplePosition(randomDirection, out hit, 10f, NavMesh.AllAreas);
-
-        return hit.position;
-    }
-
     private void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log(other.tag);
