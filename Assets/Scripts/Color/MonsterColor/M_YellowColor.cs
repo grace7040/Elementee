@@ -10,9 +10,8 @@ public class M_YellowColor : MonoBehaviour, M_IColorState
 
     public void Attack(MonsterController monster)
     {
-        //monster.animator.SetBool("IsAttacking", true);
+        monster.GetComponent<Animator>().SetBool("IsAttacking", true);
         GameObject Volt = Instantiate(Resources.Load("Volt"), monster.transform.position, Quaternion.identity) as GameObject;
         Destroy(Volt, 2f);
-        Debug.Log("Yellow");
     }
 }

@@ -14,7 +14,7 @@ public class M_Water : MonoBehaviour
     private void FixedUpdate()
     {
         //direction = GameObject.FindGameObjectWithTag("Player").transform.position - gameObject.transform.position;
-
+        direction.y = 0;
         GetComponent<Rigidbody2D>().velocity = direction.normalized * speed;
     }
     private void OnCollisionEnter2D(Collision2D collision)

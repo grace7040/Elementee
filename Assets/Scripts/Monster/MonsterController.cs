@@ -2,6 +2,7 @@ using GooglePlayGames.BasicApi;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -71,10 +72,11 @@ public class MonsterController : MonoBehaviour
     }
     void Start()
     {
-        Color = new M_RedColor();
+        //Color = new M_RedColor();
         //Color = new M_BlueColor();
-        //Color = new M_YellowColor();
+        Color = new M_YellowColor();
         //Color = new M_DefaultColor();
+
         currentHealth = maxHealth;
         player = GameObject.FindGameObjectWithTag("Player").transform; // "Player" 태그를 가진 오브젝트를 플레이어로 설정
         monsterSpriteRenderer = GetComponent<SpriteRenderer>();
@@ -102,25 +104,54 @@ public class MonsterController : MonoBehaviour
 
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
-        // 플레이어가 공격 범위 안에 있고 공격 쿨다운이 끝났으면 공격 실행
-        if (distanceToPlayer <= attackRange && canAttack)
+        if (Color.M_damage == 20)
         {
-            color.Attack(this);
-            //Debug.Log("attack");
-            UpdateCanAttack();
+            if (distanceToPlayer <= attackRange && canAttack)
+            {
+                Debug.Log("Attack");
+                gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+                gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
+                color.Attack(this);
+                UpdateCanAttack();
+            }
+            // 플레이어가 감지 범위 안에 있으면 플레이어를 향해 이동
+            else if (distanceToPlayer <= detectionRange)
+            {
+                gameObject.GetComponent<Animator>().SetBool("IsAttacking", false);
+                gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
+                Vector2 moveDirection = new Vector2(player.position.x - transform.position.x, 0).normalized;
+                rb.velocity = moveDirection * moveSpeed;
+            }
+            else
+            {
+                // 감지 범위를 벗어난 경우 이동 중지
+                gameObject.GetComponent<Animator>().SetBool("IsAttacking", false);
+                gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
+                rb.velocity = Vector2.zero;
+            }
         }
-        // 플레이어가 감지 범위 안에 있으면 플레이어를 향해 이동
-        else if (distanceToPlayer <= detectionRange)
+        else if (Color.M_damage == 10)
         {
-            gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
-            Vector2 moveDirection = new Vector2(player.position.x - transform.position.x,0).normalized;
-            rb.velocity = moveDirection * moveSpeed; 
-        }
-        else
-        {
-            // 감지 범위를 벗어난 경우 이동 중지
-            gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
-            rb.velocity = Vector2.zero;
+            // 플레이어가 공격 범위 안에 있고 공격 쿨다운이 끝났으면 공격 실행
+            if (distanceToPlayer <= attackRange && canAttack)
+            {
+                color.Attack(this);
+                //Debug.Log("attack");
+                UpdateCanAttack();
+            }
+            // 플레이어가 감지 범위 안에 있으면 플레이어를 향해 이동
+            else if (distanceToPlayer <= detectionRange)
+            {
+                gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
+                Vector2 moveDirection = new Vector2(player.position.x - transform.position.x, 0).normalized;
+                rb.velocity = moveDirection * moveSpeed;
+            }
+            else
+            {
+                // 감지 범위를 벗어난 경우 이동 중지
+                gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
+                rb.velocity = Vector2.zero;
+            }
         }
     }
     public void TakeDamage(int damage, Vector3 playerPos)
@@ -173,20 +204,6 @@ public class MonsterController : MonoBehaviour
     {
         StartCoroutine(AttackCooldown());
     }
-
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    if (collision.gameObject.tag == "Weapon")
-    //    {
-    //        Debug.Log(123);
-    //        TakeDamage(collision.gameObject.GetComponentInParent<PlayerController>().damage, collision.gameObject.transform.position);
-    //    }
-    //    else if (collision.gameObject.tag == "WeaponB")
-    //    {
-    //        TakeDamage(20, collision.gameObject.transform.position);
-    //        Destroy(collision.gameObject, 0.1f);
-    //    }
-    //}
 
     private void OnTriggerEnter2D(Collider2D other)
     {

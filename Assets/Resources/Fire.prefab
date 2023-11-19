@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5428323935893030853}
   - component: {fileID: 5428323935893030852}
   - component: {fileID: 5428323935893030854}
+  - component: {fileID: 2548907438889714104}
   m_Layer: 0
   m_Name: Fire
   m_TagString: EnemyWeapon
@@ -111,3 +112,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 12.594728, y: 7.4619637}
   m_EdgeRadius: 0
+--- !u!114 &2548907438889714104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5428323935893030851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f16ddebad20457b4abd0b3774dff80b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

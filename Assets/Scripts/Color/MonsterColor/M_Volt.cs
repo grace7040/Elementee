@@ -6,6 +6,10 @@ public class M_Volt : MonoBehaviour
 {
     public float moveSpeed = 1f;   // 따라다니는 속도
 
+    private void Start()
+    {
+        
+    }
     void Update()
     {
         // 대상 오브젝트를 향해 이동
