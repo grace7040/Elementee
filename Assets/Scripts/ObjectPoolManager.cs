@@ -72,7 +72,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
     private GameObject CreatePooledItem()
     {
         GameObject poolGo = Instantiate(goDic[objectName]);
-        Debug.Log($"생성: {poolGo.name}");
+        //Debug.Log($"생성: {poolGo.name}");
         poolGo.GetComponent<PoolAble>().Pool = ojbectPoolDic[objectName];
         poolGo.transform.SetParent(this.transform);
         return poolGo;
@@ -81,7 +81,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
     // 대여
     private void OnTakeFromPool(GameObject poolGo)
     {
-        Debug.Log($"대여: {poolGo.name}");
+        //Debug.Log($"대여: {poolGo.name}");
         poolGo.SetActive(true);
     }
 
@@ -89,7 +89,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
     private void OnReturnedToPool(GameObject poolGo)
     {
         poolGo.SetActive(false);
-        Debug.Log($"반환: {poolGo.name}");
+        //Debug.Log($"반환: {poolGo.name}");
     }
 
     // 삭제
