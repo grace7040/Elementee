@@ -12,7 +12,7 @@ public class M_YellowColor : MonoBehaviour, M_IColorState
     {
         
         monster.GetComponent<Animator>().SetBool("IsAttacking", true);
-        monster.CallOnDelay(1f, () => { GameObject Volt = Instantiate(Resources.Load("Volt"), monster.transform.position, Quaternion.identity) as GameObject; });
+        //monster.CallOnDelay(1f, () => { GameObject Volt = Instantiate(Resources.Load("Volt"), monster.transform.position, Quaternion.identity) as GameObject; });
         //GameObject Volt = Instantiate(Resources.Load("Volt"), monster.transform.position, Quaternion.identity) as GameObject;
     }
 }
