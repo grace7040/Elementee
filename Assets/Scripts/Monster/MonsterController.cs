@@ -108,7 +108,7 @@ public class MonsterController : MonoBehaviour
 
         else  if (Color.M_damage == 20) // Red
         {
-            if (player != null)
+            if (player != null && canWalk)
             {
                 // 몬스터와 플레이어의 위치 차이를 계산합니다.
                 float distance = player.position.x - transform.position.x;
@@ -137,6 +137,7 @@ public class MonsterController : MonoBehaviour
                     color.Attack(this);
                     gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
                     StartCoroutine(AttackCooldown());
+                    StartCoroutine(WalkCooldown());
                 }
                 //공격범위에는 있지만 + 공격 쿨타임이 다 안 돌아서 그냥 걷기만 했으면 좋겠을 때
                 else if (waitforAttack) //walk
@@ -366,6 +367,12 @@ public class MonsterController : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         canAttack = true;
     }
+    IEnumerator WalkCooldown()
+    {
+        canWalk = false;
+        yield return new WaitForSeconds(2.0f);
+        canWalk = true;
+    }
 
     public void UpdateCanAttack()
     {
@@ -374,6 +381,10 @@ public class MonsterController : MonoBehaviour
     public void UpdateCanAttack2()
     {
         StartCoroutine(AttackCooldown2());
+    }
+    public void UpdateCanWalk()
+    {
+        StartCoroutine(WalkCooldown());
     }
 
     private void OnTriggerEnter2D(Collider2D other)

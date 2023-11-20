@@ -10,11 +10,12 @@ public class M_Fire : MonoBehaviour
     {
         SpriteRenderer sprite = GetComponent<SpriteRenderer>();
         Transform player = GameObject.FindGameObjectWithTag("Player").transform;
+        GameObject Red = GameObject.Find("M_Red");
 
         if (player != null)
         {
             // 몬스터와 플레이어의 위치 차이를 계산합니다.
-            float distance = player.position.x - transform.position.x;
+            float distance = player.position.x - Red.gameObject.transform.position.x;
 
             // 플레이어가 몬스터의 왼쪽에 있으면 좌우를 뒤집습니다.
             if (distance < 0f)
