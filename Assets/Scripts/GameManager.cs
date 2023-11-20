@@ -41,6 +41,7 @@ public class GameManager : Singleton<GameManager>
             
         Managers.UI.ClosePopupUI();
         print("일시정지");
+
     }
 
     public void ResumeGame()
