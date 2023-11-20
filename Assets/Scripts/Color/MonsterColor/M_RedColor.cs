@@ -13,6 +13,6 @@ public class M_RedColor : MonoBehaviour, M_IColorState
         monster.GetComponent<Animator>().SetBool("IsAttacking", true);
         //monster.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         //monster.CallOnDelay(1f, () => { GameObject Fire = Instantiate(Resources.Load("Fire"), monster.transform.position, Quaternion.identity) as GameObject; });
-        GameObject Fire = Instantiate(Resources.Load("Fire"), monster.transform.position, Quaternion.identity) as GameObject;
+        //GameObject Fire = Instantiate(Resources.Load("Fire"), monster.transform.position, Quaternion.identity) as GameObject;
     }
 }
