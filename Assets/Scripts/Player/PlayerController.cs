@@ -135,7 +135,8 @@ public class PlayerController : MonoBehaviour
         GameManager.Instance.playerMAXHP = maxHealth;
         GameManager.Instance.playerHP = maxHealth;
 
-        Color = new BlackColor();
+
+        ColorManager.Instance.SetColorState(Colors.black);
         m_Rigidbody2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 
@@ -166,7 +167,7 @@ public class PlayerController : MonoBehaviour
 
         }
 
-        if (Color.Damage == 15f)
+        if (myColor == Colors.black)
         {
             foreach (Transform child in gameObject.transform)
             {
@@ -185,7 +186,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
-        else if (Color.Damage != 15f)
+        else if (myColor != Colors.black)
         {
             foreach (Transform child in gameObject.transform)
             {
@@ -540,7 +541,8 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            if (Color.Damage == 15f)
+            Debug.Log("Black");
+            if (myColor == Colors.black)
             {
                 if (!collision.gameObject.GetComponent<MonsterController>().isActiveAndEnabled)
                 {

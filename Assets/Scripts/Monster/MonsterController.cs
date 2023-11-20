@@ -98,7 +98,7 @@ public class MonsterController : MonoBehaviour
     {
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
-        if (Color.M_damage == 5) // Default
+        if (myColor == Colors.def) // Default
         {
             if (currentWaypoint != null)
             {
@@ -106,7 +106,7 @@ public class MonsterController : MonoBehaviour
             }
         }
 
-        else  if (Color.M_damage == 20) // Red
+        else  if (myColor == Colors.red) // Red
         {
             if (player != null && canWalk)
             {
@@ -179,7 +179,7 @@ public class MonsterController : MonoBehaviour
                 rb.velocity = Vector2.zero;
             }
         }
-        else if (Color.M_damage == 10) // Blue
+        else if (myColor == Colors.blue) // Blue
         {
             if (player != null)
             {
@@ -220,7 +220,7 @@ public class MonsterController : MonoBehaviour
             }
         }
 
-        else if (Color.M_damage == 15) // Yellow
+        else if (myColor == Colors.yellow) // Yellow
         {
             if (player != null)
             {
