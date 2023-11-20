@@ -10,6 +10,6 @@ public class BackGround : MonoBehaviour
 
     private void Start()
     {
-        GetComponent<Transform>().localScale = new Vector3(sr.sprite.rect.width* width, sr.sprite.rect.height* height, 0);
+        GetComponent<Transform>().localScale = new Vector3(sr.sprite.rect.width* width, sr.sprite.rect.height*height, 0);
     }
 }
