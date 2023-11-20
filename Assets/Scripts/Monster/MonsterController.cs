@@ -81,7 +81,7 @@ public class MonsterController : MonoBehaviour
         //Color = new M_RedColor();
         //Color = new M_BlueColor();
         //Color = new M_YellowColor();
-        Color = new M_RedColor();
+        //Color = new M_RedColor();
 
         currentHealth = maxHealth;
         player = GameObject.FindGameObjectWithTag("Player").transform; // "Player" 태그를 가진 오브젝트를 플레이어로 설정
@@ -246,13 +246,13 @@ public class MonsterController : MonoBehaviour
                 if (canAttack)
                 {
                     canAttack = false;
-                    waitforAttack = false;
+                    waitforAttack = false; // 필요 x
                     color.Attack(this);
                     gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
                     StartCoroutine(AttackCooldown());
                 }
                 //공격범위에는 있지만 + 공격 쿨타임이 다 안 돌아서 그냥 걷기만 했으면 좋겠을 때
-                else if (waitforAttack) //walk
+                else //walk
                 {
                     gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
                     gameObject.GetComponent<Animator>().SetBool("IsAttacking", false);
@@ -349,6 +349,7 @@ public class MonsterController : MonoBehaviour
     {
         //2초 있다가 공격은 멈추고
         yield return new WaitForSeconds(2.0f);
+        moveSpeed = 1.5f;
         gameObject.GetComponent<Animator>().SetBool("IsAttacking", false);
         gameObject.GetComponent<Animator>().SetTrigger("StopAttack");
 
