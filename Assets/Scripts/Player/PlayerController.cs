@@ -179,6 +179,22 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+        else if (Color.Damage != 15f)
+        {
+            foreach (Transform child in gameObject.transform)
+            {
+                if (child.name == "WeaponPosition")
+                {
+                    foreach (Transform child_ in child.transform)
+                    {
+                        if (child_.name.Contains("M_"))
+                        {
+                            Destroy(child_.gameObject, 0.1f);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     public void AttackDown()
