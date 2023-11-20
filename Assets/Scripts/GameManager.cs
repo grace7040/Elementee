@@ -67,20 +67,22 @@ public class GameManager : Singleton<GameManager>
     public void RetryGame()
     {
         // 게임 재시작
+        // 플레이어 피 초기화 + Color State 초기화
+        playerHP = playerMAXHP;
+        ColorManager.Instance.ResetColorState();
+
         SceneManager.LoadScene(2);
 
     }
 
     public void GameOver()
     {
-        
         // 패배 UI 띄우기
         isGameOver = true;
 
         // 왜 안띄ㅜ어질까?
         Managers.UI.ShowPopupUI<UI_GameOver>();
 
-       
     }
 
     public void GameWin()

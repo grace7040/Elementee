@@ -53,6 +53,13 @@ public class ColorManager : Singleton<ColorManager>
         colorList.Add(Colors.def);
     }
 
+    public void ResetColorState()
+    {
+        hasYellow = false;
+        hasRed = false;
+        hasBlue = false;
+    }
+
     /*Colors별 실제 색상값 반환하는 함수. 색상값 설정 및 변경은 여기서만. */
     public Color GetColor(Colors color)
     {
