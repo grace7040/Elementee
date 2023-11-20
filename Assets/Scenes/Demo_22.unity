@@ -2526,6 +2526,7 @@ MonoBehaviour:
   itemPrefab: {fileID: 0}
   m_damage: 0
   canAttack: 1
+  waypoints: []
 --- !u!50 &438767478
 Rigidbody2D:
   serializedVersion: 4
@@ -6198,6 +6199,18 @@ PrefabInstance:
       propertyPath: joystick
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 1086310549815544557, guid: 656c8934973bef04fbb2a3c676402a1f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6782506899914074596, guid: 656c8934973bef04fbb2a3c676402a1f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -7.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 7882964214442036755, guid: 656c8934973bef04fbb2a3c676402a1f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 656c8934973bef04fbb2a3c676402a1f, type: 3}
 --- !u!4 &1191556524 stripped
@@ -7899,8 +7912,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed492f8145402c649a059f34ef3b2ed6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2
-  changeDestinationTime: 5
+  waypoints: []
+  movementSpeed: 3
   maxHealth: 100
 --- !u!195 &1562486323
 NavMeshAgent:
@@ -9347,6 +9360,7 @@ MonoBehaviour:
   itemPrefab: {fileID: 0}
   m_damage: 0
   canAttack: 1
+  waypoints: []
 --- !u!50 &1827808890
 Rigidbody2D:
   serializedVersion: 4

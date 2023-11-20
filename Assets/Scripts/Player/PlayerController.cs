@@ -141,6 +141,10 @@ public class PlayerController : MonoBehaviour
 
         //TEST CODE
         //ColorManager.Instance.SetColorState(Colors.blue);
+
+        ColorManager.Instance.HasBlue = true;
+        ColorManager.Instance.HasRed = true;
+        ColorManager.Instance.HasYellow = true;
     }
 
     private void Update()
