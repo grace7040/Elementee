@@ -47,6 +47,7 @@ public class MonsterController : MonoBehaviour
     //public Animator animator;
 
     private bool waitforAttack = true;
+    private bool canWalk = true;
 
     public delegate void Del();
     public Del OnDie = null;
@@ -80,7 +81,7 @@ public class MonsterController : MonoBehaviour
         //Color = new M_RedColor();
         //Color = new M_BlueColor();
         //Color = new M_YellowColor();
-        //Color = new M_RedColor();
+        Color = new M_RedColor();
 
         currentHealth = maxHealth;
         player = GameObject.FindGameObjectWithTag("Player").transform; // "Player" 태그를 가진 오브젝트를 플레이어로 설정
@@ -105,7 +106,7 @@ public class MonsterController : MonoBehaviour
             }
         }
 
-        else  if (Color.M_damage == 20) // Red, Yellow
+        else  if (Color.M_damage == 20) // Red
         {
             if (player != null)
             {
@@ -140,20 +141,34 @@ public class MonsterController : MonoBehaviour
                 //공격범위에는 있지만 + 공격 쿨타임이 다 안 돌아서 그냥 걷기만 했으면 좋겠을 때
                 else if (waitforAttack) //walk
                 {
-                    gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
-                    gameObject.GetComponent<Animator>().SetBool("IsAttacking", false);
-                    Vector2 moveDirection = new Vector2(player.position.x - transform.position.x, 0).normalized;
-                    rb.velocity = moveDirection * moveSpeed;
+                    if (canWalk)
+                    {
+                        gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
+                        gameObject.GetComponent<Animator>().SetBool("IsAttacking", false);
+                        Vector2 moveDirection = new Vector2(player.position.x - transform.position.x, 0).normalized;
+                        rb.velocity = moveDirection * moveSpeed;
+                    }
+                    else
+                    {
+                        rb.velocity = Vector2.zero;
+                    }
                 }
             }
 
             //2. 감지 범위 안에 있을 때 -> walk
             else if (distanceToPlayer <= detectionRange)
             {
-                Debug.Log("거리");
-                gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
-                Vector2 moveDirection = new Vector2(player.position.x - transform.position.x, 0).normalized;
-                rb.velocity = moveDirection * moveSpeed;
+                if (canWalk)
+                {
+                    Debug.Log("거리");
+                    gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
+                    Vector2 moveDirection = new Vector2(player.position.x - transform.position.x, 0).normalized;
+                    rb.velocity = moveDirection * moveSpeed;
+                }
+                else
+                {
+                    rb.velocity = Vector2.zero;
+                }
             }
 
             else //완전히 공격 범위 밖일때
@@ -162,76 +177,6 @@ public class MonsterController : MonoBehaviour
                 gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
                 rb.velocity = Vector2.zero;
             }
-            
-
-            ///////// 기존 코드
-            //if (canAttack)
-            //{
-            //    if (distanceToPlayer <= attackRange)
-            //    {
-            //        Debug.Log("Attack");
-            //        gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-            //        canAttack = false;
-            //        color.Attack(this);
-            //        gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
-            //        StartCoroutine(AttackCooldown());
-            //    }
-            //    else if (distanceToPlayer <= detectionRange)
-            //    {
-            //        Debug.Log("거리");
-            //        gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
-            //        Vector2 moveDirection = new Vector2(player.position.x - transform.position.x, 0).normalized;
-            //        rb.velocity = moveDirection * moveSpeed;
-            //    }
-            //    else
-            //    {
-            //        // 감지 범위를 벗어난 경우 이동 중지
-            //        gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
-            //        rb.velocity = Vector2.zero;
-            //    }
-            //}
-            //else
-            //{
-            //    if (distanceToPlayer <= detectionRange)
-            //    {
-            //        Debug.Log("거리");
-            //        gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
-            //        Vector2 moveDirection = new Vector2(player.position.x - transform.position.x, 0).normalized;
-            //        rb.velocity = moveDirection * moveSpeed;
-            //    }
-            //    else
-            //    {
-            //        // 감지 범위를 벗어난 경우 이동 중지
-            //        gameObject.GetComponent<Animator>().SetBool("IsAttacking", false);
-            //        gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
-            //        rb.velocity = Vector2.zero;
-            //    }
-            //}
-            //if (distanceToPlayer <= attackRange && canAttack)
-            //{
-            //    Debug.Log("Attack");
-            //    canAttack = false;
-            //    gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-            //    gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
-            //    color.Attack(this);
-            //    UpdateCanAttack();
-            //}
-            //// 플레이어가 감지 범위 안에 있으면 플레이어를 향해 이동
-            //else if (distanceToPlayer <= detectionRange)
-            //{
-            //    Debug.Log("거리");
-            //    //gameObject.GetComponent<Animator>().SetBool("IsAttacking", false);
-            //    gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
-            //    Vector2 moveDirection = new Vector2(player.position.x - transform.position.x, 0).normalized;
-            //    rb.velocity = moveDirection * moveSpeed;
-            //}
-            //else
-            //{
-            //    // 감지 범위를 벗어난 경우 이동 중지
-            //    //gameObject.GetComponent<Animator>().SetBool("IsAttacking", false);
-            //    gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
-            //    rb.velocity = Vector2.zero;
-            //}
         }
         else if (Color.M_damage == 10) // Blue
         {
@@ -269,6 +214,64 @@ public class MonsterController : MonoBehaviour
             else
             {
                 // 감지 범위를 벗어난 경우 이동 중지
+                gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
+                rb.velocity = Vector2.zero;
+            }
+        }
+
+        else if (Color.M_damage == 15) // Yellow
+        {
+            if (player != null)
+            {
+                // 몬스터와 플레이어의 위치 차이를 계산합니다.
+                float distance = player.position.x - transform.position.x;
+
+                // 플레이어가 몬스터의 왼쪽에 있으면 좌우를 뒤집습니다.
+                if (distance < 0f)
+                {
+                    monsterSpriteRenderer.flipX = false;
+                }
+                // 플레이어가 몬스터의 오른쪽에 있으면 좌우를 뒤집지 않습니다.
+                else if (distance > 0f)
+                {
+                    monsterSpriteRenderer.flipX = true;
+                }
+            }
+
+            //1. 공격 범위 안에 있을 때
+            if (distanceToPlayer <= attackRange)
+            {
+                // 공격 쿨타임이 차서 공격이 가능하면 -> attack
+                if (canAttack)
+                {
+                    canAttack = false;
+                    waitforAttack = false;
+                    color.Attack(this);
+                    gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
+                    StartCoroutine(AttackCooldown());
+                }
+                //공격범위에는 있지만 + 공격 쿨타임이 다 안 돌아서 그냥 걷기만 했으면 좋겠을 때
+                else if (waitforAttack) //walk
+                {
+                    gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
+                    gameObject.GetComponent<Animator>().SetBool("IsAttacking", false);
+                    Vector2 moveDirection = new Vector2(player.position.x - transform.position.x, 0).normalized;
+                    rb.velocity = moveDirection * moveSpeed;
+                }
+            }
+
+            //2. 감지 범위 안에 있을 때 -> walk
+            else if (distanceToPlayer <= detectionRange)
+            {
+                Debug.Log("거리");
+                gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
+                Vector2 moveDirection = new Vector2(player.position.x - transform.position.x, 0).normalized;
+                rb.velocity = moveDirection * moveSpeed;
+            }
+
+            else //완전히 공격 범위 밖일때
+            {
+                gameObject.GetComponent<Animator>().SetBool("IsAttacking", false);
                 gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
                 rb.velocity = Vector2.zero;
             }
