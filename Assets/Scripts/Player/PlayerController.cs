@@ -125,6 +125,11 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+
+        // 마지막 스폰 지점에서 스폰
+        if(GameManager.Instance.savePoint != null)
+            transform.position = GameManager.Instance.savePoint.position;
+
         //Health initiallize
         currentHealth = maxHealth;
         GameManager.Instance.playerMAXHP = maxHealth;

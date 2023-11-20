@@ -9,6 +9,9 @@ public class GameManager : Singleton<GameManager>
     public bool isGameOver;
     public int totalScore;
 
+    // 이거 default 값 필요함. 나중에 맵 만들 때 추가할 것
+    public Transform savePoint;
+
     [Header("Player")]
     public Colors playerColor = Colors.def;
 
@@ -53,10 +56,19 @@ public class GameManager : Singleton<GameManager>
         print("계속하자");
     }
 
+    public void NewGame()
+    {
+        // DontDestroy 애들도 초기화 해줘야 할듯
+
+        // 게임 재시작
+        SceneManager.LoadScene(2);
+    }
+
     public void RetryGame()
     {
         // 게임 재시작
         SceneManager.LoadScene(2);
+
     }
 
     public void GameOver()
