@@ -9,7 +9,7 @@ public class BloodEffect : MonoBehaviour
     {
         if (collision.CompareTag("Enemy") || collision.CompareTag("Untagged"))
         {
-            Debug.Log("충돌: "+collision.name);
+            //Debug.Log("충돌: "+collision.name);
             var bulletGo = ObjectPoolManager.Instance.GetGo();
             bulletGo.transform.position = collision.bounds.ClosestPoint(transform.position);
         }

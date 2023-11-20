@@ -48,38 +48,36 @@ public class MonsterController : MonoBehaviour
 
     private bool waitforAttack = true;
 
+    public delegate void Del();
+    public Del OnDie = null;
     private void Awake()
     {
         SetColor();
     }
     void SetColor()
     {
-        switch (color)
+        switch (myColor)
         {
-            case M_DefaultColor:
+            case Colors.def:
                 Color = new M_DefaultColor();
-                myColor = Colors.def;
                 break;
 
-            case M_RedColor:
+            case Colors.red:
                 Color = new M_RedColor();
-                myColor = Colors.red;
                 break;
 
-            case M_BlueColor:
+            case Colors.blue:
                 Color = new M_BlueColor();
-                myColor = Colors.blue;
                 break;
 
-            case M_YellowColor:
+            case Colors.yellow:
                 Color = new M_YellowColor();
-                myColor = Colors.yellow;
                 break;
         }
     }
     void Start()
     {
-        Color = new M_RedColor();
+        //Color = new M_RedColor();
         //Color = new M_BlueColor();
         //Color = new M_YellowColor();
         //Color = new M_RedColor();
@@ -389,5 +387,28 @@ public class MonsterController : MonoBehaviour
             TakeDamage(100, other.transform.position);
             Destroy(other.gameObject, 0.1f);
         }
+    }
+
+    
+    private void OnDieByGreenPlayer()
+    {
+        Debug.Log("0000");
+        if (GameManager.Instance.playerColor == Colors.green)
+        {
+            Debug.Log("1111");
+            Instantiate(Resources.Load("Leaf"), transform.position, Quaternion.identity);
+        }
+            
+    }
+
+    public void SetOnDieByGreenPlayer()
+    {
+        OnDie = OnDieByGreenPlayer;
+    }
+
+    private void OnDestroy()
+    {
+        OnDie?.Invoke();
+
     }
 }

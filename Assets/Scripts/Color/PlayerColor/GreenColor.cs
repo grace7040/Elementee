@@ -26,7 +26,7 @@ public class GreenColor : MonoBehaviour, IColorState
             throwableWeapon.GetComponent<ThrowableWeapon>().direction = direction;
             throwableWeapon.name = "GreenWeapon";
 
-            player.CallOnDelay(1f, () =>
+            player.CallOnDelay(0.5f, () =>
             {
                 player.canAttack = true;
             });

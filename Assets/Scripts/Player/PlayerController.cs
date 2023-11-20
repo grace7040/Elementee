@@ -41,6 +41,7 @@ public class PlayerController : MonoBehaviour
     public ParticleSystem particleJumpDown; //Explosion particles
     public GameObject yellowAttackEffect;
     public GameObject orangeAttackEffect;
+    public GameObject healEffect;
 
     [Header("Player Properties")]
     public int currentHealth;
@@ -592,6 +593,14 @@ public class PlayerController : MonoBehaviour
         // 새롭게 씬 로드할 코드 추가
 
         GameManager.Instance.GameOver();
+    }
+
+    public void Heal(int health)
+    {
+        currentHealth += health;
+        GameManager.Instance.playerHP = currentHealth;
+        healEffect.SetActive(true);
+        this.CallOnDelay(1f, () => { healEffect.SetActive(false); });
     }
 
 }
