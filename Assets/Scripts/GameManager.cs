@@ -14,6 +14,7 @@ public class GameManager : Singleton<GameManager>
 
     [Header("Player")]
     public Colors playerColor = Colors.def;
+    public Sprite playerFace;
 
     public int playerHP = 100;
     public int playerMAXHP = 100;

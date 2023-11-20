@@ -21,6 +21,8 @@ public class DrawManager : Singleton<DrawManager>
         Cam = GameObject.Find("Camera");
         DrawSetting = GetComponentInChildren<DrawingSettings>();
     }
+
+
     public void SetBrushColor(Colors color)
     {
         this.color = color;
@@ -47,5 +49,30 @@ public class DrawManager : Singleton<DrawManager>
         DrawCam.SetActive(false);
 
         Drawing.SetActive(false);
+    }
+
+    public void SetFaceColor()
+    {
+        Color c = ColorManager.Instance.GetColor(Colors.black);
+
+        DrawbleObject.GetComponent<SpriteRenderer>().sprite = sprites[0];
+        DrawbleObject.GetComponent<Drawable>().UpdateCanvas();
+        DrawSetting.SetMarkerWidth(22);
+
+        DrawSetting.SetMarkerColour(c);
+
+    }
+
+    public void SaveFaceDrawing()
+    {
+        // 다시 원래 카메라로
+        Cam.SetActive(true);
+        DrawCam.SetActive(false);
+
+        Drawing.SetActive(false);
+        Managers.UI.ShowPopupUI<UI_Custom>();
+
+        // Face 저장
+        GameManager.Instance.playerFace = sprites[0];
     }
 }

@@ -47,6 +47,7 @@ public class PlayerController : MonoBehaviour
     public int currentHealth;
     private Rigidbody2D m_Rigidbody2D;
     public Animator animator;
+    public SpriteRenderer faceSprite;
 
     [Header("Attack")]
     //public GameObject throwableObject;
@@ -130,13 +131,16 @@ public class PlayerController : MonoBehaviour
         if(GameManager.Instance.savePoint != null)
             transform.position = GameManager.Instance.savePoint.position;
 
+        // ¾ó±¼ ³Ö±â
+        faceSprite.sprite = GameManager.Instance.playerFace;
+
         //Health initiallize
         currentHealth = maxHealth;
         GameManager.Instance.playerMAXHP = maxHealth;
         GameManager.Instance.playerHP = maxHealth;
 
 
-        ColorManager.Instance.SetColorState(Colors.black);
+       // ColorManager.Instance.SetColorState(Colors.def);
         m_Rigidbody2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 

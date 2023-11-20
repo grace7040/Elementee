@@ -6,6 +6,7 @@ using TMPro;
 using System;
 using FreeDraw;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class UI_DrawCanvas : UI_Popup
 {
@@ -39,13 +40,22 @@ public class UI_DrawCanvas : UI_Popup
 
     public void SaveBtnClicked(PointerEventData data)
     {
-        player.GetComponent<PlayerController>().SetCustomWeapon();
-        ClosePopupUI();
         
-        // 그림 그린 것 적용
-        GameManager.Instance.ResumeGame();
-        DrawManager.Instance.CloseDrawing(); 
-        ColorManager.Instance.SetPlayerCustomWeapon(); 
+        if (player != null)
+        {
+            player.GetComponent<PlayerController>().SetCustomWeapon();
+            ClosePopupUI();
+
+            ColorManager.Instance.SetPlayerCustomWeapon();
+            GameManager.Instance.ResumeGame();
+
+            DrawManager.Instance.CloseDrawing();
+        }
+        else  // 얼굴 그릴 때
+           DrawManager.Instance.SaveFaceDrawing();
+
+        Destroy(this);
+   
     }
 
     public void ResetBtnClicked(PointerEventData data)
