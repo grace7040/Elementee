@@ -13,4 +13,13 @@ public class Leaf : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    if (collision.gameObject.CompareTag("Player"))
+    //    {
+    //        collision.gameObject.GetComponent<PlayerController>().Heal(healAmount);
+    //        Destroy(gameObject);
+    //    }
+    //}
 }
