@@ -81,8 +81,8 @@ public class MonsterController : MonoBehaviour
     {
         //Color = new M_RedColor();
         //Color = new M_BlueColor();
-        //Color = new M_YellowColor();
-        Color = new M_RedColor();
+        Color = new M_YellowColor();
+        //Color = new M_RedColor();
 
         currentHealth = maxHealth;
         player = GameObject.FindGameObjectWithTag("Player").transform; // "Player" 태그를 가진 오브젝트를 플레이어로 설정
@@ -259,7 +259,7 @@ public class MonsterController : MonoBehaviour
             {
                 color.Attack(this);
                 //Debug.Log("attack");
-                UpdateCanAttack();
+                UpdateCanAttack2();
             }
             // 플레이어가 감지 범위 안에 있으면 플레이어를 향해 이동
             else if (distanceToPlayer <= detectionRange)
@@ -359,10 +359,20 @@ public class MonsterController : MonoBehaviour
         waitforAttack = false;
 
     }
+    IEnumerator AttackCooldown2()
+    {
+        canAttack = false;
+        yield return new WaitForSeconds(2.0f);
+        canAttack = true;
+    }
 
     public void UpdateCanAttack()
     {
         StartCoroutine(AttackCooldown());
+    }
+    public void UpdateCanAttack2()
+    {
+        StartCoroutine(AttackCooldown2());
     }
 
     private void OnTriggerEnter2D(Collider2D other)
