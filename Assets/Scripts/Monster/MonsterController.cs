@@ -345,7 +345,7 @@ public class MonsterController : MonoBehaviour
     {
         //2초 있다가 공격은 멈추고
         yield return new WaitForSeconds(2.0f);
-        gameObject.GetComponent<Animator>().SetBool("isAttacking", false);
+        gameObject.GetComponent<Animator>().SetBool("IsAttacking", false);
         gameObject.GetComponent<Animator>().SetTrigger("StopAttack");
 
         //여기에 지금 걸아야 한다.
