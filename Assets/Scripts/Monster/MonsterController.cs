@@ -46,6 +46,8 @@ public class MonsterController : MonoBehaviour
 
     //public Animator animator;
 
+    private bool waitforAttack = true;
+
     private void Awake()
     {
         SetColor();
@@ -124,51 +126,89 @@ public class MonsterController : MonoBehaviour
                 }
             }
 
-            if (canAttack)
+            //1. 공격 범위 안에 있을 때
+            if(distanceToPlayer <= attackRange)
             {
-                if (distanceToPlayer <= attackRange)
+                // 공격 쿨타임이 차서 공격이 가능하면 -> attack
+                if (canAttack)
                 {
-                    Debug.Log("Attack");
                     gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+                    canAttack = false;
+                    waitforAttack = false;
                     color.Attack(this);
                     gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
-                    canAttack = false;
-                    UpdateCanAttack();
+                    StartCoroutine(AttackCooldown());
                 }
-                else if (distanceToPlayer <= detectionRange)
+                //공격범위에는 있지만 + 공격 쿨타임이 다 안 돌아서 그냥 걷기만 했으면 좋겠을 때
+                else if (waitforAttack) //walk
                 {
-                    Debug.Log("거리");
-                    //gameObject.GetComponent<Animator>().SetBool("IsAttacking", false);
                     gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
-                    Vector2 moveDirection = new Vector2(player.position.x - transform.position.x, 0).normalized;
-                    rb.velocity = moveDirection * moveSpeed;
-                }
-                else
-                {
-                    // 감지 범위를 벗어난 경우 이동 중지
-                    //gameObject.GetComponent<Animator>().SetBool("IsAttacking", false);
-                    gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
-                    rb.velocity = Vector2.zero;
-                }
-            }
-            else
-            {
-                if (distanceToPlayer <= detectionRange)
-                {
-                    Debug.Log("거리");
-                    //gameObject.GetComponent<Animator>().SetBool("IsAttacking", false);
-                    gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
-                    Vector2 moveDirection = new Vector2(player.position.x - transform.position.x, 0).normalized;
-                    rb.velocity = moveDirection * moveSpeed;
-                }
-                else
-                {
-                    // 감지 범위를 벗어난 경우 이동 중지
                     gameObject.GetComponent<Animator>().SetBool("IsAttacking", false);
-                    gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
-                    rb.velocity = Vector2.zero;
+                    Vector2 moveDirection = new Vector2(player.position.x - transform.position.x, 0).normalized;
+                    rb.velocity = moveDirection * moveSpeed;
                 }
             }
+
+            //2. 감지 범위 안에 있을 때 -> walk
+            else if (distanceToPlayer <= detectionRange)
+            {
+                Debug.Log("거리");
+                gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
+                Vector2 moveDirection = new Vector2(player.position.x - transform.position.x, 0).normalized;
+                rb.velocity = moveDirection * moveSpeed;
+            }
+
+            else //완전히 공격 범위 밖일때
+            {
+                gameObject.GetComponent<Animator>().SetBool("IsAttacking", false);
+                gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
+                rb.velocity = Vector2.zero;
+            }
+            
+
+            ///////// 기존 코드
+            //if (canAttack)
+            //{
+            //    if (distanceToPlayer <= attackRange)
+            //    {
+            //        Debug.Log("Attack");
+            //        gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            //        canAttack = false;
+            //        color.Attack(this);
+            //        gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
+            //        StartCoroutine(AttackCooldown());
+            //    }
+            //    else if (distanceToPlayer <= detectionRange)
+            //    {
+            //        Debug.Log("거리");
+            //        gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
+            //        Vector2 moveDirection = new Vector2(player.position.x - transform.position.x, 0).normalized;
+            //        rb.velocity = moveDirection * moveSpeed;
+            //    }
+            //    else
+            //    {
+            //        // 감지 범위를 벗어난 경우 이동 중지
+            //        gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
+            //        rb.velocity = Vector2.zero;
+            //    }
+            //}
+            //else
+            //{
+            //    if (distanceToPlayer <= detectionRange)
+            //    {
+            //        Debug.Log("거리");
+            //        gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
+            //        Vector2 moveDirection = new Vector2(player.position.x - transform.position.x, 0).normalized;
+            //        rb.velocity = moveDirection * moveSpeed;
+            //    }
+            //    else
+            //    {
+            //        // 감지 범위를 벗어난 경우 이동 중지
+            //        gameObject.GetComponent<Animator>().SetBool("IsAttacking", false);
+            //        gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
+            //        rb.velocity = Vector2.zero;
+            //    }
+            //}
             //if (distanceToPlayer <= attackRange && canAttack)
             //{
             //    Debug.Log("Attack");
@@ -305,11 +345,19 @@ public class MonsterController : MonoBehaviour
 
     IEnumerator AttackCooldown()
     {
-        //canAttack = false;
-        //gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        //2초 있다가 공격은 멈추고
         yield return new WaitForSeconds(2.0f);
         gameObject.GetComponent<Animator>().SetBool("isAttacking", false);
+        gameObject.GetComponent<Animator>().SetTrigger("StopAttack");
+
+        //여기에 지금 걸아야 한다.
+        waitforAttack = true;
+
+        //2초 더 있다가 공격 다시 할 수 있도록
+        yield return new WaitForSeconds(2.0f);
         canAttack = true;
+        waitforAttack = false;
+
     }
 
     public void UpdateCanAttack()
