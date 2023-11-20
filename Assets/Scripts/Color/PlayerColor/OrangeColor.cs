@@ -14,16 +14,19 @@ public class OrangeColor : IColorState
 
         //playerprefab on
         //player.GetComponent<PlayerController>().orangeAttackEffect.SetActive(true);
+
+        player.canAttack = false;
         player.animator.SetBool("IsOrangeAttacking", true);
 
         //4초 이후에 off
         //Animation 안 먹어 왜 그럴까?
-        //player.CallOnDelay(4f, () =>
-        //{
-        //    player.animator.SetBool("IsOrangeAttacking", false);
-        //    player.GetComponent<PlayerController>().orangeAttackEffect.SetActive(false);
-        //}
-        //);
+        player.CallOnDelay(4f, () =>
+        {
+            player.animator.SetBool("IsOrangeAttacking", false);
+            player.GetComponent<PlayerController>().orangeAttackEffect.SetActive(false);
+            player.canAttack = true;
+        }
+        );
 
     }
 }
