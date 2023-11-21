@@ -18,6 +18,8 @@ public class UI_Custom : UI_Popup
 
     }
 
+    
+
     //enum Texts
     //{
     //    PointText,
