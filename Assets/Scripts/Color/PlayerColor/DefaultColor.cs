@@ -14,18 +14,18 @@ public class DefaultColor : IColorState
     //Temporal Setting : Default Color Attack -> Sword
     public void Attack(PlayerController player)
     {
-        if (player.doAttack && player.canAttack)
-        {
+        //if (player.doAttack && player.canAttack)
+        //{
             Debug.Log("Attak");
             player.canAttack = false;
             player.animator.SetBool("IsAttacking", true);
             //player.UpdateCanAttack();
-            player.CallOnDelay(3f, () =>
+            player.CallOnDelay(0.5f, () =>
             {
                 player.canAttack = true;
             });
             
-        }
+        //}
     }
 
 
