@@ -44,8 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20bd6bb5cca7b834dbd777b77923cf8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentColorName: 
   objectInfos:
+  - objectName: Default
+    perfab: {fileID: 1352115355870245317, guid: 12d6cdd87211c5d4eae7f0013c309bd6, type: 3}
+    count: 3
   - objectName: RedBlood
     perfab: {fileID: 8414648424815299743, guid: 81db9cc8e6bbd2e4d86e7eb1c634e192, type: 3}
     count: 3

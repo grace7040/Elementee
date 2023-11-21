@@ -19,8 +19,12 @@ public class Sponge : MonoBehaviour
             if (collision.GetComponent<PlayerController>().myColor == Colors.def) 
                 return;
 
+            var bulletGo = ObjectPoolManager.Instance.GetGo();
+            bulletGo.transform.position = transform.position;
+
             GetComponent<SpriteRenderer>().color = ColorManager.Instance.GetColor(collision.GetComponent<PlayerController>().myColor);
             ColorManager.Instance.SetColorState(Colors.def);
+
         }
     }
 

@@ -151,6 +151,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
         switch (color)
         {
             case Colors.def:
+                currentColorName = "DefaultBlood";
                 Debug.Log("Blood Effect 색을 설정하세요.");
                 break;
             case Colors.red:
