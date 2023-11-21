@@ -15,7 +15,11 @@ public class CharacterMove : MonoBehaviour
 
 	private bool jumpDown = false;
 
-	void Update()
+    private void Start()
+    {
+		GameManager.Instance.SetJoystick.Invoke();
+    }
+    void Update()
 	{
 		horizontalMove = joystick.Horizontal * runSpeed;
 

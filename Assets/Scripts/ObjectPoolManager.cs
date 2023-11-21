@@ -31,8 +31,30 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
     // 오브젝트풀에서 오브젝트를 새로 생성할때 사용할 딕셔너리
     private Dictionary<string, GameObject> goDic = new Dictionary<string, GameObject>();
 
+    private static ObjectPoolManager instance = null;
+    public static ObjectPoolManager Instance
+    {
+        get
+        {
+            if (null == instance)
+            {
+                return null;
+            }
+            return instance;
+        }
+    }
+
+
     private void Start()
     {
+        if (null == instance)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
         Init();
     }
 
@@ -66,6 +88,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
 
         Debug.Log("오브젝트풀링 준비 완료");
         IsReady = true;
+        ObjectManager.Instance.ObjectPoolManager_Ready = true;
     }
 
     // 생성

@@ -19,11 +19,15 @@ public class GameManager : Singleton<GameManager>
     public int playerHP = 100;
     public int playerMAXHP = 100;
 
+    public delegate void Del();
+    public Del SetJoystick = null;
+
     [Header("Item")]
     public Colors ReDrawItemColor = Colors.def;
 
     void Start()
     {
+        DontDestroyOnLoad(gameObject);
         isGameOver = false;
     }
 
@@ -73,6 +77,7 @@ public class GameManager : Singleton<GameManager>
         ColorManager.Instance.ResetColorState();
 
         SceneManager.LoadScene(2);
+        Time.timeScale = 1;
 
     }
 

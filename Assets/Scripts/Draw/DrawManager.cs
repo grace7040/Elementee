@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using FreeDraw;
 
-public class DrawManager : Singleton<DrawManager>
+public class DrawManager : MonoBehaviour
 {
     public GameObject Drawing;
     public GameObject DrawbleObject;
@@ -16,11 +16,33 @@ public class DrawManager : Singleton<DrawManager>
     [HideInInspector]
     public DrawingSettings DrawSetting;
 
+    private static DrawManager instance = null;
+    public static DrawManager Instance
+    {
+        get
+        {
+            if (null == instance)
+            {
+                return null;
+            }
+            return instance;
+        }
+    }
+
     private void Awake()
     {
+        if (null == instance)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
         Cam = GameObject.Find("Camera");
         DrawSetting = GetComponentInChildren<DrawingSettings>();
     }
+
 
 
     public void SetBrushColor(Colors color)

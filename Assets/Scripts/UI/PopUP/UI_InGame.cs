@@ -42,11 +42,10 @@ public class UI_InGame : UI_Popup
         Blue,
     }
 
-
     private void Start()
     {
         Init();
-
+        ObjectManager.Instance.UI_InGame_Ready = true;
     }
 
     private void FixedUpdate()
@@ -116,12 +115,16 @@ public class UI_InGame : UI_Popup
         Blue_IMG = GetImage((int)Images.Blue);
         Blue_IMG.color = ColorManager.Instance.GetColor(Colors.blue);
 
+        
+
         // Palette 세팅
         SetPalette();
         ColorManager.Instance.OnSetColor += SetPalette;
 
-        player = FindObjectOfType<CharacterMove>().gameObject;
-        player.GetComponent<CharacterMove>().joystick = joystick;
+        GameManager.Instance.SetJoystick = () => {
+            FindObjectOfType<CharacterMove>().joystick = joystick;
+        };
+        
 
         // hpBar 길이 받아두기
         hpBarMAX = hpBar.gameObject.GetComponent<RectTransform>().rect.width;
