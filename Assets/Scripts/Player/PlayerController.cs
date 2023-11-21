@@ -507,6 +507,10 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Hit", true);
             //health --
             currentHealth -= damage;
+
+            if (currentHealth > 100)
+                currentHealth = 100;
+
             //GameManager에 Health 저장
             GameManager.Instance.playerHP = currentHealth;
             //넉백
@@ -516,7 +520,6 @@ public class PlayerController : MonoBehaviour
 
             if (currentHealth <= 0)
             {
-                // 게임 오버 (채연이가 손댐)
                 //GameManager.Instance.GameOver();
                 StartCoroutine(WaitToDead());
                 //Die();
@@ -615,6 +618,10 @@ public class PlayerController : MonoBehaviour
     public void Heal(int health)
     {
         currentHealth += health;
+
+        if (currentHealth > 100)
+            currentHealth = 100;
+
         GameManager.Instance.playerHP = currentHealth;
         healEffect.SetActive(true);
         this.CallOnDelay(1f, () => { healEffect.SetActive(false); });
