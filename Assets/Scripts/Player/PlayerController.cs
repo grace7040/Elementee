@@ -614,8 +614,9 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator Purple_Effect_Set_Active()
     {
+        Debug.Log("Purple");
         purpleEffect.SetActive(true);
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(0.5f);
         purpleEffect.SetActive(false);
 
     }
