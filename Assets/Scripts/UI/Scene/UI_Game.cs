@@ -9,7 +9,9 @@ using UnityEngine.EventSystems;
 public class UI_Game : UI_Scene
 {
     public GameObject player;
+    public TextMeshProUGUI Score;
     Colors player_color = Colors.def;
+
 
     GameObject jump;
     GameObject dash;
@@ -42,6 +44,11 @@ public class UI_Game : UI_Scene
         Blue,
     }
 
+    enum Texts
+    {
+        StarCount,
+    }
+
     public void Start()
     {
         Init();
@@ -54,6 +61,10 @@ public class UI_Game : UI_Scene
         RectTransform barSize = hpBar.GetComponent<RectTransform>();
         float width = GameManager.Instance.HPBar() * hpBarMAX;
         barSize.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
+
+        int star = GameManager.Instance.starCount;
+        Score.text = star + "/ 10";
+        //GetText((int)Texts.StarCount).text = 
     }
 
     public void SetPalette()
@@ -87,6 +98,7 @@ public class UI_Game : UI_Scene
 
         Bind<Button>(typeof(Buttons));
         Bind<Image>(typeof(Images));
+        Bind<Text>(typeof(Texts));
 
         GetButton((int)Buttons.SettingBtn).gameObject.BindEvent(OnSettingBtnClicked);
         GetButton((int)Buttons.Palette).gameObject.BindEvent(PaletteBtnClicked);

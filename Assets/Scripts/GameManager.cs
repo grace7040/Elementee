@@ -8,6 +8,7 @@ public class GameManager : Singleton<GameManager>
     [Header("GameManage")]
     public bool isGameOver;
     public int totalScore;
+    public int starCount = 10;
 
     // 이거 default 값 필요함. 나중에 맵 만들 때 추가할 것
     public float[] savePoint = new float[3];
@@ -41,6 +42,16 @@ public class GameManager : Singleton<GameManager>
         return (float)playerHP / playerMAXHP;
     }
 
+    public void StarCount()
+    {
+        starCount -= 1;
+        if(starCount == 0)
+        {
+            GameWin();
+        }
+
+    }
+
     public void PauseGame()
     {
 
@@ -71,6 +82,8 @@ public class GameManager : Singleton<GameManager>
 
     public void RetryGame()
     {
+        isGameOver = false;
+
         // 게임 재시작
         // 플레이어 피 초기화 + Color State 초기화
         playerHP = playerMAXHP;
@@ -95,7 +108,7 @@ public class GameManager : Singleton<GameManager>
     {
         // 승리 UI 띄우기
         isGameOver = true;
-        PauseGame();
+        Managers.UI.ShowPopupUI<UI_GameWin>();
     }
 
     public void GoToMainMenu()

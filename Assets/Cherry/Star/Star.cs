@@ -42,6 +42,7 @@ public class Star : MonoBehaviour
         {
             // ¿Ã∆Â∆Æ ≥÷±‚
             GameManager.Instance.totalScore += score;
+            GameManager.Instance.StarCount();
             Destroy(this.gameObject);
         }
     }
