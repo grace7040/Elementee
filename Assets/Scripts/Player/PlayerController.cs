@@ -132,7 +132,7 @@ public class PlayerController : MonoBehaviour
         // 마지막 스폰 지점에서 스폰
         if (GameManager.Instance.savePoint[0] != 0 && GameManager.Instance.savePoint[1]!= 0)
         {
-            transform.position = new Vector3(GameManager.Instance.savePoint[0], GameManager.Instance.savePoint[1], GameManager.Instance.savePoint[2]);
+            transform.position = new Vector3(GameManager.Instance.savePoint[0], GameManager.Instance.savePoint[1],0);
         }
 
         // 얼굴 넣기

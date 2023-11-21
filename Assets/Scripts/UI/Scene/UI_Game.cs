@@ -62,8 +62,8 @@ public class UI_Game : UI_Scene
         float width = GameManager.Instance.HPBar() * hpBarMAX;
         barSize.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
 
-        int star = GameManager.Instance.starCount;
-        Score.text = star + "/ 10";
+        int star = 10 - GameManager.Instance.starCount;
+        Score.text = star + "/10";
         //GetText((int)Texts.StarCount).text = 
     }
 
