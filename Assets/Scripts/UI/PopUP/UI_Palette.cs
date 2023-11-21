@@ -85,7 +85,10 @@ public class UI_Palette : UI_Popup
         if (redrawColor == Colors.def)
             GetButton((int)Buttons.ReDrawItem).gameObject.SetActive(false);
         else
+        {
+            GetButton((int)Buttons.ReDrawItem).gameObject.SetActive(true);
             GetButton((int)Buttons.ReDrawItem).gameObject.GetComponent<Image>().color = ColorManager.Instance.GetColor(redrawColor);
+        }
     }
 
     public void BackBtnClicked(PointerEventData data)

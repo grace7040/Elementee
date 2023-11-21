@@ -523,7 +523,7 @@ Camera:
   m_GameObject: {fileID: 273110578}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
+  m_ClearFlags: 1
   m_BackGroundColor: {r: 0.6792453, g: 0.6792453, b: 0.6792453, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -569,8 +569,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 663156872}
   - {fileID: 1453131332}
+  - {fileID: 663156872}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -765,7 +765,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &663156872
 Transform:
   m_ObjectHideFlags: 0
@@ -774,12 +774,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 663156871}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.7, y: -1, z: 10}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
+  m_LocalPosition: {x: -1.5, y: -1, z: 9.75}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 273110581}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &663156873
 SpriteRenderer:
@@ -823,7 +823,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: b501efaf0f8d4e54b95b7139718fa95b, type: 3}
-  m_Color: {r: 0.9339623, g: 0.9339623, b: 0.9339623, a: 0.6156863}
+  m_Color: {r: 0.9339623, g: 0.9339623, b: 0.9339623, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -893,14 +893,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 382086457329972562, guid: a387575f92ee00c45ad0caec2e1ab69a, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 882.51
-      objectReference: {fileID: 0}
-    - target: {fileID: 382086457329972562, guid: a387575f92ee00c45ad0caec2e1ab69a, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 170
-      objectReference: {fileID: 0}
     - target: {fileID: 675892810443862469, guid: a387575f92ee00c45ad0caec2e1ab69a, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -989,22 +981,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI_Custom
       objectReference: {fileID: 0}
-    - target: {fileID: 675892811227723562, guid: a387575f92ee00c45ad0caec2e1ab69a, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 882.51
-      objectReference: {fileID: 0}
-    - target: {fileID: 675892811227723562, guid: a387575f92ee00c45ad0caec2e1ab69a, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 168
-      objectReference: {fileID: 0}
-    - target: {fileID: 7236801979449493399, guid: a387575f92ee00c45ad0caec2e1ab69a, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 882.51
-      objectReference: {fileID: 0}
-    - target: {fileID: 7236801979449493399, guid: a387575f92ee00c45ad0caec2e1ab69a, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 170
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a387575f92ee00c45ad0caec2e1ab69a, type: 3}
 --- !u!1 &1453131331
@@ -1032,14 +1008,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1453131331}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.1, y: -1.1, z: 9.28}
-  m_LocalScale: {x: 4, y: 4, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -3.85, y: -0.74, z: 5.79}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1992504441}
   m_Father: {fileID: 273110581}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1453131333
 SpriteRenderer:
@@ -1408,6 +1384,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7204ff8be71288741b5ced40f6544045, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  text: {fileID: 0}
+  testRenderer: {fileID: 0}
   Drawing: {fileID: 4095121408511918605}
   DrawbleObject: {fileID: 4058981379820769785}
   Cam: {fileID: 0}
