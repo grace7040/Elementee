@@ -44,6 +44,8 @@ public class FollowCamera : MonoBehaviour
 		newPosition.y = newPosition.y + Target_y;
 		transform.position = Vector3.Slerp(transform.position, newPosition, FollowSpeed * Time.deltaTime);
 
+		originalPos = transform.position;
+
 		if (shakeDuration > 0)
 		{
 			camTransform.localPosition = originalPos + Random.insideUnitSphere * shakeAmount;
