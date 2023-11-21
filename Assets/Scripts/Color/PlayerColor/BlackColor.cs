@@ -143,6 +143,8 @@ public class BlackColor : MonoBehaviour, IColorState
             rb.gameObject.tag = "WeaponB"; // 태그 변경
             heldEnemyRigidbody = null;
 
+            //GameObject Hit = Instantiate(Resources.Load("Black_X"), Enemy.gameObject.transform.position, Quaternion.identity) as GameObject;
+
             Destroy(Enemy.gameObject, 3.0f);
         }
         //if (heldEnemyRigidbody != null)

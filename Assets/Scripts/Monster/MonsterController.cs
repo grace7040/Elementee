@@ -414,7 +414,8 @@ public class MonsterController : MonoBehaviour
         }
         else if (other.gameObject.tag == "WeaponB")
         {
-            //Debug.Log(123);
+            //GameObject Hit = Instantiate(Resources.Load("Black_Hit"), other.transform.position, Quaternion.identity) as GameObject;
+            //Destroy(Hit, 0.1f);
             TakeDamage(100, other.transform.position);
             Destroy(other.gameObject, 0.1f);
         }
