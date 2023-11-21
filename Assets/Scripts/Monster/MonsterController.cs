@@ -112,14 +112,15 @@ public class MonsterController : MonoBehaviour
             {
                 // 몬스터와 플레이어의 위치 차이를 계산합니다.
                 float distance = player.position.x - transform.position.x;
+                float distanceY = player.position.y - transform.position.y;
 
                 // 플레이어가 몬스터의 왼쪽에 있으면 좌우를 뒤집습니다.
-                if (distance < 0f)
+                if (distance < 0f && distanceY < 2f)
                 {
                     monsterSpriteRenderer.flipX = false;
                 }
                 // 플레이어가 몬스터의 오른쪽에 있으면 좌우를 뒤집지 않습니다.
-                else if (distance > 0f)
+                else if (distance > 0f && distanceY < 2f)
                 {
                     monsterSpriteRenderer.flipX = true;
                 }
@@ -185,14 +186,15 @@ public class MonsterController : MonoBehaviour
             {
                 // 몬스터와 플레이어의 위치 차이를 계산합니다.
                 float distance = player.position.x - transform.position.x;
+                float distanceY = player.position.y - transform.position.y;
 
                 // 플레이어가 몬스터의 왼쪽에 있으면 좌우를 뒤집습니다.
-                if (distance < 0f)
+                if (distance < 0f && distanceY < 2f)
                 {
                     monsterSpriteRenderer.flipX = false;
                 }
                 // 플레이어가 몬스터의 오른쪽에 있으면 좌우를 뒤집지 않습니다.
-                else if (distance > 0f)
+                else if (distance > 0f && distanceY < 2f)
                 {
                     monsterSpriteRenderer.flipX = true;
                 }
@@ -226,14 +228,15 @@ public class MonsterController : MonoBehaviour
             {
                 // 몬스터와 플레이어의 위치 차이를 계산합니다.
                 float distance = player.position.x - transform.position.x;
+                float distanceY = player.position.y - transform.position.y;
 
                 // 플레이어가 몬스터의 왼쪽에 있으면 좌우를 뒤집습니다.
-                if (distance < 0f)
+                if (distance < 0f && distanceY < 2f)
                 {
                     monsterSpriteRenderer.flipX = false;
                 }
                 // 플레이어가 몬스터의 오른쪽에 있으면 좌우를 뒤집지 않습니다.
-                else if (distance > 0f)
+                else if (distance > 0f && distanceY < 2f)
                 {
                     monsterSpriteRenderer.flipX = true;
                 }

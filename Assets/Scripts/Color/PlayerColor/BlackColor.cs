@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BlackColor : MonoBehaviour, IColorState
@@ -91,6 +92,7 @@ public class BlackColor : MonoBehaviour, IColorState
                 closestEnemy.GetComponent<Rigidbody2D>().mass = 0.1f;
                 closestEnemy.GetComponent<Rigidbody2D>().gravityScale = 0.0f;
                 closestEnemy.GetComponent<CapsuleCollider2D>().isTrigger = true;
+                closestEnemy.AddComponent<BloodEffect>();
                 //heldEnemyRigidbody.isKinematic = true;
                 //heldEnemyRigidbody.collisionDetectionMode = CollisionDetectionMode2D.Discrete;
 
