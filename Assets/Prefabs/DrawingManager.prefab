@@ -352,6 +352,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7204ff8be71288741b5ced40f6544045, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  text: {fileID: 0}
   Drawing: {fileID: 4095121407885336104}
   DrawbleObject: {fileID: 4058981380410658268}
   Cam: {fileID: 0}
@@ -365,6 +366,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: fc3190bdd7371bf489e6544c7a19624f, type: 3}
   - {fileID: 21300000, guid: d61833d4e191989439436c54f19f065b, type: 3}
   - {fileID: 21300000, guid: 0e188864f9a421641b5ec1d7b785ac50, type: 3}
+  weaponWidth: 10
+  faceWidth: 22
   DrawSetting: {fileID: 0}
 --- !u!1 &4058981380410658268
 GameObject:
@@ -415,7 +418,7 @@ MonoBehaviour:
   Drawing_Layers:
     serializedVersion: 2
     m_Bits: 384
-  Reset_Canvas_On_Play: 0
+  Reset_Canvas_On_Play: 1
   Reset_Colour: {r: 1, g: 1, b: 1, a: 0}
 --- !u!212 &4058981380410658270
 SpriteRenderer:

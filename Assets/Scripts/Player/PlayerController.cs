@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using System.IO;
 
 public class PlayerController : MonoBehaviour
 {
@@ -303,6 +304,7 @@ public class PlayerController : MonoBehaviour
     public void SetCustomWeapon()
     {
         colorWeapons[(int)myColor].sprite = DrawManager.Instance.DrawbleObject.GetComponent<SpriteRenderer>().sprite;
+        byte[] bytes = colorWeapons[(int)myColor].sprite.texture.EncodeToPNG();
     }
 
     public void ShowWeapon()
