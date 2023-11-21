@@ -11,16 +11,11 @@ public class OrangeColor : IColorState
     //¸ð·¡ ÆøÇ³
     public void Attack(PlayerController player)
     {
-
-        //playerprefab on
-        //player.GetComponent<PlayerController>().orangeAttackEffect.SetActive(true);
-
         player.canAttack = false;
         player.animator.SetBool("IsOrangeAttacking", true);
 
         //4ÃÊ ÀÌÈÄ¿¡ off
-        //Animation ¾È ¸Ô¾î ¿Ö ±×·²±î?
-        player.CallOnDelay(4f, () =>
+        player.CallOnDelay(2f, () =>
         {
             player.animator.SetBool("IsOrangeAttacking", false);
             player.GetComponent<PlayerController>().orangeAttackEffect.SetActive(false);
