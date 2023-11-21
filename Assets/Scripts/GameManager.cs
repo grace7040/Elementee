@@ -66,7 +66,7 @@ public class GameManager : Singleton<GameManager>
         // DontDestroy 애들도 초기화 해줘야 할듯
 
         // 게임 재시작
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(1);
     }
 
     public void RetryGame()
@@ -76,7 +76,7 @@ public class GameManager : Singleton<GameManager>
         playerHP = playerMAXHP;
         ColorManager.Instance.ResetColorState();
 
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(1);
         Time.timeScale = 1;
 
     }
@@ -100,7 +100,7 @@ public class GameManager : Singleton<GameManager>
 
     public void GoToMainMenu()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(0);
     }
 
 }

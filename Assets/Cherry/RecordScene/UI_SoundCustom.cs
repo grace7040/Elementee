@@ -38,6 +38,7 @@ public class UI_SoundCustom : UI_Popup
         Record,
         Play,
         Exit,
+        Scene,
 
     }
 
@@ -71,6 +72,7 @@ public class UI_SoundCustom : UI_Popup
         GetButton((int)Buttons.Record).gameObject.BindEvent(RecordBtnClicked);
         GetButton((int)Buttons.Play).gameObject.BindEvent(PlayBtnClicked);
         GetButton((int)Buttons.Exit).gameObject.BindEvent(ExitBtnClicked);
+        GetButton((int)Buttons.Scene).gameObject.BindEvent(SceneJump);
     }
 
 
@@ -139,7 +141,13 @@ public class UI_SoundCustom : UI_Popup
         SetSoundObject(SoundObjects.Blue);
     }
 
+    public void SceneJump(PointerEventData data)
+    {
+        //ClosePopupUI();
+        //SceneManager.LoadScene(2);
+        GameManager.Instance.RetryGame();
 
+    }
 
 
 
