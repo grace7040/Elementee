@@ -24,18 +24,22 @@ public class UIManager
         Canvas canvas = Util.GetOrAddComponent<Canvas>(go);
 
         if(go.name != "UI_Game")
+        {
             canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-        canvas.overrideSorting = true; // 캔버스 안에 캔버스 중첩 경우 (부모 캔버스가 어떤 값을 가지던 나는 내 오더값을 가지려 할때)
+            canvas.overrideSorting = true; // 캔버스 안에 캔버스 중첩 경우 (부모 캔버스가 어떤 값을 가지던 나는 내 오더값을 가지려 할때)
 
-        if (sort)
-        {
-            canvas.sortingOrder = _order;
-            _order++;
+            if (sort)
+            {
+                canvas.sortingOrder = _order;
+                _order++;
+            }
+            else // soring 요청 X 라는 소리는 팝업이 아닌 일반 고정 UI
+            {
+                canvas.sortingOrder = 0;
+            }
         }
-        else // soring 요청 X 라는 소리는 팝업이 아닌 일반 고정 UI
-        {
-            canvas.sortingOrder = 0;
-        }
+
+
     }
 
     public T ShowSceneUI<T>(string name = null) where T : UI_Scene
