@@ -12,6 +12,7 @@ public class UI_SoundCustom : UI_Popup
 
     public Sprite[] sprites;
     public SoundObjects currentObject;
+    public AudioClip test;
 
 
     AudioClip record;
@@ -25,20 +26,37 @@ public class UI_SoundCustom : UI_Popup
         Red,
         Yellow,
         Blue,
+        Orange,
+        Green,
+        Purple,
+        Black,
+        Jump,
+        Dash,
+        Dead,
     }
 
 
 
     enum Buttons
     {
+        // 사운드 오브젝트들
         Red,
         Yellow,
         Blue,
+        Orange,
+        Green,
+        Purple,
+        Black,
+        Jump,
+        Dash,
+        Dead,
+
+        // 나머지
         Save,
         Record,
         Play,
         Exit,
-        Scene,
+        Back,
 
     }
 
@@ -72,7 +90,7 @@ public class UI_SoundCustom : UI_Popup
         GetButton((int)Buttons.Record).gameObject.BindEvent(RecordBtnClicked);
         GetButton((int)Buttons.Play).gameObject.BindEvent(PlayBtnClicked);
         GetButton((int)Buttons.Exit).gameObject.BindEvent(ExitBtnClicked);
-        GetButton((int)Buttons.Scene).gameObject.BindEvent(SceneJump);
+        GetButton((int)Buttons.Back).gameObject.BindEvent(BackBtnClicked);
     }
 
 
@@ -90,9 +108,6 @@ public class UI_SoundCustom : UI_Popup
         if (currentObject != SoundObjects.def)
         {
             record = Microphone.Start(Microphone.devices[0].ToString(), false, 1, 44100);
-
-            
-            // AudioSource에 할당
             aud.clip = record;
         }
     }
@@ -101,6 +116,7 @@ public class UI_SoundCustom : UI_Popup
     {
         if (currentObject != SoundObjects.def)
         {
+            // 이것도 AudioManager을 통해 재생해야함
             aud.Play();
         }
     }
@@ -110,17 +126,20 @@ public class UI_SoundCustom : UI_Popup
         SetSoundObject(SoundObjects.def);
     }
 
+    public void BackBtnClicked(PointerEventData data)
+    {
+        Managers.UI.ClosePopupUI();
+    }
+
     public void SaveClip(PointerEventData data)
     {
         string name = Enum.GetName(typeof(SoundObjects), currentObject);
 
         if(currentObject != SoundObjects.def)
         {
+            AudioManager.Instacne.SetSFX(name, aud.clip);
             SavWav.Save("C:/Users/user/wkspaces/Elementee/Assets/Cherry/Records/" + name, aud.clip);
             //AudioManager에 저장
-
-            AudioClip save = Resources.Load("C:/Users/user/wkspaces/Elementee/Assets/Cherry/Records/" + name, typeof(AudioClip)) as AudioClip;
-            //AudioManager.Instacne.SetSFX(name, save);
         }
 
     }

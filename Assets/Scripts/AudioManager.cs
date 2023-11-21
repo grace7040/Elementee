@@ -78,4 +78,14 @@ public class AudioManager : MonoBehaviour
         return;
     }
 
+    public void SetSFX(string p_sfxName, AudioClip p_clip)
+    {
+        for (int i = 0; i < sfx.Length; i++)
+        {
+            if (p_sfxName == sfx[i].name)
+            {
+                sfx[i].clip = p_clip;
+            }
+        }
+    }
 }

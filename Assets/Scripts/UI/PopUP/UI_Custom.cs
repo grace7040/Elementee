@@ -14,7 +14,7 @@ public class UI_Custom : UI_Popup
     {
         FaceBtn,
         SoundBtn,
-        SceneBtn,
+        GoMainBtn,
 
     }
 
@@ -48,7 +48,7 @@ public class UI_Custom : UI_Popup
         Bind<Button>(typeof(Buttons));
 
         GetButton((int)Buttons.FaceBtn).gameObject.BindEvent(StartFaceDrawing);
-        GetButton((int)Buttons.SceneBtn).gameObject.BindEvent(SceneJump);
+        GetButton((int)Buttons.GoMainBtn).gameObject.BindEvent(SceneJump);
         GetButton((int)Buttons.SoundBtn).gameObject.BindEvent(SoundBtnClicked);
 
     }
@@ -76,7 +76,7 @@ public class UI_Custom : UI_Popup
     {
         //ClosePopupUI();
         //SceneManager.LoadScene(2);
-        GameManager.Instance.RetryGame();
+        GameManager.Instance.GoToMainMenu();
 
     }
 }
