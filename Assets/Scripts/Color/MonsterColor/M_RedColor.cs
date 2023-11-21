@@ -6,7 +6,7 @@ public class M_RedColor : MonoBehaviour, M_IColorState
 {
     public float M_JumpForce { get { return 800f; } }
 
-    public int M_damage { get { return 20; } }
+    public int M_damage { get { return 15; } }
 
     public void Attack(MonsterController monster)
     {

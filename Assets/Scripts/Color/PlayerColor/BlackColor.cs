@@ -6,7 +6,7 @@ using UnityEngine;
 public class BlackColor : MonoBehaviour, IColorState
 {
     public float JumpForce { get { return 800f; } }
-    public int Damage { get { return 15; } }
+    public int Damage { get { return 100; } }
     public bool WallSliding { get { return false; } }
 
     ////Temporal Setting : Red Color Attack -> Throw obj

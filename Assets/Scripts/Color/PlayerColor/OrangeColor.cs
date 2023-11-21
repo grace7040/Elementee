@@ -5,7 +5,7 @@ using UnityEngine;
 public class OrangeColor : IColorState
 {
     public float JumpForce { get { return 800f; } }
-    public int Damage { get { return 10; } }
+    public int Damage { get { return 40; } }
     public bool WallSliding { get { return false; } }
 
     //¸ð·¡ ÆøÇ³

@@ -5,7 +5,7 @@ using UnityEngine;
 public class RedColor :  IColorState
 {
     public float JumpForce { get { return 850f; } }
-    public int Damage { get { return 10; } }
+    public int Damage { get { return 20; } }
     public bool WallSliding { get { return false; } }
 
     //Temporal Setting : Red Color Attack -> Throw obj

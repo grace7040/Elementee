@@ -159,13 +159,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myColor: 3
-  maxHealth: 100
+  maxHealth: 200
   detectionRange: 10
   attackRange: 10
   moveSpeed: 1.5
   itemPrefab: {fileID: 0}
   m_damage: 0
   canAttack: 1
+  waypoints: []
 --- !u!114 &2798503389904488893
 MonoBehaviour:
   m_ObjectHideFlags: 0
