@@ -158,6 +158,7 @@ MonoBehaviour:
   yellowAttackEffect: {fileID: 5593871760870967025}
   orangeAttackEffect: {fileID: 1975305393455804576}
   healEffect: {fileID: 0}
+  purpleEffect: {fileID: 6369867358872008798}
   currentHealth: 100
   animator: {fileID: 95975118031919256}
   faceSprite: {fileID: 7243554273347533079}
@@ -12153,6 +12154,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Purple Effect
       objectReference: {fileID: 0}
+    - target: {fileID: 8926658687624742134, guid: 272288361bc849740b27adf0d4b2fcdd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8929368465041031524, guid: 272288361bc849740b27adf0d4b2fcdd, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -12175,11 +12180,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8929368465041031524, guid: 272288361bc849740b27adf0d4b2fcdd, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.9119259
       objectReference: {fileID: 0}
     - target: {fileID: 8929368465041031524, guid: 272288361bc849740b27adf0d4b2fcdd, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: -0.41035497
       objectReference: {fileID: 0}
     - target: {fileID: 8929368465041031524, guid: 272288361bc849740b27adf0d4b2fcdd, type: 3}
       propertyPath: m_LocalRotation.y
@@ -12191,7 +12196,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8929368465041031524, guid: 272288361bc849740b27adf0d4b2fcdd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: -48.454
       objectReference: {fileID: 0}
     - target: {fileID: 8929368465041031524, guid: 272288361bc849740b27adf0d4b2fcdd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -12203,6 +12208,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 272288361bc849740b27adf0d4b2fcdd, type: 3}
+--- !u!1 &6369867358872008798 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8926658687624742134, guid: 272288361bc849740b27adf0d4b2fcdd, type: 3}
+  m_PrefabInstance: {fileID: 2560169234796444840}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6371732649340599756 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8929368465041031524, guid: 272288361bc849740b27adf0d4b2fcdd, type: 3}

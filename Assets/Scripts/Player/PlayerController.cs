@@ -42,6 +42,7 @@ public class PlayerController : MonoBehaviour
     public GameObject yellowAttackEffect;
     public GameObject orangeAttackEffect;
     public GameObject healEffect;
+    public GameObject purpleEffect;
 
     [Header("Player Properties")]
     public int currentHealth;
@@ -583,17 +584,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    //private void OnTriggerStay2D(Collider2D collision)
-    //{
-    //    if (collision.gameObject.tag == "Enemy")
-    //    {
-    //        if (Color.Damage == 15f)
-    //        {
-    //            Debug.Log("Stay");
-    //            collision.gameObject.transform.localPosition = new Vector2(0, 0);
-    //        }
-    //    }
-    //}
 
     IEnumerator WaitToDead()
     {
@@ -614,6 +604,20 @@ public class PlayerController : MonoBehaviour
         GameManager.Instance.playerHP = currentHealth;
         healEffect.SetActive(true);
         this.CallOnDelay(1f, () => { healEffect.SetActive(false); });
+    }
+
+
+    public void PurpleAttackEffect()
+    {
+        StartCoroutine(Purple_Effect_Set_Active());
+    }
+
+    IEnumerator Purple_Effect_Set_Active()
+    {
+        purpleEffect.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        purpleEffect.SetActive(false);
+
     }
 
 }

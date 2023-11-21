@@ -17,6 +17,7 @@ public class PurpleColor : IColorState
             Debug.Log("Attak");
             player.canAttack = false;
             player.animator.SetBool("IsPurpleAttacking", true);
+            
             player.CallOnDelay(0.3f, () =>
             {
                 player.canAttack = true;
