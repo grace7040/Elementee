@@ -36,7 +36,6 @@ public class UI_SoundCustom : UI_Popup
     }
 
 
-
     enum Buttons
     {
         // 사운드 오브젝트들
@@ -129,6 +128,7 @@ public class UI_SoundCustom : UI_Popup
     public void BackBtnClicked(PointerEventData data)
     {
         Managers.UI.ClosePopupUI();
+        AudioManager.Instacne.SaveAudios();
     }
 
     public void SaveClip(PointerEventData data)
@@ -138,7 +138,7 @@ public class UI_SoundCustom : UI_Popup
         if(currentObject != SoundObjects.def)
         {
             AudioManager.Instacne.SetSFX(name, aud.clip);
-            SavWav.Save("C:/Users/user/wkspaces/Elementee/Assets/Cherry/Records/" + name, aud.clip);
+            //SavWav.Save("C:/Users/user/wkspaces/Elementee/Assets/Cherry/Records/" + name, aud.clip);
             //AudioManager에 저장
         }
 

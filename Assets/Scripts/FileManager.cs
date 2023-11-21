@@ -11,13 +11,10 @@ public class FileManager : MonoBehaviour
     public TMP_Text text;
 
     string weaponDir = "/weapons";
-    string soundDir = "/sounds";
     void Start()
     {
         text.text = "파일관리자 Start";
         CheckWeaponDir();
-        //CheckSoundDir();
-
     }
     
 
@@ -45,11 +42,6 @@ public class FileManager : MonoBehaviour
         }
         text.text = "스프라이트 저장 완료";
         drawManager.SaveWeapons(weaponDir);
-    }
-
-    void CheckSoundDir()
-    {
-
     }
 
 }

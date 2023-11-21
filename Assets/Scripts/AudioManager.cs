@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
-
+using UnityEngine.Networking;
 
 [System.Serializable]
 public class Sound
@@ -14,11 +15,15 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instacne;
 
+    int soundObjectsNum = 2; //UI_SoundCustom의 커스텀 soundObjects개수
+
     public Sound[] sfx = null;
     public Sound[] bgm = null;
 
     [SerializeField] AudioSource bgmPlayer = null;
     [SerializeField] AudioSource[] sfxPlayer = null;
+
+    string audioDir = "/audios";
 
     private void Awake()
     {
@@ -36,7 +41,14 @@ public class AudioManager : MonoBehaviour
         else
             Destroy(gameObject);
     }
-
+    private void Start()
+    {
+        string dir = Application.persistentDataPath + audioDir;
+        if (Directory.Exists(dir))
+            LoadAudios();
+        else
+            Directory.CreateDirectory(dir);
+    }
     public void PlayBGM(string p_bgmName)
     {
         for (int i = 0; i < bgm.Length; i++)
@@ -88,4 +100,47 @@ public class AudioManager : MonoBehaviour
             }
         }
     }
+
+    //WAV to AudioClip
+    void LoadAudios() //Application.persistentDataPath에 저장된 사운드 로드
+    {
+        StartCoroutine(nameof(TestUnityWebRequest));
+    }
+
+    //AudioClip to WAV
+    public void SaveAudios()
+    {
+        string dir = Application.persistentDataPath + audioDir;
+        for (int i = 0; i < soundObjectsNum; i++)
+        {
+            SavWav.Save(dir + "/"+ sfx[i].name, sfx[i].clip);
+        }
+    }
+
+    IEnumerator TestUnityWebRequest()
+    {
+        string dir = Application.persistentDataPath + audioDir;
+        for (int i = 0; i < soundObjectsNum; i++)
+        {
+            using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(dir + "/" + sfx[i].name + ".wav", AudioType.WAV))
+            {
+                yield return www.Send();
+
+                if (www.isNetworkError)
+                {
+                    Debug.Log(www.error);
+                }
+                else
+                {
+                    sfx[i].clip = DownloadHandlerAudioClip.GetContent(www);
+                    sfx[i].clip.name = sfx[i].name;
+                }
+
+            }
+        }
+        //완료했다고 알려주기. 오브젝트 매니저한테도 알려주기
+
+    }
+
+
 }
