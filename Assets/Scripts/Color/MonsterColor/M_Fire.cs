@@ -12,6 +12,8 @@ public class M_Fire : MonoBehaviour
         Transform player = GameObject.FindGameObjectWithTag("Player").transform;
         GameObject Red = GameObject.Find("M_Red");
 
+        Destroy(gameObject, 2.0f);
+
         if (player != null)
         {
             // 몬스터와 플레이어의 위치 차이를 계산합니다.
@@ -28,8 +30,6 @@ public class M_Fire : MonoBehaviour
                 sprite.flipX = false;
             }
         }
-
-        Destroy(gameObject, 2.0f);
     }
 
     // Update is called once per frame

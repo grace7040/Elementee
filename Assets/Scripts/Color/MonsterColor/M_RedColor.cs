@@ -23,11 +23,11 @@ public class M_RedColor : MonoBehaviour, M_IColorState
 
             if (distance < 0f)
             {
-                GameObject Fire = Instantiate(Resources.Load("Fire"), monster.transform.position - monster.transform.right.normalized * 2.0f, Quaternion.identity) as GameObject;
+                GameObject Fire = Instantiate(Resources.Load("Fire"), monster.transform.position - monster.transform.right.normalized * 0.0f, Quaternion.Euler(0, 0, -90)) as GameObject;
             }
             else if (distance > 0f)
             {
-                GameObject Fire = Instantiate(Resources.Load("Fire"), monster.transform.position + monster.transform.right.normalized * 2.0f, Quaternion.identity) as GameObject;
+                GameObject Fire = Instantiate(Resources.Load("Fire"), monster.transform.position + monster.transform.right.normalized * 0.0f, Quaternion.Euler(0, 0, 90)) as GameObject;
             }
         }
         //GameObject Fire = Instantiate(Resources.Load("Fire"), monster.transform.position + monster.transform.right.normalized * 2.0f, Quaternion.identity) as GameObject;
