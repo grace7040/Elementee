@@ -47,7 +47,7 @@ public class UI_Custom : UI_Popup
 
         GetButton((int)Buttons.FaceBtn).gameObject.BindEvent(StartFaceDrawing);
         GetButton((int)Buttons.SceneBtn).gameObject.BindEvent(SceneJump);
-      //  GetButton((int)Buttons.SoundBtn).gameObject.BindEvent(SettingBtnClicked);
+        GetButton((int)Buttons.SoundBtn).gameObject.BindEvent(SoundBtnClicked);
 
     }
 
@@ -64,7 +64,13 @@ public class UI_Custom : UI_Popup
 
     }
 
-    public void SceneJump(PointerEventData data)
+    public void SoundBtnClicked(PointerEventData data)
+    {
+        Managers.UI.ShowPopupUI<UI_SoundCustom>();
+    }
+
+
+        public void SceneJump(PointerEventData data)
     {
         //ClosePopupUI();
         //SceneManager.LoadScene(2);

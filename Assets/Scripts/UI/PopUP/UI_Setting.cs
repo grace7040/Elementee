@@ -16,21 +16,6 @@ public class UI_Setting  : UI_Popup
 
     }
 
-    //enum Texts
-    //{
-    //    PointText,
-    //    ScoreText
-    //}
-
-    //enum GameObjects
-    //{
-    //    TestObject,
-    //}
-
-    //enum Images
-    //{
-    //    ItemIcon,
-    //}
 
     private void Start()
     {
@@ -42,15 +27,17 @@ public class UI_Setting  : UI_Popup
         base.Init(); // 📜UI_Button 의 부모인 📜UI_PopUp 의 Init() 호출
 
         Bind<Button>(typeof(Buttons)); 
-        //Bind<TMP_Text>(typeof(Texts)); 
-        //Bind<GameObject>(typeof(GameObjects)); 
-        //Bind<Image>(typeof(Images)); 
 
-    //    GetButton((int)Buttons.BackBtn).gameObject.BindEvent(OnBackBtnClicked);
+
+        GetButton((int)Buttons.ToMainBtn).gameObject.BindEvent(ToMaineBtnClicked);
         GetButton((int)Buttons.ResumeBtn).gameObject.BindEvent(OnResumeBtnClicked);
         GetButton((int)Buttons.RetryBtn).gameObject.BindEvent(OnRetryBtnClicked);
-        //GameObject go = GetImage((int)Images.ItemIcon).gameObject;
-        //BindEvent(go, (PointerEventData data) => { go.transform.position = data.position; }, Define.UIEvent.Drag);
+    }
+
+    public void ToMaineBtnClicked(PointerEventData data)
+    {
+        GameManager.Instance.GoToMainMenu();
+        Managers.UI.ClosePopupUI();
     }
 
     public void OnResumeBtnClicked(PointerEventData data)

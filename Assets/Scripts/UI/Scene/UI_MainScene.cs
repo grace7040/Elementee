@@ -13,6 +13,7 @@ public class UI_MainScene : UI_Scene
     {
         StartBtn,
         SettingBtn,
+        CustomBtn,
 
     }
 
@@ -45,6 +46,7 @@ public class UI_MainScene : UI_Scene
 
         GetButton((int)Buttons.StartBtn).gameObject.BindEvent(StartBtnClicked);
         GetButton((int)Buttons.SettingBtn).gameObject.BindEvent(SettingBtnClicked);
+        GetButton((int)Buttons.CustomBtn).gameObject.BindEvent(CustomBtnClicked);
 
     }
 
@@ -57,5 +59,10 @@ public class UI_MainScene : UI_Scene
     public void SettingBtnClicked(PointerEventData data)
     {
         Managers.UI.ShowPopupUI<UI_MainSetting>();
+    }
+
+    public void CustomBtnClicked(PointerEventData data)
+    {
+        SceneManager.LoadScene("Custom");
     }
 }

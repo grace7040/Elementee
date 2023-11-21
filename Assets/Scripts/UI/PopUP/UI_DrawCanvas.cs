@@ -40,7 +40,7 @@ public class UI_DrawCanvas : UI_Popup
 
     public void SaveBtnClicked(PointerEventData data)
     {
-        
+
         if (player != null)
         {
             player.GetComponent<PlayerController>().SetCustomWeapon();
@@ -52,10 +52,12 @@ public class UI_DrawCanvas : UI_Popup
             DrawManager.Instance.CloseDrawing();
         }
         else  // ¾ó±¼ ±×¸± ¶§
-           DrawManager.Instance.SaveFaceDrawing();
+        {
+            ClosePopupUI();
+            DrawManager.Instance.SaveFaceDrawing();
+        }
+        
 
-        Destroy(this);
-   
     }
 
     public void ResetBtnClicked(PointerEventData data)

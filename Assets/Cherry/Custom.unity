@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028331, g: 0.2257133, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -562,7 +562,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &828407974
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -577,7 +577,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isGameOver: 0
   totalScore: 0
-  savePoint: {fileID: 0}
+  savePoint:
+  - 0
   playerColor: 0
   playerFace: {fileID: 0}
   playerHP: 100
@@ -760,6 +761,12 @@ PrefabInstance:
     - target: {fileID: 675892810443862478, guid: a387575f92ee00c45ad0caec2e1ab69a, type: 3}
       propertyPath: m_Name
       value: UI_Custom
+      objectReference: {fileID: 0}
+    - target: {fileID: 5255182750283494732, guid: a387575f92ee00c45ad0caec2e1ab69a, type: 3}
+      propertyPath: m_text
+      value: 'Play!!
+
+'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a387575f92ee00c45ad0caec2e1ab69a, type: 3}
