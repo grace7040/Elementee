@@ -9,10 +9,11 @@ using UnityEngine.SceneManagement;
 
 public class UI_SoundCustom : UI_Popup
 {
-
+    public int recordTime = 1;
     public Sprite[] sprites;
     public SoundObjects currentObject;
     public AudioClip test;
+    public GameObject blockImage;
 
 
     AudioClip record;
@@ -53,15 +54,18 @@ public class UI_SoundCustom : UI_Popup
         // 나머지
         Save,
         Record,
+        Pause,
         Play,
         Exit,
         Back,
+        Default,
 
     }
 
     enum Images
     {
         Image,
+        
     }
 
 
@@ -88,8 +92,9 @@ public class UI_SoundCustom : UI_Popup
         GetButton((int)Buttons.Save).gameObject.BindEvent(SaveClip);
         GetButton((int)Buttons.Record).gameObject.BindEvent(RecordBtnClicked);
         GetButton((int)Buttons.Play).gameObject.BindEvent(PlayBtnClicked);
-        GetButton((int)Buttons.Exit).gameObject.BindEvent(ExitBtnClicked);
+        GetButton((int)Buttons.Default).gameObject.BindEvent(DafaultBtnClicked);
         GetButton((int)Buttons.Back).gameObject.BindEvent(BackBtnClicked);
+        GetButton((int)Buttons.Pause).gameObject.BindEvent(PauseBtnClicked);
     }
 
 
@@ -100,30 +105,52 @@ public class UI_SoundCustom : UI_Popup
         GetImage((int)Images.Image).sprite = sprites[(int)currentObject];
     }
 
+    public void PauseBtnClicked(PointerEventData data)
+    {
+        aud.Pause();
+    }
 
     public void RecordBtnClicked(PointerEventData data)
     {
       
         if (currentObject != SoundObjects.def)
         {
-            record = Microphone.Start(Microphone.devices[0].ToString(), false, 1, 44100);
+            record = Microphone.Start(Microphone.devices[0].ToString(), false, recordTime, 44100);
             aud.clip = record;
+            blockImage.SetActive(true);
+            Invoke("OffBlockImg", recordTime);
         }
+        
     }
+
+    public void DafaultBtnClicked(PointerEventData data)
+    {
+        string name = Enum.GetName(typeof(SoundObjects), currentObject);
+        // Dafault 음성으로 바꾸기
+        AudioManager.Instacne.SetSFX(name, AudioManager.Instacne.default_sfx[(int)currentObject-1].clip);
+        aud.clip = AudioManager.Instacne.default_sfx[(int)currentObject - 1].clip;
+    }
+
 
     public void PlayBtnClicked(PointerEventData data)
     {
         if (currentObject != SoundObjects.def)
         {
-            // 이것도 AudioManager을 통해 재생해야함
+            if (aud.clip == null)
+            {
+                aud.clip = AudioManager.Instacne.sfx[(int)currentObject - 1].clip;
+            }
+
             aud.Play();
+            
         }
     }
 
-    public void ExitBtnClicked(PointerEventData data)
+    public void OffBlockImg()
     {
-        SetSoundObject(SoundObjects.def);
+        blockImage.SetActive(false);
     }
+
 
     public void BackBtnClicked(PointerEventData data)
     {
