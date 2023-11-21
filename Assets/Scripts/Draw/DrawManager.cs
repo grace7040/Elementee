@@ -13,6 +13,10 @@ public class DrawManager : MonoBehaviour
     Colors color;
     public Sprite[] sprites;
 
+    [Header("PenWidth")]
+    public int weaponWidth = 10;
+    public int faceWidth = 22;
+
     [HideInInspector]
     public DrawingSettings DrawSetting;
 
@@ -52,6 +56,7 @@ public class DrawManager : MonoBehaviour
 
         DrawbleObject.GetComponent<SpriteRenderer>().sprite = sprites[(int)color];
         DrawbleObject.GetComponent<Drawable>().UpdateCanvas();
+        DrawSetting.SetMarkerWidth(weaponWidth);
         DrawSetting.SetMarkerColour(c);
     }
 
@@ -79,7 +84,7 @@ public class DrawManager : MonoBehaviour
 
         DrawbleObject.GetComponent<SpriteRenderer>().sprite = sprites[0];
         DrawbleObject.GetComponent<Drawable>().UpdateCanvas();
-        DrawSetting.SetMarkerWidth(22);
+        DrawSetting.SetMarkerWidth(faceWidth);
 
         DrawSetting.SetMarkerColour(c);
 
