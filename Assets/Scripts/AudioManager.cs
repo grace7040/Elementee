@@ -47,7 +47,10 @@ public class AudioManager : MonoBehaviour
         if (Directory.Exists(dir))
             LoadAudios();
         else
+        {
             Directory.CreateDirectory(dir);
+            SaveAudios();
+        }
     }
     public void PlayBGM(string p_bgmName)
     {
