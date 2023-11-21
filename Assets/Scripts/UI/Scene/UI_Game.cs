@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
 
 public class UI_Game : UI_Scene
 {
-    GameObject player;
+    public GameObject player;
     Colors player_color = Colors.def;
 
     GameObject jump;
@@ -42,7 +42,7 @@ public class UI_Game : UI_Scene
         Blue,
     }
 
-    private void Start()
+    public void Start()
     {
         Init();
         ObjectManager.Instance.UI_InGame_Ready = true;

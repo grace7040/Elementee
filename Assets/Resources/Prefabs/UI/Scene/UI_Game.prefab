@@ -1695,8 +1695,7 @@ GameObject:
   - component: {fileID: 2981682265872985595}
   - component: {fileID: 2981682265872985594}
   - component: {fileID: 2981682265872985593}
-  - component: {fileID: 205457930}
-  - component: {fileID: 7664928291791413355}
+  - component: {fileID: 109790522}
   m_Layer: 5
   m_Name: UI_Game
   m_TagString: Untagged
@@ -1748,7 +1747,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: -2
+  m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &2981682265872985594
 MonoBehaviour:
@@ -1790,7 +1789,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &205457930
+--- !u!114 &109790522
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1802,20 +1801,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddd0fdd73d3ed9c49bd72b1243bf0dd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hpBarMAX: 800
-  joystick: {fileID: 3881087803990928844}
---- !u!114 &7664928291791413355
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2981682265872985591}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddd0fdd73d3ed9c49bd72b1243bf0dd0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  player: {fileID: 0}
   hpBarMAX: 800
   joystick: {fileID: 3881087803990928844}
 --- !u!1 &2981682266301111492

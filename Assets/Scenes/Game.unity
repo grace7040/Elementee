@@ -446,6 +446,26 @@ Transform:
   m_Father: {fileID: 1308352139}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &109790515 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2981682265872985591, guid: da33ac4f4d81e24458dcc41b75c0628d, type: 3}
+  m_PrefabInstance: {fileID: 205457927}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &109790522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 109790515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddd0fdd73d3ed9c49bd72b1243bf0dd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 196707224}
+  hpBarMAX: 800
+  joystick: {fileID: 1937148101}
 --- !u!1 &152427057
 GameObject:
   m_ObjectHideFlags: 0
@@ -501,6 +521,11 @@ MonoBehaviour:
 Transform:
   m_CorrespondingSourceObject: {fileID: 4567782686879236, guid: 061600cc71b08b947a704a7416146101, type: 3}
   m_PrefabInstance: {fileID: 1122189975}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &196707224 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1377240496476148, guid: 656c8934973bef04fbb2a3c676402a1f, type: 3}
+  m_PrefabInstance: {fileID: 1884304202}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &203284778
 GameObject:
@@ -6907,6 +6932,17 @@ Transform:
   m_Father: {fileID: 1308352139}
   m_RootOrder: 31
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1937148101 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3881087803990928844, guid: da33ac4f4d81e24458dcc41b75c0628d, type: 3}
+  m_PrefabInstance: {fileID: 205457927}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42844a4fccbd54746b90cade4ff70f73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1997573415
 GameObject:
   m_ObjectHideFlags: 0
