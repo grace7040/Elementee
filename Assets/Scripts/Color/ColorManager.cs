@@ -96,7 +96,7 @@ public class ColorManager : Singleton<ColorManager>
        
 
         // 새로운 색 사용할 때 무기 그리도록 UI 띄우기
-        if (!colorList.Contains(_color))
+        if (!colorList.Contains(_color) && _color != Colors.black)
             StartDrawing(_color);
 
         switch (_color)

@@ -63,6 +63,7 @@ public class UI_Game : UI_Scene
         Yellow_IMG.gameObject.SetActive(ColorManager.Instance.HasYellow);
 
         Colors current_color32 = GameManager.Instance.playerColor;
+
         // 플레이어 state에 따른 색 변경
         if (player_color != current_color32)
         {
@@ -114,7 +115,6 @@ public class UI_Game : UI_Scene
 
         Blue_IMG = GetImage((int)Images.Blue);
         Blue_IMG.color = ColorManager.Instance.GetColor(Colors.blue);
-
 
 
         // Palette 세팅
