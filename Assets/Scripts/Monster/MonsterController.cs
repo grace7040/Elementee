@@ -317,7 +317,9 @@ public class MonsterController : MonoBehaviour
         // ³Ë¹é
         Vector2 damageDir = new Vector3(transform.position.x - playerPos.x, 0, 0).normalized * 40f;
         rb.velocity = Vector2.zero;
-        rb.AddForce(damageDir * 40);
+        damageDir += new Vector2(0, 10).normalized * 25f;
+        UpdateAttacked();
+        rb.AddForce(damageDir * 5);
 
         if (currentHealth <= 0)
         {
@@ -378,6 +380,13 @@ public class MonsterController : MonoBehaviour
         canWalk = true;
     }
 
+    IEnumerator Attacked()
+    {
+        gameObject.GetComponent<MonsterController>().enabled = false;
+        yield return new WaitForSeconds(1.0f);
+        gameObject.GetComponent<MonsterController>().enabled = true;
+    }
+
     public void UpdateCanAttack()
     {
         StartCoroutine(AttackCooldown());
@@ -389,6 +398,10 @@ public class MonsterController : MonoBehaviour
     public void UpdateCanWalk()
     {
         StartCoroutine(WalkCooldown());
+    }
+    public void UpdateAttacked()
+    {
+        StartCoroutine(Attacked());
     }
 
     private void OnTriggerEnter2D(Collider2D other)
