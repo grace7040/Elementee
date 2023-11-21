@@ -48,7 +48,7 @@ public class ColorManager : Singleton<ColorManager>
         }
     }
 
-    private void Start()
+    private void Awake()
     {
         colorList.Add(Colors.def);
     }

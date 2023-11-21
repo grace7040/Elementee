@@ -10,7 +10,7 @@ public class GameManager : Singleton<GameManager>
     public int totalScore;
 
     // 이거 default 값 필요함. 나중에 맵 만들 때 추가할 것
-    public Transform savePoint;
+    public float[] savePoint = new float[3];
 
     [Header("Player")]
     public Colors playerColor = Colors.def;

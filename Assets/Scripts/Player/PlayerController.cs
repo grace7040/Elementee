@@ -128,8 +128,10 @@ public class PlayerController : MonoBehaviour
     {
 
         // 마지막 스폰 지점에서 스폰
-        if(GameManager.Instance.savePoint != null)
-            transform.position = GameManager.Instance.savePoint.position;
+        if (GameManager.Instance.savePoint[0] != 0 && GameManager.Instance.savePoint[1]!= 0)
+        {
+            transform.position = new Vector3(GameManager.Instance.savePoint[0], GameManager.Instance.savePoint[1], GameManager.Instance.savePoint[2]);
+        }
 
         // 얼굴 넣기
         faceSprite.sprite = GameManager.Instance.playerFace;
@@ -140,7 +142,7 @@ public class PlayerController : MonoBehaviour
         GameManager.Instance.playerHP = maxHealth;
 
 
-       // ColorManager.Instance.SetColorState(Colors.def);
+        ColorManager.Instance.SetColorState(Colors.def);
         m_Rigidbody2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 
@@ -150,7 +152,7 @@ public class PlayerController : MonoBehaviour
         if (OnLandEvent == null)
             OnLandEvent = new UnityEvent();
 
-        //TEST CODE
+        //TEST CODESZ
         //ColorManager.Instance.SetColorState(Colors.blue);
 
         ColorManager.Instance.HasBlue = true;
