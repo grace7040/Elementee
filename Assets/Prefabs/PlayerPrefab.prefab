@@ -160,6 +160,7 @@ MonoBehaviour:
   healEffect: {fileID: 0}
   purpleEffect: {fileID: 6369867358872008798}
   currentHealth: 100
+  m_Rigidbody2D: {fileID: 50738830109512580}
   animator: {fileID: 95975118031919256}
   faceSprite: {fileID: 7243554273347533079}
   attackCheck: {fileID: 4370582630649528}
@@ -10846,7 +10847,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &524186705296660726
 Transform:
   m_ObjectHideFlags: 0

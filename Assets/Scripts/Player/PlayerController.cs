@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Player Properties")]
     public int currentHealth;
-    private Rigidbody2D m_Rigidbody2D;
+    public Rigidbody2D m_Rigidbody2D;
     public Animator animator;
     public SpriteRenderer faceSprite;
 
@@ -144,8 +144,8 @@ public class PlayerController : MonoBehaviour
 
 
         ColorManager.Instance.SetColorState(Colors.def);
-        m_Rigidbody2D = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
+        //m_Rigidbody2D = GetComponent<Rigidbody2D>();
+        //animator = GetComponent<Animator>();
 
         if (OnFallEvent == null) // 이건 왜하지?
             OnFallEvent = new UnityEvent();

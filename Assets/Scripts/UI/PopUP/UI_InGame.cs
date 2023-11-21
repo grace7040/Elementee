@@ -120,7 +120,7 @@ public class UI_InGame : UI_Popup
         SetPalette();
         ColorManager.Instance.OnSetColor += SetPalette;
 
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = FindObjectOfType<CharacterMove>().gameObject;
         player.GetComponent<CharacterMove>().joystick = joystick;
 
         // hpBar 길이 받아두기
