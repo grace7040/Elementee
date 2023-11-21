@@ -146,7 +146,9 @@ public class ColorManager : Singleton<ColorManager>
                 break;
         }
         player.myColor = _color;
+        SetPlayerCustomWeapon();
         ObjectPoolManager.Instance.SetColorName(_color);
+        DrawManager.Instance.SaveWeapon((int)_color);
         OnSetColor?.Invoke();
     }
 
@@ -176,6 +178,7 @@ public class ColorManager : Singleton<ColorManager>
     {
         player.SetCustomWeapon();
         OnSaveColor?.Invoke();
+        
     }
     
 }

@@ -311,8 +311,7 @@ public class PlayerController : MonoBehaviour
 
     public void SetCustomWeapon()
     {
-        colorWeapons[(int)myColor].sprite = DrawManager.Instance.DrawbleObject.GetComponent<SpriteRenderer>().sprite;
-        byte[] bytes = colorWeapons[(int)myColor].sprite.texture.EncodeToPNG();
+        colorWeapons[(int)myColor].sprite = DrawManager.Instance.sprites[(int)myColor];
     }
 
     public void ShowWeapon()

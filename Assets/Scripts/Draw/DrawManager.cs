@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class DrawManager : MonoBehaviour
 {
     public TMP_Text text;
+    public SpriteRenderer testRenderer;
 
 
     public GameObject Drawing;
@@ -86,7 +87,6 @@ public class DrawManager : MonoBehaviour
         DrawCam.SetActive(false);
 
         Drawing.SetActive(false);
-        SaveWeapon((int)color);
     }
 
     public void SetFaceColor()
@@ -155,6 +155,7 @@ public class DrawManager : MonoBehaviour
         string filename = weaponDir + "/" + sprites[i].name + ".png";
         File.WriteAllBytes(Application.persistentDataPath + filename, bytes);
         text.text = i + "번째 Weapon텍스처를 저장 완료";
+        testRenderer.sprite = sprites[i];
     }
 
     public void SaveWeapons(string _weaponDir)
