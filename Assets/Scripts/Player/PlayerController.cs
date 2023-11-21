@@ -192,6 +192,10 @@ public class PlayerController : MonoBehaviour
                         }
                     }
                 }
+                else if (child.name == "BlackAttack")
+                {
+                    child.gameObject.SetActive(true);
+                }
             }
         }
         else if (myColor != Colors.black)
@@ -207,6 +211,10 @@ public class PlayerController : MonoBehaviour
                             Destroy(child_.gameObject, 0.1f);
                         }
                     }
+                }
+                else if (child.name == "BlackAttack")
+                {
+                    child.gameObject.SetActive(false);
                 }
             }
         }
