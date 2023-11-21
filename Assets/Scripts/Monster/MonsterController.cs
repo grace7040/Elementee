@@ -424,10 +424,10 @@ public class MonsterController : MonoBehaviour
     
     private void OnDieByGreenPlayer()
     {
-        Debug.Log("0000");
+        //Debug.Log("0000");
         if (GameManager.Instance.playerColor == Colors.green)
         {
-            Debug.Log("1111");
+            //Debug.Log("1111");
             Instantiate(Resources.Load("Leaf"), transform.position, Quaternion.identity);
         }
             

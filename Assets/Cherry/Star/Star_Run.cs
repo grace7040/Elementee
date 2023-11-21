@@ -38,6 +38,7 @@ public class Star_Run : Star
                 {
                     animator.SetBool("isAwake", true);
                     StartCoroutine(star_walk());
+                    StartCoroutine(Wait());
                     //follow = true;
                     target = colliders[i].gameObject; // 타겟 위치 저장
                     break;
@@ -59,7 +60,17 @@ public class Star_Run : Star
     }
 
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    if (collision.gameObject.CompareTag("Player"))
+    //    {
+    //        // 이펙트 넣기
+    //        GameManager.Instance.totalScore += score;
+    //        Destroy(this.gameObject);
+    //    }
+    //}
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
@@ -74,5 +85,11 @@ public class Star_Run : Star
         yield return new WaitForSeconds(1f);
         follow = true;
         animator.SetBool("isWalk", true);
+    }
+
+    IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(2f);
+        gameObject.GetComponent<CapsuleCollider2D>().enabled = false;
     }
 }
