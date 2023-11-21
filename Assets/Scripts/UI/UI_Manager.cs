@@ -22,7 +22,9 @@ public class UIManager
     public void SetCanvas(GameObject go, bool sort = true)
     {
         Canvas canvas = Util.GetOrAddComponent<Canvas>(go);
-        canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+
+        if(go.name != "UI_Game")
+            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
         canvas.overrideSorting = true; // 캔버스 안에 캔버스 중첩 경우 (부모 캔버스가 어떤 값을 가지던 나는 내 오더값을 가지려 할때)
 
         if (sort)

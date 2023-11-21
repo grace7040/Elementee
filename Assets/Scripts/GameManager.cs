@@ -57,7 +57,7 @@ public class GameManager : Singleton<GameManager>
         // 게임 다시 활성화
         Time.timeScale = 1;
 
-        Managers.UI.ShowPopupUI<UI_InGame>();
+      //  Managers.UI.ShowPopupUI<UI_InGame>();
         print("계속하자");
     }
 
