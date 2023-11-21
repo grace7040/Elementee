@@ -314,7 +314,7 @@ public class MonsterController : MonoBehaviour
         // ³Ë¹é
         Vector2 damageDir = new Vector3(transform.position.x - playerPos.x, 0, 0).normalized * 40f;
         rb.velocity = Vector2.zero;
-        rb.AddForce(damageDir * 5);
+        rb.AddForce(damageDir * 40);
 
         if (currentHealth <= 0)
         {
