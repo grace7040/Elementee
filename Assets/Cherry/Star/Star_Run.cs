@@ -42,8 +42,6 @@ public class Star_Run : Star
                     //follow = true;
                     target = colliders[i].gameObject; // 타겟 위치 저장
                     break;
-
-                    Invoke("Dead", 3f);
                 }
                // else target = null;
             }
@@ -61,10 +59,7 @@ public class Star_Run : Star
         }
     }
 
-    public void Dead()
-    {
-        Destroy(this.gameObject);
-    }
+
 
     //private void OnCollisionEnter2D(Collision2D collision)
     //{
@@ -76,15 +71,15 @@ public class Star_Run : Star
     //    }
     //}
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            // 이펙트 넣기
-            GameManager.Instance.totalScore += score;
-            Destroy(this.gameObject);
-        }
-    }
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if (collision.gameObject.CompareTag("Player"))
+    //    {
+    //        // 이펙트 넣기
+    //        GameManager.Instance.totalScore += score;
+    //        Destroy(this.gameObject);
+    //    }
+    //}
 
     IEnumerator star_walk()
     {
