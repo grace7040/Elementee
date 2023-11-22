@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class OB_VerticlaMovement : MonoBehaviour
 {
-    public Transform centerPoint; // 중심점 지정용 변수
+    private Transform centerPoint; // 중심점 지정용 변수
     public float verticalSpeed = 1.0f; // 상하 움직임의 속도 조절용 변수
     public float verticalRange = 1.0f; // 상하 움직임의 범위 조절용 변수
 
-    private Vector3 initialPosition;
-
     void Start()
     {
-        initialPosition = transform.position; // 초기 위치 저장
+        GameObject obj = GameObject.Find("PlayerPrefab (1)");
+
+        foreach (Transform child in obj.transform)
+        {
+            if (child.name == "WeaponPosition")
+            {
+                centerPoint = child;
+            }
+        }
+
     }
 
     void Update()
