@@ -23,9 +23,5 @@ public class M_Water : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        //else if (collision.gameObject.tag == "Player")
-        //{
-
-        //}
     }
 }
