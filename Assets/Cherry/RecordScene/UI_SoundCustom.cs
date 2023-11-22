@@ -34,6 +34,7 @@ public class UI_SoundCustom : UI_Popup
         Jump,
         Dash,
         Dead,
+        Hurt,
     }
 
 
@@ -50,6 +51,7 @@ public class UI_SoundCustom : UI_Popup
         Jump,
         Dash,
         Dead,
+        Hurt,
 
         // 나머지
         Save,

@@ -12,7 +12,7 @@ public class UI_MainScene : UI_Scene
     enum Buttons
     {
         StartBtn,
-        SettingBtn,
+       // SettingBtn,
         CustomBtn,
 
     }
@@ -45,7 +45,7 @@ public class UI_MainScene : UI_Scene
         Bind<Button>(typeof(Buttons));
 
         GetButton((int)Buttons.StartBtn).gameObject.BindEvent(StartBtnClicked);
-        GetButton((int)Buttons.SettingBtn).gameObject.BindEvent(SettingBtnClicked);
+      //  GetButton((int)Buttons.SettingBtn).gameObject.BindEvent(SettingBtnClicked);
         GetButton((int)Buttons.CustomBtn).gameObject.BindEvent(CustomBtnClicked);
 
     }
