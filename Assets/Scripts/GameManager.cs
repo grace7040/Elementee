@@ -75,7 +75,7 @@ public class GameManager : Singleton<GameManager>
     public void NewGame()
     {
         // DontDestroy 애들도 초기화 해줘야 할듯
-
+        Time.timeScale = 1;
         // 게임 재시작
         SceneManager.LoadScene(1);
     }

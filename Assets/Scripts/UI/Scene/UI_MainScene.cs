@@ -64,5 +64,6 @@ public class UI_MainScene : UI_Scene
     public void CustomBtnClicked(PointerEventData data)
     {
         SceneManager.LoadScene("Custom");
+        Time.timeScale = 1;
     }
 }
