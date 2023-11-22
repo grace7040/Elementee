@@ -162,7 +162,6 @@ public class MonsterController : MonoBehaviour
             {
                 if (canWalk)
                 {
-                    Debug.Log("°Å¸®");
                     gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
                     Vector2 moveDirection = new Vector2(player.position.x - transform.position.x, 0).normalized;
                     rb.velocity = moveDirection * moveSpeed;
