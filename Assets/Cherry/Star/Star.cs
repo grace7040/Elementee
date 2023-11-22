@@ -43,6 +43,7 @@ public class Star : MonoBehaviour
             // ¿Ã∆Â∆Æ ≥÷±‚
             GameManager.Instance.totalScore += score;
             GameManager.Instance.StarCount();
+            AudioManager.Instacne.PlaySFX("Star");
             Destroy(this.gameObject);
         }
     }

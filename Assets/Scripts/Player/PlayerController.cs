@@ -618,7 +618,7 @@ public class PlayerController : MonoBehaviour
     public void Heal(int health)
     {
         currentHealth += health;
-
+        AudioManager.Instacne.PlaySFX("Heal");
         if (currentHealth > 100)
             currentHealth = 100;
 

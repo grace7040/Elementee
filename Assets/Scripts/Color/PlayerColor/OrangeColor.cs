@@ -13,7 +13,7 @@ public class OrangeColor : IColorState
     {
         player.canAttack = false;
         player.animator.SetBool("IsOrangeAttacking", true);
-
+        AudioManager.Instacne.PlaySFX("Orange");
         //4초 이후에 off
         player.CallOnDelay(2f, () =>
         {

@@ -21,6 +21,7 @@ public class YellowColor : MonoBehaviour, IColorState
         player.canAttack = false;
         player.yellowAttackEffect.SetActive(true);
         player.yellowAttackEffect.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = player.colorWeapons[(int)Colors.yellow].sprite;
+        AudioManager.Instacne.PlaySFX("Yellow");
         //3초 이후에 off
         player.CallOnDelay(0.5f, () =>
         {

@@ -52,12 +52,14 @@ public class BlackColor : MonoBehaviour, IColorState
         {
             Debug.Log("´øÁü");
             ThrowHeldEnemy();
+            AudioManager.Instacne.PlaySFX("BlackRelease");
         }
         else
         {
             Debug.Log("´ç±è");
             playerTransform = player.transform;
             PullClosestEnemy(playerTransform);
+            AudioManager.Instacne.PlaySFX("Black");
             //player.canAttack = true;
         }
     }

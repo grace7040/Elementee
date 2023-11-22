@@ -18,6 +18,7 @@ public class OB_JumpPlatform : MonoBehaviour
                 Vector3 jumpVector = Vector3.up * jumpForce;
                 playerRigidbody.AddForce(jumpVector, ForceMode2D.Impulse);
             }
+            AudioManager.Instacne.PlaySFX("Spring");
         }
     }
 }

@@ -8,6 +8,7 @@ public class Flag : MonoBehaviour
     {
         if(collision.tag == "Player")
         {
+            AudioManager.Instacne.PlaySFX("CheckPoint");
             //플레이어와 깃발이 충돌하면 마지막 저장 지점으로 됩니다.
             GameManager.Instance.savePoint[0] = transform.position.x;
             GameManager.Instance.savePoint[1] = transform.position.y;

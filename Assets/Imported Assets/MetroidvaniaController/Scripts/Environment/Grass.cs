@@ -16,6 +16,7 @@ public class Grass : MonoBehaviour
         {
             GetComponent<Animator>().Play("MovingGrassR");
         }
+        if (col.gameObject.tag == "Player") AudioManager.Instacne.PlaySFX("GrassPass");
     }
 
     public void ApplyDamage(float damage)

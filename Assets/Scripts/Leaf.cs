@@ -5,6 +5,11 @@ using UnityEngine;
 public class Leaf : MonoBehaviour
 {
     public int healAmount;
+
+    private void Start()
+    {
+        AudioManager.Instacne.PlaySFX("LeafGrow");
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
