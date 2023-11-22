@@ -27,6 +27,7 @@ public class BlackColor : MonoBehaviour, IColorState
     private Rigidbody2D heldEnemyRigidbody; // 가지고 있는 적의 Rigidbody2D
     private Transform playerTransform; // 플레이어의 Transform
     private GameObject Enemy;
+    private Colors enemyColor = Colors.def;
 
     public void Attack(PlayerController player)
     {
@@ -145,7 +146,11 @@ public class BlackColor : MonoBehaviour, IColorState
 
             //GameObject Hit = Instantiate(Resources.Load("Black_X"), Enemy.gameObject.transform.position, Quaternion.identity) as GameObject;
 
-            Destroy(Enemy.gameObject, 3.0f);
+            // Colors mon_coloEnemy.GetComponent<MonsterController>().myColor
+
+            // 죽은 몬스터 색 획득
+            SetPlayerColor(Enemy.GetComponent<MonsterController>().myColor);
+            Destroy(Enemy.gameObject, 2.0f);
         }
         //if (heldEnemyRigidbody != null)
         //{
@@ -155,4 +160,25 @@ public class BlackColor : MonoBehaviour, IColorState
         //    heldEnemyRigidbody = null;
         //}
     }
+
+
+    public void SetPlayerColor(Colors mon_color)
+    {
+        switch (mon_color)
+        {
+            case Colors.def:
+                break;
+            case Colors.red:
+                ColorManager.Instance.HasRed = true;
+                break;
+            case Colors.blue:
+                ColorManager.Instance.HasBlue = true;
+                break;
+            case Colors.yellow:
+                ColorManager.Instance.HasYellow = true;
+                break;
+        }
+    }
+
+
 }

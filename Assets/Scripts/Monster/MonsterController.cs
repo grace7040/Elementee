@@ -327,11 +327,11 @@ public class MonsterController : MonoBehaviour
         }
     }
 
-    void Die()
+    public void Die()
     {
         // 죽이면 색깔 물통 떨어뜨리기
-        if (itemPrefab != null)
-        {
+      //  if (itemPrefab != null)
+       // {
             switch (myColor)
             {
                 case Colors.def:
@@ -346,8 +346,10 @@ public class MonsterController : MonoBehaviour
                     ColorManager.Instance.HasYellow = true;
                     break;
             }
-        }
-        Destroy(gameObject, 0.5f);
+      //  }
+
+        // 블랙일 때는 알아서 없어지기 때문에 생략
+         Destroy(gameObject, 0.5f);
     }
 
     IEnumerator AttackCooldown()
@@ -417,7 +419,7 @@ public class MonsterController : MonoBehaviour
             //GameObject Hit = Instantiate(Resources.Load("Black_Hit"), other.transform.position, Quaternion.identity) as GameObject;
             //Destroy(Hit, 0.1f);
             TakeDamage(100, other.transform.position);
-            Destroy(other.gameObject, 0.1f);
+            //Destroy(other.gameObject, 0.1f);
         }
     }
 
