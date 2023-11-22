@@ -41,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3615861111209480671}
   m_Layer: 0
-  m_Name: VerticalPlatform_fix
+  m_Name: MovingPlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -71,6 +71,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3615861111209480671}
     m_Modifications:
+    - target: {fileID: 1470554037461370786, guid: 57f6bff15447f9d4fa51fce5e5e6db0f, type: 3}
+      propertyPath: Vertical
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1470554037461370786, guid: 57f6bff15447f9d4fa51fce5e5e6db0f, type: 3}
       propertyPath: pivotPoint
       value: 
