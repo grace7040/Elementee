@@ -54,16 +54,20 @@ public class UI_MainScene : UI_Scene
     {
         Debug.Log("게임 시작!");
         GameManager.Instance.RetryGame();
+        AudioManager.Instacne.PlaySFX("UiClick");
     }
 
     public void SettingBtnClicked(PointerEventData data)
     {
         Managers.UI.ShowPopupUI<UI_MainSetting>();
+
     }
 
     public void CustomBtnClicked(PointerEventData data)
     {
         SceneManager.LoadScene("Custom");
         Time.timeScale = 1;
+
+        AudioManager.Instacne.PlaySFX("UiClick");
     }
 }
