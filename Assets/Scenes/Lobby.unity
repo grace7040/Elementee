@@ -246,6 +246,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
+    - target: {fileID: 4247873158766730039, guid: a992f63460582c745b2e09d3c8745c22, type: 3}
+      propertyPath: bgm.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4247873158766730039, guid: a992f63460582c745b2e09d3c8745c22, type: 3}
+      propertyPath: bgm.Array.data[0].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 665b2b0c5ad52d84ab9e0eff13853638, type: 3}
+    - target: {fileID: 4247873158766730039, guid: a992f63460582c745b2e09d3c8745c22, type: 3}
+      propertyPath: bgm.Array.data[0].name
+      value: mainBGM
+      objectReference: {fileID: 0}
     - target: {fileID: 7165946553801400048, guid: a992f63460582c745b2e09d3c8745c22, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -457,6 +469,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1795385625, guid: 98c04fc1383924840a97d27c78511af6, type: 3}
+      propertyPath: m_margin.w
+      value: 113.612946
+      objectReference: {fileID: 0}
+    - target: {fileID: 1795385625, guid: 98c04fc1383924840a97d27c78511af6, type: 3}
+      propertyPath: m_margin.x
+      value: 212.40698
+      objectReference: {fileID: 0}
+    - target: {fileID: 1795385625, guid: 98c04fc1383924840a97d27c78511af6, type: 3}
+      propertyPath: m_margin.y
+      value: 116.082855
+      objectReference: {fileID: 0}
+    - target: {fileID: 1795385625, guid: 98c04fc1383924840a97d27c78511af6, type: 3}
+      propertyPath: m_margin.z
+      value: 214.87671
+      objectReference: {fileID: 0}
     - target: {fileID: 2981682265872985591, guid: 98c04fc1383924840a97d27c78511af6, type: 3}
       propertyPath: m_Name
       value: UI_MainScene
@@ -544,6 +572,22 @@ PrefabInstance:
     - target: {fileID: 2981682265872985596, guid: 98c04fc1383924840a97d27c78511af6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2981682266894766386, guid: 98c04fc1383924840a97d27c78511af6, type: 3}
+      propertyPath: m_margin.w
+      value: 101.263824
+      objectReference: {fileID: 0}
+    - target: {fileID: 2981682266894766386, guid: 98c04fc1383924840a97d27c78511af6, type: 3}
+      propertyPath: m_margin.x
+      value: 190.1784
+      objectReference: {fileID: 0}
+    - target: {fileID: 2981682266894766386, guid: 98c04fc1383924840a97d27c78511af6, type: 3}
+      propertyPath: m_margin.y
+      value: 108.67325
+      objectReference: {fileID: 0}
+    - target: {fileID: 2981682266894766386, guid: 98c04fc1383924840a97d27c78511af6, type: 3}
+      propertyPath: m_margin.z
+      value: 200.05762
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 98c04fc1383924840a97d27c78511af6, type: 3}

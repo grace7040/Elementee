@@ -52,6 +52,8 @@ public class AudioManager : MonoBehaviour
             Directory.CreateDirectory(dir);
             SaveAudios();
         }
+
+        PlayBGM("mainBGM");
     }
     public void PlayBGM(string p_bgmName)
     {

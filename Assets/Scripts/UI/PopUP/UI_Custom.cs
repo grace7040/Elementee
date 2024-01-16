@@ -63,12 +63,13 @@ public class UI_Custom : UI_Popup
         DrawManager.Instance.OpenDrawing();
 
         Child_UI.SetActive(false);
-
+        AudioManager.Instacne.PlaySFX("UiClick");
     }
 
     public void SoundBtnClicked(PointerEventData data)
     {
         Managers.UI.ShowPopupUI<UI_SoundCustom>();
+        AudioManager.Instacne.PlaySFX("UiClick");
     }
 
 
@@ -77,6 +78,6 @@ public class UI_Custom : UI_Popup
         //ClosePopupUI();
         //SceneManager.LoadScene(2);
         GameManager.Instance.GoToMainMenu();
-
+        AudioManager.Instacne.PlaySFX("UiClick");
     }
 }

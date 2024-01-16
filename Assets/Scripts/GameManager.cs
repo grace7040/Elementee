@@ -17,8 +17,8 @@ public class GameManager : Singleton<GameManager>
     public Colors playerColor = Colors.def;
     public Sprite playerFace;
 
-    public int playerHP = 100;
-    public int playerMAXHP = 100;
+    public int playerHP = 200;
+    public int playerMAXHP = 200;
 
     public delegate void Del();
     public Del SetJoystick = null;
