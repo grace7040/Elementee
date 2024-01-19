@@ -8,9 +8,11 @@ using UnityEngine.UI;
 
 public class DrawManager : MonoBehaviour
 {
+    // 어떤 Mode인지
+    public bool face_mode;
+
     public TMP_Text text;
     public SpriteRenderer testRenderer;
-
 
     public GameObject Drawing;
     public GameObject DrawbleObject;
@@ -85,7 +87,6 @@ public class DrawManager : MonoBehaviour
         // 다시 원래 카메라로
         Cam.SetActive(true);
         DrawCam.SetActive(false);
-
         Drawing.SetActive(false);
     }
 

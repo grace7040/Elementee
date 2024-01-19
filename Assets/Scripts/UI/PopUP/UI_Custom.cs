@@ -10,6 +10,7 @@ using UnityEngine.SceneManagement;
 public class UI_Custom : UI_Popup
 {
     public GameObject Child_UI;
+
     enum Buttons
     {
         FaceBtn,
@@ -18,23 +19,6 @@ public class UI_Custom : UI_Popup
 
     }
 
-    
-
-    //enum Texts
-    //{
-    //    PointText,
-    //    ScoreText
-    //}
-
-    //enum GameObjects
-    //{
-    //    TestObject,
-    //}
-
-    //enum Images
-    //{
-    //    ItemIcon,
-    //}
 
     private void Start()
     {
@@ -53,6 +37,7 @@ public class UI_Custom : UI_Popup
 
     }
 
+
     public void StartFaceDrawing(PointerEventData data)
     {
        // ColorManager.Instance.StartDrawing(Colors.black);
@@ -65,6 +50,7 @@ public class UI_Custom : UI_Popup
         Child_UI.SetActive(false);
         AudioManager.Instacne.PlaySFX("UiClick");
     }
+
 
     public void SoundBtnClicked(PointerEventData data)
     {

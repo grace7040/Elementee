@@ -93,12 +93,22 @@ public class ColorManager : Singleton<ColorManager>
         player = FindObjectOfType<PlayerController>();
         player.myColor = _color;
         GameManager.Instance.playerColor = _color;
-       
+
 
         // 새로운 색 사용할 때 무기 그리도록 UI 띄우기
         if (!colorList.Contains(_color) && _color != Colors.black)
+        {
+            OffPlayerWeapon();
             StartDrawing(_color);
+        }
+        else
+            SetOnPlayer(_color);
+    }
 
+
+    // hasXXX 변수 설정 & 플레이어 무기 활성화
+    public void SetOnPlayer(Colors _color)
+    {
         switch (_color)
         {
             case Colors.def:
@@ -155,6 +165,14 @@ public class ColorManager : Singleton<ColorManager>
     private void SetColorState(IColorState _color)
     {
         player.Color = _color;
+        player.red_Weapon.SetActive(false);
+        player.purple_Weapon.SetActive(false);
+        player.green_Weapon.SetActive(false);
+        player.blue_Weapon.SetActive(false);
+    }
+
+    private void OffPlayerWeapon()
+    {
         player.red_Weapon.SetActive(false);
         player.purple_Weapon.SetActive(false);
         player.green_Weapon.SetActive(false);
