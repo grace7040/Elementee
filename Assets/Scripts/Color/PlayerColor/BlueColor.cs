@@ -14,12 +14,13 @@ public class BlueColor : MonoBehaviour, IColorState
     {
 
         player.canAttack = false;
-        GameObject throwableWeapon = Instantiate(Resources.Load("BlueWeapon"),
+        GameObject throwableWeapon = Instantiate(Resources.Load("Player/BlueWeapon"),
             player.transform.position + new Vector3(player.transform.localScale.x * 0.5f, 0.2f),
             Quaternion.identity) as GameObject;
 
         player.animator.SetBool("IsBlueAttacking", true);
         throwableWeapon.GetComponent<SpriteRenderer>().sprite = player.colorWeapons[(int)Colors.blue].sprite;
+        throwableWeapon.transform.localScale = new Vector3(throwableWeapon.transform.localScale.x * player.transform.localScale.normalized.x, throwableWeapon.transform.localScale.y, throwableWeapon.transform.localScale.z);
         AudioManager.Instacne.PlaySFX("Blue");
         //throwableWeapon.GetComponent<SpriteRenderer>().sprite = this.Sprite;
         Vector2 direction = new Vector2(player.transform.localScale.x, 0);
