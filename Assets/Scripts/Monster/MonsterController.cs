@@ -5,6 +5,7 @@ using System.Security.Cryptography;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class MonsterController : MonoBehaviour
 {
@@ -22,7 +23,7 @@ public class MonsterController : MonoBehaviour
 
     public Colors myColor;
     public int maxHealth = 100;
-    private int currentHealth;
+    public int currentHealth;
 
     public float detectionRange = 10f;
     public float attackRange = 2f;
@@ -30,7 +31,7 @@ public class MonsterController : MonoBehaviour
     private Transform player;
     private Rigidbody2D rb;
 
-    public GameObject itemPrefab; // ¶³¾î¶ß¸± ¾ÆÀÌÅÛ ÇÁ¸®ÆÕ
+    public GameObject itemPrefab; // ï¿½ï¿½ï¿½ï¿½ß¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
     private float m_JumpForce;
     public int m_damage;
@@ -39,7 +40,7 @@ public class MonsterController : MonoBehaviour
 
     private SpriteRenderer monsterSpriteRenderer;
 
-    public Transform[] waypoints; // AI°¡ ÀÌµ¿ÇÒ WaypointµéÀÇ ¹è¿­
+    public Transform[] waypoints; // AIï¿½ï¿½ ï¿½Ìµï¿½ï¿½ï¿½ Waypointï¿½ï¿½ï¿½ï¿½ ï¿½è¿­
 
     private int currentWaypointIndex = 0;
     private Transform currentWaypoint;
@@ -51,6 +52,12 @@ public class MonsterController : MonoBehaviour
 
     public delegate void Del();
     public Del OnDie = null;
+
+    // HP Bar ï¿½ï¿½ï¿½ï¿½
+    private Image hpBar;
+    private float hpBarMAX;
+
+
     private void Awake()
     {
         SetColor();
@@ -84,7 +91,7 @@ public class MonsterController : MonoBehaviour
         //Color = new M_RedColor();
 
         currentHealth = maxHealth;
-        player = GameObject.FindGameObjectWithTag("Player").transform; // "Player" ÅÂ±×¸¦ °¡Áø ¿ÀºêÁ§Æ®¸¦ ÇÃ·¹ÀÌ¾î·Î ¼³Á¤
+        player = GameObject.FindGameObjectWithTag("Player").transform; // "Player" ï¿½Â±×¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         monsterSpriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
 
@@ -92,10 +99,18 @@ public class MonsterController : MonoBehaviour
         {
             currentWaypoint = waypoints[currentWaypointIndex];
         }
+
+        // ì²´ë ¥ë°”
+        hpBar = transform.Find("HPBar").GetChild(1).gameObject.GetComponent<Image>();
+        hpBarMAX = hpBar.gameObject.GetComponent<RectTransform>().rect.width;
+
     }
+
+ 
 
     private void Update()
     {
+
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
         if (myColor == Colors.def) // Default
@@ -110,26 +125,26 @@ public class MonsterController : MonoBehaviour
         {
             if (player != null && canWalk)
             {
-                // ¸ó½ºÅÍ¿Í ÇÃ·¹ÀÌ¾îÀÇ À§Ä¡ Â÷ÀÌ¸¦ °è»êÇÕ´Ï´Ù.
+                // ï¿½ï¿½ï¿½Í¿ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
                 float distance = player.position.x - transform.position.x;
                 float distanceY = player.position.y - transform.position.y;
 
-                // ÇÃ·¹ÀÌ¾î°¡ ¸ó½ºÅÍÀÇ ¿ÞÂÊ¿¡ ÀÖÀ¸¸é ÁÂ¿ì¸¦ µÚÁý½À´Ï´Ù.
+                // ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ê¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Â¿ì¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.
                 if (distance < 0f && distanceY < 2f)
                 {
                     monsterSpriteRenderer.flipX = false;
                 }
-                // ÇÃ·¹ÀÌ¾î°¡ ¸ó½ºÅÍÀÇ ¿À¸¥ÂÊ¿¡ ÀÖÀ¸¸é ÁÂ¿ì¸¦ µÚÁýÁö ¾Ê½À´Ï´Ù.
+                // ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ê¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Â¿ì¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê½ï¿½ï¿½Ï´ï¿½.
                 else if (distance > 0f && distanceY < 2f)
                 {
                     monsterSpriteRenderer.flipX = true;
                 }
             }
 
-            //1. °ø°Ý ¹üÀ§ ¾È¿¡ ÀÖÀ» ¶§
+            //1. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½È¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
             if(distanceToPlayer <= attackRange)
             {
-                // °ø°Ý ÄðÅ¸ÀÓÀÌ Â÷¼­ °ø°ÝÀÌ °¡´ÉÇÏ¸é -> attack
+                // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ -> attack
                 if (canAttack)
                 {
                     gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
@@ -140,7 +155,7 @@ public class MonsterController : MonoBehaviour
                     StartCoroutine(AttackCooldown());
                     StartCoroutine(WalkCooldown());
                 }
-                //°ø°Ý¹üÀ§¿¡´Â ÀÖÁö¸¸ + °ø°Ý ÄðÅ¸ÀÓÀÌ ´Ù ¾È µ¹¾Æ¼­ ±×³É °È±â¸¸ ÇßÀ¸¸é ÁÁ°ÚÀ» ¶§
+                //ï¿½ï¿½ï¿½Ý¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ + ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Æ¼ï¿½ ï¿½×³ï¿½ ï¿½È±â¸¸ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
                 else if (waitforAttack) //walk
                 {
                     if (canWalk)
@@ -157,7 +172,7 @@ public class MonsterController : MonoBehaviour
                 }
             }
 
-            //2. °¨Áö ¹üÀ§ ¾È¿¡ ÀÖÀ» ¶§ -> walk
+            //2. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½È¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ -> walk
             else if (distanceToPlayer <= detectionRange)
             {
                 if (canWalk)
@@ -172,7 +187,7 @@ public class MonsterController : MonoBehaviour
                 }
             }
 
-            else //¿ÏÀüÈ÷ °ø°Ý ¹üÀ§ ¹ÛÀÏ¶§
+            else //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï¶ï¿½
             {
                 gameObject.GetComponent<Animator>().SetBool("IsAttacking", false);
                 gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
@@ -183,30 +198,30 @@ public class MonsterController : MonoBehaviour
         {
             if (player != null)
             {
-                // ¸ó½ºÅÍ¿Í ÇÃ·¹ÀÌ¾îÀÇ À§Ä¡ Â÷ÀÌ¸¦ °è»êÇÕ´Ï´Ù.
+                // ï¿½ï¿½ï¿½Í¿ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
                 float distance = player.position.x - transform.position.x;
                 float distanceY = player.position.y - transform.position.y;
 
-                // ÇÃ·¹ÀÌ¾î°¡ ¸ó½ºÅÍÀÇ ¿ÞÂÊ¿¡ ÀÖÀ¸¸é ÁÂ¿ì¸¦ µÚÁý½À´Ï´Ù.
+                // ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ê¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Â¿ì¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.
                 if (distance < 0f && distanceY < 2f)
                 {
                     monsterSpriteRenderer.flipX = false;
                 }
-                // ÇÃ·¹ÀÌ¾î°¡ ¸ó½ºÅÍÀÇ ¿À¸¥ÂÊ¿¡ ÀÖÀ¸¸é ÁÂ¿ì¸¦ µÚÁýÁö ¾Ê½À´Ï´Ù.
+                // ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ê¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Â¿ì¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê½ï¿½ï¿½Ï´ï¿½.
                 else if (distance > 0f && distanceY < 2f)
                 {
                     monsterSpriteRenderer.flipX = true;
                 }
             }
 
-            // ÇÃ·¹ÀÌ¾î°¡ °ø°Ý ¹üÀ§ ¾È¿¡ ÀÖ°í °ø°Ý Äð´Ù¿îÀÌ ³¡³µÀ¸¸é °ø°Ý ½ÇÇà
+            // ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½È¿ï¿½ ï¿½Ö°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ù¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             if (distanceToPlayer <= attackRange && canAttack)
             {
                 color.Attack(this);
                 //Debug.Log("attack");
                 UpdateCanAttack2();
             }
-            // ÇÃ·¹ÀÌ¾î°¡ °¨Áö ¹üÀ§ ¾È¿¡ ÀÖÀ¸¸é ÇÃ·¹ÀÌ¾î¸¦ ÇâÇØ ÀÌµ¿
+            // ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½È¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾î¸¦ ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
             else if (distanceToPlayer <= detectionRange)
             {
                 gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
@@ -215,7 +230,7 @@ public class MonsterController : MonoBehaviour
             }
             else
             {
-                // °¨Áö ¹üÀ§¸¦ ¹þ¾î³­ °æ¿ì ÀÌµ¿ ÁßÁö
+                // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³­ ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½
                 gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
                 rb.velocity = Vector2.zero;
             }
@@ -225,35 +240,35 @@ public class MonsterController : MonoBehaviour
         {
             if (player != null)
             {
-                // ¸ó½ºÅÍ¿Í ÇÃ·¹ÀÌ¾îÀÇ À§Ä¡ Â÷ÀÌ¸¦ °è»êÇÕ´Ï´Ù.
+                // ï¿½ï¿½ï¿½Í¿ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
                 float distance = player.position.x - transform.position.x;
                 float distanceY = player.position.y - transform.position.y;
 
-                // ÇÃ·¹ÀÌ¾î°¡ ¸ó½ºÅÍÀÇ ¿ÞÂÊ¿¡ ÀÖÀ¸¸é ÁÂ¿ì¸¦ µÚÁý½À´Ï´Ù.
+                // ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ê¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Â¿ì¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.
                 if (distance < 0f && distanceY < 2f)
                 {
                     monsterSpriteRenderer.flipX = false;
                 }
-                // ÇÃ·¹ÀÌ¾î°¡ ¸ó½ºÅÍÀÇ ¿À¸¥ÂÊ¿¡ ÀÖÀ¸¸é ÁÂ¿ì¸¦ µÚÁýÁö ¾Ê½À´Ï´Ù.
+                // ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ê¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Â¿ì¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê½ï¿½ï¿½Ï´ï¿½.
                 else if (distance > 0f && distanceY < 2f)
                 {
                     monsterSpriteRenderer.flipX = true;
                 }
             }
 
-            //1. °ø°Ý ¹üÀ§ ¾È¿¡ ÀÖÀ» ¶§
+            //1. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½È¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
             if (distanceToPlayer <= attackRange)
             {
-                // °ø°Ý ÄðÅ¸ÀÓÀÌ Â÷¼­ °ø°ÝÀÌ °¡´ÉÇÏ¸é -> attack
+                // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ -> attack
                 if (canAttack)
                 {
                     canAttack = false;
-                    waitforAttack = false; // ÇÊ¿ä x
+                    waitforAttack = false; // ï¿½Ê¿ï¿½ x
                     color.Attack(this);
                     gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
                     StartCoroutine(AttackCooldown());
                 }
-                //°ø°Ý¹üÀ§¿¡´Â ÀÖÁö¸¸ + °ø°Ý ÄðÅ¸ÀÓÀÌ ´Ù ¾È µ¹¾Æ¼­ ±×³É °È±â¸¸ ÇßÀ¸¸é ÁÁ°ÚÀ» ¶§
+                //ï¿½ï¿½ï¿½Ý¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ + ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Æ¼ï¿½ ï¿½×³ï¿½ ï¿½È±â¸¸ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
                 else //walk
                 {
                     gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
@@ -263,16 +278,16 @@ public class MonsterController : MonoBehaviour
                 }
             }
 
-            //2. °¨Áö ¹üÀ§ ¾È¿¡ ÀÖÀ» ¶§ -> walk
+            //2. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½È¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ -> walk
             else if (distanceToPlayer <= detectionRange)
             {
-                Debug.Log("°Å¸®");
+                Debug.Log("ï¿½Å¸ï¿½");
                 gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
                 Vector2 moveDirection = new Vector2(player.position.x - transform.position.x, 0).normalized;
                 rb.velocity = moveDirection * moveSpeed;
             }
 
-            else //¿ÏÀüÈ÷ °ø°Ý ¹üÀ§ ¹ÛÀÏ¶§
+            else //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï¶ï¿½
             {
                 gameObject.GetComponent<Animator>().SetBool("IsAttacking", false);
                 gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
@@ -283,10 +298,10 @@ public class MonsterController : MonoBehaviour
 
     private void MoveTowardsWaypoint()
     {
-        // ÇöÀç Waypoint·Î ÀÌµ¿
+        // ï¿½ï¿½ï¿½ï¿½ Waypointï¿½ï¿½ ï¿½Ìµï¿½
         transform.position = Vector2.MoveTowards(transform.position, currentWaypoint.position, moveSpeed * Time.deltaTime);
 
-        // ¸¸¾à AI°¡ ÇöÀç Waypoint¿¡ µµÂøÇß´Ù¸é ´ÙÀ½ Waypoint·Î º¯°æ
+        // ï¿½ï¿½ï¿½ï¿½ AIï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Waypointï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß´Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ Waypointï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (Vector2.Distance(transform.position, currentWaypoint.position) < 0.1f)
         {
             SetNextWaypoint();
@@ -304,7 +319,7 @@ public class MonsterController : MonoBehaviour
             monsterSpriteRenderer.flipX = false;
         }
 
-        // ´ÙÀ½ WaypointÀ» ¼³Á¤ÇÏ°í, ¹è¿­ÀÇ ³¡¿¡ µµ´ÞÇÏ¸é Ã³À½ WaypointÀ¸·Î µ¹¾Æ°¨
+        // ï¿½ï¿½ï¿½ï¿½ Waypointï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½, ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ Ã³ï¿½ï¿½ Waypointï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æ°ï¿½
         currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Length;
         currentWaypoint = waypoints[currentWaypointIndex];
     }
@@ -313,7 +328,10 @@ public class MonsterController : MonoBehaviour
         currentHealth -= damage;
         Debug.Log(currentHealth);
 
-        // ³Ë¹é
+        //ì²´ë ¥ë°” ì—…ë°ì´íŠ¸
+        UpdateHPBar();
+
+        // ï¿½Ë¹ï¿½
         Vector2 damageDir = new Vector3(transform.position.x - playerPos.x, 0, 0).normalized * 40f;
         rb.velocity = Vector2.zero;
         damageDir += new Vector2(0, 10).normalized * 25f;
@@ -328,7 +346,7 @@ public class MonsterController : MonoBehaviour
 
     public void Die()
     {
-        // Á×ÀÌ¸é »ö±ò ¹°Åë ¶³¾î¶ß¸®±â
+        // ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ß¸ï¿½ï¿½ï¿½
       //  if (itemPrefab != null)
        // {
             switch (myColor)
@@ -347,22 +365,22 @@ public class MonsterController : MonoBehaviour
             }
       //  }
 
-        // ºí·¢ÀÏ ¶§´Â ¾Ë¾Æ¼­ ¾ø¾îÁö±â ¶§¹®¿¡ »ý·«
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ë¾Æ¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
          Destroy(gameObject, 0.5f);
     }
 
     IEnumerator AttackCooldown()
     {
-        //2ÃÊ ÀÖ´Ù°¡ °ø°ÝÀº ¸ØÃß°í
+        //2ï¿½ï¿½ ï¿½Ö´Ù°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ß°ï¿½
         yield return new WaitForSeconds(2.0f);
         moveSpeed = 1.5f;
         gameObject.GetComponent<Animator>().SetBool("IsAttacking", false);
         gameObject.GetComponent<Animator>().SetTrigger("StopAttack");
 
-        //¿©±â¿¡ Áö±Ý °É¾Æ¾ß ÇÑ´Ù.
+        //ï¿½ï¿½ï¿½â¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½É¾Æ¾ï¿½ ï¿½Ñ´ï¿½.
         waitforAttack = true;
 
-        //2ÃÊ ´õ ÀÖ´Ù°¡ °ø°Ý ´Ù½Ã ÇÒ ¼ö ÀÖµµ·Ï
+        //2ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´Ù°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½Öµï¿½ï¿½ï¿½
         yield return new WaitForSeconds(2.0f);
         canAttack = true;
         waitforAttack = false;
@@ -432,6 +450,14 @@ public class MonsterController : MonoBehaviour
             Instantiate(Resources.Load("ETC/Leaf"), transform.position, Quaternion.identity);
         }
             
+    }
+
+    private void UpdateHPBar()
+    {
+        // ï¿½ï¿½ï¿½ï¿½ Ã¼ï¿½Â¹ï¿½
+        RectTransform barSize = hpBar.GetComponent<RectTransform>();
+        float width = (float)currentHealth / maxHealth * hpBarMAX;
+        barSize.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
     }
 
     public void SetOnDieByGreenPlayer()
