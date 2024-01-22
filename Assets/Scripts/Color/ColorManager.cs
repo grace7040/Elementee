@@ -76,9 +76,9 @@ public class ColorManager : Singleton<ColorManager>
             case Colors.orange:
                 return new Color32(255, 175, 61, 255); 
             case Colors.green:
-                return new Color32(109, 201, 109, 255);
+                return new Color32(111, 189, 111, 255);
             case Colors.purple:
-                return new Color32(167, 54, 200, 255);
+                return new Color32(153, 93, 227, 255);
             case Colors.black:
                 return Color.black;
             default:

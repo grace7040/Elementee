@@ -89,6 +89,13 @@ public class UI_SoundCustom : UI_Popup
         GetButton((int)Buttons.Red).gameObject.BindEvent(Red);
         GetButton((int)Buttons.Yellow).gameObject.BindEvent(Yellow);
         GetButton((int)Buttons.Blue).gameObject.BindEvent(Blue);
+        GetButton((int)Buttons.Green).gameObject.BindEvent(Green);
+        GetButton((int)Buttons.Orange).gameObject.BindEvent(Orange);
+        GetButton((int)Buttons.Purple).gameObject.BindEvent(Purple);
+        GetButton((int)Buttons.Jump).gameObject.BindEvent(Jump);
+        GetButton((int)Buttons.Dash).gameObject.BindEvent(Dash);
+        GetButton((int)Buttons.Dead).gameObject.BindEvent(Dead);
+        GetButton((int)Buttons.Hurt).gameObject.BindEvent(Hurt);
 
 
         GetButton((int)Buttons.Save).gameObject.BindEvent(SaveClip);
@@ -188,6 +195,43 @@ public class UI_SoundCustom : UI_Popup
     {
         SetSoundObject(SoundObjects.Blue);
     }
+
+    public void Orange(PointerEventData data)
+    {
+        SetSoundObject(SoundObjects.Orange);
+    }
+
+    public void Green(PointerEventData data)
+    {
+        SetSoundObject(SoundObjects.Green);
+    }
+
+    public void Purple(PointerEventData data)
+    {
+        SetSoundObject(SoundObjects.Purple);
+    }
+
+    public void Jump(PointerEventData data)
+    {
+        SetSoundObject(SoundObjects.Jump);
+    }
+
+    public void Dash(PointerEventData data)
+    {
+        SetSoundObject(SoundObjects.Dash);
+    }
+
+    public void Hurt(PointerEventData data)
+    {
+        SetSoundObject(SoundObjects.Hurt);
+    }
+
+    public void Dead(PointerEventData data)
+    {
+        SetSoundObject(SoundObjects.Dead);
+    }
+
+
 
     public void SceneJump(PointerEventData data)
     {
