@@ -8,6 +8,9 @@ using UnityEngine.UI;
 
 public class DrawManager : MonoBehaviour
 {
+    Colors color;
+
+
     // 어떤 Mode인지
     public bool face_mode;
 
@@ -16,11 +19,16 @@ public class DrawManager : MonoBehaviour
 
     public GameObject Drawing;
     public GameObject DrawbleObject;
+
+    [Header("Camera")]
     public GameObject Cam;
     public GameObject DrawCam;
 
-    Colors color;
+
+    [Header("Sprites")]
+    public GameObject BackGround;
     public Sprite[] sprites;
+    public Sprite[] BG_sprites;
 
     [Header("PenWidth")]
     public int weaponWidth = 10;
@@ -67,6 +75,7 @@ public class DrawManager : MonoBehaviour
         this.color = color;
         Color c = ColorManager.Instance.GetColor(color);
 
+        BackGround.GetComponent<Image>().sprite = BG_sprites[(int)color];
         DrawbleObject.GetComponent<SpriteRenderer>().sprite = sprites[(int)color];
         DrawbleObject.GetComponent<Drawable>().UpdateCanvas();
         DrawSetting.SetMarkerWidth(weaponWidth);
