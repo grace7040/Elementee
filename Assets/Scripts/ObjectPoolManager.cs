@@ -94,7 +94,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
     // 持失
     private GameObject CreatePooledItem()
     {
-        GameObject poolGo = Instantiate(goDic[objectName]);
+        GameObject poolGo = Instantiate(goDic[objectName], this.transform.position, Quaternion.identity);
         //Debug.Log($"持失: {poolGo.name}");
         poolGo.GetComponent<PoolAble>().Pool = ojbectPoolDic[objectName];
         poolGo.transform.SetParent(this.transform);
