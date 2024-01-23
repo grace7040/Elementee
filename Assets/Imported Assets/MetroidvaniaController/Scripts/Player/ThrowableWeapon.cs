@@ -2,17 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ThrowableWeapon : MonoBehaviour
+public class ThrowableWeapon : PoolAble
 {
 	public Vector2 direction;
+    public Colors myColor;
     //public bool hasHit = false;
     //public float speed = 20f;
 
     Rigidbody2D rigid;
-    private void Start()
+    SpriteRenderer spriteRenderer;
+    private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.sprite = DrawManager.Instance.sprites[(int)myColor];
     }
+
     private void FixedUpdate()
     {
         //rigid.velocity = direction * speed;
@@ -23,10 +28,18 @@ public class ThrowableWeapon : MonoBehaviour
     {
         if (!collision.gameObject.GetComponent<PlayerController>())
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
+            ReleaseObject();
         }
     }
 
+    public void Throw(Vector3 playerPosition, float playerLocalScaleX)
+    {
+        spriteRenderer.flipX = playerLocalScaleX < 0 ? true : false;
+        transform.position = playerPosition + new Vector3(playerLocalScaleX * 0.5f, 0.2f);
+        transform.rotation = Quaternion.identity;
+        direction = new Vector2(playerLocalScaleX, 0);
+    }
 
     //void OnCollisionEnter2D(Collision2D collision)
     //{
