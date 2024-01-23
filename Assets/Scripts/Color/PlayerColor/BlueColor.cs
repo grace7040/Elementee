@@ -8,6 +8,8 @@ public class BlueColor : MonoBehaviour, IColorState
     public int Damage { get { return 15; } }
     public bool WallSliding { get { return false; } }
 
+    Sprite weaponSprite = null;
+    bool isInit = false;
 
     //Temporal Setting : BLue Color Attack -> Throw Water obj
     public void Attack(PlayerController player)
@@ -19,7 +21,15 @@ public class BlueColor : MonoBehaviour, IColorState
             Quaternion.identity) as GameObject;
 
         player.animator.SetBool("IsBlueAttacking", true);
-        throwableWeapon.GetComponent<SpriteRenderer>().sprite = player.colorWeapons[(int)Colors.blue].sprite;
+
+        if (!isInit)
+        {
+            weaponSprite = player.colorWeapons[(int)Colors.blue].sprite;
+            isInit = true;
+        }
+
+        throwableWeapon.GetComponent<SpriteRenderer>().sprite = weaponSprite;
+
         throwableWeapon.transform.localScale = new Vector3(throwableWeapon.transform.localScale.x * player.transform.localScale.normalized.x, throwableWeapon.transform.localScale.y, throwableWeapon.transform.localScale.z);
         AudioManager.Instacne.PlaySFX("Blue");
         //throwableWeapon.GetComponent<SpriteRenderer>().sprite = this.Sprite;

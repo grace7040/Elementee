@@ -8,6 +8,9 @@ public class GreenColor : MonoBehaviour, IColorState
     public int Damage { get { return 30; } }
     public bool WallSliding { get { return false; } }
 
+    Sprite weaponSprite = null;
+    bool isInit = false;
+
 
     //Temporal Setting : Green Color Attack -> Throw leaf obj
     public void Attack(PlayerController player)
@@ -19,7 +22,14 @@ public class GreenColor : MonoBehaviour, IColorState
             Quaternion.identity) as GameObject;
 
         player.animator.SetBool("IsGreenAttacking", true);
-        throwableWeapon.GetComponent<SpriteRenderer>().sprite = player.colorWeapons[(int)Colors.green].sprite;
+
+        if (!isInit)
+        {
+            weaponSprite = player.colorWeapons[(int)Colors.green].sprite;
+            isInit = true;
+        }
+
+        throwableWeapon.GetComponent<SpriteRenderer>().sprite = weaponSprite;
         throwableWeapon.transform.localScale = new Vector3(throwableWeapon.transform.localScale.x* player.transform.localScale.normalized.x, throwableWeapon.transform.localScale.y, throwableWeapon.transform.localScale.z);
         AudioManager.Instacne.PlaySFX("Green");
         //throwableWeapon.GetComponent<SpriteRenderer>().sprite = this.Sprite;
