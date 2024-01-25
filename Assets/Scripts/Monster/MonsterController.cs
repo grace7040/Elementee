@@ -452,12 +452,10 @@ public class MonsterController : MonoBehaviour
             
     }
 
+    // 체력바 업데이트
     private void UpdateHPBar()
     {
-        // ���� ü�¹�
-        RectTransform barSize = hpBar.GetComponent<RectTransform>();
-        float width = (float)currentHealth / maxHealth * hpBarMAX;
-        barSize.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
+        hpBar.fillAmount = (float)currentHealth / maxHealth;
     }
 
     public void SetOnDieByGreenPlayer()

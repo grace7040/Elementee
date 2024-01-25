@@ -31,7 +31,7 @@ public class GameManager : Singleton<GameManager>
         DontDestroyOnLoad(gameObject);
         isGameOver = false;
     }
-
+    
     void Update()
     {
         // 게임오버 확인 (ex. 플레이어의 체력)

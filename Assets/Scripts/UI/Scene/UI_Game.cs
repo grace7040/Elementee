@@ -12,7 +12,7 @@ public class UI_Game : UI_Scene
     public TextMeshProUGUI Score;
     Colors player_color = Colors.def;
 
-
+    
     GameObject jump;
     GameObject dash;
     GameObject attack;
@@ -58,9 +58,7 @@ public class UI_Game : UI_Scene
     private void FixedUpdate()
     {
         // 플레이어 체력바
-        RectTransform barSize = hpBar.GetComponent<RectTransform>();
-        float width = GameManager.Instance.HPBar() * hpBarMAX;
-        barSize.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
+        hpBar.fillAmount = GameManager.Instance.HPBar();
 
         // 별
         int star = 10 - GameManager.Instance.starCount;
