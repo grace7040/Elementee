@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
             jumpForce = value.JumpForce; // jumpForce: player¿« jump force, JumpForce : Color¿« jumpforce
             damage = value.Damage;
             m_WallSliding = value.WallSliding;
+            coolTime = value.CoolTime;
         }
     }
 
@@ -117,7 +118,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public bool canAttack = true;
     //private bool isTimeToCheck = false; 
     public bool isAttack = false; //attack btn input
-    private float attackCoolTime = 0.25f;
+    public float coolTime;
 
     //Health
     [HideInInspector] public int maxHealth = 100;
@@ -492,11 +493,11 @@ public class PlayerController : MonoBehaviour
         m_WallCheck.localPosition = new Vector3(Mathf.Abs(m_WallCheck.localPosition.x), m_WallCheck.localPosition.y, 0);
     }
 
-    IEnumerator AttackCooldown()
-    {
-        yield return new WaitForSeconds(attackCoolTime);
-        canAttack = true;
-    }
+    //IEnumerator AttackCooldown()
+    //{
+    //    yield return new WaitForSeconds(attackCoolTime);
+    //    canAttack = true;
+    //}
 
     public void Die()
     {

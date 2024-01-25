@@ -22,9 +22,15 @@ public class UI_Game : UI_Scene
     Image Red_IMG;
     Image Yellow_IMG;
     Image Blue_IMG;
+    Image Attack_Cool_Time_IMG;
 
     public float hpBarMAX;
     public VariableJoystick joystick;
+
+    //player
+    private float attack_cool_time = 0f;
+    private float attack_cool_count = 0f;
+    private bool canAttack;
 
     enum Buttons
     {
@@ -42,6 +48,7 @@ public class UI_Game : UI_Scene
         Red,
         Yellow,
         Blue,
+        Attack_Cool_Time,
     }
 
     enum Texts
@@ -127,6 +134,8 @@ public class UI_Game : UI_Scene
         Blue_IMG = GetImage((int)Images.Blue);
         Blue_IMG.color = ColorManager.Instance.GetColor(Colors.blue);
 
+        Attack_Cool_Time_IMG = GetImage((int)Images.Attack_Cool_Time);
+
 
         // Palette 세팅
         SetPalette();
@@ -139,6 +148,9 @@ public class UI_Game : UI_Scene
 
         // hpBar 길이 받아두기
         hpBarMAX = hpBar.gameObject.GetComponent<RectTransform>().rect.width;
+
+        GetImage((int)Images.Attack_Cool_Time).gameObject.SetActive(false);
+
     }
 
     public void OnSettingBtnClicked(PointerEventData data) // 설정 버튼 눌렀을 때
@@ -162,11 +174,17 @@ public class UI_Game : UI_Scene
 
     // 플레이어 컨트롤
 
+    //공격 버튼이 눌렸을 때
     public void AttackBtnClickedDown(PointerEventData data)
     {
         player.GetComponent<PlayerController>().AttackDown();
-    }
+        attack_cool_time = player.GetComponent<PlayerController>().coolTime;
+        attack_cool_count = attack_cool_time;
 
+        GetImage((int)Images.Attack_Cool_Time).gameObject.SetActive(true);
+        canAttack = true;
+    }
+    
     public void AttackBtnClickedUp(PointerEventData data)
     {
         player.GetComponent<PlayerController>().AttackUp();
@@ -197,5 +215,40 @@ public class UI_Game : UI_Scene
         if (ColorManager.Instance != null)
             ColorManager.Instance.OnSetColor -= SetPalette;
     }
+
+    private void Update()
+    {
+        print(player.GetComponent<PlayerController>().coolTime);
+        if (canAttack)
+        {
+            StartCoroutine("SkillTimeChk");
+        }
+    }
+
+    IEnumerator SkillTimeChk()
+    {
+        yield return null;
+        if (attack_cool_count > 0)
+        {
+            attack_cool_count -= Time.deltaTime;
+
+            if (attack_cool_count < 0)
+            {
+                print("hi");
+
+                attack_cool_count = 0;
+                canAttack = false;
+                GetImage((int)Images.Attack_Cool_Time).gameObject.SetActive(false);
+
+                attack_cool_count = player.GetComponent<PlayerController>().coolTime;
+
+            }
+            float time = attack_cool_count / player.GetComponent<PlayerController>().coolTime;
+            GetImage((int)Images.Attack_Cool_Time).fillAmount = time;
+
+        }
+
+    }
+
 
 }

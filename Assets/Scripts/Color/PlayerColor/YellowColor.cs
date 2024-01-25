@@ -8,7 +8,7 @@ public class YellowColor : MonoBehaviour, IColorState
     public float JumpForce { get { return 800f; } }
     public int Damage { get { return 25; } }
     public bool WallSliding { get { return false; } }
-    public float CoolTime { get { return 0.5f; } }
+    public float CoolTime { get { return 3f; } }
 
 
     //void Start()

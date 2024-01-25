@@ -7,7 +7,7 @@ public class PurpleColor : IColorState
     public float JumpForce { get { return 800f; } }
     public int Damage { get { return 35; } }
     public bool WallSliding { get { return true; } }
-    public float CoolTime { get { return 0.3f; } }
+    public float CoolTime { get { return 2f; } }
 
 
     //Temporal Setting : Red Color Attack -> Throw obj
