@@ -7,6 +7,8 @@ public class RedColor :  IColorState
     public float JumpForce { get { return 850f; } }
     public int Damage { get { return 20; } }
     public bool WallSliding { get { return false; } }
+    public float CoolTime { get { return 0.3f; } }
+
 
     //Temporal Setting : Red Color Attack -> Throw obj
     public void Attack(PlayerController player)
@@ -16,7 +18,7 @@ public class RedColor :  IColorState
         player.animator.SetBool("IsRedAttacking", true);
         AudioManager.Instacne.PlaySFX("Red");
         //player.UpdateCanAttack();
-        player.CallOnDelay(0.3f, () =>
+        player.CallOnDelay(CoolTime, () =>
             {
                 player.canAttack = true;
             });

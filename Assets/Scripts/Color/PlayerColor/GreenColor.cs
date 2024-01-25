@@ -7,6 +7,7 @@ public class GreenColor : MonoBehaviour, IColorState
     public float JumpForce { get { return 800f; } }
     public int Damage { get { return 30; } }
     public bool WallSliding { get { return false; } }
+    public float CoolTime { get { return 0.5f; } }
 
 
     //Temporal Setting : Green Color Attack -> Throw leaf obj
@@ -20,7 +21,7 @@ public class GreenColor : MonoBehaviour, IColorState
         var throwableWeapon = ObjectPoolManager.Instance.GetGo("GreenWeapon");
         throwableWeapon.GetComponent<ThrowableWeapon>().Throw(player.transform.position, player.transform.localScale.x);
 
-        player.CallOnDelay(0.5f, () =>
+        player.CallOnDelay(CoolTime, () =>
         {
             player.canAttack = true;
         });

@@ -8,6 +8,8 @@ public class BlackColor : MonoBehaviour, IColorState
     public float JumpForce { get { return 800f; } }
     public int Damage { get { return 100; } }
     public bool WallSliding { get { return false; } }
+    public float CoolTime { get { return 0.3f; } }
+
 
     ////Temporal Setting : Red Color Attack -> Throw obj
     //public void Attack(PlayerController player)

@@ -7,6 +7,7 @@ public class BlueColor : MonoBehaviour, IColorState
     public float JumpForce { get { return 800f; } }
     public int Damage { get { return 15; } }
     public bool WallSliding { get { return false; } }
+    public float CoolTime { get { return 1f; } }
 
 
     //Temporal Setting : BLue Color Attack -> Throw Water obj
@@ -21,7 +22,7 @@ public class BlueColor : MonoBehaviour, IColorState
         throwableWeapon.GetComponent<ThrowableWeapon>().Throw(player.transform.position, player.transform.localScale.x);
 
 
-        player.CallOnDelay(1f, () =>
+        player.CallOnDelay(CoolTime, () =>
         {
             player.canAttack = true;
         });

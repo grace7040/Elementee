@@ -8,6 +8,8 @@ public class YellowColor : MonoBehaviour, IColorState
     public float JumpForce { get { return 800f; } }
     public int Damage { get { return 25; } }
     public bool WallSliding { get { return false; } }
+    public float CoolTime { get { return 0.5f; } }
+
 
     //void Start()
     //{
@@ -23,7 +25,7 @@ public class YellowColor : MonoBehaviour, IColorState
         player.yellowAttackEffect.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = player.colorWeapons[(int)Colors.yellow].sprite;
         AudioManager.Instacne.PlaySFX("Yellow");
         //3초 이후에 off
-        player.CallOnDelay(0.5f, () =>
+        player.CallOnDelay(CoolTime, () =>
         {
             player.GetComponent<PlayerController>().yellowAttackEffect.SetActive(false);
             player.canAttack = true;
