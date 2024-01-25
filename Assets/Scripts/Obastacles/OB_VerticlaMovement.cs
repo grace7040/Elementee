@@ -10,15 +10,17 @@ public class OB_VerticlaMovement : MonoBehaviour
 
     void Start()
     {
-        GameObject obj = GameObject.Find("PlayerPrefab (1)");
+        //GameObject obj = GameObject.Find("PlayerPrefab (1)");
 
-        foreach (Transform child in obj.transform)
-        {
-            if (child.name == "WeaponPosition")
-            {
-                centerPoint = child;
-            }
-        }
+        //foreach (Transform child in obj.transform)
+        //{
+        //    if (child.name == "WeaponPosition")
+        //    {
+        //        centerPoint = child;
+        //    }
+        //}
+
+        centerPoint = transform;
 
     }
 
