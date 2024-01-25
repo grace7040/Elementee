@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Movement Customizing")]
     [Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;  // How much to smooth out the movement
+    [SerializeField] private float m_MoveSpeed = 10f;
     [SerializeField] private float m_DashForce = 25f;
     [SerializeField] private bool m_AirControl = false;                         // Whether or not a player can steer while jumping;
     [SerializeField] private bool m_WallSliding = false;                         // 플레이어 벽타기 할 수 있는지 없는지
@@ -357,7 +358,7 @@ public class PlayerController : MonoBehaviour
                 if (m_Rigidbody2D.velocity.y < -limitFallSpeed)
                     m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, -limitFallSpeed);
                 // Move the character by finding the target velocity
-                Vector3 targetVelocity = new Vector2(move * 10f, m_Rigidbody2D.velocity.y);
+                Vector3 targetVelocity = new Vector2(move * m_MoveSpeed, m_Rigidbody2D.velocity.y);
                 // And then smoothing it out and applying it to the character
                 m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref velocity, m_MovementSmoothing);
 
