@@ -28,7 +28,10 @@ public class DrawManager : MonoBehaviour
     [Header("Sprites")]
     public GameObject BackGround;
     public Sprite[] sprites;
-    public Sprite[] BG_sprites;
+    public Sprite[] Basic_Sprites;
+    public Sprite[] BG_Basic_Sprites;
+    public Sprite[] BG_Sprites;
+
 
     [Header("PenWidth")]
     public int weaponWidth = 10;
@@ -75,7 +78,7 @@ public class DrawManager : MonoBehaviour
         this.color = color;
         Color c = ColorManager.Instance.GetColor(color);
 
-        BackGround.GetComponent<Image>().sprite = BG_sprites[(int)color];
+        BackGround.GetComponent<Image>().sprite = BG_Sprites[(int)color];
         DrawbleObject.GetComponent<SpriteRenderer>().sprite = sprites[(int)color];
         DrawbleObject.GetComponent<Drawable>().UpdateCanvas();
         DrawSetting.SetMarkerWidth(weaponWidth);
@@ -105,7 +108,7 @@ public class DrawManager : MonoBehaviour
     {
         Color c = ColorManager.Instance.GetColor(Colors.black);
 
-        BackGround.GetComponent<Image>().sprite = BG_sprites[8];
+        BackGround.GetComponent<Image>().sprite = BG_Sprites[8];
 
         DrawbleObject.GetComponent<SpriteRenderer>().sprite = sprites[8];
         DrawbleObject.GetComponent<Drawable>().UpdateCanvas();
@@ -127,6 +130,17 @@ public class DrawManager : MonoBehaviour
         // Face 저장 - 8번
         GameManager.Instance.playerFace = sprites[8];
     }
+
+
+    // 캔버스 기본 무기 on off
+    public void BasicWeapons(int num)
+    {
+        if(num==1)
+            BackGround.GetComponent<Image>().sprite = BG_Basic_Sprites[(int)color];
+        else
+            BackGround.GetComponent<Image>().sprite = BG_Sprites[(int)color];
+    }
+
 
     public void LoadWeapons(string _weaponDir)
     {

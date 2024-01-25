@@ -11,6 +11,8 @@ public class ColorManager : Singleton<ColorManager>
     public Action OnSetColor = null;
     public Action OnSaveColor = null;
 
+    private bool basicWeapon = false;
+
     [Header("Color State")]
     [SerializeField]
     private bool hasRed = false;
@@ -156,7 +158,13 @@ public class ColorManager : Singleton<ColorManager>
                 break;
         }
         player.myColor = _color;
-        SetPlayerCustomWeapon();
+
+        // 기본 무기 or 커스텀 무기 적용
+        if(basicWeapon)
+            SetPlayerBasicWeapon();
+        else
+            SetPlayerCustomWeapon();
+
         ObjectPoolManager.Instance.SetColorName(_color);
         DrawManager.Instance.SaveWeapon((int)_color);
         OnSetColor?.Invoke();
@@ -194,9 +202,16 @@ public class ColorManager : Singleton<ColorManager>
 
     public void SetPlayerCustomWeapon()
     {
+        basicWeapon = false;
         player.SetCustomWeapon();
-        OnSaveColor?.Invoke();
-        
+        OnSaveColor?.Invoke();    
     }
-    
+
+    public void SetPlayerBasicWeapon()
+    {
+        basicWeapon = true;
+        player.SetBasicWeapon();
+        OnSaveColor?.Invoke();
+    }
+
 }

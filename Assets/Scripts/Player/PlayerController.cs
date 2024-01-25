@@ -315,6 +315,11 @@ public class PlayerController : MonoBehaviour
         colorWeapons[(int)myColor].sprite = DrawManager.Instance.sprites[(int)myColor];
     }
 
+    public void SetBasicWeapon()
+    {
+        colorWeapons[(int)myColor].sprite = DrawManager.Instance.Basic_Sprites[(int)myColor];
+    }
+
     public void ShowWeapon()
     {
         colorWeapons[(int)myColor].gameObject.SetActive(true);
