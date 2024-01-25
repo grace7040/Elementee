@@ -113,6 +113,9 @@ public class MonsterController : MonoBehaviour
 
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
+        float distance = player.position.x - transform.position.x;
+        float distanceY = player.position.y - transform.position.y;
+
         if (myColor == Colors.def) // Default
         {
             if (currentWaypoint != null)
@@ -125,27 +128,34 @@ public class MonsterController : MonoBehaviour
         {
             if (player != null && canWalk)
             {
-                // ���Ϳ� �÷��̾��� ��ġ ���̸� ����մϴ�.
-                float distance = player.position.x - transform.position.x;
-                float distanceY = player.position.y - transform.position.y;
-
                 // �÷��̾ ������ ���ʿ� ������ �¿츦 �������ϴ�.
-                if (distance < 0f && distanceY < 2f)
+                if (distance < 0f && distanceY < 0.1f)
                 {
                     monsterSpriteRenderer.flipX = false;
                 }
                 // �÷��̾ ������ �����ʿ� ������ �¿츦 ������ �ʽ��ϴ�.
-                else if (distance > 0f && distanceY < 2f)
+                else if (distance > 0f && distanceY < 0.1f)
                 {
                     monsterSpriteRenderer.flipX = true;
                 }
+
+                //// �÷��̾ ������ ���ʿ� ������ �¿츦 �������ϴ�.
+                //if (distance < 0f && distanceY < 2f)
+                //{
+                //    monsterSpriteRenderer.flipX = false;
+                //}
+                //// �÷��̾ ������ �����ʿ� ������ �¿츦 ������ �ʽ��ϴ�.
+                //else if (distance > 0f && distanceY < 2f)
+                //{
+                //    monsterSpriteRenderer.flipX = true;
+                //}
             }
 
             //1. ���� ���� �ȿ� ���� ��
             if(distanceToPlayer <= attackRange)
             {
                 // ���� ��Ÿ���� ���� ������ �����ϸ� -> attack
-                if (canAttack)
+                if (canAttack && (distanceY > 0f)) // change
                 {
                     gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
                     canAttack = false;
@@ -173,9 +183,9 @@ public class MonsterController : MonoBehaviour
             }
 
             //2. ���� ���� �ȿ� ���� �� -> walk
-            else if (distanceToPlayer <= detectionRange)
+            else if (distanceToPlayer <= detectionRange && (distanceY > 0f))
             {
-                if (canWalk)
+                if (canWalk && (distanceY > 0f))// change
                 {
                     gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
                     Vector2 moveDirection = new Vector2(player.position.x - transform.position.x, 0).normalized;
@@ -198,10 +208,6 @@ public class MonsterController : MonoBehaviour
         {
             if (player != null)
             {
-                // ���Ϳ� �÷��̾��� ��ġ ���̸� ����մϴ�.
-                float distance = player.position.x - transform.position.x;
-                float distanceY = player.position.y - transform.position.y;
-
                 // �÷��̾ ������ ���ʿ� ������ �¿츦 �������ϴ�.
                 if (distance < 0f && distanceY < 2f)
                 {
@@ -240,10 +246,6 @@ public class MonsterController : MonoBehaviour
         {
             if (player != null)
             {
-                // ���Ϳ� �÷��̾��� ��ġ ���̸� ����մϴ�.
-                float distance = player.position.x - transform.position.x;
-                float distanceY = player.position.y - transform.position.y;
-
                 // �÷��̾ ������ ���ʿ� ������ �¿츦 �������ϴ�.
                 if (distance < 0f && distanceY < 2f)
                 {

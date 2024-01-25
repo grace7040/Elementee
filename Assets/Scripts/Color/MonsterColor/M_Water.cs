@@ -10,6 +10,7 @@ public class M_Water : MonoBehaviour
     private void Start()
     {
         direction = GameObject.FindGameObjectWithTag("Player").transform.position - gameObject.transform.position;
+        Destroy(gameObject, 2.0f);
     }
     private void FixedUpdate()
     {
