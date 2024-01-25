@@ -99,11 +99,15 @@ public class DrawManager : MonoBehaviour
         Drawing.SetActive(false);
     }
 
+
+    // 얼굴 그리기
     public void SetFaceColor()
     {
         Color c = ColorManager.Instance.GetColor(Colors.black);
 
-        DrawbleObject.GetComponent<SpriteRenderer>().sprite = sprites[0];
+        BackGround.GetComponent<Image>().sprite = BG_sprites[8];
+
+        DrawbleObject.GetComponent<SpriteRenderer>().sprite = sprites[8];
         DrawbleObject.GetComponent<Drawable>().UpdateCanvas();
         DrawSetting.SetMarkerWidth(faceWidth);
 
@@ -120,13 +124,13 @@ public class DrawManager : MonoBehaviour
         Drawing.SetActive(false);
         Managers.UI.ShowPopupUI<UI_Custom>();
 
-        // Face 저장
-        GameManager.Instance.playerFace = sprites[0];
+        // Face 저장 - 8번
+        GameManager.Instance.playerFace = sprites[8];
     }
 
     public void LoadWeapons(string _weaponDir)
     {
-        text.text = "저장된 Weapon 불러오기. weaponDir: " + _weaponDir;
+       // text.text = "저장된 Weapon 불러오기. weaponDir: " + _weaponDir;
         weaponDir = _weaponDir;
 
         for (int i = 0; i < sprites.Length; i++)
@@ -135,51 +139,51 @@ public class DrawManager : MonoBehaviour
 
             string filename = weaponDir + "/" + sprites[i].name + ".png";
 
-            text.text = i+"번째 파일: "+ filename;
+           // text.text = i+"번째 파일: "+ filename;
 
             byte[] byteTexture = File.ReadAllBytes(Application.persistentDataPath + filename);
 
-            text.text = i+"번째 바이트 텍스처 Read 완료";
+           // text.text = i+"번째 바이트 텍스처 Read 완료";
 
             if (byteTexture.Length > 0)
             {
                 texture.LoadImage(byteTexture);
-                text.text = i+"번째 바이트 텍스처를 텍스처로 로드 완료";
+          //      text.text = i+"번째 바이트 텍스처를 텍스처로 로드 완료";
             }
 
             Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
-            text.text = i+"번째 스프라이트 생성 완료";
+          //  text.text = i+"번째 스프라이트 생성 완료";
             sprite.name = sprites[i].name;
             sprites[i] = sprite;
-            text.text = i+"번째 스프라이트 적용 완료";
+          //  text.text = i+"번째 스프라이트 적용 완료";
         }
 
-        text.text = "DrawManager.LoadWeapon 완료";
+      //  text.text = "DrawManager.LoadWeapon 완료";
     }
 
     public void SaveWeapon(int i)
     {
-        text.text = "SaveWeapon 시작";
+      //  text.text = "SaveWeapon 시작";
         byte[] bytes = sprites[i].texture.EncodeToPNG();
-        text.text = i + "번째 텍스처를 바이트로 변환 완료";
+     //   text.text = i + "번째 텍스처를 바이트로 변환 완료";
         string filename = weaponDir + "/" + sprites[i].name + ".png";
         File.WriteAllBytes(Application.persistentDataPath + filename, bytes);
-        text.text = i + "번째 Weapon텍스처를 저장 완료";
-        testRenderer.sprite = sprites[i];
+      //  text.text = i + "번째 Weapon텍스처를 저장 완료";
+      //  testRenderer.sprite = sprites[i];
     }
 
     public void SaveWeapons(string _weaponDir)
     {
-        text.text = "SaveWeapons 시작";
+     //   text.text = "SaveWeapons 시작";
         for (int i = 0; i < sprites.Length; i++)
         {
             byte[] bytes = sprites[i].texture.EncodeToPNG();
-            text.text = i + "번째 텍스처를 바이트로 변환 완료";
+          //  text.text = i + "번째 텍스처를 바이트로 변환 완료";
             string filename = _weaponDir + "/" + sprites[i].name + ".png";
             File.WriteAllBytes(Application.persistentDataPath + filename, bytes);
-            text.text = i + "번째 Weapon텍스처를 저장 완료";
+          //  text.text = i + "번째 Weapon텍스처를 저장 완료";
         }
-        text.text = "DrawManager.SaveWeapons 완료";
+      //  text.text = "DrawManager.SaveWeapons 완료";
         Debug.Log(Application.persistentDataPath + weaponDir + "/" + sprites[0].name);
     }
 }
