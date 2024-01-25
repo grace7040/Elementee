@@ -15,6 +15,7 @@ public class UI_SoundCustom : UI_Popup
     public AudioClip test;
     public GameObject blockImage;
 
+    public Animation recordAnim;
 
     AudioClip record;
     AudioSource aud;
@@ -75,6 +76,7 @@ public class UI_SoundCustom : UI_Popup
     {
         Init();
         aud = GetComponent<AudioSource>();
+      //  recordAnim = this.GetComponent<Animation>();
     }
 
 
@@ -124,6 +126,8 @@ public class UI_SoundCustom : UI_Popup
       
         if (currentObject != SoundObjects.def)
         {
+          //  recordAnim.Play();
+
             record = Microphone.Start(Microphone.devices[0].ToString(), false, recordTime, 44100);
             aud.clip = record;
             blockImage.SetActive(true);
