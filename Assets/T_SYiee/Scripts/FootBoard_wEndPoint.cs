@@ -4,8 +4,6 @@ using UnityEngine;
 using DG.Tweening;
 
 
-
-
 public class FootBoard_wEndPoint : MonoBehaviour
 {
     public Transform endPoint;
@@ -13,7 +11,6 @@ public class FootBoard_wEndPoint : MonoBehaviour
 
     public enum Mode { Linear, InOutQuad };
     public Mode mode = Mode.Linear;
-
     
 
     private void Start()
@@ -22,13 +19,12 @@ public class FootBoard_wEndPoint : MonoBehaviour
             transform.DOMove(endPoint.position, time).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Linear);
         else
             transform.DOMove(endPoint.position, time).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutQuad);
-
-
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        collision.gameObject.transform.SetParent(this.transform);
+        if(collision.gameObject.tag == "Player")
+            collision.gameObject.transform.SetParent(this.transform);
     }
 
     private void OnCollisionExit2D(Collision2D collision)
