@@ -218,7 +218,7 @@ public class UI_Game : UI_Scene
 
     private void Update()
     {
-        print(player.GetComponent<PlayerController>().coolTime);
+        // print(player.GetComponent<PlayerController>().coolTime);
         if (canAttack)
         {
             StartCoroutine("SkillTimeChk");
