@@ -525,7 +525,7 @@ public class MonsterController : MonoBehaviour
         if (GameManager.Instance.playerColor == Colors.green)
         {
             //Debug.Log("1111");
-            Instantiate(Resources.Load("ETC/Leaf"), transform.position, Quaternion.identity);
+            Instantiate(Resources.Load("Monster/Leaf"), transform.position, Quaternion.identity);
         }
             
     }
