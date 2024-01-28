@@ -2,67 +2,77 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using DG;
+using DG.Tweening;
 
 public class Test_UI : MonoBehaviour
 {
-    public GameObject hideSkillBtn;
-    public Image hideSkillImg;
+    public GameObject hideImg; // Editor에서 Hide Image 할당
+    private float hideImgFill = 1;
+    private bool isUseSkill = false;
     private float coolTime = 5;
-    private bool isHideSkill = false;
-    private float getTime = 5;
+    private float starTime = 1;
 
 
-    // Start is called before the first frame update
     void Start()
     {
-        hideSkillBtn.SetActive(false);
+        hideImgFill = hideImg.GetComponent<Image>().fillAmount;
+       // hideImg.SetActive(false); 
+        //Tween cool = DOTween.To(() => starTime, x => hideImgFill.fillAmount = x, 0f, 10f);
+        Tween cool = DOTween.To(() => hideImgFill, x => hideImgFill = x, 0f, 10f);
+        cool.Play();
 
     }
 
     void Update()
     {
-        print(isHideSkill);
-        if (isHideSkill)
+        print(starTime);
+        if (isUseSkill)
         {
-            StartCoroutine("SkillTimeChk");
+            SkillTimeChk();
         }
     }
-
-    public void HideSkillSetting()
+    public void StartCoolTime()
     {
-        hideSkillBtn.SetActive(true);
-        isHideSkill = true;
+        hideImg.SetActive(true);
+        isUseSkill = true;
     }
 
-    private void HideSkillCheck()
+    public void SkillTimeChk()
     {
-
+        Tween cool = DOTween.To(() => starTime, x => hideImgFill = x, 0f, 10f);
+        hideImg.SetActive(false);
     }
-    
-    IEnumerator SkillTimeChk()
-    {
 
-        yield return null;
+    //public void StartCoolTime()
+    //{
+    //    hideImg.SetActive(true);
+    //    isUseSkill = true;
+    //}
 
-        if (getTime > 0)
-        {
-            getTime -= Time.deltaTime;
 
-            if(getTime < 0)
-            {
-                getTime = 0;
-                isHideSkill = false;
-                hideSkillBtn.SetActive(false);
-                getTime = coolTime;
+    //IEnumerator SkillTimeChk()
+    //{
 
-            }
-            float time = getTime / coolTime;
-            hideSkillImg.fillAmount = time;
+    //    yield return null;
 
-        }
-        
-    }
+    //    if (starTime > 0)
+    //    {
+    //        starTime -= Time.deltaTime;
+
+    //        if(starTime < 0)
+    //        {
+    //            starTime = 0;
+    //            isUseSkill = false;
+    //            hideImg.SetActive(false);
+    //            starTime = coolTime;
+
+    //        }
+    //        float time = starTime / coolTime;
+    //        hideImgFill = time;
+
+    //    }
+
+    //}
 
 
 }
