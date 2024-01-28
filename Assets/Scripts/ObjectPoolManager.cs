@@ -133,6 +133,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
         Debug.Log(goName);
         return ojbectPoolDic[goName].Get();
     }
+    
 
     public GameObject GetGo()
     {

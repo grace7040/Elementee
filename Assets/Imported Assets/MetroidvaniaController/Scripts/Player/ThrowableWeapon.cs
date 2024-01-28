@@ -18,6 +18,17 @@ public class ThrowableWeapon : PoolAble
         spriteRenderer.sprite = DrawManager.Instance.sprites[(int)myColor];
     }
 
+    public void SetCustomWeapon()
+    {
+        spriteRenderer.sprite = DrawManager.Instance.sprites[(int)myColor];
+    }
+
+    public void SetBasicWeapon()
+    {
+        spriteRenderer.sprite = DrawManager.Instance.Basic_Sprites[(int)myColor];
+    }
+
+
     private void FixedUpdate()
     {
         //rigid.velocity = direction * speed;
@@ -35,6 +46,8 @@ public class ThrowableWeapon : PoolAble
 
     public void Throw(Vector3 playerPosition, float playerLocalScaleX)
     {
+        if (ColorManager.Instance.basicWeapon)
+            SetBasicWeapon();
         spriteRenderer.flipX = playerLocalScaleX < 0 ? true : false;
         transform.position = playerPosition + new Vector3(playerLocalScaleX * 0.5f, 0.2f);
         transform.rotation = Quaternion.identity;

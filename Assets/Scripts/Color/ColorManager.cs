@@ -11,7 +11,7 @@ public class ColorManager : Singleton<ColorManager>
     public Action OnSetColor = null;
     public Action OnSaveColor = null;
 
-    private bool basicWeapon = false;
+    public bool basicWeapon = false;
 
     [Header("Color State")]
     [SerializeField]
