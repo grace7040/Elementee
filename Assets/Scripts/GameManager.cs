@@ -59,7 +59,6 @@ public class GameManager : Singleton<GameManager>
         Time.timeScale = 0;
             
         Managers.UI.ClosePopupUI();
-        print("일시정지");
 
     }
 
@@ -68,13 +67,11 @@ public class GameManager : Singleton<GameManager>
         // 게임 다시 활성화
         Time.timeScale = 1;
 
-      //  Managers.UI.ShowPopupUI<UI_InGame>();
-        print("계속하자");
     }
 
     public void NewGame()
     {
-        // DontDestroy 애들도 초기화 해줘야 할듯
+
         Time.timeScale = 1;
         // 게임 재시작
         SceneManager.LoadScene(1);
