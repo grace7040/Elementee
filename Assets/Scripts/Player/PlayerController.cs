@@ -198,6 +198,10 @@ public class PlayerController : MonoBehaviour
                 {
                     child.gameObject.SetActive(true);
                 }
+                else if (child.name == "detectarea")
+                {
+                    child.gameObject.SetActive(true);
+                }
             }
         }
         else if (myColor != Colors.black)
@@ -215,6 +219,10 @@ public class PlayerController : MonoBehaviour
                     }
                 }
                 else if (child.name == "BlackAttack")
+                {
+                    child.gameObject.SetActive(false);
+                }
+                else if (child.name == "detectarea")
                 {
                     child.gameObject.SetActive(false);
                 }
