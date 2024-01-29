@@ -6,11 +6,13 @@ public class ColorDoor : MonoBehaviour
 {
     public Colors doorColor;
     BoxCollider2D boxcollider;
+    private Animator anim;
 
     public int force = 100;
 
     private void Start()
     {
+        anim = this.GetComponent<Animator>();
         boxcollider = GetComponent<BoxCollider2D>();
         GetComponent<SpriteRenderer>().color = ColorManager.Instance.GetColor(doorColor);
     }
@@ -27,7 +29,14 @@ public class ColorDoor : MonoBehaviour
             }  
             else
             {
-                collision.rigidbody.AddForce(new Vector2(collision.transform.position.x - transform.position.x, 0) * force, ForceMode2D.Impulse);
+                float dir = collision.transform.position.x - transform.position.x;
+                collision.rigidbody.AddForce(new Vector2(dir, 0) * force, ForceMode2D.Impulse);
+
+                if (dir>0)
+                    anim.Play("Door_R", -1, 0.2f);
+                else
+                    anim.Play("Door_L", -1, 0.2f);
+
             }
         }
         boxcollider.enabled = true;
