@@ -45,10 +45,6 @@ public class GameManager : Singleton<GameManager>
     public void StarCount()
     {
         starCount -= 1;
-        if(starCount == 0)
-        {
-            GameWin();
-        }
 
     }
 
@@ -95,6 +91,7 @@ public class GameManager : Singleton<GameManager>
     {
         // ÆÐ¹è UI ¶ç¿ì±â
         isGameOver = true;
+        PauseGame();
 
         // ¿Ö ¾È¶ç¤Ì¾îÁú±î?
         Managers.UI.ShowPopupUI<UI_GameOver>();
@@ -103,8 +100,11 @@ public class GameManager : Singleton<GameManager>
 
     public void GameWin()
     {
-        // ½Â¸® UI ¶ç¿ì±â
+        // [Ãß°¡] º° °³¼ö ÀúÀå
+
+        // ½Â¸® UI ¶ç¿ì±â 
         isGameOver = true;
+        PauseGame();
         Managers.UI.ShowPopupUI<UI_GameWin>();
     }
 
