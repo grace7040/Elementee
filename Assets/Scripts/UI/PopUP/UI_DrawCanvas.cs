@@ -14,6 +14,7 @@ public class UI_DrawCanvas : UI_Popup
     public TextMeshProUGUI GuideText;
 
     bool basic_weapon = false;
+    private Colors color;
 
     enum Buttons
     {
@@ -26,9 +27,10 @@ public class UI_DrawCanvas : UI_Popup
 
     private void Start()
     {
-        Init();
+        
         player = GameObject.FindGameObjectWithTag("Player");
-
+        color = GameManager.Instance.playerColor;
+        Init();
     }
 
     public override void Init()
@@ -41,10 +43,8 @@ public class UI_DrawCanvas : UI_Popup
         GetButton((int)Buttons.ResetBtn).gameObject.BindEvent(ResetBtnClicked);
         GetButton((int)Buttons.BasicBtn).gameObject.BindEvent(BasictBtnClicked);
 
-        if (DrawManager.Instance.face_mode)
-        {
-            GuideText.text = "얼굴에 맞게 표정을 그려주세요";
-        }
+
+        GuideText.text = DrawManager.Instance.DrawText[(int)color];
     }
 
     public void OkayBtnClicked(PointerEventData data)

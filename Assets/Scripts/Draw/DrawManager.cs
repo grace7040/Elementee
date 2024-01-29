@@ -31,6 +31,7 @@ public class DrawManager : MonoBehaviour
     public Sprite[] Basic_Sprites;
     public Sprite[] BG_Basic_Sprites;
     public Sprite[] BG_Sprites;
+    public List<string> DrawText;
 
 
     [Header("PenWidth")]
