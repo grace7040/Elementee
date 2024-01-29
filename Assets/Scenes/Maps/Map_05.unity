@@ -220,10 +220,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 1640248988}
     m_Modifications:
     - target: {fileID: 6835668328489865143, guid: 7b60c2a799d10864d9943d87d2e5d8a5, type: 3}
-      propertyPath: damage
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6835668328489865143, guid: 7b60c2a799d10864d9943d87d2e5d8a5, type: 3}
       propertyPath: groundColor
       value: 6
       objectReference: {fileID: 0}
@@ -666,10 +662,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 1640248988}
     m_Modifications:
     - target: {fileID: 6835668328489865143, guid: 7b60c2a799d10864d9943d87d2e5d8a5, type: 3}
-      propertyPath: damage
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6835668328489865143, guid: 7b60c2a799d10864d9943d87d2e5d8a5, type: 3}
       propertyPath: groundColor
       value: 6
       objectReference: {fileID: 0}
@@ -682,8 +674,20 @@ PrefabInstance:
       value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 7373634730636206171, guid: 7b60c2a799d10864d9943d87d2e5d8a5, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.14003843
+      objectReference: {fileID: 0}
+    - target: {fileID: 7373634730636206171, guid: 7b60c2a799d10864d9943d87d2e5d8a5, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.14003843
+      objectReference: {fileID: 0}
+    - target: {fileID: 7373634730636206171, guid: 7b60c2a799d10864d9943d87d2e5d8a5, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.60886276
+      objectReference: {fileID: 0}
+    - target: {fileID: 7373634730636206171, guid: 7b60c2a799d10864d9943d87d2e5d8a5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 27.97489
+      value: 27.89
       objectReference: {fileID: 0}
     - target: {fileID: 7373634730636206171, guid: 7b60c2a799d10864d9943d87d2e5d8a5, type: 3}
       propertyPath: m_LocalPosition.y
@@ -880,10 +884,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 1640248988}
     m_Modifications:
     - target: {fileID: 6835668328489865143, guid: 7b60c2a799d10864d9943d87d2e5d8a5, type: 3}
-      propertyPath: damage
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6835668328489865143, guid: 7b60c2a799d10864d9943d87d2e5d8a5, type: 3}
       propertyPath: groundColor
       value: 1
       objectReference: {fileID: 0}
@@ -896,20 +896,8 @@ PrefabInstance:
       value: 26
       objectReference: {fileID: 0}
     - target: {fileID: 7373634730636206171, guid: 7b60c2a799d10864d9943d87d2e5d8a5, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.32961297
-      objectReference: {fileID: 0}
-    - target: {fileID: 7373634730636206171, guid: 7b60c2a799d10864d9943d87d2e5d8a5, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.32961297
-      objectReference: {fileID: 0}
-    - target: {fileID: 7373634730636206171, guid: 7b60c2a799d10864d9943d87d2e5d8a5, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.4331
-      objectReference: {fileID: 0}
-    - target: {fileID: 7373634730636206171, guid: 7b60c2a799d10864d9943d87d2e5d8a5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 54.26489
+      value: 54.1
       objectReference: {fileID: 0}
     - target: {fileID: 7373634730636206171, guid: 7b60c2a799d10864d9943d87d2e5d8a5, type: 3}
       propertyPath: m_LocalPosition.y
@@ -956,10 +944,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1640248988}
     m_Modifications:
-    - target: {fileID: 6835668328489865143, guid: 7b60c2a799d10864d9943d87d2e5d8a5, type: 3}
-      propertyPath: damage
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 6835668328489865143, guid: 7b60c2a799d10864d9943d87d2e5d8a5, type: 3}
       propertyPath: groundColor
       value: 6
@@ -1370,10 +1354,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1640248988}
     m_Modifications:
-    - target: {fileID: 6835668328489865143, guid: 7b60c2a799d10864d9943d87d2e5d8a5, type: 3}
-      propertyPath: damage
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 6835668328489865143, guid: 7b60c2a799d10864d9943d87d2e5d8a5, type: 3}
       propertyPath: groundColor
       value: 6
