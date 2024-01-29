@@ -147,6 +147,7 @@ MonoBehaviour:
   - {fileID: 8533986571667845559}
   - {fileID: 7608925706783770372}
   m_MovementSmoothing: 0.05
+  m_MoveSpeed: 10
   m_DashForce: 25
   m_AirControl: 1
   m_WallSliding: 0
@@ -205,6 +206,7 @@ MonoBehaviour:
   doAttack: 0
   canAttack: 1
   isAttack: 0
+  coolTime: 0
   maxHealth: 100
   damage: 10
   WeaponPosition: {fileID: 1920087943}
@@ -264,7 +266,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 9917c600410860745ab7f462f4fda186, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
