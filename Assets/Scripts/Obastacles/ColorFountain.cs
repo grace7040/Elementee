@@ -19,20 +19,13 @@ public class ColorFountain : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        Debug.Log("OK1");
         if (collision.gameObject.tag == "Player")
         {
-            Debug.Log("OK2");
             player = collision.gameObject.GetComponent<PlayerController>();
             if (player.myColor == fountainColor)
-            {
-                Debug.Log("OK3");
                 player.HealWithFountain(healAmount);
-            }
             else
-            {
                 player.TakeDamage(damage, this.transform.position);
-            }
         }
     }
 
