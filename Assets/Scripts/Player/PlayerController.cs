@@ -58,6 +58,7 @@ public class PlayerController : MonoBehaviour
     public Transform attackCheck;
     public GameObject cam;
     public bool invincible = false;
+    public bool canHealOnFountain = true;
 
     [Header("WeaponPosition")]
     public GameObject red_Weapon;
@@ -548,6 +549,27 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    public void Heal(int health)
+    {
+        currentHealth += health;
+        AudioManager.Instacne.PlaySFX("Heal");
+        if (currentHealth > 100)
+            currentHealth = 100;
+
+        GameManager.Instance.playerHP = currentHealth;
+        healEffect.SetActive(true);
+        this.CallOnDelay(1f, () => { healEffect.SetActive(false); });
+    }
+
+    public void HealWithFountain(int health)
+    {
+        if (!canHealOnFountain) return;
+
+        Heal(health);
+        canHealOnFountain = false;
+        this.CallOnDelay(1f, () => { canHealOnFountain = true; });
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Enemy")
@@ -630,17 +652,7 @@ public class PlayerController : MonoBehaviour
         GameManager.Instance.GameOver();
     }
 
-    public void Heal(int health)
-    {
-        currentHealth += health;
-        AudioManager.Instacne.PlaySFX("Heal");
-        if (currentHealth > 100)
-            currentHealth = 100;
-
-        GameManager.Instance.playerHP = currentHealth;
-        healEffect.SetActive(true);
-        this.CallOnDelay(1f, () => { healEffect.SetActive(false); });
-    }
+    
 
 
     public void PurpleAttackEffect()
