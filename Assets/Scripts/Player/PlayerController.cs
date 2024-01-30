@@ -76,8 +76,6 @@ public class PlayerController : MonoBehaviour
 
 
 
-
-
     [System.Serializable]
     public class BoolEvent : UnityEvent<bool> { }
     ////////
@@ -120,6 +118,7 @@ public class PlayerController : MonoBehaviour
     //private bool isTimeToCheck = false; 
     public bool isAttack = false; //attack btn input
     public float coolTime;
+    public float knockBackForce = 10f;
 
     //Health
     [HideInInspector] public int maxHealth = 100;
@@ -532,7 +531,7 @@ public class PlayerController : MonoBehaviour
             //³Ë¹é
             Vector2 damageDir = Vector3.Normalize(transform.position - enemyPos) * 40f;
             m_Rigidbody2D.velocity = Vector2.zero;
-            m_Rigidbody2D.AddForce(damageDir * 10);
+            m_Rigidbody2D.AddForce(damageDir * knockBackForce);
 
             if (currentHealth <= 0)
             {
@@ -651,9 +650,7 @@ public class PlayerController : MonoBehaviour
 
         GameManager.Instance.GameOver();
     }
-
     
-
 
     public void PurpleAttackEffect()
     {
