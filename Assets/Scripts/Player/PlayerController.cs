@@ -4,6 +4,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using System.IO;
+using DG.Tweening;
 
 public class PlayerController : MonoBehaviour
 {
@@ -52,6 +53,7 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D m_Rigidbody2D;
     public Animator animator;
     public SpriteRenderer faceSprite;
+    public SpriteRenderer playerSprite;
 
     [Header("Attack")]
     //public GameObject throwableObject;
@@ -542,6 +544,7 @@ public class PlayerController : MonoBehaviour
             else
             {
                 invincible = true;
+                playerSprite.DOFade(0.2f, 0.25f).SetLoops(4, LoopType.Yoyo);
                 this.CallOnDelay(1f, () => { invincible = false; });
             }
         }
