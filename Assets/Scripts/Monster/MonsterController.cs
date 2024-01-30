@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Threading;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
@@ -33,9 +34,9 @@ public class MonsterController : MonoBehaviour
     public float detectionRange = 10f;
     public float attackRange = 2f;
 
-    private bool waitforAttack = true;
-    private bool canAttack = true;
-    private bool canWalk = true;
+    private bool waitforAttack = true; // 없애고 싶다
+    private bool canAttack = true; // 없애고 싶다
+    private bool canWalk = true; // 없애고 싶다
 
     private float m_JumpForce; // 없애고 싶다
     public int m_damage; // 없애고 싶다
@@ -50,6 +51,11 @@ public class MonsterController : MonoBehaviour
     private bool isStopping = false; // 정지 중인지 여부
     private bool canMove = true; // 움직일 수 있는지 여부
     private int direction = -1; // 초기 방향 설정 (1이면 오른쪽, -1이면 왼쪽)
+    private float timer = 0.0f; // 타이머 변수
+    private float interval = 5.0f; // 호출 간격
+
+    // 넉백
+    private bool isKnockedBack = false;
 
     // Die
     public delegate void Del();
@@ -111,132 +117,204 @@ public class MonsterController : MonoBehaviour
 
         if (myColor == Colors.def) // Default
         {
-            if (currentWaypoint != null)
+            // 일정 간격마다 waypoint 재탐색
+            timer += Time.deltaTime;
+
+            if (timer >= interval)
             {
-                MoveTowardsWaypoint();
+                SetWaypoints();
+                timer = 0.0f;
+            }
+
+            if (isKnockedBack) { }
+            else
+            {
+                if (currentWaypoint != null)
+                {
+                    MoveTowardsWaypoint();
+                }
             }
         }
 
         else  if (myColor == Colors.red) // Red
         {
-            if (player != null && canWalk)
+            #region old
+            //if (player != null && canWalk)
+            //{
+            //    if (distance < 0f && distanceY < 0.1f)
+            //    {
+            //        m_sprite.flipX = false;
+            //    }
+            //    else if (distance > 0f && distanceY < 0.1f)
+            //    {
+            //        m_sprite.flipX = true;
+            //    }
+            //}
+
+            //if(distanceToPlayer <= attackRange)
+            //{
+            //    if (canAttack && (distanceY > 0f)) // change
+            //    {
+            //        gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            //        canAttack = false;
+            //        waitforAttack = false;
+            //        color.Attack(this);
+            //        gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
+            //        StartCoroutine(AttackCooldown());
+            //        StartCoroutine(WalkCooldown());
+            //    }
+            //    else if (waitforAttack) //walk
+            //    {
+            //        if (canWalk)
+            //        {
+            //            gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
+            //            gameObject.GetComponent<Animator>().SetBool("IsAttacking", false);
+            //            Vector2 moveDirection = new Vector2(player.position.x - transform.position.x, 0).normalized;
+            //            rb.velocity = moveDirection * moveSpeed;
+            //        }
+            //        else
+            //        {
+            //            rb.velocity = Vector2.zero;
+            //        }
+            //    }
+            //}
+
+            //else if (distanceToPlayer <= detectionRange && (distanceY > 0f))
+            //{
+            //    if (canWalk && (distanceY > 0f))// change
+            //    {
+            //        gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
+            //        Vector2 moveDirection = new Vector2(player.position.x - transform.position.x, 0).normalized;
+            //        rb.velocity = moveDirection * moveSpeed;
+            //    }
+            //    else
+            //    {
+            //        rb.velocity = Vector2.zero;
+            //    }
+            //}
+
+            //else
+            //{
+            //    gameObject.GetComponent<Animator>().SetBool("IsAttacking", false);
+            //    gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
+            //    rb.velocity = Vector2.zero;
+            //}
+            #endregion
+
+            if (distanceToPlayer <= detectionRange)
             {
-                // �÷��̾ ������ ���ʿ� ������ �¿츦 �������ϴ�.
-                if (distance < 0f && distanceY < 0.1f)
+                // Flip
+                if (distance < 0f)
                 {
                     m_sprite.flipX = false;
                 }
-                // �÷��̾ ������ �����ʿ� ������ �¿츦 ������ �ʽ��ϴ�.
-                else if (distance > 0f && distanceY < 0.1f)
+                else if (distance > 0f)
                 {
                     m_sprite.flipX = true;
                 }
 
-                //// �÷��̾ ������ ���ʿ� ������ �¿츦 �������ϴ�.
-                //if (distance < 0f && distanceY < 2f)
-                //{
-                //    m_sprite.flipX = false;
-                //}
-                //// �÷��̾ ������ �����ʿ� ������ �¿츦 ������ �ʽ��ϴ�.
-                //else if (distance > 0f && distanceY < 2f)
-                //{
-                //    m_sprite.flipX = true;
-                //}
-            }
-
-            //1. ���� ���� �ȿ� ���� ��
-            if(distanceToPlayer <= attackRange)
-            {
-                // ���� ��Ÿ���� ���� ������ �����ϸ� -> attack
-                if (canAttack && (distanceY > 0f)) // change
+                // Attack
+                if (distanceToPlayer <= attackRange)
                 {
-                    gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-                    canAttack = false;
-                    waitforAttack = false;
-                    color.Attack(this);
                     gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
-                    StartCoroutine(AttackCooldown());
-                    StartCoroutine(WalkCooldown());
-                }
-                //���ݹ������� ������ + ���� ��Ÿ���� �� �� ���Ƽ� �׳� �ȱ⸸ ������ ������ ��
-                else if (waitforAttack) //walk
-                {
-                    if (canWalk)
-                    {
-                        gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
-                        gameObject.GetComponent<Animator>().SetBool("IsAttacking", false);
-                        Vector2 moveDirection = new Vector2(player.position.x - transform.position.x, 0).normalized;
-                        rb.velocity = moveDirection * moveSpeed;
-                    }
-                    else
-                    {
-                        rb.velocity = Vector2.zero;
-                    }
-                }
-            }
+                    rb.velocity = Vector2.zero;
 
-            //2. ���� ���� �ȿ� ���� �� -> walk
-            else if (distanceToPlayer <= detectionRange && (distanceY > 0f))
-            {
-                if (canWalk && (distanceY > 0f))// change
-                {
-                    gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
-                    Vector2 moveDirection = new Vector2(player.position.x - transform.position.x, 0).normalized;
-                    rb.velocity = moveDirection * moveSpeed;
+                    if (canAttack)
+                    {
+                        gameObject.GetComponent<Animator>().SetBool("IsAttacking", true);
+                        color.Attack(this);
+                        StartCoroutine(AttackCooldown());
+                    }
                 }
                 else
                 {
-                    rb.velocity = Vector2.zero;
+                    if (!CheckGround())
+                    {
+                        rb.velocity += Vector2.down * 1f * Time.deltaTime;
+                    }
+                    else
+                    {
+                        if (canAttack)
+                        {
+                            // Move
+                            gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
+                            Vector2 moveDirection = new Vector2(player.position.x - transform.position.x, 0).normalized;
+                            rb.velocity = moveDirection * moveSpeed;
+                        }
+                    }
                 }
-            }
-
-            else //������ ���� ���� ���϶�
-            {
-                gameObject.GetComponent<Animator>().SetBool("IsAttacking", false);
-                gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
-                rb.velocity = Vector2.zero;
-            }
-        }
-        else if (myColor == Colors.blue) // Blue
-        {
-            if (player != null)
-            {
-                // �÷��̾ ������ ���ʿ� ������ �¿츦 �������ϴ�.
-                if (distance < 0f && distanceY < 2f)
-                {
-                    m_sprite.flipX = false;
-                }
-                // �÷��̾ ������ �����ʿ� ������ �¿츦 ������ �ʽ��ϴ�.
-                else if (distance > 0f && distanceY < 2f)
-                {
-                    m_sprite.flipX = true;
-                }
-            }
-
-            // �÷��̾ ���� ���� �ȿ� �ְ� ���� ��ٿ��� �������� ���� ����
-            if (distanceToPlayer <= attackRange && canAttack)
-            {
-                color.Attack(this);
-                //Debug.Log("attack");
-                UpdateCanAttack2();
-            }
-            // �÷��̾ ���� ���� �ȿ� ������ �÷��̾ ���� �̵�
-            else if (distanceToPlayer <= detectionRange)
-            {
-                gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
-                Vector2 moveDirection = new Vector2(player.position.x - transform.position.x, 0).normalized;
-                rb.velocity = moveDirection * moveSpeed;
             }
             else
             {
-                // ���� ������ ��� ��� �̵� ����
-                gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
-                rb.velocity = Vector2.zero;
+                if (canAttack)
+                {
+                    SetWaypoints();
+                    currentWaypoint = waypoint_L;
+                    m_sprite.flipX = false;
+
+                    timer += Time.deltaTime;
+
+                    if (timer >= interval)
+                    {
+                        SetWaypoints();
+                        timer = 0.0f;
+                    }
+
+                    if (isKnockedBack) { }
+                    else
+                    {
+                        if (currentWaypoint != null)
+                        {
+                            MoveTowardsWaypoint();
+                        }
+                    }
+                }
             }
+        }
+
+        else if (myColor == Colors.blue) // Blue
+        {
+            #region old
+            //if (player != null)
+            //{
+            //    // �÷��̾ ������ ���ʿ� ������ �¿츦 �������ϴ�.
+            //    if (distance < 0f && distanceY < 2f)
+            //    {
+            //        m_sprite.flipX = false;
+            //    }
+            //    // �÷��̾ ������ �����ʿ� ������ �¿츦 ������ �ʽ��ϴ�.
+            //    else if (distance > 0f && distanceY < 2f)
+            //    {
+            //        m_sprite.flipX = true;
+            //    }
+            //}
+
+            //// �÷��̾ ���� ���� �ȿ� �ְ� ���� ��ٿ��� �������� ���� ����
+            //if (distanceToPlayer <= attackRange && canAttack)
+            //{
+            //    color.Attack(this);
+            //    //Debug.Log("attack");
+            //    UpdateCanAttack2();
+            //}
+            //// �÷��̾ ���� ���� �ȿ� ������ �÷��̾ ���� �̵�
+            //else if (distanceToPlayer <= detectionRange)
+            //{
+            //    gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
+            //    Vector2 moveDirection = new Vector2(player.position.x - transform.position.x, 0).normalized;
+            //    rb.velocity = moveDirection * moveSpeed;
+            //}
+            //else
+            //{
+            //    // ���� ������ ��� ��� �̵� ����
+            //    gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
+            //    rb.velocity = Vector2.zero;
+            //}
+            #endregion
         }
 
         else if (myColor == Colors.yellow) // Yellow
         {
+            #region old
             if (player != null)
             {
                 // �÷��̾ ������ ���ʿ� ������ �¿츦 �������ϴ�.
@@ -288,6 +366,7 @@ public class MonsterController : MonoBehaviour
                 gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
                 rb.velocity = Vector2.zero;
             }
+            #endregion
         }
     }
     private void SetWaypoints()
@@ -342,6 +421,11 @@ public class MonsterController : MonoBehaviour
                 // 이동 중일 때
                 transform.position = Vector2.MoveTowards(transform.position, currentWaypoint, moveSpeed * Time.deltaTime);
 
+                if (myColor != Colors.def)
+                {
+                    gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
+                }
+
                 // 낭떠러지 여부 확인
                 if (CheckCliff())
                 {
@@ -361,6 +445,10 @@ public class MonsterController : MonoBehaviour
                     stopTime = Random.Range(0.2f, 1.0f);
                     isStopping = true;
                     canMove = false;
+                    if (myColor != Colors.def)
+                    {
+                        gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
+                    }
                 }
             }
         }
@@ -375,11 +463,12 @@ public class MonsterController : MonoBehaviour
             }
         }
     }
+
     private bool CheckCliff()
     {
         // Raycast를 사용하여 앞쪽으로 바닥 감지
         Vector2 raycastOrigin = transform.position + (Vector3.right * direction * 1.0f);
-        RaycastHit2D hitDown = Physics2D.Raycast(raycastOrigin, Vector2.down, 1.0f, LayerMask.GetMask("Default"));
+        RaycastHit2D hitDown = Physics2D.Raycast(raycastOrigin, Vector2.down, 1.0f, LayerMask.GetMask("Default")); // To change
 
         // 바닥이 감지되지 않으면 낭떠러지로 판단
         return hitDown.collider == null;
@@ -401,20 +490,46 @@ public class MonsterController : MonoBehaviour
         }
     }
 
+    private bool CheckGround()
+    {
+        float raycastDistance = 0.8f; // 바닥과의 간격 설정
+        LayerMask groundLayer = LayerMask.GetMask("Default"); // To change
+
+        // 몬스터 아래에 레이캐스트를 쏘아 발판이 있는지 확인
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, raycastDistance, groundLayer);
+        // Debug.DrawRay(transform.position, Vector2.down * raycastDistance, UnityEngine.Color.red);
+
+        // 발판이 없다면 추락
+        if (hit.collider == null)
+        {
+            return false;
+        }
+        return true;
+    }
+
     public void TakeDamage(int damage, Vector3 playerPos)
     {
         currentHealth -= damage;
-        // Debug.Log(currentHealth);
 
         //체력바 업데이트
         UpdateHPBar();
 
-        // �˹�
-        Vector2 damageDir = new Vector3(transform.position.x - playerPos.x, 0, 0).normalized * 40f;
-        rb.velocity = Vector2.zero;
-        damageDir += new Vector2(0, 10).normalized * 25f;
-        UpdateAttacked();
-        rb.AddForce(damageDir * 5);
+        if (!isKnockedBack)
+        {
+            rb.velocity = Vector2.zero;
+
+            // 피격 방향 계산
+            Vector2 damageDir = new Vector2(transform.position.x - playerPos.x, 0).normalized * 2f;
+
+            // 넉백 윗 방향 추가
+            damageDir += new Vector2(0, 1).normalized * 2f;
+
+            // 넉백 방향으로 힘을 일정한 시간 동안 부여
+            ApplyKnockbackForce(damageDir, 10f, 0.2f);
+
+            // 피격 시 실행할 함수
+            // UpdateAttacked();
+        }
 
         if (currentHealth <= 0)
         {
@@ -424,52 +539,54 @@ public class MonsterController : MonoBehaviour
 
     public void Die()
     {
-        // ���̸� ���� ���� ����߸���
-      //  if (itemPrefab != null)
-       // {
-            switch (myColor)
-            {
-                case Colors.def:
-                    break;
-                case Colors.red:
-                    ColorManager.Instance.HasRed = true;
-                    break;
-                case Colors.blue:
-                    ColorManager.Instance.HasBlue = true;
-                    break;
-                case Colors.yellow:
-                    ColorManager.Instance.HasYellow = true;
-                    break;
-            }
-      //  }
+        switch (myColor)
+        {
+            case Colors.def:
+                break;
+            case Colors.red:
+                ColorManager.Instance.HasRed = true;
+                break;
+            case Colors.blue:
+                ColorManager.Instance.HasBlue = true;
+                break;
+            case Colors.yellow:
+                ColorManager.Instance.HasYellow = true;
+                break;
+        }
 
-        // ������ ���� �˾Ƽ� �������� ������ ����
-         Destroy(gameObject, 0.5f);
+        Destroy(gameObject, 0.5f);
     }
 
+    //IEnumerator AttackCooldown()
+    //{
+    //    yield return new WaitForSeconds(2.0f);
+    //    moveSpeed = 1.5f;
+    //    gameObject.GetComponent<Animator>().SetBool("IsAttacking", false);
+    //    gameObject.GetComponent<Animator>().SetTrigger("StopAttack");
+
+    //    waitforAttack = true;
+
+    //    yield return new WaitForSeconds(2.0f);
+    //    canAttack = true;
+    //    waitforAttack = false;
+    //}
     IEnumerator AttackCooldown()
     {
-        //2�� �ִٰ� ������ ���߰�
+        canAttack = false;
+        rb.velocity = Vector2.zero;
+        gameObject.GetComponent<Animator>().SetBool("IsAttacking", true);
         yield return new WaitForSeconds(2.0f);
-        moveSpeed = 1.5f;
         gameObject.GetComponent<Animator>().SetBool("IsAttacking", false);
-        gameObject.GetComponent<Animator>().SetTrigger("StopAttack");
-
-        //���⿡ ���� �ɾƾ� �Ѵ�.
-        waitforAttack = true;
-
-        //2�� �� �ִٰ� ���� �ٽ� �� �� �ֵ���
-        yield return new WaitForSeconds(2.0f);
         canAttack = true;
-        waitforAttack = false;
-
     }
+
     IEnumerator AttackCooldown2()
     {
         canAttack = false;
         yield return new WaitForSeconds(2.0f);
         canAttack = true;
     }
+
     IEnumerator WalkCooldown()
     {
         canWalk = false;
@@ -503,28 +620,42 @@ public class MonsterController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Debug.Log(other.gameObject.tag);
         if (other.tag == "Weapon")
         {
-            //Debug.Log(123);
             TakeDamage(other.GetComponentInParent<PlayerController>().damage, other.transform.position);
         }
         else if (other.gameObject.tag == "WeaponB")
         {
-            //GameObject Hit = Instantiate(Resources.Load("Black_Hit"), other.transform.position, Quaternion.identity) as GameObject;
-            //Destroy(Hit, 0.1f);
             TakeDamage(100, other.transform.position);
-            //Destroy(other.gameObject, 0.1f);
         }
     }
+    private void ApplyKnockbackForce(Vector2 direction, float force, float duration)
+    {
+        StartCoroutine(KnockbackCoroutine(direction, force, duration));
+    }
 
-    
+    private IEnumerator KnockbackCoroutine(Vector2 direction, float force, float duration)
+    {
+        float timer = 0f;
+        isKnockedBack = true;
+
+        while (timer < duration)
+        {
+            // deltaTime 대신 Time.fixedDeltaTime 사용
+            rb.AddForce(direction * force * Time.fixedDeltaTime, ForceMode2D.Impulse);
+
+            timer += Time.fixedDeltaTime;
+            yield return new WaitForFixedUpdate();
+        }
+
+        yield return new WaitForSeconds(0.8f);
+        isKnockedBack = false;
+    }
+
     private void OnDieByGreenPlayer()
     {
-        //Debug.Log("0000");
         if (GameManager.Instance.playerColor == Colors.green)
         {
-            //Debug.Log("1111");
             Instantiate(Resources.Load("Monster/Leaf"), transform.position, Quaternion.identity);
         }
             
