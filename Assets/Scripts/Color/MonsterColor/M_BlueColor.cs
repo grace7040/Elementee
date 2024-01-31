@@ -8,6 +8,8 @@ public class M_BlueColor : MonoBehaviour, M_IColorState
 
     public int M_damage { get { return 10; } }
 
+    public int M_health { get { return 100; } }
+
     GameObject Waters;
 
     public void Attack(MonsterController monster)

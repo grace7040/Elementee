@@ -8,6 +8,8 @@ public class M_RedColor : MonoBehaviour, M_IColorState
 
     public int M_damage { get { return 15; } }
 
+    public int M_health { get { return 100; } }
+
     public void Attack(MonsterController monster)
     {
         #region old

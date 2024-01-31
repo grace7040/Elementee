@@ -124,7 +124,7 @@ public class PlayerController : MonoBehaviour
 
     //Health
     [HideInInspector] public int maxHealth = 100;
-    [HideInInspector] public int damage = 10;
+    [HideInInspector] public int damage = 0;
 
     // weapon position
     public GameObject WeaponPosition;
@@ -524,6 +524,7 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Hit", true);
             //health --
             currentHealth -= damage;
+            Debug.Log($"플레이어 대미지: {damage}");
 
             if (currentHealth > 100)
                 currentHealth = 100;

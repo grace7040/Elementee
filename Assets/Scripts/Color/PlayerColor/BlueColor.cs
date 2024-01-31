@@ -5,7 +5,7 @@ using UnityEngine;
 public class BlueColor : MonoBehaviour, IColorState
 {
     public float JumpForce { get { return 800f; } }
-    public int Damage { get { return 15; } }
+    public int Damage { get { return 35; } }
     public bool WallSliding { get { return false; } }
     public float CoolTime { get { return 1f; } }
 

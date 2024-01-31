@@ -20,6 +20,7 @@ public class MonsterController : MonoBehaviour
             color = value;
             m_JumpForce = value.M_JumpForce;
             m_damage = value.M_damage;
+            maxHealth = value.M_health;
         }
     }
     public Colors myColor;
@@ -41,6 +42,7 @@ public class MonsterController : MonoBehaviour
     private bool Isfirst = true;
 
     private float m_JumpForce; // 없애고 싶다
+    [HideInInspector]
     public int m_damage; // 없애고 싶다
 
     // Random move

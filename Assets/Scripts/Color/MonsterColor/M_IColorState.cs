@@ -8,5 +8,7 @@ public interface M_IColorState
 
     public int M_damage { get; }
 
+    public int M_health { get; }
+
     public void Attack(MonsterController monster);
 }

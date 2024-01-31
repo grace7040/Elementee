@@ -8,6 +8,8 @@ public class M_YellowColor : MonoBehaviour, M_IColorState
 
     public int M_damage { get { return 20; } }
 
+    public int M_health { get { return 100; } }
+
     public void Attack(MonsterController monster)
     {
         // monster.GetComponent<Animator>().SetBool("IsAttacking", true);

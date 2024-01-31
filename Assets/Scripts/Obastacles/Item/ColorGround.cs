@@ -6,7 +6,8 @@ public class ColorGround : MonoBehaviour
 {
     public Colors groundColor;
     BoxCollider2D boxcollider;
-    public int damage;
+
+    int damage = 30;
 
     private void Start()
     {

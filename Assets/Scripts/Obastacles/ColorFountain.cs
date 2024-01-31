@@ -6,8 +6,8 @@ public class ColorFountain : MonoBehaviour
 {
     public Colors fountainColor;
     BoxCollider2D boxcollider;
-    public int damage = 5;
-    public int healAmount = 5;
+    int damage = 10;
+    int healAmount = 10;
     PlayerController player;
 
     private void Start()
