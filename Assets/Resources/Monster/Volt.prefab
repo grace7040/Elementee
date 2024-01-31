@@ -9311,6 +9311,7 @@ GameObject:
   - component: {fileID: 9148433857750048192}
   - component: {fileID: -1082581650775886773}
   - component: {fileID: -1152965805873057049}
+  - component: {fileID: 3511057619875830368}
   m_Layer: 0
   m_Name: Volt
   m_TagString: EnemyWeapon
@@ -14070,7 +14071,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb0ebfee793b83749b0f2dd4f1188783, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 1.5
 --- !u!58 &-1152965805873057049
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -14087,3 +14087,15 @@ CircleCollider2D:
   m_Offset: {x: 0.36049485, y: -0.29830813}
   serializedVersion: 2
   m_Radius: 1.2
+--- !u!114 &3511057619875830368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9180819056937278988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e59e24a03f5577f4cabcd76b5f8801ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

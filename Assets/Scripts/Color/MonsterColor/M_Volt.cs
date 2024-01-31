@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class M_Volt : MonoBehaviour
 {
-    public float moveSpeed = 1.5f;   // 따라다니는 속도
+    // public float moveSpeed = 1.5f;   // 따라다니는 속도
     //public GameObject parentObject;
 
     void Start()
     {
-        Destroy(gameObject, 2.0f);
+        //Destroy(gameObject, 2.0f);
 
-        GameObject parentObject = GameObject.Find("M_Yellow");
-        // 하위 객체(child)를 상위 객체(parent)의 하위로 만듭니다.
-        gameObject.transform.SetParent(parentObject.transform);
+        //GameObject parentObject = GameObject.Find("M_Yellow");
+        //// 하위 객체(child)를 상위 객체(parent)의 하위로 만듭니다.
+        //gameObject.transform.SetParent(parentObject.transform);
     }
     void Update()
     {

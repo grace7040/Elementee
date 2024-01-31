@@ -5,14 +5,13 @@ using UnityEngine;
 
 public class M_Fire : MonoBehaviour
 {
-    // Start is called before the first frame update
     void Start()
     {
         //SpriteRenderer sprite = GetComponent<SpriteRenderer>();
         //Transform player = GameObject.FindGameObjectWithTag("Player").transform;
         //GameObject Red = GameObject.Find("M_Red");
 
-        Destroy(gameObject, 2.0f);
+        // Destroy(gameObject, 2.0f);
 
         //if (player != null)
         //{
@@ -32,11 +31,11 @@ public class M_Fire : MonoBehaviour
         //}
     }
 
-    // Update is called once per frame
     void Update()
     {
         
     }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Map")

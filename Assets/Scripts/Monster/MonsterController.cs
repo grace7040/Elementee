@@ -158,14 +158,18 @@ public class MonsterController : MonoBehaviour
                 // Attack
                 if (distanceToPlayer <= attackRange)
                 {
-                    gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
-                    rb.velocity = Vector2.zero;
-
-                    if (canAttack)
+                    if (!CheckGround()) { }
+                    else
                     {
-                        gameObject.GetComponent<Animator>().SetBool("IsAttacking", true);
-                        color.Attack(this);
-                        StartCoroutine(AttackCooldown());
+                        gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
+                        rb.velocity = Vector2.zero;
+
+                        if (canAttack)
+                        {
+                            gameObject.GetComponent<Animator>().SetBool("IsAttacking", true);
+                            color.Attack(this);
+                            StartCoroutine(AttackCooldown());
+                        }
                     }
                 }
                 else
@@ -237,14 +241,18 @@ public class MonsterController : MonoBehaviour
                 // Attack
                 if (distanceToPlayer <= attackRange)
                 {
-                    gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
-                    rb.velocity = Vector2.zero;
-
-                    if (canAttack)
+                    if (!CheckGround()) { }
+                    else
                     {
-                        gameObject.GetComponent<Animator>().SetBool("IsAttacking", true);
-                        color.Attack(this);
-                        StartCoroutine(AttackCooldown());
+                        gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
+                        rb.velocity = Vector2.zero;
+
+                        if (canAttack)
+                        {
+                            gameObject.GetComponent<Animator>().SetBool("IsAttacking", true);
+                            color.Attack(this);
+                            StartCoroutine(AttackCooldown());
+                        }
                     }
                 }
                 else
@@ -316,13 +324,17 @@ public class MonsterController : MonoBehaviour
                 // Attack
                 if (distanceToPlayer <= attackRange)
                 {
-                    gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
-
-                    if (canAttack)
+                    if (!CheckGround()) { }
+                    else
                     {
-                        // 잠시 멈췄다가 돌진
-                        StartCoroutine(ChargeAfterDelay());
-                        color.Attack(this);
+                        gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
+
+                        if (canAttack)
+                        {
+                            // 잠시 멈췄다가 돌진
+                            StartCoroutine(ChargeAfterDelay());
+                            color.Attack(this);
+                        }
                     }
                 }
                 else

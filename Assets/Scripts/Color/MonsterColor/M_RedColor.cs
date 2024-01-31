@@ -35,7 +35,11 @@ public class M_RedColor : MonoBehaviour, M_IColorState
         //}
         ////GameObject Fire = Instantiate(Resources.Load("Fire"), monster.transform.position + monster.transform.right.normalized * 2.0f, Quaternion.identity) as GameObject;
         #endregion
-
-
+        // 딜레이가 조금 필요할듯?
+        GameObject fire = ObjectPoolManager.Instance.GetGo("Fire");
+        Rigidbody2D rb = monster.GetComponent<Rigidbody2D>();
+        fire.transform.SetParent(rb.transform);
+        fire.transform.localPosition = Vector3.zero;
+        // 방향 처리 필요함.
     }
 }
