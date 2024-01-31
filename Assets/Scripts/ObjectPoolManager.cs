@@ -147,6 +147,12 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
         return ojbectPoolDic[currentColorName].Get();
     }
 
+    public GameObject GetGo(Colors color)
+    {
+        string name = ColorsToBloodname(color);
+        return ojbectPoolDic[name].Get();
+    }
+
     public void SetColorName(Colors color)
     {
         switch (color)
@@ -177,5 +183,40 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
                 currentColorName = "BlackBlood";
                 break;
         }
+    }
+
+    public string ColorsToBloodname(Colors color)
+    {
+        string colorName = "";
+
+        switch (color)
+        {
+            case Colors.def:
+                colorName = "DefaultBlood";
+                break;
+            case Colors.red:
+                colorName = "RedBlood";
+                break;
+            case Colors.yellow:
+                colorName = "YellowBlood";
+                break;
+            case Colors.blue:
+                colorName = "BlueBlood";
+                break;
+            case Colors.orange:
+                colorName = "OrangeBlood";
+                break;
+            case Colors.green:
+                colorName = "GreenBlood";
+                break;
+            case Colors.purple:
+                colorName = "PurpleBlood";
+                break;
+            case Colors.black:
+                colorName = "BlackBlood";
+                break;
+        }
+
+        return colorName;
     }
 }

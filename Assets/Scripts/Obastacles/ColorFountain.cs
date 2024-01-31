@@ -26,6 +26,28 @@ public class ColorFountain : MonoBehaviour
                 player.HealWithFountain(healAmount);
             else
                 player.TakeDamage(damage, this.transform.position);
+
+        }
+    }
+
+    // ¿Ã∆Â∆Æ √ﬂ∞°
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        // ¿Ã∆Â∆Æ √ﬂ∞°
+        if (collision.gameObject.tag == "Player")
+        {
+            var bulletGo = ObjectPoolManager.Instance.GetGo(fountainColor);
+            bulletGo.transform.position = transform.position;
+        }
+    }
+
+    private void OnTriggerExitr2D(Collider2D collision)
+    {
+        // ¿Ã∆Â∆Æ √ﬂ∞°
+        if (collision.gameObject.tag == "Player")
+        {
+            var bulletGo = ObjectPoolManager.Instance.GetGo(fountainColor);
+            bulletGo.transform.position = transform.position;
         }
     }
 

@@ -5,10 +5,12 @@ using UnityEngine;
 public class Sponge : MonoBehaviour
 {
     BoxCollider2D boxcollider;
+    private Animator anim;
 
     private void Start()
     {
         boxcollider = GetComponent<BoxCollider2D>();
+        anim = this.GetComponent<Animator>();
     }
 
 
@@ -25,6 +27,9 @@ public class Sponge : MonoBehaviour
 
             GetComponent<SpriteRenderer>().color = ColorManager.Instance.GetColor(collision.GetComponent<PlayerController>().myColor);
             ColorManager.Instance.SetColorState(Colors.def);
+
+            // 애니메이션 재생
+            anim.Play("Sponge", -1, 0.5f);
 
         }
     }
