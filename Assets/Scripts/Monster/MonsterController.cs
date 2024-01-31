@@ -144,11 +144,11 @@ public class MonsterController : MonoBehaviour
                 Isfirst = true;
 
                 // Flip
-                if (distance < 0f)
+                if (distance < -0.1f)
                 {
                     m_sprite.flipX = false;
                 }
-                else if (distance > 0f)
+                else if (distance > 0.1f)
                 {
                     m_sprite.flipX = true;
                 }
@@ -302,11 +302,11 @@ public class MonsterController : MonoBehaviour
                 Isfirst = true;
 
                 // Flip
-                if (distance < 0f)
+                if (distance < -0.1f)
                 {
                     m_sprite.flipX = false;
                 }
-                else if (distance > 0f)
+                else if (distance > 0.1f)
                 {
                     m_sprite.flipX = true;
                 }
