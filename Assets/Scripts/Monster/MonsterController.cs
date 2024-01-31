@@ -516,6 +516,7 @@ public class MonsterController : MonoBehaviour
     public void TakeDamage(int damage, Vector3 playerPos)
     {
         currentHealth -= damage;
+        Debug.Log($"몬스터 대미지: {damage}");
 
         //체력바 업데이트
         UpdateHPBar();
@@ -606,6 +607,10 @@ public class MonsterController : MonoBehaviour
         if (other.tag == "Weapon")
         {
             TakeDamage(other.GetComponentInParent<PlayerController>().damage, other.transform.position);
+        }
+        else if (other.gameObject.tag == "WeaponThrow")
+        {
+            TakeDamage(35, other.transform.position);
         }
         else if (other.gameObject.tag == "WeaponB")
         {
