@@ -8,6 +8,13 @@ public class ColorChargingStation : MonoBehaviour
     public GameObject[] otherPaintObjects;
     private static object _lock = new object();
     static bool isSelected = false;
+    private Animator anim;
+
+    private void Start()
+    {
+        anim = this.GetComponent<Animator>();
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.tag == "Player")
@@ -37,6 +44,7 @@ public class ColorChargingStation : MonoBehaviour
                     break;
             }
 
+            anim.Play("Paint", -1, 0.4f);
             this.CallOnDelay(3f, ()=> { gameObject.SetActive(false); isSelected = false; });
         }
     }

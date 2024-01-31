@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5873465268642573681}
   - component: {fileID: 3757040110688372424}
   - component: {fileID: 8228014948622789259}
+  - component: {fileID: 6528438751025416793}
   m_Layer: 0
   m_Name: RedPaint
   m_TagString: Untagged
@@ -128,6 +129,26 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.57, y: 5.5}
   m_EdgeRadius: 0
+--- !u!95 &6528438751025416793
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2442910412200717361}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 78c8df2774e8b7d42974b896f2607de2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2609970840007450832
 GameObject:
   m_ObjectHideFlags: 0
@@ -174,6 +195,7 @@ GameObject:
   - component: {fileID: 282724162414443626}
   - component: {fileID: 5430356231283081228}
   - component: {fileID: 8788790558832422795}
+  - component: {fileID: 5782689737230325365}
   m_Layer: 0
   m_Name: YellowPaint
   m_TagString: Untagged
@@ -290,6 +312,26 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.57, y: 5.5}
   m_EdgeRadius: 0
+--- !u!95 &5782689737230325365
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4713041155847814227}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 78c8df2774e8b7d42974b896f2607de2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &7005057499300312335
 GameObject:
   m_ObjectHideFlags: 0
@@ -302,6 +344,7 @@ GameObject:
   - component: {fileID: 8079446679712032179}
   - component: {fileID: 1674697221035404343}
   - component: {fileID: 7573336466789976457}
+  - component: {fileID: 9136405550655012413}
   m_Layer: 0
   m_Name: BluePaint
   m_TagString: Untagged
@@ -418,3 +461,23 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.57, y: 5.5}
   m_EdgeRadius: 0
+--- !u!95 &9136405550655012413
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7005057499300312335}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 78c8df2774e8b7d42974b896f2607de2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
