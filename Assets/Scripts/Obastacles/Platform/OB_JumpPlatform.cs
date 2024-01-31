@@ -17,7 +17,7 @@ public class OB_JumpPlatform : MonoBehaviour
         // 플레이어와 발판의 충돌을 확인합니다.
         if (collision.gameObject.CompareTag("Player"))
         {
-            anim.Play("spring",-1,0.3f);
+            
             Rigidbody2D playerRigidbody = collision.gameObject.GetComponent<Rigidbody2D>();
 
             // 플레이어 객체에 점프 힘을 적용합니다.
@@ -26,6 +26,10 @@ public class OB_JumpPlatform : MonoBehaviour
                 Vector3 jumpVector = Vector3.up * jumpForce;
                 playerRigidbody.AddForce(jumpVector, ForceMode2D.Impulse);
             }
+
+            // 애니메이션 재생
+            anim.Play("spring", -1, 0.3f);
+            // 효과음 재생
             AudioManager.Instacne.PlaySFX("Spring");
         }
     }

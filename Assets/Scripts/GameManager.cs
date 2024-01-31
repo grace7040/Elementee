@@ -8,7 +8,7 @@ public class GameManager : Singleton<GameManager>
     [Header("GameManage")]
     public bool isGameOver;
     public int totalScore;
-    public int starCount = 10;
+    public int starCount = 0;
 
     // 이거 default 값 필요함. 나중에 맵 만들 때 추가할 것
     public float[] savePoint = new float[3];
@@ -44,7 +44,7 @@ public class GameManager : Singleton<GameManager>
 
     public void StarCount()
     {
-        starCount -= 1;
+        starCount += 1;
 
     }
 
@@ -67,7 +67,7 @@ public class GameManager : Singleton<GameManager>
 
     public void NewGame()
     {
-
+        starCount = 0;
         Time.timeScale = 1;
         // 게임 재시작
         SceneManager.LoadScene(1);

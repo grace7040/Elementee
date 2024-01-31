@@ -8,6 +8,7 @@ using UnityEngine.EventSystems;
 
 public class UI_GameWin : UI_Popup
 {
+    public List<GameObject> Stars = new List<GameObject>();
     enum Buttons
     {
         ToMainBtn,
@@ -28,13 +29,18 @@ public class UI_GameWin : UI_Popup
         Bind<Button>(typeof(Buttons));
 
         GetButton((int)Buttons.ToMainBtn).gameObject.BindEvent(ToMainBtnClicked);
+
+        // 별 개수 반영 - 나중에 수식 추가 가능성 o
+        for(int i=0; i<Stars.Count; i++)
+        {
+            // 개수 만큼 노란색 색칠
+            if(i<GameManager.Instance.starCount)
+                Stars[i].GetComponent<Image>().color = new Color32(255, 250, 99, 255);
+            else
+                Stars[i].GetComponent<Image>().color = new Color32(150, 150, 150, 255);
+        }
     }
 
-    public void OnResumeBtnClicked(PointerEventData data)
-    {
-        GameManager.Instance.ResumeGame();
-        Managers.UI.ClosePopupUI();
-    }
 
     public void OnRetryBtnClicked(PointerEventData data)
     {
