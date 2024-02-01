@@ -7,6 +7,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class MonsterController : MonoBehaviour
 {
@@ -532,6 +533,9 @@ public class MonsterController : MonoBehaviour
 
         //체력바 업데이트
         UpdateHPBar();
+
+        //피격 이팩트 추가
+        m_sprite.DOFade(0.2f, 0.25f).SetLoops(4, LoopType.Yoyo);
 
         if (!isKnockedBack)
         {
