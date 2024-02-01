@@ -25,12 +25,13 @@ public class YellowColor : MonoBehaviour, IColorState
         player.yellowAttackEffect.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = player.colorWeapons[(int)Colors.yellow].sprite;
         AudioManager.Instacne.PlaySFX("Yellow");
         //3초 이후에 off
-        player.CallOnDelay(CoolTime, () =>
-        {
-            player.GetComponent<PlayerController>().yellowAttackEffect.SetActive(false);
-            player.canAttack = true;
-        }
-        ); 
+        // 노란 공격은 처음부터 켜져 있어야 하니 쿨타임 적용 부분 주석
+        //player.CallOnDelay(CoolTime, () =>
+        //{
+        //    player.GetComponent<PlayerController>().yellowAttackEffect.SetActive(false);
+        //    player.canAttack = true;
+        //}
+        //); 
     }
 
     //void SetCustomSprite()
