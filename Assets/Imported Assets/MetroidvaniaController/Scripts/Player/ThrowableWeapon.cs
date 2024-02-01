@@ -35,7 +35,16 @@ public class ThrowableWeapon : PoolAble
         rigid.AddForce(direction, ForceMode2D.Impulse);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    if (!collision.gameObject.GetComponent<PlayerController>())
+    //    {
+    //        //Destroy(gameObject);
+    //        ReleaseObject();
+    //    }
+    //}
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!collision.gameObject.GetComponent<PlayerController>())
         {
