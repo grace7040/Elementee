@@ -6,7 +6,7 @@ public class M_YellowColor : MonoBehaviour, M_IColorState
 {
     public float M_JumpForce { get { return 800f; } }
 
-    public int M_damage { get { return 20; } }
+    public int M_damage { get { return 15; } }
 
     public int M_health { get { return 100; } }
 

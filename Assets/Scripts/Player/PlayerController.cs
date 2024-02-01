@@ -631,7 +631,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (collision.gameObject.tag == "EnemyWeapon")
         {
-            TakeDamage(10, collision.gameObject.transform.position);
+            TakeDamage(15, collision.gameObject.transform.position);
             //Destroy(collision.gameObject, 0.1f);
         }
         else if (collision.gameObject.tag == "EnemyFarWeapon")
