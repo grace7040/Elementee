@@ -461,7 +461,7 @@ public class MonsterController : MonoBehaviour
                 if (Random.value < 0.3 * Time.deltaTime)
                 {
                     // 정지할 시간을 랜덤으로 설정
-                    stopTime = Random.Range(0.2f, 1.0f);
+                    stopTime = Random.Range(0.1f, 0.3f); // TOCHANGE
                     isStopping = true;
                     canMove = false;
                     if (myColor != Colors.def)
