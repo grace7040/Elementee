@@ -38,6 +38,7 @@ public class MonsterController : MonoBehaviour
 
     // Cooltime
     private bool canAttack = true;
+    private bool canTakeDamage_RangeAttack = true;
 
     // update의 start 역할
     private bool Isfirst = true;
@@ -633,6 +634,23 @@ public class MonsterController : MonoBehaviour
             TakeDamage(100, other.transform.position);
         }
     }
+
+    public void OnTriggerStay2D(Collider2D collision)
+    {
+        if (!canTakeDamage_RangeAttack) return;
+
+        canTakeDamage_RangeAttack = false;
+        if (collision.tag == "WeaponYellow")
+        {
+            TakeDamage(15, collision.transform.position);
+        }
+        else if(collision.tag == "WeaponOrange"){
+            TakeDamage(25, collision.transform.position);
+        }
+
+        this.CallOnDelay(0.5f, () => { canTakeDamage_RangeAttack = true; });
+    }
+
     private void ApplyKnockbackForce(Vector2 direction, float force, float duration)
     {
         StartCoroutine(KnockbackCoroutine(direction, force, duration));
