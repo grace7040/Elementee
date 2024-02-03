@@ -29,7 +29,7 @@ public class Sponge : MonoBehaviour
             ColorManager.Instance.SetColorState(Colors.def);
 
             // 애니메이션 재생
-            anim.Play("Sponge", -1, 0.5f);
+            anim.Play("Sponge", -1, 0f);
 
         }
     }
