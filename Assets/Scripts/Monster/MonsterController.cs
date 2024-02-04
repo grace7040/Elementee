@@ -26,7 +26,7 @@ public class MonsterController : MonoBehaviour
     }
     public Colors myColor;
 
-    private SpriteRenderer m_sprite;
+    public SpriteRenderer m_sprite;
     private Transform player;
     private Rigidbody2D rb;
 
@@ -42,6 +42,9 @@ public class MonsterController : MonoBehaviour
 
     // update의 start 역할
     private bool Isfirst = true;
+
+    // flip
+    private bool canflip = true;
 
     private float m_JumpForce; // 없애고 싶다
     [HideInInspector]
@@ -147,14 +150,17 @@ public class MonsterController : MonoBehaviour
             {
                 Isfirst = true;
 
-                // Flip
-                if (distance < -0.1f)
+                if (canflip)
                 {
-                    m_sprite.flipX = false;
-                }
-                else if (distance > 0.1f)
-                {
-                    m_sprite.flipX = true;
+                    // Flip
+                    if (distance < -0.1f)
+                    {
+                        m_sprite.flipX = false;
+                    }
+                    else if (distance > 0.1f)
+                    {
+                        m_sprite.flipX = true;
+                    }
                 }
 
                 // Attack
@@ -170,7 +176,7 @@ public class MonsterController : MonoBehaviour
                         {
                             gameObject.GetComponent<Animator>().SetBool("IsAttacking", true);
                             color.Attack(this);
-                            StartCoroutine(AttackCooldown());
+                            StartCoroutine(AttackCooldown_R());
                         }
                     }
                 }
@@ -578,11 +584,22 @@ public class MonsterController : MonoBehaviour
         Destroy(gameObject, 0.5f);
     }
 
+    IEnumerator AttackCooldown_R()
+    {
+        canAttack = false;
+        canflip = false;
+        rb.velocity = Vector2.zero;
+        yield return new WaitForSeconds(2.0f);
+        gameObject.GetComponent<Animator>().SetBool("IsAttacking", false);
+        canAttack = true;
+        canflip = true;
+    }
+
     IEnumerator AttackCooldown()
     {
         canAttack = false;
         rb.velocity = Vector2.zero;
-        gameObject.GetComponent<Animator>().SetBool("IsAttacking", true);
+        //gameObject.GetComponent<Animator>().SetBool("IsAttacking", true);
         yield return new WaitForSeconds(2.0f);
         gameObject.GetComponent<Animator>().SetBool("IsAttacking", false);
         canAttack = true;

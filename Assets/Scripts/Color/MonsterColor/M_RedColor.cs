@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class M_RedColor : MonoBehaviour, M_IColorState
@@ -37,9 +38,20 @@ public class M_RedColor : MonoBehaviour, M_IColorState
         #endregion
         // 딜레이가 조금 필요할듯?
         GameObject fire = ObjectPoolManager.Instance.GetGo("Fire");
+
+        // 방향 처리
+        SpriteRenderer monsterSpriteRenderer = monster.GetComponent<SpriteRenderer>();
+        if (monsterSpriteRenderer.flipX)
+        {
+            fire.transform.localRotation = Quaternion.Euler(0, 0, 90);
+        }
+        else
+        {
+            fire.transform.localRotation = Quaternion.Euler(0, 0, -90);
+        }
+
         Rigidbody2D rb = monster.GetComponent<Rigidbody2D>();
         fire.transform.SetParent(rb.transform);
         fire.transform.localPosition = Vector3.zero;
-        // 방향 처리 필요함.
     }
 }
