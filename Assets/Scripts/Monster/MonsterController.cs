@@ -424,62 +424,59 @@ public class MonsterController : MonoBehaviour
 
     private void MoveTowardsWaypoint()
     {
-        if (canMove)
+        if (isStopping)
         {
-            if (isStopping)
+            // 정지 중일 때
+            stopTime -= Time.deltaTime;
+            if (stopTime <= 0)
             {
-                // 정지 중일 때
-                stopTime -= Time.deltaTime;
-                if (stopTime <= 0)
-                {
-                    isStopping = false;
-                    SetNextWaypoint();
-                }
+                isStopping = false;
+                SetNextWaypoint();
             }
-            else
+        }
+        else
+        {
+            timeSinceLastStop += Time.deltaTime;
+            if (timeSinceLastStop >= 2.0f)
             {
-                // 이동 중일 때
-                transform.position = Vector2.MoveTowards(transform.position, currentWaypoint, moveSpeed * Time.deltaTime);
+                canMove = true;
+            }
 
-                if (myColor != Colors.def)
-                {
-                    gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
-                }
+            // 이동 중일 때
+            transform.position = Vector2.MoveTowards(transform.position, currentWaypoint, moveSpeed * Time.deltaTime);
 
-                // 낭떠러지 여부 확인
-                if (CheckCliff())
-                {
-                    SetNextWaypoint();
-                }
+            if (myColor != Colors.def)
+            {
+                gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
+            }
 
-                // 목적지 도착 여부 확인
-                if (Vector2.Distance(transform.position, currentWaypoint) < 0.1f)
-                {
-                    SetNextWaypoint();
-                }
+            // 낭떠러지 여부 확인
+            if (CheckCliff())
+            {
+                SetNextWaypoint();
+            }
 
+            // 목적지 도착 여부 확인
+            if (Vector2.Distance(transform.position, currentWaypoint) < 0.1f)
+            {
+                SetNextWaypoint();
+            }
+
+            if (canMove)
+            {
                 // 일정 시간마다 정지할지 결정
                 if (Random.value < 0.3 * Time.deltaTime)
                 {
                     // 정지할 시간을 랜덤으로 설정
-                    stopTime = Random.Range(0.1f, 0.3f); // TOCHANGE
+                    stopTime = Random.Range(0.2f, 1.0f); // TOCHANGE
                     isStopping = true;
                     canMove = false;
+                    timeSinceLastStop = 0;
                     if (myColor != Colors.def)
                     {
                         gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
                     }
                 }
-            }
-        }
-        else
-        {
-            // 정지 후 대기 중일 때
-            timeSinceLastStop += Time.deltaTime;
-            if (timeSinceLastStop >= 2.0f)
-            {
-                canMove = true;
-                timeSinceLastStop = 0;
             }
         }
     }
