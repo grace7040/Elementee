@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : Singleton<GameManager>
 {
     [Header("GameManage")]
+    public GameObject Potal;
     public bool isGameOver;
     public int totalScore;
     public int starCount = 0;

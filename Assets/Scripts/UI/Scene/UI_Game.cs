@@ -12,17 +12,18 @@ public class UI_Game : UI_Scene
     public TextMeshProUGUI Score;
     Colors player_color = Colors.def;
 
-    
+    // Button
     GameObject jump;
     GameObject dash;
     GameObject attack;
-    Image hpBar;
 
-    // 팔레트 물감
+    // Image
+    Image hpBar;
     Image Red_IMG;
     Image Yellow_IMG;
     Image Blue_IMG;
     Image Attack_Cool_Time_IMG;
+    Image PotalArr_IMG;
 
     public float hpBarMAX;
     public VariableJoystick joystick;
@@ -31,6 +32,11 @@ public class UI_Game : UI_Scene
     private float attack_cool_time = 0f;
     private float attack_cool_count = 0f;
     private bool canAttack;
+
+    //Potal
+    private float angle;
+    private Vector2 potalVec;
+    private Vector2 playerVec;
 
     enum Buttons
     {
@@ -49,6 +55,7 @@ public class UI_Game : UI_Scene
         Yellow,
         Blue,
         Attack_Cool_Time,
+        Potal,
     }
 
     enum Texts
@@ -149,6 +156,11 @@ public class UI_Game : UI_Scene
         // hpBar 길이 받아두기
         hpBarMAX = hpBar.gameObject.GetComponent<RectTransform>().rect.width;
 
+        // Potal
+        PotalArr_IMG = GetImage((int)Images.Potal);
+        potalVec = GameManager.Instance.Potal.transform.position;
+
+
         GetImage((int)Images.Attack_Cool_Time).gameObject.SetActive(false);
 
     }
@@ -223,6 +235,11 @@ public class UI_Game : UI_Scene
         {
             StartCoroutine("SkillTimeChk");
         }
+
+        // Potal
+        playerVec = player.transform.position;
+        angle = Mathf.Atan2(potalVec.y - playerVec.y, potalVec.x - playerVec.x) * Mathf.Rad2Deg;
+        PotalArr_IMG.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 
     IEnumerator SkillTimeChk()

@@ -6,6 +6,6 @@ public class Test : MonoBehaviour
 {
     void Start()
     {
-        Managers.UI.ShowPopupUI<UI_InGame>();
+        
     }
 }
