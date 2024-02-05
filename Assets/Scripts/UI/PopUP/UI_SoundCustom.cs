@@ -129,7 +129,6 @@ public class UI_SoundCustom : UI_Popup
             //  recordAnim.Play();
             recordAnim.GetComponent<Animator>().Play("Record", -1, 0f);
 
-
             record = Microphone.Start(Microphone.devices[0].ToString(), false, recordTime, 44100);
             aud.clip = record;
             blockImage.SetActive(true);

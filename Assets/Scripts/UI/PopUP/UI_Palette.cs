@@ -190,7 +190,6 @@ public class UI_Palette : UI_Popup
     {
         ColorManager.Instance.StartDrawing(redrawColor);
         GameManager.Instance.ReDrawItemColor = Colors.def;
-
     }
 
 

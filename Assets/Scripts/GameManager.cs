@@ -6,9 +6,13 @@ using UnityEngine.SceneManagement;
 public class GameManager : Singleton<GameManager>
 {
     [Header("GameManage")]
+    // JSON 저장
+    public List<int> mapStar = new List<int>();
+    public int mapBest;  // 플레이 가능한 가장 큰 맵
+
+    public int currentMapNum = 0;
     public GameObject Potal;
     public bool isGameOver;
-    public int totalScore;
     public int starCount = 0;
 
     // 이거 default 값 필요함. 나중에 맵 만들 때 추가할 것
@@ -30,6 +34,8 @@ public class GameManager : Singleton<GameManager>
     void Start()
     {
         DontDestroyOnLoad(gameObject);
+       // DataManager.Instance.JsonClear();
+        DataManager.Instance.JsonLoad();
         isGameOver = false;
     }
     
@@ -101,7 +107,18 @@ public class GameManager : Singleton<GameManager>
 
     public void GameWin()
     {
-        // [추가] 별 개수 저장
+        // 기록 저장
+        if(mapBest<=currentMapNum) // 처음 Clear한 맵일 경우
+        {
+            mapStar.Add(starCount);
+            mapBest += 1;
+        }
+        else
+        {
+            if(mapStar[currentMapNum]<starCount)
+                mapStar[currentMapNum] = starCount;
+        }
+        DataManager.Instance.JsonSave();
 
         // 승리 UI 띄우기 
         isGameOver = true;
