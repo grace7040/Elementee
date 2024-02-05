@@ -158,7 +158,8 @@ public class UI_Game : UI_Scene
 
         // Potal
         PotalArr_IMG = GetImage((int)Images.Potal);
-        potalVec = GameManager.Instance.Potal.transform.position;
+        if(GameManager.Instance.Potal != null)
+            potalVec = GameManager.Instance.Potal.transform.position;
 
 
         GetImage((int)Images.Attack_Cool_Time).gameObject.SetActive(false);
