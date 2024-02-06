@@ -26,8 +26,9 @@ public class OB_JumpPlatform : MonoBehaviour
             // 플레이어 객체에 점프 힘을 적용합니다.
             if (playerRigidbody != null)
             {
-                collision.rigidbody.AddForce(jumpVector, ForceMode2D.Impulse);
-                //playerRigidbody.AddForce(jumpVector, ForceMode2D.Impulse);
+                Vector2 upDirection = transform.TransformDirection(Vector2.up);
+                collision.rigidbody.AddForce(upDirection * jumpVector.magnitude, ForceMode2D.Impulse);
+                // collision.rigidbody.AddForce(jumpVector, ForceMode2D.Impulse);
             }
 
             // 애니메이션 재생

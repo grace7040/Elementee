@@ -120,8 +120,11 @@ public class MonsterController : MonoBehaviour
 
     private void Update()
     {
-        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+        // float distanceToPlayer = Vector2.Distance(transform.position, player.position);
         float distance = player.position.x - transform.position.x;
+        float distanceX = Mathf.Abs(transform.position.x - player.position.x);
+        float distanceY = Mathf.Abs(transform.position.y - player.position.y);
+
 
         if (myColor == Colors.def) // Default
         {
@@ -146,7 +149,7 @@ public class MonsterController : MonoBehaviour
 
         else  if (myColor == Colors.red) // Red
         {
-            if (distanceToPlayer <= detectionRange)
+            if (distanceX <= detectionRange && distanceY <= 1.0f)
             {
                 Isfirst = true;
 
@@ -164,16 +167,15 @@ public class MonsterController : MonoBehaviour
                 }
 
                 // Attack
-                if (distanceToPlayer <= attackRange)
+                if (distanceX <= attackRange && distanceY <= 1.0f)
                 {
                     if (!CheckGround()) { }
                     else
                     {
-                        gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
-                        rb.velocity = Vector2.zero;
-
                         if (canAttack)
                         {
+                            gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
+                            rb.velocity = Vector2.zero;
                             gameObject.GetComponent<Animator>().SetBool("IsAttacking", true);
                             color.Attack(this);
                             StartCoroutine(AttackCooldown_R());
@@ -232,34 +234,35 @@ public class MonsterController : MonoBehaviour
 
         else if (myColor == Colors.blue) // Blue
         {
-            if (distanceToPlayer <= detectionRange)
+            if (distanceX <= detectionRange && distanceY <= 1.0f)
             {
                 Isfirst = true;
 
-                // Flip
-                if (distance < 0f)
+                if (canflip)
                 {
-                    m_sprite.flipX = false;
-                }
-                else if (distance > 0f)
-                {
-                    m_sprite.flipX = true;
+                    // Flip
+                    if (distance < -0.1f)
+                    {
+                        m_sprite.flipX = false;
+                    }
+                    else if (distance > 0.1f)
+                    {
+                        m_sprite.flipX = true;
+                    }
                 }
 
                 // Attack
-                if (distanceToPlayer <= attackRange)
+                if (distanceX <= attackRange && distanceY <= 1.0f)
                 {
                     if (!CheckGround()) { }
                     else
                     {
-                        gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
-                        rb.velocity = Vector2.zero;
-
                         if (canAttack)
                         {
-                            gameObject.GetComponent<Animator>().SetBool("IsAttacking", true);
-                            color.Attack(this);
-                            StartCoroutine(AttackCooldown());
+                            gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
+                            rb.velocity = Vector2.zero;
+                            StartCoroutine(Delay());
+                            StartCoroutine(AttackCooldown_B());
                         }
                     }
                 }
@@ -315,7 +318,7 @@ public class MonsterController : MonoBehaviour
 
         else if (myColor == Colors.yellow) // Yellow
         {
-            if (distanceToPlayer <= detectionRange)
+            if (distanceX <= detectionRange && distanceY <= 1.0f)
             {
                 Isfirst = true;
 
@@ -330,7 +333,7 @@ public class MonsterController : MonoBehaviour
                 }
 
                 // Attack
-                if (distanceToPlayer <= attackRange)
+                if (distanceX <= attackRange && distanceY <= 1.0f)
                 {
                     if (!CheckGround()) { }
                     else
@@ -553,9 +556,6 @@ public class MonsterController : MonoBehaviour
 
             // 넉백 방향으로 힘을 일정한 시간 동안 부여
             ApplyKnockbackForce(damageDir, 10f, 0.2f);
-
-            // 피격 시 실행할 함수
-            // UpdateAttacked();
         }
 
         if (currentHealth <= 0)
@@ -580,7 +580,6 @@ public class MonsterController : MonoBehaviour
                 ColorManager.Instance.HasYellow = true;
                 break;
         }
-
         Destroy(gameObject, 0.5f);
     }
 
@@ -595,14 +594,24 @@ public class MonsterController : MonoBehaviour
         canflip = true;
     }
 
-    IEnumerator AttackCooldown()
+    IEnumerator AttackCooldown_B()
     {
         canAttack = false;
+        canflip = false;
         rb.velocity = Vector2.zero;
-        //gameObject.GetComponent<Animator>().SetBool("IsAttacking", true);
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(3.0f);
         gameObject.GetComponent<Animator>().SetBool("IsAttacking", false);
         canAttack = true;
+        canflip = true;
+    }
+
+    IEnumerator Delay()
+    {
+        gameObject.GetComponent<Animator>().SetBool("IsAttacking", true);
+
+        yield return new WaitForSeconds(1.0f);
+
+        color.Attack(this);
     }
 
     IEnumerator ChargeAfterDelay()
@@ -614,6 +623,7 @@ public class MonsterController : MonoBehaviour
         StartCoroutine(ChargeForDuration(0.4f));
         //gameObject.GetComponent<Animator>().SetBool("IsAttacking", true);
     }
+
     IEnumerator ChargeForDuration(float duration)
     {
         float startTime = Time.time;

@@ -10,20 +10,9 @@ public class M_BlueColor : MonoBehaviour, M_IColorState
 
     public int M_health { get { return 100; } }
 
-    GameObject Waters;
-
     public void Attack(MonsterController monster)
     {
-        // monster.GetComponent<Animator>().SetBool("IsAttacking", true);
-
         GameObject Water = Instantiate(Resources.Load("Monster/Waters"), monster.transform.position, Quaternion.identity) as GameObject;
         GameObject Waters = Instantiate(Resources.Load("Monster/Blue_Attack_Effect_"), monster.transform.position, Quaternion.Euler(0, 0, 0)) as GameObject;
-
-        //monster.CallOnDelay(1f, () => { GameObject Water = Instantiate(Resources.Load("Monster/Waters"), monster.transform.position, Quaternion.identity) as GameObject; });
-        //monster.CallOnDelay(1f, () => { Waters = Instantiate(Resources.Load("Monster/Blue_Attack_Effect_"), monster.transform.position, Quaternion.Euler(0, 0, 0)) as GameObject; });
-
-        //Destroy(Waters);
-        
-        //Debug.Log("Blue");
     }
 }
