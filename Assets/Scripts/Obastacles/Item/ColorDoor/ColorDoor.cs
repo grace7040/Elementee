@@ -5,9 +5,10 @@ using UnityEngine;
 public class ColorDoor : MonoBehaviour
 {
     public Colors doorColor;
-    BoxCollider2D boxcollider;
+    public BoxCollider2D boxcollider;
     private Animator anim;
 
+    private Vector2 dir = new Vector2(0,0);
     public int force = 100;
 
     private void Start()
@@ -26,17 +27,21 @@ public class ColorDoor : MonoBehaviour
             {
                 boxcollider.enabled = false;
                 return;
-            }  
+            }
             else
             {
-                float dir = collision.transform.position.x - transform.position.x;
-                collision.rigidbody.AddForce(new Vector2(dir, 0) * force, ForceMode2D.Impulse);
 
-                if (dir>0)
-                    anim.Play("Door_R", -1, 0.2f);
-                else
-                    anim.Play("Door_L", -1, 0.2f);
+                dir = collision.transform.position - transform.position;
+                collision.rigidbody.AddForce(dir * force, ForceMode2D.Impulse);
 
+                // float dir = collision.transform.position.x - transform.position.x;
+                //  collision.rigidbody.velocity = new Vector2(dir * force, collision.rigidbody.velocity.y);
+                //   collision.rigidbody.AddForce(new Vector2(dir, 0) * force, ForceMode2D.Impulse);
+
+                //if (dir.x > 0 || dir.y < 0)
+                //    anim.Play("Door_R", -1, 0.2f);
+                //else
+                //    anim.Play("Door_L", -1, 0.2f);
             }
         }
         boxcollider.enabled = true;
