@@ -37,18 +37,18 @@ public class UI_Setting  : UI_Popup
     public void ToMaineBtnClicked(PointerEventData data)
     {
         GameManager.Instance.GoToMainMenu();
-        Managers.UI.ClosePopupUI();
+        //Managers.UI.ClosePopupUI();
     }
 
     public void OnResumeBtnClicked(PointerEventData data)
     {
         GameManager.Instance.ResumeGame();
-        Managers.UI.ClosePopupUI();
+        //Managers.UI.ClosePopupUI();
     }    
     
     public void OnRetryBtnClicked(PointerEventData data)
     {
         GameManager.Instance.RetryGame();
-        Managers.UI.ClosePopupUI();
+        //Managers.UI.ClosePopupUI();
     }
 }

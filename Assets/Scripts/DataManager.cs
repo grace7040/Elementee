@@ -56,7 +56,6 @@ public class DataManager : Singleton<DataManager>
         // 데이터 로드
         for (int i = 0; i < GameManager.Instance.mapStar.Count; i++)
         {
-            print("추가요");
             saveData.mapStar.Add(GameManager.Instance.mapStar[i]);
         }
         saveData.mapBest = GameManager.Instance.mapBest;

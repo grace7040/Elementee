@@ -12,8 +12,8 @@ public class UI_GameWin : UI_Popup
     enum Buttons
     {
         ToMainBtn,
-        //RetryBtn,
-        //ResumeBtn,
+        NextBtn,
+        RetryBtn,
 
     }
 
@@ -29,6 +29,8 @@ public class UI_GameWin : UI_Popup
         Bind<Button>(typeof(Buttons));
 
         GetButton((int)Buttons.ToMainBtn).gameObject.BindEvent(ToMainBtnClicked);
+        GetButton((int)Buttons.NextBtn).gameObject.BindEvent(ToNextBtnClicked);
+        GetButton((int)Buttons.RetryBtn).gameObject.BindEvent(RetryBtnClicked);
 
         // 별 개수 반영 - 나중에 수식 추가 가능성 o
         for(int i=0; i<Stars.Count; i++)
@@ -42,14 +44,17 @@ public class UI_GameWin : UI_Popup
     }
 
 
-    public void OnRetryBtnClicked(PointerEventData data)
+    public void RetryBtnClicked(PointerEventData data)
     {
         GameManager.Instance.RetryGame();
-        Managers.UI.ClosePopupUI();
     }
 
     public void ToMainBtnClicked(PointerEventData data)
     {
         GameManager.Instance.GoToMainMenu();
+    }
+    public void ToNextBtnClicked(PointerEventData data)
+    {
+        GameManager.Instance.NextStage();
     }
 }

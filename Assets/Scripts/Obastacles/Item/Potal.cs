@@ -17,7 +17,7 @@ public class Potal : MonoBehaviour
         {
             // Sound
             AudioManager.Instacne.PlaySFX("Star");
-
+            
             Invoke("EndGame", 2f);
         }
     }

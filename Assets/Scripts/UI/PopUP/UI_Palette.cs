@@ -93,13 +93,13 @@ public class UI_Palette : UI_Popup
 
     public void BackBtnClicked(PointerEventData data)
     {
-        Managers.UI.ClosePopupUI();
+        //Managers.UI.ClosePopupUI();
         GameManager.Instance.ResumeGame();
     }
 
     public void OkayBtnClicked(PointerEventData data)
     {
-        Managers.UI.ClosePopupUI();
+        //Managers.UI.ClosePopupUI();
         GameManager.Instance.ResumeGame();
         ColorManager.Instance.OnSetColor?.Invoke();
         if (currentColor != Colors.def)

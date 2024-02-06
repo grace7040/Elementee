@@ -60,7 +60,6 @@ public class GameManager : Singleton<GameManager>
 
         // 게임 일시정지
         Time.timeScale = 0;
-            
         Managers.UI.ClosePopupUI();
 
     }
@@ -69,28 +68,28 @@ public class GameManager : Singleton<GameManager>
     {
         // 게임 다시 활성화
         Time.timeScale = 1;
-
+        Managers.UI.ClosePopupUI();
     }
 
     public void NewGame()
     {
         starCount = 0;
-        Time.timeScale = 1;
+        ResumeGame();
         // 게임 재시작
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene("Map_0");
     }
 
-    public void RetryGame()
+    public void RetryGame() // 게임 재시작
     {
+        ResumeGame();
         isGameOver = false;
 
-        // 게임 재시작
         // 플레이어 피 초기화 + Color State 초기화
         playerHP = playerMAXHP;
-        ColorManager.Instance.ResetColorState();
 
-        SceneManager.LoadScene(1);
-        Time.timeScale = 1;
+        ColorManager.Instance.ResetColorState();
+        SceneManager.LoadScene("Map_" + currentMapNum);
+        
 
     }
 
@@ -98,7 +97,7 @@ public class GameManager : Singleton<GameManager>
     {
         // 패배 UI 띄우기
         isGameOver = true;
-        PauseGame();
+        Time.timeScale = 0;
 
         // 왜 안띄ㅜ어질까?
         Managers.UI.ShowPopupUI<UI_GameOver>();
@@ -107,8 +106,10 @@ public class GameManager : Singleton<GameManager>
 
     public void GameWin()
     {
+        Time.timeScale = 0;
+
         // 기록 저장
-        if(mapBest<=currentMapNum) // 처음 Clear한 맵일 경우
+        if (mapBest<=currentMapNum) // 처음 Clear한 맵일 경우
         {
             mapStar.Add(starCount);
             mapBest += 1;
@@ -122,13 +123,20 @@ public class GameManager : Singleton<GameManager>
 
         // 승리 UI 띄우기 
         isGameOver = true;
-        PauseGame();
         Managers.UI.ShowPopupUI<UI_GameWin>();
     }
 
     public void GoToMainMenu()
     {
-        SceneManager.LoadScene(0);
+        ResumeGame();
+        SceneManager.LoadScene("Lobby");
+    }
+
+    public void NextStage()
+    {
+        currentMapNum += 1;
+        ResumeGame();
+        SceneManager.LoadScene("Map_" + currentMapNum);
     }
 
 }

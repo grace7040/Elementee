@@ -52,8 +52,7 @@ public class UI_MainScene : UI_Scene
 
     public void StartBtnClicked(PointerEventData data)
     {
-        Debug.Log("게임 시작!");
-        GameManager.Instance.RetryGame();
+        SceneManager.LoadScene("LevelMenu");
         AudioManager.Instacne.PlaySFX("UiClick");
     }
 
