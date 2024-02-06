@@ -96,7 +96,6 @@ public class ColorManager : Singleton<ColorManager>
         player.myColor = _color;
         GameManager.Instance.playerColor = _color;
 
-
         // 새로운 색 사용할 때 무기 그리도록 UI 띄우기
         if (!colorList.Contains(_color) && _color != Colors.black)
         {
@@ -106,10 +105,11 @@ public class ColorManager : Singleton<ColorManager>
         else
             SetOnPlayer(_color);
 
-        if(_color == Colors.yellow)
+
+        if (_color == Colors.yellow)
         {
             player.canAttack = false;
-            player.yellowAttackEffect.SetActive(true);
+           // player.yellowAttackEffect.SetActive(true);
             player.yellowAttackEffect.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = player.colorWeapons[(int)Colors.yellow].sprite;
             AudioManager.Instacne.PlaySFX("Yellow");
         }
@@ -118,6 +118,7 @@ public class ColorManager : Singleton<ColorManager>
             player.GetComponent<PlayerController>().yellowAttackEffect.SetActive(false);
             player.canAttack = true;
         }
+
     }
 
 
@@ -139,6 +140,7 @@ public class ColorManager : Singleton<ColorManager>
                 break;
             case Colors.yellow:
                 hasYellow = false;
+                player.yellowAttackEffect.SetActive(true);
                 SetColorState(new YellowColor());
                 break;
             case Colors.blue:
@@ -195,6 +197,7 @@ public class ColorManager : Singleton<ColorManager>
     private void OffPlayerWeapon()
     {
         player.red_Weapon.SetActive(false);
+        player.yellowAttackEffect.SetActive(false);
         player.purple_Weapon.SetActive(false);
         player.green_Weapon.SetActive(false);
         player.blue_Weapon.SetActive(false);
