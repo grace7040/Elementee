@@ -103,6 +103,11 @@ public class UI_Game : UI_Scene
             dash.GetComponent<Image>().color = alpha_color32_1;
 
         }
+        if(player_color == Colors.yellow)
+            GetImage((int)Images.Attack_Cool_Time).gameObject.SetActive(true);
+        else
+            GetImage((int)Images.Attack_Cool_Time).gameObject.SetActive(false);
+
     }
 
     public override void Init()
@@ -137,6 +142,7 @@ public class UI_Game : UI_Scene
 
         Yellow_IMG = GetImage((int)Images.Yellow);
         Yellow_IMG.color = ColorManager.Instance.GetColor(Colors.yellow);
+
 
         Blue_IMG = GetImage((int)Images.Blue);
         Blue_IMG.color = ColorManager.Instance.GetColor(Colors.blue);
