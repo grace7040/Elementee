@@ -580,11 +580,6 @@ public class PlayerController : MonoBehaviour
             TakeDamage(collision.gameObject.GetComponent<MonsterController>().m_damage,
             collision.gameObject.transform.position);
         }
-        //else if (collision.gameObject.tag == "EnemyWeapon")
-        //{
-        //    TakeDamage(10, collision.gameObject.transform.position);
-        //    Destroy(collision.gameObject, 0.1f);
-        //}
     }
 
     private void OnCollisionStay2D(Collision2D collision)
@@ -600,32 +595,18 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            Debug.Log("Black");
             if (myColor == Colors.black)
             {
                 if (!collision.gameObject.GetComponent<MonsterController>().isActiveAndEnabled)
                 {
                     collision.gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
                     collision.gameObject.GetComponent<OB_VerticlaMovement>().enabled = true;
-                    //collision.gameObject.transform.position = WeaponPosition.transform.position;
 
-                    // 상위 객체(부모)의 Transform을 얻어옵니다.
                     Transform parentTransform = WeaponPosition.transform;
-
-                    // 하위 객체(자식)의 Transform을 얻어옵니다.
                     Transform childTransform = collision.gameObject.transform;
-
-                    // 하위 객체(child)를 상위 객체(parent)의 하위로 만듭니다.
                     childTransform.SetParent(parentTransform);
 
-                    //childTransform.localPosition = new Vector2(0, 0);       
-
-                    //collision.gameObject.transform.localPosition = Vector2.zero;
-                    //Debug.Log(collision.gameObject.transform.localPosition);
-
                     Destroy(collision.gameObject.GetComponent<Rigidbody2D>(), 0.1f);
-
-                    //StopCoroutine("Pull");
                 }
             }
         }
