@@ -580,6 +580,8 @@ public class MonsterController : MonoBehaviour
                 ColorManager.Instance.HasYellow = true;
                 break;
         }
+
+        // 서서히 사라지게 하기
         Destroy(gameObject, 0.5f);
     }
 
