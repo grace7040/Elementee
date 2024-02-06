@@ -10,12 +10,14 @@ public class BlackColor : MonoBehaviour, IColorState
     public bool WallSliding { get { return false; } }
     public float CoolTime { get { return 0.5f; } }
 
+    #region variables
     public float pullForce = 2.0f; // 끌어당기는 힘 조절용 변수
     public float throwForce = 15f; // 던지는 힘 조절용 변수
     public bool isHoldingEnemy = false; // 적을 가지고 있는지 여부
     private Rigidbody2D heldEnemyRigidbody; // 가지고 있는 적의 Rigidbody2D
     private Transform playerTransform; // 플레이어의 Transform
     private GameObject Enemy;
+    #endregion
 
     public void Attack(PlayerController player)
     {
