@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
+    public bool developMode;
+
     [Header("GameManage")]
     // JSON ÀúÀå
     public List<int> mapStar = new List<int>();

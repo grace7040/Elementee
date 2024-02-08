@@ -13,9 +13,7 @@ public class UI_Setting  : UI_Popup
         ToMainBtn,
         RetryBtn,
         ResumeBtn,
-
     }
-
 
     private void Start()
     {
@@ -37,18 +35,15 @@ public class UI_Setting  : UI_Popup
     public void ToMaineBtnClicked(PointerEventData data)
     {
         GameManager.Instance.GoToMainMenu();
-        //Managers.UI.ClosePopupUI();
     }
 
     public void OnResumeBtnClicked(PointerEventData data)
     {
         GameManager.Instance.ResumeGame();
-        //Managers.UI.ClosePopupUI();
     }    
     
     public void OnRetryBtnClicked(PointerEventData data)
     {
         GameManager.Instance.RetryGame();
-        //Managers.UI.ClosePopupUI();
     }
 }

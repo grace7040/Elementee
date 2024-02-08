@@ -25,7 +25,7 @@ public class UIManager
     {
         Canvas canvas = Util.GetOrAddComponent<Canvas>(go);
 
-        if(go.name != "UI_Game")
+        if(go.name != "UI_Game" && go.name != "UI_Custom")
         {
             canvas.renderMode = RenderMode.ScreenSpaceOverlay;
             canvas.overrideSorting = true; // 캔버스 안에 캔버스 중첩 경우 (부모 캔버스가 어떤 값을 가지던 나는 내 오더값을 가지려 할때)

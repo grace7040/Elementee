@@ -47,7 +47,7 @@ public class UI_Custom : UI_Popup
         DrawManager.Instance.SetFaceColor();
         DrawManager.Instance.OpenDrawing();
 
-        Child_UI.SetActive(false);
+      //  Child_UI.SetActive(false);
         AudioManager.Instacne.PlaySFX("UiClick");
     }
 

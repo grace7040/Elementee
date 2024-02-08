@@ -126,7 +126,7 @@ public class DrawManager : MonoBehaviour
         DrawCam.SetActive(false);
 
         Drawing.SetActive(false);
-        Managers.UI.ShowPopupUI<UI_Custom>();
+       // Managers.UI.ShowPopupUI<UI_Custom>();
 
         // Face ÀúÀå - 8¹ø
         GameManager.Instance.playerFace = sprites[8];

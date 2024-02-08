@@ -12,7 +12,6 @@ public class UI_MainScene : UI_Scene
     enum Buttons
     {
         StartBtn,
-       // SettingBtn,
         CustomBtn,
 
     }
