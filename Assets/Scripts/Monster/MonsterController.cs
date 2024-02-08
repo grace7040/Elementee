@@ -583,6 +583,7 @@ public class MonsterController : MonoBehaviour
 
         // 서서히 사라지게 하기
         m_sprite.DOFade(0, 1.5f);
+        hpBar.GetComponent<SpriteRenderer>().DOFade(0, 1.5f);
         Destroy(gameObject, 1.5f);
     }
 

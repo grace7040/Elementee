@@ -14,6 +14,7 @@ public class OrangeColor : IColorState
     {
         player.canAttack = false;
         player.animator.SetBool("IsOrangeAttacking", true);
+        player.gameObject.layer = 10; // layer 변경으로 충돌 처리 막음
         AudioManager.Instacne.PlaySFX("Orange");
         //4초 이후에 off
         player.CallOnDelay(CoolTime, () =>
@@ -21,6 +22,8 @@ public class OrangeColor : IColorState
             player.animator.SetBool("IsOrangeAttacking", false);
             player.GetComponent<PlayerController>().orangeAttackEffect.SetActive(false);
             player.canAttack = true;
+            player.gameObject.layer = 3;
+
         }
         );
 
