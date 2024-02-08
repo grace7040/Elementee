@@ -35,7 +35,6 @@ public class UI_LevelMenu : UI_Scene
     public void ToLobbyBtn(PointerEventData data)
     {
         SceneManager.LoadScene("Lobby");
-
     }
 
 }

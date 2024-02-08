@@ -26,7 +26,6 @@ public class UI_Setting  : UI_Popup
 
         Bind<Button>(typeof(Buttons)); 
 
-
         GetButton((int)Buttons.ToMainBtn).gameObject.BindEvent(ToMaineBtnClicked);
         GetButton((int)Buttons.ResumeBtn).gameObject.BindEvent(OnResumeBtnClicked);
         GetButton((int)Buttons.RetryBtn).gameObject.BindEvent(OnRetryBtnClicked);
