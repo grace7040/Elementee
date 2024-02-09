@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
-public class M_RedColor : MonoBehaviour, M_IColorState
+public class M_RedColor : M_IColorState
 {
     public float M_JumpForce { get { return 800f; } }
 
@@ -13,7 +13,7 @@ public class M_RedColor : MonoBehaviour, M_IColorState
 
     public void Attack(MonsterController monster)
     {
-        GameObject fire = ObjectPoolManager.Instance.GetGo("Fire");
+        var fire = ObjectPoolManager.Instance.GetGo("Fire");
 
         // 방향 처리
         SpriteRenderer monsterSpriteRenderer = monster.GetComponent<SpriteRenderer>();

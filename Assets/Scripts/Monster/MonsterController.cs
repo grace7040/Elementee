@@ -26,6 +26,8 @@ public class MonsterController : MonoBehaviour
     }
     public Colors myColor;
 
+    bool isDie = false;
+
     public SpriteRenderer m_sprite;
     static private Transform player;
     private Rigidbody2D rb;
@@ -128,6 +130,8 @@ public class MonsterController : MonoBehaviour
 
     private void Update()
     {
+        if (isDie) return;
+
         // float distanceToPlayer = Vector2.Distance(transform.position, player.position);
         distance = player.position.x - transform.position.x;
         distanceX = Mathf.Abs(transform.position.x - player.position.x);
@@ -194,7 +198,7 @@ public class MonsterController : MonoBehaviour
                 {
                     if (!CheckGround())
                     {
-                        rb.velocity += Vector2.down * 1f * Time.deltaTime;
+                        rb.velocity += Time.deltaTime * Vector2.down;
                     }
                     else
                     {
@@ -278,7 +282,7 @@ public class MonsterController : MonoBehaviour
                 {
                     if (!CheckGround())
                     {
-                        rb.velocity += Vector2.down * 1f * Time.deltaTime;
+                        rb.velocity += Time.deltaTime * Vector2.down;
                     }
                     else
                     {
@@ -360,7 +364,7 @@ public class MonsterController : MonoBehaviour
                 {
                     if (!CheckGround())
                     {
-                        rb.velocity += Vector2.down * 1f * Time.deltaTime;
+                        rb.velocity += Time.deltaTime * Vector2.down;
                     }
                     else
                     {
@@ -501,7 +505,7 @@ public class MonsterController : MonoBehaviour
     private bool CheckCliff()
     {
         // Raycast를 사용하여 앞쪽으로 바닥 감지
-        Vector2 raycastOrigin = transform.position + (Vector3.right * direction * 1.0f);
+        Vector2 raycastOrigin = transform.position + (direction * Vector3.right);
         RaycastHit2D hitDown = Physics2D.Raycast(raycastOrigin, Vector2.down, 1.0f, LayerMask.GetMask("Default")); // To change
 
         // 바닥이 감지되지 않으면 낭떠러지로 판단
@@ -574,6 +578,7 @@ public class MonsterController : MonoBehaviour
 
     public void Die()
     {
+        isDie = true;
         switch (myColor)
         {
             case Colors.def:
@@ -645,7 +650,7 @@ public class MonsterController : MonoBehaviour
             Vector2 direction = (player.position - transform.position);
             direction.y = 0;
             direction.Normalize();
-            Vector2 movement = direction * 7f * Time.deltaTime;
+            Vector2 movement = 7f * Time.deltaTime * direction;
             transform.Translate(movement);
 
             yield return null;
@@ -701,7 +706,7 @@ public class MonsterController : MonoBehaviour
         while (timer < duration)
         {
             // deltaTime 대신 Time.fixedDeltaTime 사용
-            rb.AddForce(direction * force * Time.fixedDeltaTime, ForceMode2D.Impulse);
+            rb.AddForce(force * Time.fixedDeltaTime * direction, ForceMode2D.Impulse);
 
             timer += Time.fixedDeltaTime;
             yield return new WaitForFixedUpdate();
@@ -716,6 +721,10 @@ public class MonsterController : MonoBehaviour
         if (GameManager.Instance.playerColor == Colors.green)
         {
             Instantiate(Resources.Load("Monster/Leaf"), transform.position, Quaternion.identity);
+        }
+        else
+        {
+            OnDie -= OnDieByGreenPlayer;
         }
             
     }

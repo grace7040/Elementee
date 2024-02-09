@@ -573,23 +573,23 @@ public class PlayerController : MonoBehaviour
         this.CallOnDelay(1f, () => { canHealOnFountain = true; });
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            TakeDamage(collision.gameObject.GetComponent<MonsterController>().m_damage,
-            collision.gameObject.transform.position);
-        }
-    }
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    if (collision.gameObject.CompareTag("Enemy"))
+    //    {
+    //        TakeDamage(collision.gameObject.GetComponent<MonsterController>().m_damage,
+    //        collision.gameObject.transform.position);
+    //    }
+    //}
 
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            TakeDamage(collision.gameObject.GetComponent<MonsterController>().m_damage,
-            collision.gameObject.transform.position);
-        }
-    }
+    //private void OnCollisionStay2D(Collision2D collision)
+    //{
+    //    if (collision.gameObject.CompareTag("Enemy"))
+    //    {
+    //        TakeDamage(collision.gameObject.GetComponent<MonsterController>().m_damage,
+    //        collision.gameObject.transform.position);
+    //    }
+    //}
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

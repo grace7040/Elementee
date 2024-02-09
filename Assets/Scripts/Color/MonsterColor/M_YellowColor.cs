@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class M_YellowColor : MonoBehaviour, M_IColorState
+public class M_YellowColor : M_IColorState
 {
     public float M_JumpForce { get { return 800f; } }
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class BlackColor : MonoBehaviour, IColorState
+public class BlackColor : IColorState
 {
     public float JumpForce { get { return 800f; } }
     public int Damage { get { return 100; } }
@@ -112,9 +112,7 @@ public class BlackColor : MonoBehaviour, IColorState
             heldEnemyRigidbody = null;
 
             // Á×Àº ¸ó½ºÅÍ »ö È¹µæ
-            SetPlayerColor(Enemy.GetComponent<MonsterController>().myColor);
-
-            Destroy(Enemy.gameObject, 2.0f);
+            Enemy.GetComponent<MonsterController>().Die();
         }
     }
 

@@ -17,7 +17,6 @@ public class DefaultColor : IColorState
     {
         //if (player.doAttack && player.canAttack)
         //{
-            Debug.Log("Attak");
             player.canAttack = false;
             player.animator.SetBool("IsAttacking", true);
             //player.UpdateCanAttack();
