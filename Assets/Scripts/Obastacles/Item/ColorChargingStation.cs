@@ -17,7 +17,7 @@ public class ColorChargingStation : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Player")
+        if(collision.gameObject.CompareTag("Player"))
         {
             if (isSelected)
                 return;

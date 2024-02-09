@@ -69,7 +69,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
 
             if (goDic.ContainsKey(objectInfos[idx].objectName))
             {
-                Debug.LogFormat("{0} 이미 등록된 오브젝트입니다.", objectInfos[idx].objectName);
+                Debug.Log($"{objectInfos[idx].objectName} 이미 등록된 오브젝트입니다.");
                 return;
             }
 
@@ -127,7 +127,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
 
         if (goDic.ContainsKey(goName) == false)
         {
-            Debug.LogFormat("<{0}> 은 오브젝트풀에 등록되지 않은 오브젝트입니다.", goName);
+            Debug.Log($"<{goName}> 은 오브젝트풀에 등록되지 않은 오브젝트입니다.");
             return null;
         }
         //Debug.Log(goName);
@@ -140,7 +140,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
         objectName = currentColorName;
         if (goDic.ContainsKey(currentColorName) == false)
         {
-            Debug.LogFormat("<{0}> 은 오브젝트풀에 등록되지 않은 오브젝트입니다.", currentColorName);
+            Debug.Log($"<{currentColorName}> 은 오브젝트풀에 등록되지 않은 오브젝트입니다.");
             return null;
         }
         //Debug.Log(currentColorName);

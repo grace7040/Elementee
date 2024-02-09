@@ -27,7 +27,7 @@ public class MonsterController : MonoBehaviour
     public Colors myColor;
 
     public SpriteRenderer m_sprite;
-    private Transform player;
+    static private Transform player;
     private Rigidbody2D rb;
 
     public int maxHealth = 100;
@@ -73,6 +73,11 @@ public class MonsterController : MonoBehaviour
     // HP Bar
     private Image hpBar;
     private float hpBarMAX;
+
+    float distance;
+    float distanceX;
+    float distanceY;
+    Animator animator;
     #endregion
 
     private void Awake()
@@ -104,9 +109,12 @@ public class MonsterController : MonoBehaviour
 
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        if(player == null)
+            player = GameObject.FindGameObjectWithTag("Player").transform;
+
         m_sprite = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
         currentHealth = maxHealth;
 
         // waypoint 초기화
@@ -121,9 +129,9 @@ public class MonsterController : MonoBehaviour
     private void Update()
     {
         // float distanceToPlayer = Vector2.Distance(transform.position, player.position);
-        float distance = player.position.x - transform.position.x;
-        float distanceX = Mathf.Abs(transform.position.x - player.position.x);
-        float distanceY = Mathf.Abs(transform.position.y - player.position.y);
+        distance = player.position.x - transform.position.x;
+        distanceX = Mathf.Abs(transform.position.x - player.position.x);
+        distanceY = Mathf.Abs(transform.position.y - player.position.y);
 
 
         if (myColor == Colors.def) // Default
@@ -174,9 +182,9 @@ public class MonsterController : MonoBehaviour
                     {
                         if (canAttack)
                         {
-                            gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
+                            animator.SetBool("IsWalking", false);
                             rb.velocity = Vector2.zero;
-                            gameObject.GetComponent<Animator>().SetBool("IsAttacking", true);
+                            animator.SetBool("IsAttacking", true);
                             color.Attack(this);
                             StartCoroutine(AttackCooldown_R());
                         }
@@ -193,7 +201,7 @@ public class MonsterController : MonoBehaviour
                         if (canAttack)
                         {
                             // Move
-                            gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
+                            animator.SetBool("IsWalking", true);
                             Vector2 moveDirection = new Vector2(player.position.x - transform.position.x, 0).normalized;
                             rb.velocity = moveDirection * moveSpeed;
                         }
@@ -259,7 +267,7 @@ public class MonsterController : MonoBehaviour
                     {
                         if (canAttack)
                         {
-                            gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
+                            animator.SetBool("IsWalking", false);
                             rb.velocity = Vector2.zero;
                             StartCoroutine(Delay());
                             StartCoroutine(AttackCooldown_B());
@@ -277,7 +285,7 @@ public class MonsterController : MonoBehaviour
                         if (canAttack)
                         {
                             // Move
-                            gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
+                            animator.SetBool("IsWalking", true);
                             Vector2 moveDirection = new Vector2(player.position.x - transform.position.x, 0).normalized;
                             rb.velocity = moveDirection * moveSpeed;
                         }
@@ -338,7 +346,7 @@ public class MonsterController : MonoBehaviour
                     if (!CheckGround()) { }
                     else
                     {
-                        gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
+                        animator.SetBool("IsWalking", false);
 
                         if (canAttack)
                         {
@@ -359,7 +367,7 @@ public class MonsterController : MonoBehaviour
                         if (canAttack)
                         {
                             // Move
-                            gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
+                            animator.SetBool("IsWalking", true);
                             Vector2 moveDirection = new Vector2(player.position.x - transform.position.x, 0).normalized;
                             rb.velocity = moveDirection * moveSpeed;
                         }
@@ -456,7 +464,7 @@ public class MonsterController : MonoBehaviour
 
             if (myColor != Colors.def)
             {
-                gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
+                animator.SetBool("IsWalking", true);
             }
 
             // 낭떠러지 여부 확인
@@ -483,7 +491,7 @@ public class MonsterController : MonoBehaviour
                     timeSinceLastStop = 0;
                     if (myColor != Colors.def)
                     {
-                        gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
+                        animator.SetBool("IsWalking", false);
                     }
                 }
             }
@@ -593,7 +601,7 @@ public class MonsterController : MonoBehaviour
         canflip = false;
         rb.velocity = Vector2.zero;
         yield return new WaitForSeconds(2.0f);
-        gameObject.GetComponent<Animator>().SetBool("IsAttacking", false);
+        animator.SetBool("IsAttacking", false);
         canAttack = true;
         canflip = true;
     }
@@ -604,14 +612,14 @@ public class MonsterController : MonoBehaviour
         canflip = false;
         rb.velocity = Vector2.zero;
         yield return new WaitForSeconds(3.0f);
-        gameObject.GetComponent<Animator>().SetBool("IsAttacking", false);
+        animator.SetBool("IsAttacking", false);
         canAttack = true;
         canflip = true;
     }
 
     IEnumerator Delay()
     {
-        gameObject.GetComponent<Animator>().SetBool("IsAttacking", true);
+        animator.SetBool("IsAttacking", true);
 
         yield return new WaitForSeconds(1.0f);
 
@@ -622,7 +630,7 @@ public class MonsterController : MonoBehaviour
     {
         canAttack = false;
         rb.velocity = Vector2.zero;
-        gameObject.GetComponent<Animator>().SetBool("IsAttacking", true);
+        animator.SetBool("IsAttacking", true);
         yield return new WaitForSeconds(1.2f);
         StartCoroutine(ChargeForDuration(0.4f));
         //gameObject.GetComponent<Animator>().SetBool("IsAttacking", true);
@@ -643,21 +651,21 @@ public class MonsterController : MonoBehaviour
             yield return null;
         }
         yield return new WaitForSeconds(1.0f);
-        gameObject.GetComponent<Animator>().SetBool("IsAttacking", false);
+        animator.SetBool("IsAttacking", false);
         canAttack = true;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Weapon")
+        if (other.CompareTag("Weapon"))
         {
             TakeDamage(other.GetComponentInParent<PlayerController>().damage, other.transform.position);
         }
-        else if (other.gameObject.tag == "WeaponThrow")
+        else if (other.gameObject.CompareTag("WeaponThrow"))
         {
             TakeDamage(35, other.transform.position);
         }
-        else if (other.gameObject.tag == "WeaponB")
+        else if (other.gameObject.CompareTag("WeaponB"))
         {
             TakeDamage(100, other.transform.position);
         }
@@ -668,11 +676,12 @@ public class MonsterController : MonoBehaviour
         if (!canTakeDamage_RangeAttack) return;
 
         canTakeDamage_RangeAttack = false;
-        if (collision.tag == "WeaponYellow")
+        if (collision.CompareTag("WeaponYellow"))
         {
             TakeDamage(15, collision.transform.position);
         }
-        else if(collision.tag == "WeaponOrange"){
+        else if(collision.CompareTag("WeaponOrange"))
+        {
             TakeDamage(25, collision.transform.position);
         }
 
@@ -725,6 +734,5 @@ public class MonsterController : MonoBehaviour
     private void OnDestroy()
     {
         OnDie?.Invoke();
-
     }
 }

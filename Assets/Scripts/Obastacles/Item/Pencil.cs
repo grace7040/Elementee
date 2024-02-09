@@ -14,7 +14,7 @@ public class Pencil : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.CompareTag("Player"))
         {
             GameManager.Instance.ReDrawItemColor = collision.GetComponent<PlayerController>().myColor;
             Destroy(this.gameObject);

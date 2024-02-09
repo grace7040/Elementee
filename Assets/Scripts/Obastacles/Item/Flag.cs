@@ -6,7 +6,7 @@ public class Flag : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Player")
+        if(collision.CompareTag("Player"))
         {
             AudioManager.Instacne.PlaySFX("CheckPoint");
             //플레이어와 깃발이 충돌하면 마지막 저장 지점으로 됩니다.

@@ -575,7 +575,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.CompareTag("Enemy"))
         {
             TakeDamage(collision.gameObject.GetComponent<MonsterController>().m_damage,
             collision.gameObject.transform.position);
@@ -584,7 +584,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.CompareTag("Enemy"))
         {
             TakeDamage(collision.gameObject.GetComponent<MonsterController>().m_damage,
             collision.gameObject.transform.position);
@@ -593,7 +593,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.CompareTag("Enemy"))
         {
             if (myColor == Colors.black)
             {
@@ -610,12 +610,12 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
-        else if (collision.gameObject.tag == "EnemyWeapon")
+        else if (collision.gameObject.CompareTag("EnemyWeapon"))
         {
             TakeDamage(15, collision.gameObject.transform.position);
             //Destroy(collision.gameObject, 0.1f);
         }
-        else if (collision.gameObject.tag == "EnemyFarWeapon")
+        else if (collision.gameObject.CompareTag("EnemyFarWeapon"))
         {
             TakeDamage(10, collision.gameObject.transform.position);
             Destroy(collision.gameObject, 0.1f);

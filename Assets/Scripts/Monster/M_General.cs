@@ -69,12 +69,12 @@ public class M_General : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log(other.tag);
-        if (other.tag == "Weapon")
+        if (other.CompareTag("Weapon"))
         {
             Debug.Log(123);
             TakeDamage(other.GetComponentInParent<PlayerController>().damage); // 이거 맞나?
         }
-        else if (other.tag == "WeaponB")
+        else if (other.CompareTag("WeaponB"))
         {
             TakeDamage(20);
             Destroy(other.gameObject, 0.1f);

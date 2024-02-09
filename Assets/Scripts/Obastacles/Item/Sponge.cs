@@ -16,7 +16,7 @@ public class Sponge : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.CompareTag("Player"))
         {
             if (collision.GetComponent<PlayerController>().myColor == Colors.def) 
                 return;

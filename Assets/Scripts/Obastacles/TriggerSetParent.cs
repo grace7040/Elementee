@@ -6,7 +6,7 @@ public class TriggerSetParent : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.CompareTag("Player"))
         {
             collision.transform.SetParent(this.transform);
         }
@@ -14,7 +14,7 @@ public class TriggerSetParent : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.CompareTag("Player"))
         {
             collision.transform.SetParent(null);
         }

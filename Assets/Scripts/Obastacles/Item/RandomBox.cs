@@ -10,7 +10,7 @@ public class RandomBox : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (isUsed) return;
-        if (collision.gameObject.tag == "Weapon" || collision.gameObject.tag == "WeaponB")
+        if (collision.gameObject.CompareTag("Weapon") || collision.gameObject.CompareTag("WeaponB"))
         {
             isUsed = true;
             randomIdx = Random.Range(0, randomObjects.Length);

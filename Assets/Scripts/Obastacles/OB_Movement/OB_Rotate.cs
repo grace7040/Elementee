@@ -11,7 +11,7 @@ public class OB_Rotate : MonoBehaviour
     {
         if (centerPoint == null)
         {
-            Debug.LogError("Center point not assigned! Please assign a center point in the Inspector.");
+            Debug.Log("Center point not assigned! Please assign a center point in the Inspector.");
             return;
         }
 

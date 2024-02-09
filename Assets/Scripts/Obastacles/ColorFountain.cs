@@ -19,7 +19,7 @@ public class ColorFountain : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.CompareTag("Player"))
         {
             player = collision.gameObject.GetComponent<PlayerController>();
             if (player.myColor == fountainColor)
@@ -34,21 +34,12 @@ public class ColorFountain : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // ¿Ã∆Â∆Æ √ﬂ∞°
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.CompareTag("Player"))
         {
             var bulletGo = ObjectPoolManager.Instance.GetGo(fountainColor);
             bulletGo.transform.position = transform.position;
         }
     }
 
-    private void OnTriggerExitr2D(Collider2D collision)
-    {
-        // ¿Ã∆Â∆Æ √ﬂ∞°
-        if (collision.gameObject.tag == "Player")
-        {
-            var bulletGo = ObjectPoolManager.Instance.GetGo(fountainColor);
-            bulletGo.transform.position = transform.position;
-        }
-    }
 
 }
