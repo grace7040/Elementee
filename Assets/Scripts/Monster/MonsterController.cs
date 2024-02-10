@@ -598,6 +598,10 @@ public class MonsterController : MonoBehaviour
         m_sprite.DOFade(0, 1.5f);
         hpBar.GetComponent<SpriteRenderer>().DOFade(0, 1.5f);
         Destroy(gameObject, 1.5f);
+
+        gameObject.GetComponent<Animator>().enabled = false;
+        gameObject.GetComponent<MonsterController>().enabled = false;
+        gameObject.GetComponent<CapsuleCollider2D>().isTrigger = true;
     }
 
     IEnumerator AttackCooldown_R()
