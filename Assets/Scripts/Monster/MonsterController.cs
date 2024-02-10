@@ -629,9 +629,7 @@ public class MonsterController : MonoBehaviour
     IEnumerator Delay()
     {
         animator.SetBool("IsAttacking", true);
-
         yield return new WaitForSeconds(1.0f);
-
         color.Attack(this);
     }
 
