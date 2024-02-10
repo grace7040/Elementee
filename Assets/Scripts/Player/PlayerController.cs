@@ -595,20 +595,20 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            if (myColor == Colors.black)
-            {
-                if (!collision.gameObject.GetComponent<MonsterController>().isActiveAndEnabled)
-                {
-                    collision.gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-                    collision.gameObject.GetComponent<OB_VerticlaMovement>().enabled = true;
+            //if (myColor == Colors.black)
+            //{
+            //    if (!collision.gameObject.GetComponent<MonsterController>().isActiveAndEnabled)
+            //    {
+            //        collision.gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            //        collision.gameObject.GetComponent<OB_VerticlaMovement>().enabled = true;
 
-                    Transform parentTransform = WeaponPosition.transform;
-                    Transform childTransform = collision.gameObject.transform;
-                    childTransform.SetParent(parentTransform);
+            //        Transform parentTransform = WeaponPosition.transform;
+            //        Transform childTransform = collision.gameObject.transform;
+            //        childTransform.SetParent(parentTransform);
 
-                    Destroy(collision.gameObject.GetComponent<Rigidbody2D>(), 0.1f);
-                }
-            }
+            //        Destroy(collision.gameObject.GetComponent<Rigidbody2D>(), 0.1f);
+            //    }
+            //}
         }
         else if (collision.gameObject.CompareTag("EnemyWeapon"))
         {
