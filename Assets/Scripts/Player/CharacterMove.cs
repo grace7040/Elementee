@@ -27,12 +27,12 @@ public class CharacterMove : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Z))
         {
-			jumpDown = true;
+			JumpDown();
         }
 
         if (Input.GetKeyDown(KeyCode.C))
 		{
-			dash = true;
+			DashDown();
 		}
 
 	}
@@ -51,15 +51,15 @@ public class CharacterMove : MonoBehaviour
 	{
 		// Move our character
 		controller.Move(horizontalMove * Time.fixedDeltaTime, jumpDown, dash);
-		jumpDown = false;
-		dash = false;
+		JumpUp();
+		DashUp();
 	}
 
 
 	public void JumpDown()
 	{
 		jumpDown = true;
-
+		controller.RopeOut();
 	}
 	public void JumpUp()
 	{

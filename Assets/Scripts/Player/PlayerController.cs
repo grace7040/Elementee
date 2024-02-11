@@ -55,6 +55,7 @@ public class PlayerController : MonoBehaviour
     public SpriteRenderer faceSprite;
     public SpriteRenderer playerSprite;
 
+
     [Header("Attack")]
     //public GameObject throwableObject;
     public Transform attackCheck;
@@ -112,7 +113,9 @@ public class PlayerController : MonoBehaviour
     //-벽타기
     private bool oldWallSlidding = false; //If player is sliding in a wall in the previous frame
     private bool canCheck = false; //For check if player is wallsliding
-
+    //로프
+    private FixedJoint2D fixJoint;
+    private bool isRope = false;
 
     //Attack
     [HideInInspector] public bool doAttack = false; //attack input
@@ -128,7 +131,7 @@ public class PlayerController : MonoBehaviour
 
     // weapon position
     public GameObject WeaponPosition;
-
+    
 
     private void Start()
     {
@@ -147,6 +150,7 @@ public class PlayerController : MonoBehaviour
         ColorManager.Instance.SetColorState(Colors.def);
         //m_Rigidbody2D = GetComponent<Rigidbody2D>();
         //animator = GetComponent<Animator>();
+        fixJoint = GetComponent<FixedJoint2D>();
 
         if (OnFallEvent == null) // 이건 왜하지?
             OnFallEvent = new UnityEvent();
@@ -240,29 +244,40 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //땅에 닿아 있는지 판별하는 변수
-        bool wasGrounded = m_Grounded;
-        m_Grounded = false;
+        if (doAttack)
+        {
+            doAttack = false;
+            Color.Attack(this);
+        }
 
         //colliders : 닿아있는 바닥수만큼 존재, 공중에 떠있으면 0개 바닥에 닿아있으면 1개
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
-        for (int i = 0; i < colliders.Length; i++) // 이 for문이 왜 필요하지
+
+        if (!isRope)
         {
-            //gameobject = plsyer, colliders[i].gameObject = player와 접촉하고 있는 obj
-            if (colliders[i].gameObject != gameObject)
+            //땅에 닿아 있는지 판별하는 변수
+            bool wasGrounded = m_Grounded;
+            m_Grounded = false;
+
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
+            for (int i = 0; i < colliders.Length; i++) // 이 for문이 왜 필요하지
             {
-                m_Grounded = true;
-                if (!wasGrounded) 
+                //gameobject = plsyer, colliders[i].gameObject = player와 접촉하고 있는 obj
+                if (colliders[i].gameObject != gameObject)
                 {
-                    OnLandEvent.Invoke();
-                    if (!m_IsWall && !isDashing)
-                        particleJumpDown.Play();
-                    canDoubleJump = true;
-                    if (m_Rigidbody2D.velocity.y < 0f)
-                        limitVelOnWallJump = false;
+                    m_Grounded = true;
+                    if (!wasGrounded)
+                    {
+                        OnLandEvent.Invoke();
+                        if (!m_IsWall && !isDashing)
+                            particleJumpDown.Play();
+                        canDoubleJump = true;
+                        if (m_Rigidbody2D.velocity.y < 0f)
+                            limitVelOnWallJump = false;
+                    }
                 }
             }
         }
+        
 
 
         m_IsWall = false;
@@ -308,14 +323,12 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (doAttack)
-        {
-            doAttack = false;
-            Color.Attack(this);
-        }
+        
         
 
     }
+
+
 
     public void SetCustomWeapon()
     {
@@ -392,6 +405,7 @@ public class PlayerController : MonoBehaviour
                 animator.SetBool("IsJumping", true);
                 animator.SetBool("JumpUp", true);
                 m_Grounded = false;
+                m_Rigidbody2D.velocity = Vector2.zero;
                 m_Rigidbody2D.AddForce(new Vector2(0f, jumpForce));
                 canDoubleJump = true;
                 particleJumpDown.Play();
@@ -587,8 +601,19 @@ public class PlayerController : MonoBehaviour
     //    }
     //}
 
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.gameObject.CompareTag("Rope"))
+        {
+            if (isRope) return;
+            fixJoint.enabled = true;
+            fixJoint.connectedBody = collision.gameObject.GetComponent<Rigidbody2D>();
+            isRope = true;
+
+            m_Grounded = true;
+
+        }
         if (collision.gameObject.CompareTag("Enemy"))
         {
             //if (myColor == Colors.black)
@@ -618,6 +643,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void RopeOut()
+    {
+        if (!isRope) return;
+
+        fixJoint.connectedBody = null;
+        fixJoint.enabled = false;
+
+        this.CallOnDelay(0.1f, ()=> { isRope = false; });
+    }
 
     IEnumerator WaitToDead()
     {
