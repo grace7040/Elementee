@@ -4,13 +4,17 @@ using UnityEngine.Pool;
 public class PoolAble : MonoBehaviour
 {
     public IObjectPool<GameObject> Pool { get; set; }
-    //private void OnEnable()
-    //{
-    //    this.CallOnDelay(0.5f, ReleaseObject);
-    //}
+    bool isReleased;
+    private void OnEnable()
+    {
+        isReleased = false;
+    }
 
     public void ReleaseObject()
     {
+        if (isReleased) return;
+
         Pool.Release(gameObject);
+        isReleased = true;
     }
 }
