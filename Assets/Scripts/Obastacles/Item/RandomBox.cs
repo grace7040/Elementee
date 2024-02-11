@@ -5,8 +5,16 @@ using UnityEngine;
 public class RandomBox : MonoBehaviour
 {
     public GameObject[] randomObjects;
+    private Animator anim;
+
     bool isUsed = false;
     int randomIdx;
+
+    private void Start()
+    {
+        anim = this.GetComponent<Animator>();
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (isUsed) return;
@@ -14,8 +22,10 @@ public class RandomBox : MonoBehaviour
         {
             isUsed = true;
             randomIdx = Random.Range(0, randomObjects.Length);
-            Instantiate(randomObjects[randomIdx], transform.position, Quaternion.identity);
-            Destroy(gameObject);
+
+            anim.Play("RandomBox", -1, 0f);
+
+            this.CallOnDelay(2f, () => { Destroy(gameObject); Instantiate(randomObjects[randomIdx], transform.position, Quaternion.identity);});
         }
     }
 }
