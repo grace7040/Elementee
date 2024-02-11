@@ -90,7 +90,8 @@ public class GameManager : Singleton<GameManager>
         playerHP = playerMAXHP;
 
         ColorManager.Instance.ResetColorState();
-        SceneManager.LoadScene("Map_" + currentMapNum);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // 현재 씬 재시작
+       // SceneManager.LoadScene("Map_" + currentMapNum);
         
 
     }

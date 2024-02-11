@@ -10,6 +10,7 @@ public class UI_Game : UI_Scene
 {
     public GameObject player;
     public TextMeshProUGUI Score;
+   // public int mapNum;
     Colors player_color = Colors.def;
 
     // Button
@@ -67,6 +68,7 @@ public class UI_Game : UI_Scene
     {
         Init();
         ObjectManager.Instance.UI_InGame_Ready = true;
+        //GameManager.Instance.currentMapNum = mapNum;
     }
 
     private void FixedUpdate()
