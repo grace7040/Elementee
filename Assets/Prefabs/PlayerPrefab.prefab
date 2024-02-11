@@ -10271,7 +10271,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 2.107, y: 6.927, z: 178.091}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.04, y: -4.63}
+  m_AnchoredPosition: {x: 0.04, y: -3.8600001}
   m_SizeDelta: {x: 2.132, y: 3.268}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &1413892518974847431
@@ -10512,7 +10512,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 2.107, y: 6.927, z: -89.466}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 4.230001, y: -0.4999997}
+  m_AnchoredPosition: {x: 4.230001, y: 1.01}
   m_SizeDelta: {x: 2.132, y: 3.268}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &5149665378314903991
@@ -15700,7 +15700,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 2.107, y: 6.927, z: -0.607}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.04, y: 3.91}
+  m_AnchoredPosition: {x: 0.04, y: 5.21}
   m_SizeDelta: {x: 2.132, y: 3.268}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &1328193451841269196
@@ -15863,7 +15863,7 @@ GameObject:
   - component: {fileID: 7639073775074724790}
   m_Layer: 3
   m_Name: PurpleAttack
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16330,7 +16330,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5593871760870967025}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.27, z: 0}
   m_LocalScale: {x: 0.39357412, y: 0.37758756, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -16408,9 +16408,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.31}
+  m_Offset: {x: 0, y: 0.8757038}
   serializedVersion: 2
-  m_Radius: 3.87
+  m_Radius: 4.4127274
 --- !u!50 &7116786285842233396
 Rigidbody2D:
   serializedVersion: 4
@@ -16482,7 +16482,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 2.107, y: 6.927, z: 91.005}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -3.9, y: -0.88}
+  m_AnchoredPosition: {x: -3.9, y: 0.62999964}
   m_SizeDelta: {x: 2.132, y: 3.268}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &3427864136407679249
@@ -16882,7 +16882,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.6013012, y: -0.16595203}
+  m_Offset: {x: 0.80203104, y: 0.009043455}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -16893,7 +16893,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.029583, y: 1.331904}
+  m_Size: {x: 2.4310436, y: 1.681895}
   m_EdgeRadius: 0
 --- !u!50 &4659771621703042495
 Rigidbody2D:
@@ -17310,6 +17310,18 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7471054863823620019, guid: 8e653005309dc004193c2a9ef90134e2, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7471054863823620019, guid: 8e653005309dc004193c2a9ef90134e2, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7471054863823620019, guid: 8e653005309dc004193c2a9ef90134e2, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7471054863823620019, guid: 8e653005309dc004193c2a9ef90134e2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -17521,15 +17533,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8010253412889636678, guid: 3eb823c24594a4e4fb6629392abd7b82, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.3
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: 8010253412889636678, guid: 3eb823c24594a4e4fb6629392abd7b82, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.3
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: 8010253412889636678, guid: 3eb823c24594a4e4fb6629392abd7b82, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.3
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: 8010253412889636678, guid: 3eb823c24594a4e4fb6629392abd7b82, type: 3}
       propertyPath: m_LocalPosition.x
