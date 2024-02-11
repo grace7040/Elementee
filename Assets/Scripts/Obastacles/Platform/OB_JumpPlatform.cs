@@ -11,8 +11,7 @@ public class OB_JumpPlatform : MonoBehaviour
     private void Start()
     {
         anim = this.GetComponent<Animator>();
-        jumpVector = transform.up * jumpForce;
-        
+        jumpVector = transform.up.normalized * jumpForce;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -20,15 +19,17 @@ public class OB_JumpPlatform : MonoBehaviour
         // 플레이어와 발판의 충돌을 확인합니다.
         if (collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log(jumpVector);
+            // Debug.Log(jumpVector);
             Rigidbody2D playerRigidbody = collision.gameObject.GetComponent<Rigidbody2D>();
 
             // 플레이어 객체에 점프 힘을 적용합니다.
             if (playerRigidbody != null)
             {
-                Vector2 upDirection = transform.TransformDirection(Vector2.up);
-                collision.rigidbody.AddForce(upDirection * jumpVector.magnitude, ForceMode2D.Impulse);
-                // collision.rigidbody.AddForce(jumpVector, ForceMode2D.Impulse);
+                //Vector2 upDirection = transform.TransformDirection(Vector2.up);
+                //upDirection = upDirection.normalized;
+                //collision.rigidbody.AddForce(upDirection * jumpVector.magnitude, ForceMode2D.Impulse);
+                playerRigidbody.velocity = Vector2.zero;
+                collision.rigidbody.AddForce(jumpVector, ForceMode2D.Impulse);
             }
 
             // 애니메이션 재생
