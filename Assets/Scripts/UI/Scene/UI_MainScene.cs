@@ -18,13 +18,15 @@ public class UI_MainScene : UI_Scene
 
     private void Start()
     {
+        GameManager.Instance.isGameOver = false;
         Init();
-        DataManager.Instance.JsonLoad();
+        //DataManager.Instance.JsonLoad();
     }
 
     public override void Init()
     {
         base.Init(); // 📜UI_Button 의 부모인 📜UI_PopUp 의 Init() 호출
+        
 
         Bind<Button>(typeof(Buttons));
 

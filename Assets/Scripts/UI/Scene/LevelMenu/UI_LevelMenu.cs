@@ -17,6 +17,8 @@ public class UI_LevelMenu : UI_Scene
     private float duration = 1.5f; // Line 채워지는 시간
     private float endFillamount = 1f;
 
+    private int mapBest;
+
     enum Buttons
     {
         Lobby,
@@ -24,7 +26,8 @@ public class UI_LevelMenu : UI_Scene
 
 
     private void Start()
-    {    
+    {
+        mapBest = GameManager.Instance.mapBest;
         Init();
     }
 
@@ -37,12 +40,12 @@ public class UI_LevelMenu : UI_Scene
 
         for(int i=0; i<mapBtns.Count; i++)
         {
-            if (GameManager.Instance.developMode || i < GameManager.Instance.mapBest)
+            if (GameManager.Instance.developMode || i < mapBest)
             {
                 mapBtns[i].GetComponent<Button>().interactable = true;
                 Lines[i].SetActive(true);
             }
-            if(i == GameManager.Instance.mapBest)
+            if(i == mapBest)
             {
                 Lines[i].SetActive(true);
                 lineImg = Lines[i].GetComponent<Image>();
@@ -72,7 +75,7 @@ public class UI_LevelMenu : UI_Scene
         }
 
         lineImg.fillAmount = endFillamount;
-        mapBtns[GameManager.Instance.mapBest].GetComponent<Button>().interactable = true;
+        mapBtns[mapBest].GetComponent<Button>().interactable = true;
     }
 
 

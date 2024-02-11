@@ -10,8 +10,9 @@ public class GameManager : Singleton<GameManager>
     [Header("GameManage")]
     // JSON 저장
     public List<int> mapStar = new List<int>();
+    public List<int> mapFlag = new List<int>();
+    public List<Vector3> yehh = new List<Vector3>();
     public int mapBest;  // 플레이 가능한 가장 큰 맵
-    public float[] savePoint = new float[3]; // 이거 default 값 필요함. 나중에 맵 만들 때 추가할 것
 
 
     public int currentMapNum = 0;
@@ -19,8 +20,8 @@ public class GameManager : Singleton<GameManager>
     public bool isGameOver;
     public int starCount = 0;
 
-
     [Header("Player")]
+    public Transform sponPos;
     public Colors playerColor = Colors.def;
     public Sprite playerFace;
 
@@ -37,7 +38,7 @@ public class GameManager : Singleton<GameManager>
     {
         DontDestroyOnLoad(gameObject);
         //DataManager.Instance.JsonClear(); // 데이터 초기화
-        //DataManager.Instance.JsonLoad();
+        DataManager.Instance.JsonLoad();
         isGameOver = false;
     }
 
@@ -104,12 +105,17 @@ public class GameManager : Singleton<GameManager>
         if (mapBest<=currentMapNum) // 처음 Clear한 맵일 경우
         {
             mapStar.Add(starCount);
+            mapFlag.Add(0);
             mapBest += 1;
         }
         else
         {
-            if(mapStar[currentMapNum]<starCount)
+            if (mapStar[currentMapNum] < starCount)
+            {
                 mapStar[currentMapNum] = starCount;
+                mapFlag[currentMapNum] = 0;
+
+            }
         }
         DataManager.Instance.JsonSave();
 
@@ -130,5 +136,6 @@ public class GameManager : Singleton<GameManager>
         ResumeGame();
         SceneManager.LoadScene("Map_" + currentMapNum);
     }
+
 
 }
