@@ -10,15 +10,14 @@ public class DrawManager : MonoBehaviour
 {
     Colors color;
 
-
-    // 어떤 Mode인지
-    public bool face_mode;
-
     public TMP_Text text;
     public SpriteRenderer testRenderer;
 
     public GameObject Drawing;
     public GameObject DrawbleObject;
+
+    // Face Custom
+    public bool face_mode;
 
     [Header("Camera")]
     public GameObject Cam;
@@ -107,6 +106,7 @@ public class DrawManager : MonoBehaviour
     // 얼굴 그리기
     public void SetFaceColor()
     {
+        face_mode = true;
         Color c = ColorManager.Instance.GetColor(Colors.black);
 
         BackGround.GetComponent<Image>().sprite = BG_Sprites[8];
@@ -126,7 +126,6 @@ public class DrawManager : MonoBehaviour
         DrawCam.SetActive(false);
 
         Drawing.SetActive(false);
-       // Managers.UI.ShowPopupUI<UI_Custom>();
 
         // Face 저장 - 8번
         GameManager.Instance.playerFace = sprites[8];

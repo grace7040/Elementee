@@ -16,25 +16,10 @@ public class UI_MainScene : UI_Scene
 
     }
 
-    //enum Texts
-    //{
-    //    PointText,
-    //    ScoreText
-    //}
-
-    //enum GameObjects
-    //{
-    //    TestObject,
-    //}
-
-    //enum Images
-    //{
-    //    ItemIcon,
-    //}
-
     private void Start()
     {
         Init();
+        DataManager.Instance.JsonLoad();
     }
 
     public override void Init()

@@ -11,14 +11,14 @@ public class GameManager : Singleton<GameManager>
     // JSON 저장
     public List<int> mapStar = new List<int>();
     public int mapBest;  // 플레이 가능한 가장 큰 맵
+    public float[] savePoint = new float[3]; // 이거 default 값 필요함. 나중에 맵 만들 때 추가할 것
+
 
     public int currentMapNum = 0;
     public GameObject Potal;
     public bool isGameOver;
     public int starCount = 0;
 
-    // 이거 default 값 필요함. 나중에 맵 만들 때 추가할 것
-    public float[] savePoint = new float[3];
 
     [Header("Player")]
     public Colors playerColor = Colors.def;
@@ -36,14 +36,9 @@ public class GameManager : Singleton<GameManager>
     void Start()
     {
         DontDestroyOnLoad(gameObject);
-       // DataManager.Instance.JsonClear();
-        DataManager.Instance.JsonLoad();
+        //DataManager.Instance.JsonClear(); // 데이터 초기화
+        //DataManager.Instance.JsonLoad();
         isGameOver = false;
-    }
-    
-    void Update()
-    {
-        // 게임오버 확인 (ex. 플레이어의 체력)
     }
 
     public float HPBar()
@@ -54,16 +49,13 @@ public class GameManager : Singleton<GameManager>
     public void StarCount()
     {
         starCount += 1;
-
     }
 
     public void PauseGame()
     {
-
         // 게임 일시정지
         Time.timeScale = 0;
         Managers.UI.ClosePopupUI();
-
     }
 
     public void ResumeGame()
@@ -77,8 +69,9 @@ public class GameManager : Singleton<GameManager>
     {
         starCount = 0;
         ResumeGame();
-        // 게임 재시작
         SceneManager.LoadScene("Map_0");
+        DataManager.Instance.JsonClear(); // 데이터 초기화
+
     }
 
     public void RetryGame() // 게임 재시작
@@ -90,9 +83,7 @@ public class GameManager : Singleton<GameManager>
         playerHP = playerMAXHP;
 
         ColorManager.Instance.ResetColorState();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // 현재 씬 재시작
-       // SceneManager.LoadScene("Map_" + currentMapNum);
-        
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // 현재 씬 재시작        
 
     }
 
@@ -101,8 +92,6 @@ public class GameManager : Singleton<GameManager>
         // 패배 UI 띄우기
         isGameOver = true;
         Time.timeScale = 0;
-
-        // 왜 안띄ㅜ어질까?
         Managers.UI.ShowPopupUI<UI_GameOver>();
 
     }

@@ -12,7 +12,6 @@ public class UI_GameOver : UI_Popup
     {
         ToMainBtn,
         RetryBtn,
-        //ResumeBtn,
 
     }
 
