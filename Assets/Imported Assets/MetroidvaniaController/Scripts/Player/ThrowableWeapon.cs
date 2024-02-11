@@ -7,13 +7,13 @@ public class ThrowableWeapon : PoolAble
 	public Vector2 direction;
     public Colors myColor;
     //public bool hasHit = false;
-    //public float speed = 20f;
-
-    Rigidbody2D rigid;
+    public float speed = 20f;
+    bool isReleased = true;
+    //Rigidbody2D rigid;
     SpriteRenderer spriteRenderer;
     private void Awake()
     {
-        rigid = GetComponent<Rigidbody2D>();
+        //rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = DrawManager.Instance.sprites[(int)myColor];
     }
@@ -32,7 +32,8 @@ public class ThrowableWeapon : PoolAble
     private void FixedUpdate()
     {
         //rigid.velocity = direction * speed;
-        rigid.AddForce(direction, ForceMode2D.Impulse);
+        //rigid.AddForce(direction, ForceMode2D.Impulse);
+        transform.Translate(speed * Time.deltaTime * direction);
     }
 
     //private void OnCollisionEnter2D(Collision2D collision)
@@ -46,10 +47,11 @@ public class ThrowableWeapon : PoolAble
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.gameObject.GetComponent<PlayerController>())
+        if (!collision.CompareTag("Player"))
         {
             //Destroy(gameObject);
             ReleaseObject();
+            isReleased = true;
         }
     }
 
@@ -57,9 +59,8 @@ public class ThrowableWeapon : PoolAble
     {
         if (ColorManager.Instance.basicWeapon)
             SetBasicWeapon();
-        spriteRenderer.flipX = playerLocalScaleX < 0 ? true : false;
-        transform.position = playerPosition + new Vector3(playerLocalScaleX * 0.5f, 0.2f);
-        transform.rotation = Quaternion.identity;
+        spriteRenderer.flipX = playerLocalScaleX < 0;
+        transform.SetPositionAndRotation(playerPosition + new Vector3(playerLocalScaleX * 0.5f, 0.2f), Quaternion.identity);
         direction = new Vector2(playerLocalScaleX, 0);
     }
 
