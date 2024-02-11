@@ -44,8 +44,8 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 0.06041287, b: 0, a: 1}
-  m_Intensity: 2.8069072
-  m_Range: 8.60418
+  m_Intensity: 3.3020904
+  m_Range: 8.511827
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -4750,7 +4750,6 @@ GameObject:
   - component: {fileID: 6523076972119063998}
   - component: {fileID: 6523076972119063999}
   - component: {fileID: 4145755062159488565}
-  - component: {fileID: -4160712582886275533}
   - component: {fileID: 743650830032846468}
   - component: {fileID: 8997509111183063990}
   - component: {fileID: 3115381018743483408}
@@ -4770,7 +4769,7 @@ Transform:
   m_GameObject: {fileID: 6523076972119063984}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.89058876, y: -2.554819, z: 0.00931715}
-  m_LocalScale: {x: 1.461024, y: 1.3433506, z: 1.8}
+  m_LocalScale: {x: 1.461024, y: 0.7892185, z: 1.8}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6523076972683663226}
@@ -9687,18 +9686,6 @@ MonoBehaviour:
     perlinColor: 0
     perlinColorSpeed: 1
   fadeOutReference: {fileID: 6523076972119063998}
---- !u!114 &-4160712582886275533
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6523076972119063984}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f16ddebad20457b4abd0b3774dff80b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!61 &743650830032846468
 BoxCollider2D:
   m_ObjectHideFlags: 0

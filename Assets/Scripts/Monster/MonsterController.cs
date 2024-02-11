@@ -506,7 +506,7 @@ public class MonsterController : MonoBehaviour
     {
         // Raycast를 사용하여 앞쪽으로 바닥 감지
         Vector2 raycastOrigin = transform.position + (direction * Vector3.right);
-        RaycastHit2D hitDown = Physics2D.Raycast(raycastOrigin, Vector2.down, 1.0f, LayerMask.GetMask("Default")); // To change
+        RaycastHit2D hitDown = Physics2D.Raycast(raycastOrigin, Vector2.down, 1.0f, 1 << 0); // To change
 
         // 바닥이 감지되지 않으면 낭떠러지로 판단
         return hitDown.collider == null;
@@ -531,7 +531,7 @@ public class MonsterController : MonoBehaviour
     private bool CheckGround()
     {
         float raycastDistance = 0.8f; // 바닥과의 간격 설정
-        LayerMask groundLayer = LayerMask.GetMask("Default"); // To change
+        LayerMask groundLayer = 1<<0; // To change
 
         // 몬스터 아래에 레이캐스트를 쏘아 발판이 있는지 확인
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, raycastDistance, groundLayer);
@@ -594,14 +594,16 @@ public class MonsterController : MonoBehaviour
                 break;
         }
 
+        
+
+        animator.enabled = false;
+        gameObject.GetComponent<CapsuleCollider2D>().isTrigger = true;
+        //this.enabled = false;
+
         // 서서히 사라지게 하기
         m_sprite.DOFade(0, 1.5f);
         hpBar.GetComponent<SpriteRenderer>().DOFade(0, 1.5f);
         Destroy(gameObject, 1.5f);
-
-        gameObject.GetComponent<Animator>().enabled = false;
-        gameObject.GetComponent<MonsterController>().enabled = false;
-        gameObject.GetComponent<CapsuleCollider2D>().isTrigger = true;
     }
 
     IEnumerator AttackCooldown_R()
@@ -630,6 +632,7 @@ public class MonsterController : MonoBehaviour
     {
         animator.SetBool("IsAttacking", true);
         yield return new WaitForSeconds(1.0f);
+        if (isDie) yield break;
         color.Attack(this);
     }
 
