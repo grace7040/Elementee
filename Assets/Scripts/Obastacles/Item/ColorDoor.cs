@@ -21,6 +21,15 @@ public class ColorDoor : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        //if (collision.gameObject.tag == "Enemy")
+        //{
+        //    collision.rigidbody.velocity = Vector2.zero;
+
+        //    dir = collision.transform.position - transform.position;
+        //    dir = dir.normalized;
+        //    collision.rigidbody.AddForce(dir * force, ForceMode2D.Impulse);
+        //}
+
         if (collision.gameObject.tag == "Player")
         {
             if (collision.gameObject.GetComponent<PlayerController>().myColor == doorColor)
@@ -30,8 +39,10 @@ public class ColorDoor : MonoBehaviour
             }
             else
             {
+                collision.rigidbody.velocity = Vector2.zero;
 
                 dir = collision.transform.position - transform.position;
+                dir = dir.normalized;
                 collision.rigidbody.AddForce(dir * force, ForceMode2D.Impulse);
 
                 // float dir = collision.transform.position.x - transform.position.x;
