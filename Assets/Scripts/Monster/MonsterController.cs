@@ -653,9 +653,19 @@ public class MonsterController : MonoBehaviour
     {
         float startTime = Time.time;
 
+        //canflip = false;
         Vector2 direction = (player.position - transform.position);
         direction.y = 0;
         direction.Normalize();
+
+        //if (distance < -0.1f)
+        //{
+        //    m_sprite.flipX = false;
+        //}
+        //else if (distance > 0.1f)
+        //{
+        //    m_sprite.flipX = true;
+        //}
 
         while (Time.time - startTime < duration)
         {
