@@ -6,6 +6,6 @@ public class PoolAbleEffects : PoolAble
 {
     private void OnEnable()
     {
-        this.CallOnDelay(0.5f, ReleaseObject);
+        this.CallOnDelay(1.5f, ReleaseObject);
     }
 }

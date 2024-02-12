@@ -642,8 +642,9 @@ public class MonsterController : MonoBehaviour
     {
         canAttack = false;
         rb.velocity = Vector2.zero;
-        animator.SetBool("IsAttacking", true);
+        //animator.SetBool("IsAttacking", true);
         yield return new WaitForSeconds(1.2f);
+        animator.SetBool("IsAttacking", true);
         StartCoroutine(ChargeForDuration(0.4f));
         //gameObject.GetComponent<Animator>().SetBool("IsAttacking", true);
     }
@@ -652,11 +653,15 @@ public class MonsterController : MonoBehaviour
     {
         float startTime = Time.time;
 
+        Vector2 direction = (player.position - transform.position);
+        direction.y = 0;
+        direction.Normalize();
+
         while (Time.time - startTime < duration)
         {
-            Vector2 direction = (player.position - transform.position);
-            direction.y = 0;
-            direction.Normalize();
+            //Vector2 direction = (player.position - transform.position);
+            //direction.y = 0;
+            //direction.Normalize();
             Vector2 movement = 7f * Time.deltaTime * direction;
             transform.Translate(movement);
 
