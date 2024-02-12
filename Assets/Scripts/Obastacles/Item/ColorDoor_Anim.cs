@@ -25,7 +25,7 @@ public class ColorDoor_Anim : MonoBehaviour
                 ShutDownDoor();
             }  
         }
-        else
+        if(collision.gameObject.CompareTag("Enemy"))
             ShutDownDoor();
     }
 
