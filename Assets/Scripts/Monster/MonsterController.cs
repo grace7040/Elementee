@@ -74,6 +74,7 @@ public class MonsterController : MonoBehaviour
 
     // HP Bar
     private Image hpBar;
+    private Image hpBarBG;
     private float hpBarMAX;
 
     float distance;
@@ -126,6 +127,7 @@ public class MonsterController : MonoBehaviour
         // 체력바
         hpBar = transform.Find("HPBar").GetChild(1).gameObject.GetComponent<Image>();
         hpBarMAX = hpBar.gameObject.GetComponent<RectTransform>().rect.width;
+        hpBarBG = transform.Find("HPBar").GetChild(0).gameObject.GetComponent<Image>();
     }
 
     private void Update()
@@ -601,9 +603,9 @@ public class MonsterController : MonoBehaviour
         //this.enabled = false;
 
         // 서서히 사라지게 하기
-        m_sprite.DOFade(0, 1.5f);
-        hpBar.GetComponent<SpriteRenderer>().DOFade(0, 1.5f);
-        Destroy(gameObject, 1.5f);
+        m_sprite.DOFade(0, 2.5f);
+        hpBarBG.DOFade(0, 2f);
+        Destroy(gameObject, 2.5f);
     }
 
     IEnumerator AttackCooldown_R()
