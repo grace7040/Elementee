@@ -55,7 +55,6 @@ public class ColorDoor : MonoBehaviour
                 //    anim.Play("Door_L", -1, 0.2f);
             }
         }
-        boxcollider.enabled = true;
     }
 
 
