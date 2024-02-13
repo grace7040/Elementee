@@ -111,7 +111,7 @@ public class ColorManager : Singleton<ColorManager>
     // hasXXX 변수 설정 & 플레이어 무기 활성화
     public void SetOnPlayer(Colors _color)
     {
-        player.canAttack = false;
+        player.canAttack = true;
 
         switch (_color)
         {
@@ -128,7 +128,7 @@ public class ColorManager : Singleton<ColorManager>
                 break;
             case Colors.yellow:
                 hasYellow = false;
-                player.canAttack = true;
+                player.canAttack = false;
                 player.yellowAttackEffect.SetActive(true);
                 SetColorState(new YellowColor());
                 break;
