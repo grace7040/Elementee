@@ -182,7 +182,7 @@ public class PlayerController : MonoBehaviour
         {
             foreach (Transform child in gameObject.transform)
             {
-                if (child.name == "WeaponPosition")
+                if (child.name == "DrawWeaponSprite")
                 {
                     foreach (Transform child_ in child.transform)
                     {
@@ -209,7 +209,7 @@ public class PlayerController : MonoBehaviour
         {
             foreach (Transform child in gameObject.transform)
             {
-                if (child.name == "WeaponPosition")
+                if (child.name == "DrawWeaponSprite")
                 {
                     foreach (Transform child_ in child.transform)
                     {
