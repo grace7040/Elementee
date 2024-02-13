@@ -401,11 +401,28 @@ public class PlayerController : MonoBehaviour
     public void SetCustomWeapon()
     {
         colorWeapons[(int)myColor].sprite = DrawManager.Instance.sprites[(int)myColor];
+
+        // Yellow 경우, 자식들에도 sprite 할당이 필요함
+        if(myColor == Colors.yellow)
+        {
+            for(int i = 0; i < 4; i++)
+            {
+                yellowAttackEffect.transform.GetChild(i).GetComponent<SpriteRenderer>().sprite = colorWeapons[(int)Colors.yellow].sprite;
+            }
+        }
     }
 
     public void SetBasicWeapon()
     {
         colorWeapons[(int)myColor].sprite = DrawManager.Instance.Basic_Sprites[(int)myColor];
+
+        if (myColor == Colors.yellow)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                yellowAttackEffect.transform.GetChild(i).GetComponent<SpriteRenderer>().sprite = colorWeapons[(int)Colors.yellow].sprite;
+            }
+        }
     }
 
     public void ShowWeapon()

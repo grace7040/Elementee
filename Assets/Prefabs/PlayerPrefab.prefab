@@ -238,8 +238,6 @@ MonoBehaviour:
   maxHealth: 100
   damage: 10
   WeaponPosition: {fileID: 1920087943}
-  pullForce: 0.3
-  throwForce: 15
   isHoldingEnemy: 0
 --- !u!114 &248749117310158783
 MonoBehaviour:
@@ -10261,7 +10259,6 @@ GameObject:
   - component: {fileID: 3810278674496901072}
   - component: {fileID: 2479733156810051681}
   - component: {fileID: 5700283329360524160}
-  - component: {fileID: 4963314013938840704}
   m_Layer: 1
   m_Name: YellowEffect (2)
   m_TagString: Untagged
@@ -10393,18 +10390,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   center: {fileID: 5593871760870967025}
   speed: 50
---- !u!114 &4963314013938840704
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 67004560018809830}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65182f1e0fbc142429546432f5a6ccf9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &211683932295170737
 GameObject:
   m_ObjectHideFlags: 0
@@ -10502,7 +10487,6 @@ GameObject:
   - component: {fileID: 5450572262305938835}
   - component: {fileID: 3475785592102880719}
   - component: {fileID: 1484741489646693282}
-  - component: {fileID: 6400981205059601853}
   m_Layer: 1
   m_Name: YellowEffect
   m_TagString: Untagged
@@ -10634,18 +10618,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   center: {fileID: 5593871760870967025}
   speed: 50
---- !u!114 &6400981205059601853
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 632236071154932877}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65182f1e0fbc142429546432f5a6ccf9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &669936272836410247
 GameObject:
   m_ObjectHideFlags: 0
@@ -15690,7 +15662,6 @@ GameObject:
   - component: {fileID: 4062054440602424357}
   - component: {fileID: 1254767006013230557}
   - component: {fileID: 7446413025694240514}
-  - component: {fileID: 9095432206793684857}
   m_Layer: 1
   m_Name: YellowEffect (3)
   m_TagString: Untagged
@@ -15822,18 +15793,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   center: {fileID: 5593871760870967025}
   speed: 50
---- !u!114 &9095432206793684857
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2041058695288399148}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65182f1e0fbc142429546432f5a6ccf9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2304954712618900081
 GameObject:
   m_ObjectHideFlags: 0
@@ -16472,7 +16431,6 @@ GameObject:
   - component: {fileID: 4912037708731335423}
   - component: {fileID: 6822688053437855087}
   - component: {fileID: 8269587329149012929}
-  - component: {fileID: 6833283955921787328}
   m_Layer: 1
   m_Name: YellowEffect (1)
   m_TagString: Untagged
@@ -16604,18 +16562,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   center: {fileID: 5593871760870967025}
   speed: 50
---- !u!114 &6833283955921787328
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5932493156254944378}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65182f1e0fbc142429546432f5a6ccf9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &5998208090524668600
 GameObject:
   m_ObjectHideFlags: 0
