@@ -29,9 +29,19 @@ public class M_Water : PoolAble
         //direction.y = 0;
         rb.velocity = direction.normalized * speed;
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    if (collision.gameObject.CompareTag("Map"))
+    //    {
+    //        //Destroy(gameObject);
+    //        m_isReleased = true;
+    //        ReleaseObject();
+    //    }
+    //}
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Map"))
+        if (collision.gameObject.CompareTag("Map") || collision.gameObject.CompareTag("Player"))
         {
             //Destroy(gameObject);
             m_isReleased = true;

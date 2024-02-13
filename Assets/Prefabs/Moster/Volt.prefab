@@ -9308,7 +9308,6 @@ GameObject:
   - component: {fileID: 9179026269805583262}
   - component: {fileID: 9056087265065683096}
   - component: {fileID: 9055018789702768158}
-  - component: {fileID: 9148433857750048192}
   - component: {fileID: -1152965805873057049}
   m_Layer: 9
   m_Name: Volt
@@ -14044,19 +14043,6 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &9148433857750048192
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9180819056937278988}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6fd2e8874f60266498a388d7229a1bac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnlyDeactivate: 0
 --- !u!58 &-1152965805873057049
 CircleCollider2D:
   m_ObjectHideFlags: 0
