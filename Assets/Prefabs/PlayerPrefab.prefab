@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1920087944}
   m_Layer: 3
-  m_Name: WeaponPosition
+  m_Name: DrawWeaponSprite
   m_TagString: Untagged
   m_Icon: {fileID: 2800000, guid: 5b56d9fa0e8bd6e409ed188db38a692c, type: 3}
   m_NavMeshLayer: 0
@@ -35,7 +35,7 @@ Transform:
   - {fileID: 9052164886905190887}
   - {fileID: 6593501756218022772}
   m_Father: {fileID: 4660076192433278}
-  m_RootOrder: 7
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &393088699325398
 GameObject:
@@ -66,8 +66,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3107787021597191340}
-  m_Father: {fileID: 4660076192433278}
-  m_RootOrder: 12
+  m_Father: {fileID: 7358796680991470667}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1139487818724482
 GameObject:
@@ -140,19 +140,12 @@ Transform:
   - {fileID: 4291727345091452}
   - {fileID: 4986330650710208}
   - {fileID: 4370582630649528}
-  - {fileID: 4202976304329374}
-  - {fileID: 4559817074117408}
   - {fileID: 2184474727651053039}
   - {fileID: 1920087944}
-  - {fileID: 4469641616290963807}
   - {fileID: 1549172057877764258}
   - {fileID: 6549058193120634649}
   - {fileID: 1264980590453869372}
-  - {fileID: 710357069212614159}
-  - {fileID: 524186705296660726}
-  - {fileID: 4645588808528512128}
-  - {fileID: 2296257968727225698}
-  - {fileID: 2667280296181097999}
+  - {fileID: 7358796680991470667}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -245,6 +238,9 @@ MonoBehaviour:
   maxHealth: 100
   damage: 10
   WeaponPosition: {fileID: 1920087943}
+  pullForce: 0.3
+  throwForce: 15
+  isHoldingEnemy: 0
 --- !u!114 &248749117310158783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -541,12 +537,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1477428158609486}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.01, z: 0}
+  m_LocalPosition: {x: 0, y: -1.0099998, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4660076192433278}
-  m_RootOrder: 4
+  m_Father: {fileID: 7358796680991470667}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &198584872278178884
 ParticleSystem:
@@ -5400,8 +5396,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4660076192433278}
-  m_RootOrder: 5
+  m_Father: {fileID: 7358796680991470667}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &198967111524372206
 ParticleSystem:
@@ -10913,7 +10909,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2296257968727225698}
   m_Layer: 3
-  m_Name: GreenAttack
+  m_Name: GreenAttackEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10926,15 +10922,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1136807141563565189}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7705750652017940262}
   - {fileID: 4068857656326845523}
-  m_Father: {fileID: 4660076192433278}
-  m_RootOrder: 15
+  m_Father: {fileID: 7358796680991470667}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1975305393455804576
 GameObject:
@@ -10949,7 +10945,7 @@ GameObject:
   - component: {fileID: 7872954437059633662}
   - component: {fileID: 143441906958983532}
   m_Layer: 0
-  m_Name: OrangeAttack
+  m_Name: OrangeAttackEffect
   m_TagString: WeaponOrange
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10968,8 +10964,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8922060613581108892}
-  m_Father: {fileID: 4660076192433278}
-  m_RootOrder: 16
+  m_Father: {fileID: 7358796680991470667}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1147973056336198318
 SpriteRenderer:
@@ -15881,7 +15877,7 @@ GameObject:
   - component: {fileID: 524186705296660726}
   - component: {fileID: 7639073775074724790}
   m_Layer: 3
-  m_Name: PurpleAttack
+  m_Name: PurpleAttackEffect
   m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15894,15 +15890,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2659571520275563058}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.66, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.65999985, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5278935359123827085}
   - {fileID: 6371732649340599756}
-  m_Father: {fileID: 4660076192433278}
-  m_RootOrder: 13
+  m_Father: {fileID: 7358796680991470667}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!70 &7639073775074724790
 CapsuleCollider2D:
@@ -16335,7 +16331,7 @@ GameObject:
   - component: {fileID: 7116786285842233396}
   - component: {fileID: 5579636878935665052}
   m_Layer: 1
-  m_Name: YellowAttack
+  m_Name: YellowAttackEffect
   m_TagString: WeaponYellow
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16348,8 +16344,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5593871760870967025}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.27, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.26999998, z: 0}
   m_LocalScale: {x: 0.39357412, y: 0.37758756, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -16359,8 +16355,8 @@ Transform:
   - {fileID: 3618779924579173798}
   - {fileID: 8174338149143622454}
   - {fileID: 5411256012293722209}
-  m_Father: {fileID: 4660076192433278}
-  m_RootOrder: 8
+  m_Father: {fileID: 7358796680991470667}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2982757371778951182
 SpriteRenderer:
@@ -16735,7 +16731,7 @@ Transform:
   - {fileID: 866283927030651870}
   - {fileID: 673974075906018610}
   m_Father: {fileID: 4660076192433278}
-  m_RootOrder: 10
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 129.925}
 --- !u!1 &6330612164962761398
 GameObject:
@@ -16821,6 +16817,45 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &6818171763737220404
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7358796680991470667}
+  m_Layer: 3
+  m_Name: Effect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7358796680991470667
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6818171763737220404}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4202976304329374}
+  - {fileID: 4559817074117408}
+  - {fileID: 710357069212614159}
+  - {fileID: 524186705296660726}
+  - {fileID: 4645588808528512128}
+  - {fileID: 2296257968727225698}
+  - {fileID: 2667280296181097999}
+  - {fileID: 4469641616290963807}
+  m_Father: {fileID: 4660076192433278}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7844493748619954878
 GameObject:
   m_ObjectHideFlags: 0
@@ -16852,7 +16887,7 @@ Transform:
   - {fileID: 1279650247023951323}
   - {fileID: 7974116280530575597}
   m_Father: {fileID: 4660076192433278}
-  m_RootOrder: 11
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7882964214442036755
 GameObject:
@@ -16886,7 +16921,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4660076192433278}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &276935597225697510
 BoxCollider2D:
@@ -16957,7 +16992,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4645588808528512128}
   m_Layer: 0
-  m_Name: BlueAttack
+  m_Name: BlueAttackEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16971,13 +17006,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8410189878276244301}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.166, y: 0.364, z: 0}
+  m_LocalPosition: {x: 1.1659999, y: 0.36400008, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5006423633312104993}
-  m_Father: {fileID: 4660076192433278}
-  m_RootOrder: 14
+  m_Father: {fileID: 7358796680991470667}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8475338824270332780
 GameObject:
@@ -17076,7 +17111,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1549172057637355849, guid: af99e2c4a52ebef4584555e999d88d13, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1549172057637355849, guid: af99e2c4a52ebef4584555e999d88d13, type: 3}
       propertyPath: m_LocalPosition.x
