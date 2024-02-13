@@ -25,7 +25,6 @@ public class PlayerController : MonoBehaviour
 
     public SpriteRenderer[] colorWeapons;
 
-
     [Header("Movement Customizing")]
     [Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;  // How much to smooth out the movement
     [SerializeField] private float m_MoveSpeed = 10f;
@@ -33,12 +32,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool m_AirControl = false;                         // Whether or not a player can steer while jumping;
     [SerializeField] private bool m_WallSliding = false;                         // 플레이어 벽타기 할 수 있는지 없는지
 
-
     [Header("Collision Checking")]
     [SerializeField] private LayerMask m_WhatIsGround;                          // A mask determining what is ground to the character
     [SerializeField] private Transform m_GroundCheck;                           // A position marking where to check if the player is grounded.
     [SerializeField] private Transform m_WallCheck;                             //Posicion que controla si el personaje toca una pared
-
 
     [Header("ParticleSystem")]
     public ParticleSystem particleJumpUp; //Trail particles
@@ -55,9 +52,7 @@ public class PlayerController : MonoBehaviour
     public SpriteRenderer faceSprite;
     public SpriteRenderer playerSprite;
 
-
     [Header("Attack")]
-    //public GameObject throwableObject;
     public Transform attackCheck;
     public GameObject cam;
     public bool invincible = false;
@@ -69,22 +64,16 @@ public class PlayerController : MonoBehaviour
     public GameObject green_Weapon;
     public GameObject blue_Weapon;
 
-    //
     [Header("Events")]
     [Space]
 
     public UnityEvent OnFallEvent;
     public UnityEvent OnLandEvent;
 
-
-
-
     [System.Serializable]
     public class BoolEvent : UnityEvent<bool> { }
-    ////////
 
     private float jumpForce;                          // Amount of force added when the player jumps.
-
 
     private bool m_Grounded;
     const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
@@ -100,7 +89,6 @@ public class PlayerController : MonoBehaviour
 
     private bool canMove = true; //If player can move
     private bool canDash = true;
-
 
     //Flip
     private bool m_FacingRight = true;  // For determining which way the player is currently facing.
@@ -133,11 +121,10 @@ public class PlayerController : MonoBehaviour
     public GameObject WeaponPosition;
 
     // Black
-    public float pullForce = 0.3f; // 끌어당기는 힘 조절용 변수
-    public float throwForce = 15f; // 던지는 힘 조절용 변수
+    private float pullForce = 0.05f; // 끌어당기는 힘 조절용 변수
+    private float throwForce = 15f; // 던지는 힘 조절용 변수
     public bool isHoldingEnemy = false; // 적을 가지고 있는지 여부
     private Rigidbody2D heldEnemyRigidbody; // 가지고 있는 적의 Rigidbody2D
-    private Transform playerTransform; // 플레이어의 Transform
     private GameObject Enemy;
 
     private void Start()
@@ -207,10 +194,10 @@ public class PlayerController : MonoBehaviour
                 {
                     child.gameObject.SetActive(true);
                 }
-                else if (child.name == "detectarea")
-                {
-                    child.gameObject.SetActive(true);
-                }
+                //else if (child.name == "detectarea")
+                //{
+                //    child.gameObject.SetActive(true);
+                //}
             }
         }
         else if (myColor != Colors.black)
@@ -231,10 +218,10 @@ public class PlayerController : MonoBehaviour
                 {
                     child.gameObject.SetActive(false);
                 }
-                else if (child.name == "detectarea")
-                {
-                    child.gameObject.SetActive(false);
-                }
+                //else if (child.name == "detectarea")
+                //{
+                //    child.gameObject.SetActive(false);
+                //}
             }
         }
     }
@@ -340,15 +327,13 @@ public class PlayerController : MonoBehaviour
     {
         if (!isHoldingEnemy)
         {
-            playerTransform = transform;
-
             GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
             float closestDistance = 7.5f;
             Transform closestEnemy = null;
 
             foreach (GameObject enemy in enemies)
             {
-                float distance = Vector2.Distance(playerTransform.position, enemy.transform.position);
+                float distance = Vector2.Distance(transform.position, enemy.transform.position);
                 if (distance < closestDistance)
                 {
                     closestDistance = distance;
@@ -370,19 +355,17 @@ public class PlayerController : MonoBehaviour
 
                 float distance = Vector2.Distance(Enemy.transform.position, transform.position);
 
-                while (distance > 0.1f)
+                while (distance > 1f)
                 {
                     distance = Vector2.Distance(Enemy.transform.position, transform.position);
-                    Vector2 throwDirection = (transform.position - heldEnemyRigidbody.transform.position).normalized;
+                    Vector2 throwDirection = (transform.position - Enemy.transform.position).normalized;
                     heldEnemyRigidbody.AddForce(throwDirection * pullForce, ForceMode2D.Impulse);
+                    // Enemy.transform.Translate(throwDirection * pullForce * Time.deltaTime);
 
-                    if (distance > 0.1f)
-                    {
-                        isHoldingEnemy = true;
-                        break;
-                    }
                     yield return null;
                 }
+                isHoldingEnemy = true;
+                
             }
         }
         yield return new WaitForSeconds(0f);
@@ -405,7 +388,7 @@ public class PlayerController : MonoBehaviour
 
             rb.gameObject.GetComponent<OB_VerticlaMovement>().enabled = false;
 
-            Vector2 throwDirection = (rb.transform.position - playerTransform.position).normalized;
+            Vector2 throwDirection = (rb.transform.position - transform.position).normalized;
             rb.velocity = throwDirection * throwForce;
             rb.gameObject.tag = "WeaponB"; // 태그 변경
             heldEnemyRigidbody = null;
@@ -434,6 +417,7 @@ public class PlayerController : MonoBehaviour
     {
         colorWeapons[(int)myColor].gameObject.SetActive(false);
     }
+
     private void Flip()
     {
         // Switch the way the player is labelled as facing.
@@ -569,7 +553,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
     IEnumerator DashCooldown()
     {
         animator.SetBool("IsDashing", true);
@@ -597,12 +580,6 @@ public class PlayerController : MonoBehaviour
         oldWallSlidding = false;
         m_WallCheck.localPosition = new Vector3(Mathf.Abs(m_WallCheck.localPosition.x), m_WallCheck.localPosition.y, 0);
     }
-
-    //IEnumerator AttackCooldown()
-    //{
-    //    yield return new WaitForSeconds(attackCoolTime);
-    //    canAttack = true;
-    //}
 
     public void Die()
     {
@@ -701,20 +678,20 @@ public class PlayerController : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            //if (myColor == Colors.black)
-            //{
-            //    if (!collision.gameObject.GetComponent<MonsterController>().isActiveAndEnabled)
-            //    {
-            //        collision.gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-            //        collision.gameObject.GetComponent<OB_VerticlaMovement>().enabled = true;
+            if (myColor == Colors.black)
+            {
+                if (!collision.gameObject.GetComponent<MonsterController>().isActiveAndEnabled)
+                {
+                    collision.gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+                    collision.gameObject.GetComponent<OB_VerticlaMovement>().enabled = true;
 
-            //        Transform parentTransform = WeaponPosition.transform;
-            //        Transform childTransform = collision.gameObject.transform;
-            //        childTransform.SetParent(parentTransform);
+                    Transform parentTransform = WeaponPosition.transform;
+                    Transform childTransform = collision.gameObject.transform;
+                    childTransform.SetParent(parentTransform);
 
-            //        Destroy(collision.gameObject.GetComponent<Rigidbody2D>(), 0.1f);
-            //    }
-            //}
+                    Destroy(collision.gameObject.GetComponent<Rigidbody2D>(), 0.1f);
+                }
+            }
         }
         else if (collision.gameObject.CompareTag("EnemyWeapon"))
         {
