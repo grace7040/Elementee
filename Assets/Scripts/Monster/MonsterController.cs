@@ -317,28 +317,6 @@ public class MonsterController : MonoBehaviour
         Destroy(gameObject, 2.5f);
     }
 
-    protected IEnumerator AttackCooldown_R()
-    {
-        canAttack = false;
-        //canflip = false;
-        rb.velocity = Vector2.zero;
-        yield return new WaitForSeconds(2.0f);
-        animator.SetBool("IsAttacking", false);
-        canAttack = true;
-        //canflip = true;
-    }
-
-    protected IEnumerator AttackCooldown_B()
-    {
-        canAttack = false;
-        //canflip = false;
-        rb.velocity = Vector2.zero;
-        yield return new WaitForSeconds(3.0f);
-        animator.SetBool("IsAttacking", false);
-        canAttack = true;
-        //canflip = true;
-    }
-
 
     protected IEnumerator ChargeAfterDelay()
     {

@@ -26,7 +26,20 @@ public class M_Red : MonsterController
                         animator.SetBool("IsAttacking", true);
                         //Color.Attack(this);
                         Attack();
-                        StartCoroutine(AttackCooldown_R());
+
+                        //StartCoroutine(AttackCooldown_R());
+                        canAttack = false;
+                        //canflip = false;
+                        rb.velocity = Vector2.zero;
+
+                        this.CallOnDelay(2f, () => {
+                            animator.SetBool("IsAttacking", false);
+                            canAttack = true;
+                        });
+                        //yield return new WaitForSeconds(2.0f);
+                        //animator.SetBool("IsAttacking", false);
+                        //canAttack = true;
+                        //canflip = true;
                     }
                 }
             }

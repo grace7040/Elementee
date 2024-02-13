@@ -27,7 +27,19 @@ public class M_Blue : MonsterController
                             animator.SetBool("IsAttacking", true);
                             Attack();
                         });
-                        StartCoroutine(AttackCooldown_B());
+                        //StartCoroutine(AttackCooldown_B());
+
+                        canAttack = false;
+                        //canflip = false;
+                        rb.velocity = Vector2.zero;
+
+                        this.CallOnDelay(3f, () =>
+                        {
+                            animator.SetBool("IsAttacking", false);
+                            canAttack = true;
+                        });
+                        //yield return new WaitForSeconds(3.0f);
+                        
                     }
                 }
             }
