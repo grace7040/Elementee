@@ -19,6 +19,38 @@ public class BlackColor : IColorState
     private GameObject Enemy;
     #endregion
 
+    public void Attack2(PlayerController player)
+    {
+        player.CallOnDelay(CoolTime, () => { player.canAttack = true; });
+
+        foreach (Transform child in player.transform)
+        {
+            if (child.name == "WeaponPosition")
+            {
+                foreach (Transform child_ in child.transform)
+                {
+                    if (child_.name.Contains("M_"))
+                    {
+                        isHoldingEnemy = true;
+                    }
+                }
+            }
+        }
+
+        if (isHoldingEnemy)
+        {
+            //ThrowHeldEnemy();
+            player.canAttack = false;
+            AudioManager.Instacne.PlaySFX("BlackRelease");
+        }
+        else
+        {
+            playerTransform = player.transform;
+            //PullClosestEnemy(playerTransform);
+            AudioManager.Instacne.PlaySFX("Black");
+        }
+    }
+
     public void Attack(PlayerController player)
     {
         player.CallOnDelay(CoolTime, () => { player.canAttack = true; });

@@ -328,7 +328,45 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    //public void BlackPull()
+    //{
+    //    StartCoroutine(PullCoroutine());
+    //}
+    //private IEnumerator PullCoroutine()
+    //{
+    //    if (!isHoldingEnemy)
+    //    {
+    //        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+    //        float closestDistance = 7.5f;
+    //        Transform closestEnemy = null;
 
+    //        foreach (GameObject enemy in enemies)
+    //        {
+    //            float distance = Vector2.Distance(playerTransform.position, enemy.transform.position);
+    //            if (distance < closestDistance)
+    //            {
+    //                closestDistance = distance;
+    //                closestEnemy = enemy.transform;
+    //            }
+    //        }
+
+    //        if (closestEnemy != null)
+    //        {
+    //            heldEnemyRigidbody = closestEnemy.GetComponent<Rigidbody2D>();
+    //            Enemy = closestEnemy.gameObject;
+
+    //            closestEnemy.GetComponent<Animator>().enabled = false;
+    //            closestEnemy.GetComponent<MonsterController>().enabled = false;
+    //            closestEnemy.GetComponent<Rigidbody2D>().mass = 0.1f;
+    //            closestEnemy.GetComponent<Rigidbody2D>().gravityScale = 0.0f;
+    //            closestEnemy.GetComponent<CapsuleCollider2D>().isTrigger = true;
+    //            closestEnemy.AddComponent<BloodEffect>();
+
+    //            Vector2 throwDirection = (playerTransform.position - heldEnemyRigidbody.transform.position).normalized;
+    //            heldEnemyRigidbody.AddForce(throwDirection * pullForce, ForceMode2D.Impulse);
+    //        }
+    //    }
+    //}
 
     public void SetCustomWeapon()
     {
