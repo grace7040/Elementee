@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 6645136093791118924}
   - component: {fileID: 6645136093791118925}
   - component: {fileID: 6645136093791118926}
-  - component: {fileID: 6645136093791118927}
   - component: {fileID: 6645136093791118896}
   - component: {fileID: 6645136093791118922}
+  - component: {fileID: 8375561365190159219}
   m_Layer: 9
   m_Name: M_Red
   m_TagString: Enemy
@@ -131,25 +131,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &6645136093791118927
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6645136093791118897}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1fe4afa26a09cf24aa791ba6a41e92be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  myColor: 1
-  maxHealth: 200
-  moveSpeed: 1.5
-  detectionRange: 10
-  attackRange: 5
-  m_damage: 0
-  moveRange: 20
 --- !u!114 &6645136093791118896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -180,6 +161,24 @@ CapsuleCollider2D:
   m_Offset: {x: -0.42727947, y: -0.0172472}
   m_Size: {x: 10.147638, y: 12.94548}
   m_Direction: 0
+--- !u!114 &8375561365190159219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6645136093791118897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb8a2e4897b3db84eb09cfad5b361011, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myColor: 1
+  maxHealth: 100
+  moveSpeed: 3
+  detectionRange: 10
+  attackRange: 2
+  m_damage: 0
 --- !u!1001 &4252201636997788723
 PrefabInstance:
   m_ObjectHideFlags: 0

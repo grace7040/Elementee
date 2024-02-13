@@ -28,67 +28,67 @@ public class MonsterController : MonoBehaviour
 
     bool isDie = false;
 
-    public SpriteRenderer m_sprite;
-    static private Transform player;
-    private Rigidbody2D rb;
+    protected SpriteRenderer m_sprite;
+    static protected Transform player;
+    protected Rigidbody2D rb;
 
     public int maxHealth = 100;
-    private int currentHealth;
+    protected int currentHealth;
     public float moveSpeed = 3f;
     public float detectionRange = 10f;
     public float attackRange = 2f;
 
     // Cooltime
-    private bool canAttack = true;
-    private bool canTakeDamage_RangeAttack = true;
+    protected bool canAttack = true;
+    protected bool canTakeDamage_RangeAttack = true;
 
     // update의 start 역할
-    private bool Isfirst = true;
+    protected bool Isfirst = true;
 
     // flip
-    private bool canflip = true;
+    protected bool canflip = true;
 
-    private float m_JumpForce; // 없애고 싶다
+    protected float m_JumpForce; // 없애고 싶다
     [HideInInspector]
     public int m_damage; // 없애고 싶다
 
     // Random move
-    private Vector3 waypoint_L; // 좌측 목적지
-    private Vector3 waypoint_R; // 우측 목적지
-    private Vector3 currentWaypoint; // 현재 목적지
-    public float moveRange = 10.0f; // 움직임 범위
-    private float stopTime = 0; // 정지할 시간
-    private float timeSinceLastStop = 0; // 마지막으로 정지한 후 경과한 시간
-    private bool isStopping = false; // 정지 중인지 여부
-    private bool canMove = true; // 움직일 수 있는지 여부
-    private int direction = -1; // 초기 방향 설정 (1이면 오른쪽, -1이면 왼쪽)
-    private float timer = 0.0f; // 타이머 변수
-    private float interval = 5.0f; // 호출 간격
+    protected Vector3 waypoint_L; // 좌측 목적지
+    protected Vector3 waypoint_R; // 우측 목적지
+    protected Vector3 currentWaypoint; // 현재 목적지
+    protected float moveRange = 10.0f; // 움직임 범위
+    protected float stopTime = 0; // 정지할 시간
+    protected float timeSinceLastStop = 0; // 마지막으로 정지한 후 경과한 시간
+    protected bool isStopping = false; // 정지 중인지 여부
+    protected bool canMove = true; // 움직일 수 있는지 여부
+    protected int direction = -1; // 초기 방향 설정 (1이면 오른쪽, -1이면 왼쪽)
+    protected float timer = 0.0f; // 타이머 변수
+    protected float interval = 5.0f; // 호출 간격
 
     // 넉백
-    private bool isKnockedBack = false;
+    protected bool isKnockedBack = false;
 
     // Die
     public delegate void Del();
     public Del OnDie = null;
 
     // HP Bar
-    private Image hpBar;
-    private Image hpBarBG;
-    private float hpBarMAX;
+    protected Image hpBar;
+    protected Image hpBarBG;
+    protected float hpBarMAX;
 
-    float distance;
-    float distanceX;
-    float distanceY;
-    Animator animator;
+    protected float distance;
+    protected float distanceX;
+    protected float distanceY;
+    protected Animator animator;
     #endregion
 
-    private void Awake()
+    protected void Awake()
     {
         SetColor();
     }
 
-    private void SetColor()
+    protected void SetColor()
     {
         switch (myColor)
         {
@@ -110,7 +110,7 @@ public class MonsterController : MonoBehaviour
         }
     }
 
-    private void Start()
+    protected void Start()
     {
         if(player == null)
             player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -130,7 +130,7 @@ public class MonsterController : MonoBehaviour
         hpBarBG = transform.Find("HPBar").GetChild(0).gameObject.GetComponent<Image>();
     }
 
-    private void Update()
+    protected void Update()
     {
         if (isDie) return;
 
@@ -139,280 +139,8 @@ public class MonsterController : MonoBehaviour
         distanceX = Mathf.Abs(transform.position.x - player.position.x);
         distanceY = Mathf.Abs(transform.position.y - player.position.y);
 
-
-        if (myColor == Colors.def) // Default
-        {
-            // 일정 간격마다 waypoint 재탐색
-            timer += Time.deltaTime;
-
-            if (timer >= interval)
-            {
-                SetWaypoints();
-                timer = 0.0f;
-            }
-
-            if (isKnockedBack) { }
-            else
-            {
-                if (currentWaypoint != null)
-                {
-                    MoveTowardsWaypoint();
-                }
-            }
-        }
-
-        else  if (myColor == Colors.red) // Red
-        {
-            if (distanceX <= detectionRange && distanceY <= 1.0f)
-            {
-                Isfirst = true;
-
-                if (canflip)
-                {
-                    // Flip
-                    if (distance < -0.1f)
-                    {
-                        m_sprite.flipX = false;
-                    }
-                    else if (distance > 0.1f)
-                    {
-                        m_sprite.flipX = true;
-                    }
-                }
-
-                // Attack
-                if (distanceX <= attackRange && distanceY <= 1.0f)
-                {
-                    if (!CheckGround()) { }
-                    else
-                    {
-                        if (canAttack)
-                        {
-                            animator.SetBool("IsWalking", false);
-                            rb.velocity = Vector2.zero;
-                            animator.SetBool("IsAttacking", true);
-                            color.Attack(this);
-                            StartCoroutine(AttackCooldown_R());
-                        }
-                    }
-                }
-                else
-                {
-                    if (!CheckGround())
-                    {
-                        rb.velocity += Time.deltaTime * Vector2.down;
-                    }
-                    else
-                    {
-                        if (canAttack)
-                        {
-                            // Move
-                            animator.SetBool("IsWalking", true);
-                            Vector2 moveDirection = new Vector2(player.position.x - transform.position.x, 0).normalized;
-                            rb.velocity = moveDirection * moveSpeed;
-                        }
-                    }
-                }
-            }
-            else
-            {
-                if (canAttack)
-                {
-                    if (Isfirst)
-                    {
-                        SetWaypoints();
-                        currentWaypoint = waypoint_L;
-                        m_sprite.flipX = false;
-                        Isfirst = false;
-                    }
-
-                    timer += Time.deltaTime;
-
-                    if (timer >= interval)
-                    {
-                        SetWaypoints();
-                        timer = 0.0f;
-                    }
-
-                    if (isKnockedBack) { }
-                    else
-                    {
-                        if (currentWaypoint != null)
-                        {
-                            MoveTowardsWaypoint();
-                        }
-                    }
-                }
-            }
-        }
-
-        else if (myColor == Colors.blue) // Blue
-        {
-            if (distanceX <= detectionRange && distanceY <= 1.0f)
-            {
-                Isfirst = true;
-
-                if (canflip)
-                {
-                    // Flip
-                    if (distance < -0.1f)
-                    {
-                        m_sprite.flipX = false;
-                    }
-                    else if (distance > 0.1f)
-                    {
-                        m_sprite.flipX = true;
-                    }
-                }
-
-                // Attack
-                if (distanceX <= attackRange && distanceY <= 1.0f)
-                {
-                    if (!CheckGround()) { }
-                    else
-                    {
-                        if (canAttack)
-                        {
-                            animator.SetBool("IsWalking", false);
-                            rb.velocity = Vector2.zero;
-                            StartCoroutine(Delay());
-                            StartCoroutine(AttackCooldown_B());
-                        }
-                    }
-                }
-                else
-                {
-                    if (!CheckGround())
-                    {
-                        rb.velocity += Time.deltaTime * Vector2.down;
-                    }
-                    else
-                    {
-                        if (canAttack)
-                        {
-                            // Move
-                            animator.SetBool("IsWalking", true);
-                            Vector2 moveDirection = new Vector2(player.position.x - transform.position.x, 0).normalized;
-                            rb.velocity = moveDirection * moveSpeed;
-                        }
-                    }
-                }
-            }
-            else
-            {
-                if (canAttack)
-                {
-                    if (Isfirst)
-                    {
-                        SetWaypoints();
-                        currentWaypoint = waypoint_L;
-                        m_sprite.flipX = false;
-                        Isfirst = false;
-                    }
-
-                    timer += Time.deltaTime;
-
-                    if (timer >= interval)
-                    {
-                        SetWaypoints();
-                        timer = 0.0f;
-                    }
-
-                    if (isKnockedBack) { }
-                    else
-                    {
-                        if (currentWaypoint != null)
-                        {
-                            MoveTowardsWaypoint();
-                        }
-                    }
-                }
-            }
-        }
-
-        else if (myColor == Colors.yellow) // Yellow
-        {
-            if (distanceX <= detectionRange && distanceY <= 1.0f)
-            {
-                Isfirst = true;
-
-                // Flip
-                if (distance < -0.1f)
-                {
-                    m_sprite.flipX = false;
-                }
-                else if (distance > 0.1f)
-                {
-                    m_sprite.flipX = true;
-                }
-
-                // Attack
-                if (distanceX <= attackRange && distanceY <= 1.0f)
-                {
-                    if (!CheckGround()) { }
-                    else
-                    {
-                        animator.SetBool("IsWalking", false);
-
-                        if (canAttack)
-                        {
-                            // 잠시 멈췄다가 돌진
-                            StartCoroutine(ChargeAfterDelay());
-                            color.Attack(this);
-                        }
-                    }
-                }
-                else
-                {
-                    if (!CheckGround())
-                    {
-                        rb.velocity += Time.deltaTime * Vector2.down;
-                    }
-                    else
-                    {
-                        if (canAttack)
-                        {
-                            // Move
-                            animator.SetBool("IsWalking", true);
-                            Vector2 moveDirection = new Vector2(player.position.x - transform.position.x, 0).normalized;
-                            rb.velocity = moveDirection * moveSpeed;
-                        }
-                    }
-                }
-            }
-            else
-            {
-                if (canAttack)
-                {
-                    if (Isfirst)
-                    {
-                        SetWaypoints();
-                        currentWaypoint = waypoint_L;
-                        m_sprite.flipX = false;
-                        Isfirst = false;
-                    }
-
-                    timer += Time.deltaTime;
-
-                    if (timer >= interval)
-                    {
-                        SetWaypoints();
-                        timer = 0.0f;
-                    }
-
-                    if (isKnockedBack) { }
-                    else
-                    {
-                        if (currentWaypoint != null)
-                        {
-                            MoveTowardsWaypoint();
-                        }
-                    }
-                }
-            }
-        }
     }
-    private void SetWaypoints()
+    protected void SetWaypoints()
     {
         // 무시할 Layer 설정
         LayerMask ignoreLayers = LayerMask.GetMask("m_self", "Player", "DectectArea", "TransparentFX");
@@ -445,7 +173,7 @@ public class MonsterController : MonoBehaviour
         }
     }
 
-    private void MoveTowardsWaypoint()
+    protected void MoveTowardsWaypoint()
     {
         if (isStopping)
         {
@@ -530,7 +258,7 @@ public class MonsterController : MonoBehaviour
         }
     }
 
-    private bool CheckGround()
+    protected bool CheckGround()
     {
         float raycastDistance = 0.8f; // 바닥과의 간격 설정
         LayerMask groundLayer = 1<<0; // To change
@@ -608,7 +336,7 @@ public class MonsterController : MonoBehaviour
         Destroy(gameObject, 2.5f);
     }
 
-    IEnumerator AttackCooldown_R()
+    protected IEnumerator AttackCooldown_R()
     {
         canAttack = false;
         canflip = false;
@@ -619,7 +347,7 @@ public class MonsterController : MonoBehaviour
         canflip = true;
     }
 
-    IEnumerator AttackCooldown_B()
+    protected IEnumerator AttackCooldown_B()
     {
         canAttack = false;
         //canflip = false;
@@ -630,7 +358,7 @@ public class MonsterController : MonoBehaviour
         //canflip = true;
     }
 
-    IEnumerator Delay()
+    protected IEnumerator Delay()
     {
         animator.SetBool("IsAttacking", true);
         yield return new WaitForSeconds(1.0f);
@@ -638,7 +366,7 @@ public class MonsterController : MonoBehaviour
         color.Attack(this);
     }
 
-    IEnumerator ChargeAfterDelay()
+    protected IEnumerator ChargeAfterDelay()
     {
         canAttack = false;
         rb.velocity = Vector2.zero;
@@ -682,7 +410,7 @@ public class MonsterController : MonoBehaviour
         canAttack = true;
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    protected void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Weapon"))
         {
@@ -698,7 +426,7 @@ public class MonsterController : MonoBehaviour
         }
     }
 
-    public void OnTriggerStay2D(Collider2D collision)
+    protected void OnTriggerStay2D(Collider2D collision)
     {
         if (!canTakeDamage_RangeAttack) return;
 
@@ -762,7 +490,7 @@ public class MonsterController : MonoBehaviour
         OnDie = OnDieByGreenPlayer;
     }
 
-    private void OnDestroy()
+    protected void OnDestroy()
     {
         OnDie?.Invoke();
     }

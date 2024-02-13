@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5050473482893084763}
   - component: {fileID: 5050473482893084756}
   - component: {fileID: 5050473482893084783}
-  - component: {fileID: 5050473482893084782}
+  - component: {fileID: 6429273946411013838}
   m_Layer: 9
   m_Name: M_Zola
   m_TagString: Enemy
@@ -161,7 +161,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalSpeed: 3.5
   verticalRange: 20
---- !u!114 &5050473482893084782
+--- !u!114 &6429273946411013838
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -170,7 +170,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5050473482893084752}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1fe4afa26a09cf24aa791ba6a41e92be, type: 3}
+  m_Script: {fileID: 11500000, guid: 9fe40d1f5b09d124f9240673a73bcfb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   myColor: 0
@@ -179,7 +179,6 @@ MonoBehaviour:
   detectionRange: 10
   attackRange: 2
   m_damage: 0
-  moveRange: 5
 --- !u!1001 &6678242493446227938
 PrefabInstance:
   m_ObjectHideFlags: 0

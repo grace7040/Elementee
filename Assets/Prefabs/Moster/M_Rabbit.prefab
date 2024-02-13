@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 8923134756710917866}
   - component: {fileID: 8923134756710917862}
   - component: {fileID: 8923134756710917865}
-  - component: {fileID: 8923134756710917870}
   - component: {fileID: 8923134756710917871}
+  - component: {fileID: 2990280637458687501}
   m_Layer: 9
   m_Name: M_Rabbit
   m_TagString: Enemy
@@ -147,25 +147,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0.04420519, y: 0.13708413}
   m_Size: {x: 6.7061567, y: 8.164111}
   m_Direction: 0
---- !u!114 &8923134756710917870
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8923134756710917869}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1fe4afa26a09cf24aa791ba6a41e92be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  myColor: 0
-  maxHealth: 100
-  moveSpeed: 3
-  detectionRange: 10
-  attackRange: 2
-  m_damage: 0
-  moveRange: 5
 --- !u!114 &8923134756710917871
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -180,6 +161,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalSpeed: 3.5
   verticalRange: 20
+--- !u!114 &2990280637458687501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8923134756710917869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fe40d1f5b09d124f9240673a73bcfb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myColor: 0
+  maxHealth: 100
+  moveSpeed: 3
+  detectionRange: 10
+  attackRange: 2
+  m_damage: 0
 --- !u!1001 &7043440852464153388
 PrefabInstance:
   m_ObjectHideFlags: 0
