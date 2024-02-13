@@ -26,7 +26,7 @@ public class MonsterController : MonoBehaviour
     protected int currentHealth;
     protected float moveSpeed = 3f;
     protected float detectionRange = 10f;
-    protected float attackRange = 2f;
+    protected float attackRange = 10f;
 
     // Cooltime
     protected bool canAttack = true;
@@ -71,7 +71,7 @@ public class MonsterController : MonoBehaviour
     Quaternion flipQuaternion = Quaternion.Euler(new Vector3(0, 180, 0));
     public Transform monsterBody;
 
-    bool isFlip = false;
+    protected bool isFlip = false;
     #endregion
 
 
