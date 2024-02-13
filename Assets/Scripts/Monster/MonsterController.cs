@@ -16,7 +16,7 @@ public class MonsterController : MonoBehaviour
     public Monster monsterData;
     Colors myColor;
 
-    protected bool isDie = false;
+    public bool isDie = false;
 
     protected SpriteRenderer m_sprite;
     static protected Transform player;
