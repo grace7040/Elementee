@@ -1,4 +1,4 @@
-using System;
+    using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -105,26 +105,14 @@ public class ColorManager : Singleton<ColorManager>
         else
             SetOnPlayer(_color);
 
-
-        if (_color == Colors.yellow)
-        {
-            player.canAttack = false;
-           // player.yellowAttackEffect.SetActive(true);
-            player.yellowAttackEffect.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = player.colorWeapons[(int)Colors.yellow].sprite;
-            AudioManager.Instacne.PlaySFX("Yellow");
-        }
-        else
-        {
-            player.GetComponent<PlayerController>().yellowAttackEffect.SetActive(false);
-            player.canAttack = true;
-        }
-
     }
 
 
     // hasXXX 변수 설정 & 플레이어 무기 활성화
     public void SetOnPlayer(Colors _color)
     {
+        player.canAttack = false;
+
         switch (_color)
         {
             case Colors.def:
@@ -140,6 +128,7 @@ public class ColorManager : Singleton<ColorManager>
                 break;
             case Colors.yellow:
                 hasYellow = false;
+                player.canAttack = true;
                 player.yellowAttackEffect.SetActive(true);
                 SetColorState(new YellowColor());
                 break;
