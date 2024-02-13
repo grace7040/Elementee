@@ -7,14 +7,14 @@ public class Monster : ScriptableObject
 {
     [SerializeField]
     private int damage;
-    public int Damage { get; }
+    public int Damage { get { return damage; } }
 
     [SerializeField]
 
     private int health;
-    public int Health { get; }
+    public int Health { get { return health; } }
 
     [SerializeField]
     private Colors myColor;
-    public Colors MyColor { get; }
+    public Colors MyColor { get { return myColor; } }
 }

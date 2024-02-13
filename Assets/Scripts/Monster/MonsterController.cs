@@ -22,7 +22,7 @@ public class MonsterController : MonoBehaviour
     static protected Transform player;
     protected Rigidbody2D rb;
 
-    private int maxHealth = 100;
+    private int maxHealth;
     protected int currentHealth;
     protected float moveSpeed = 3f;
     protected float detectionRange = 10f;
@@ -69,11 +69,16 @@ public class MonsterController : MonoBehaviour
     protected Animator animator;
     #endregion
 
+    Quaternion flipQuaternion = Quaternion.Euler(new Vector3(0, 180, 0));
+    public Transform monsterBody;
+
     protected void Awake()
     {
         damage = monsterData.Damage;
         maxHealth = monsterData.Health;
         myColor = monsterData.MyColor;
+
+        currentHealth = maxHealth;
     }
 
     protected void Start()
@@ -81,10 +86,9 @@ public class MonsterController : MonoBehaviour
         if(player == null)
             player = GameObject.FindGameObjectWithTag("Player").transform;
 
-        m_sprite = GetComponent<SpriteRenderer>();
+        m_sprite = GetComponentInChildren<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
-        currentHealth = maxHealth;
+        animator = GetComponentInChildren<Animator>();
 
         // waypoint 초기화
         SetWaypoints();
@@ -105,7 +109,9 @@ public class MonsterController : MonoBehaviour
         distanceX = Mathf.Abs(transform.position.x - player.position.x);
         distanceY = Mathf.Abs(transform.position.y - player.position.y);
 
-        m_sprite.flipX = waypointDirection > 0f;
+        //m_sprite.flipX = waypointDirection > 0f;
+        //transform.rotation = waypointDirection < 0f ? Quaternion.identity : flipQuaternion;
+        monsterBody.rotation = waypointDirection < 0f ? Quaternion.identity : flipQuaternion;
     }
 
     protected void Move()
@@ -260,8 +266,7 @@ public class MonsterController : MonoBehaviour
     public void TakeDamage(int damage, Vector3 playerPos)
     {
         currentHealth -= damage;
-        Debug.Log($"몬스터 대미지: {damage}");
-
+        
         //체력바 업데이트
         UpdateHPBar();
 

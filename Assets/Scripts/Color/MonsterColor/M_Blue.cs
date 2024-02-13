@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class M_Red : MonsterController
+public class M_Blue : MonsterController
 {
 
-    // Update is called once per frame
     void Update()
     {
         base.Update();
@@ -23,9 +22,11 @@ public class M_Red : MonsterController
                         animator.SetBool("IsWalking", false);
                         rb.velocity = Vector2.zero;
                         animator.SetBool("IsAttacking", true);
-                        //Color.Attack(this);
-                        Attack();
-                        StartCoroutine(AttackCooldown_R());
+                        this.CallOnDelay(1f, () => {
+                            animator.SetBool("IsAttacking", true);
+                            Attack();
+                        });
+                        StartCoroutine(AttackCooldown_B());
                     }
                 }
             }
@@ -48,27 +49,13 @@ public class M_Red : MonsterController
                 }
             }
         }
-        else 
+        else
             Move();
     }
 
     void Attack()
     {
-        var fire = ObjectPoolManager.Instance.GetGo("Fire");
-
-        // 방향 처리
-        SpriteRenderer monsterSpriteRenderer = GetComponent<SpriteRenderer>();
-        if (monsterSpriteRenderer.flipX)
-        {
-            fire.transform.localRotation = Quaternion.Euler(0, 0, 90);
-        }
-        else
-        {
-            fire.transform.localRotation = Quaternion.Euler(0, 0, -90);
-        }
-
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        fire.transform.SetParent(rb.transform);
-        fire.transform.localPosition = Vector3.zero;
+        GameObject Water = Instantiate(Resources.Load("Monster/Waters"), transform.position, Quaternion.identity) as GameObject;
+        GameObject Waters = Instantiate(Resources.Load("Monster/Blue_Attack_Effect_"), transform.position, Quaternion.Euler(0, 0, 0)) as GameObject;
     }
 }

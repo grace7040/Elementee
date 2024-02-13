@@ -14,7 +14,7 @@ public class PoolAble : MonoBehaviour
     {
         //if (isReleased) return;
 
-        Pool.Release(gameObject);
+        Pool.Release(gameObject);   
         //isReleased = true;
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class M_Yellow : MonsterController
 {
+    public GameObject voltObject;
 
     // Update is called once per frame
     void Update()
@@ -53,9 +54,11 @@ public class M_Yellow : MonsterController
 
     void Attack()
     {
-        GameObject volt = ObjectPoolManager.Instance.GetGo("Volt");
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        volt.transform.SetParent(rb.transform);
-        volt.transform.localPosition = Vector3.zero;
+        voltObject.SetActive(true);
+        this.CallOnDelay(1f, () => { voltObject.SetActive(false); });
+        //GameObject volt = ObjectPoolManager.Instance.GetGo("Volt");
+        //Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        //volt.transform.SetParent(rb.transform);
+        //volt.transform.localPosition = Vector3.zero;
     }
 }

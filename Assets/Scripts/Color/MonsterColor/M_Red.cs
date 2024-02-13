@@ -2,8 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class M_Blue : MonsterController
+public class M_Red : MonsterController
 {
+    public GameObject fireObject;
+    // Update is called once per frame
+
     void Update()
     {
         base.Update();
@@ -21,11 +24,9 @@ public class M_Blue : MonsterController
                         animator.SetBool("IsWalking", false);
                         rb.velocity = Vector2.zero;
                         animator.SetBool("IsAttacking", true);
-                        this.CallOnDelay(1f, () => {
-                            animator.SetBool("IsAttacking", true);
-                            Attack();
-                        });
-                        StartCoroutine(AttackCooldown_B());
+                        //Color.Attack(this);
+                        Attack();
+                        StartCoroutine(AttackCooldown_R());
                     }
                 }
             }
@@ -48,13 +49,29 @@ public class M_Blue : MonsterController
                 }
             }
         }
-        else
+        else 
             Move();
     }
 
     void Attack()
     {
-        GameObject Water = Instantiate(Resources.Load("Monster/Waters"), transform.position, Quaternion.identity) as GameObject;
-        GameObject Waters = Instantiate(Resources.Load("Monster/Blue_Attack_Effect_"), transform.position, Quaternion.Euler(0, 0, 0)) as GameObject;
+        fireObject.SetActive(true);
+        this.CallOnDelay(1f, () => { fireObject.SetActive(false); });
+        //var fire = ObjectPoolManager.Instance.GetGo("Fire");
+
+        //// 방향 처리
+        //SpriteRenderer monsterSpriteRenderer = GetComponent<SpriteRenderer>();
+        //if (monsterSpriteRenderer.flipX)
+        //{
+        //    fire.transform.localRotation = Quaternion.Euler(0, 0, 90);
+        //}
+        //else
+        //{
+        //    fire.transform.localRotation = Quaternion.Euler(0, 0, -90);
+        //}
+
+        //Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        //fire.transform.SetParent(rb.transform);
+        //fire.transform.localPosition = Vector3.zero;
     }
 }
