@@ -131,7 +131,14 @@ public class PlayerController : MonoBehaviour
 
     // weapon position
     public GameObject WeaponPosition;
-    
+
+    // Black
+    public float pullForce = 0.3f; // 끌어당기는 힘 조절용 변수
+    public float throwForce = 15f; // 던지는 힘 조절용 변수
+    public bool isHoldingEnemy = false; // 적을 가지고 있는지 여부
+    private Rigidbody2D heldEnemyRigidbody; // 가지고 있는 적의 Rigidbody2D
+    private Transform playerTransform; // 플레이어의 Transform
+    private GameObject Enemy;
 
     private void Start()
     {
@@ -322,51 +329,91 @@ public class PlayerController : MonoBehaviour
                 m_Rigidbody2D.velocity = new Vector2(0, m_Rigidbody2D.velocity.y);
             }
         }
-
-        
-        
-
     }
 
-    //public void BlackPull()
-    //{
-    //    StartCoroutine(PullCoroutine());
-    //}
-    //private IEnumerator PullCoroutine()
-    //{
-    //    if (!isHoldingEnemy)
-    //    {
-    //        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-    //        float closestDistance = 7.5f;
-    //        Transform closestEnemy = null;
+    public void BlackPull()
+    {
+        StartCoroutine(PullCoroutine());
+    }
 
-    //        foreach (GameObject enemy in enemies)
-    //        {
-    //            float distance = Vector2.Distance(playerTransform.position, enemy.transform.position);
-    //            if (distance < closestDistance)
-    //            {
-    //                closestDistance = distance;
-    //                closestEnemy = enemy.transform;
-    //            }
-    //        }
+    private IEnumerator PullCoroutine()
+    {
+        if (!isHoldingEnemy)
+        {
+            playerTransform = transform;
 
-    //        if (closestEnemy != null)
-    //        {
-    //            heldEnemyRigidbody = closestEnemy.GetComponent<Rigidbody2D>();
-    //            Enemy = closestEnemy.gameObject;
+            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+            float closestDistance = 7.5f;
+            Transform closestEnemy = null;
 
-    //            closestEnemy.GetComponent<Animator>().enabled = false;
-    //            closestEnemy.GetComponent<MonsterController>().enabled = false;
-    //            closestEnemy.GetComponent<Rigidbody2D>().mass = 0.1f;
-    //            closestEnemy.GetComponent<Rigidbody2D>().gravityScale = 0.0f;
-    //            closestEnemy.GetComponent<CapsuleCollider2D>().isTrigger = true;
-    //            closestEnemy.AddComponent<BloodEffect>();
+            foreach (GameObject enemy in enemies)
+            {
+                float distance = Vector2.Distance(playerTransform.position, enemy.transform.position);
+                if (distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    closestEnemy = enemy.transform;
+                }
+            }
 
-    //            Vector2 throwDirection = (playerTransform.position - heldEnemyRigidbody.transform.position).normalized;
-    //            heldEnemyRigidbody.AddForce(throwDirection * pullForce, ForceMode2D.Impulse);
-    //        }
-    //    }
-    //}
+            if (closestEnemy != null)
+            {
+                heldEnemyRigidbody = closestEnemy.GetComponent<Rigidbody2D>();
+                Enemy = closestEnemy.gameObject;
+
+                closestEnemy.GetComponent<Animator>().enabled = false;
+                closestEnemy.GetComponent<MonsterController>().enabled = false;
+                closestEnemy.GetComponent<Rigidbody2D>().mass = 0.1f;
+                closestEnemy.GetComponent<Rigidbody2D>().gravityScale = 0.0f;
+                closestEnemy.GetComponent<CapsuleCollider2D>().isTrigger = true;
+                //closestEnemy.AddComponent<BloodEffect>();
+
+                float distance = Vector2.Distance(Enemy.transform.position, transform.position);
+
+                while (distance > 0.1f)
+                {
+                    distance = Vector2.Distance(Enemy.transform.position, transform.position);
+                    Vector2 throwDirection = (transform.position - heldEnemyRigidbody.transform.position).normalized;
+                    heldEnemyRigidbody.AddForce(throwDirection * pullForce, ForceMode2D.Impulse);
+
+                    if (distance > 0.1f)
+                    {
+                        isHoldingEnemy = true;
+                        break;
+                    }
+                    yield return null;
+                }
+            }
+        }
+        yield return new WaitForSeconds(0f);
+    }
+
+    public void BlackThrow()
+    {
+        Rigidbody2D rb = Enemy.AddComponent<Rigidbody2D>();
+
+        if (rb != null)
+        {
+            // 하위 객체의 Transform 얻기
+            Transform childTransform = Enemy.gameObject.transform;
+
+            // 부모-자식 관계 해제
+            childTransform.SetParent(null);
+
+            isHoldingEnemy = false;
+            Enemy.GetComponent<Rigidbody2D>().gravityScale = 0.0f;
+
+            rb.gameObject.GetComponent<OB_VerticlaMovement>().enabled = false;
+
+            Vector2 throwDirection = (rb.transform.position - playerTransform.position).normalized;
+            rb.velocity = throwDirection * throwForce;
+            rb.gameObject.tag = "WeaponB"; // 태그 변경
+            heldEnemyRigidbody = null;
+
+            // 죽은 몬스터 색 획득
+            Enemy.GetComponent<MonsterController>().Die();
+        }
+    }
 
     public void SetCustomWeapon()
     {
