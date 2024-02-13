@@ -351,9 +351,12 @@ public class PlayerController : MonoBehaviour
                 heldEnemyRigidbody = closestEnemy.GetComponent<Rigidbody2D>();
                 Enemy = closestEnemy.gameObject;
 
-                closestEnemy.GetComponent<Animator>().enabled = false;
+                //closestEnemy.GetComponent<Animator>().enabled = false;
                 closestEnemy.GetComponent<MonsterController>().enabled = false;
-                closestEnemy.GetComponent<Rigidbody2D>().mass = 0.1f;
+                //closestEnemy.GetComponent<MonsterController>().isDie = true;
+                //heldEnemyRigidbody.isKinematic = true;
+                //heldEnemyRigidbody.simulated = false;
+                closestEnemy.GetComponent<Rigidbody2D>().mass = 0.0f;
                 closestEnemy.GetComponent<Rigidbody2D>().gravityScale = 0.0f;
                 closestEnemy.GetComponent<CapsuleCollider2D>().isTrigger = true;
                 //closestEnemy.AddComponent<BloodEffect>();
@@ -364,13 +367,13 @@ public class PlayerController : MonoBehaviour
                 {
                     distance = Vector2.Distance(Enemy.transform.position, transform.position);
                     Vector2 throwDirection = (transform.position - Enemy.transform.position).normalized;
-                    heldEnemyRigidbody.AddForce(throwDirection * pullForce, ForceMode2D.Impulse);
-                    // Enemy.transform.Translate(throwDirection * pullForce * Time.deltaTime);
+                    // heldEnemyRigidbody.AddForce(throwDirection * pullForce, ForceMode2D.Impulse);
+                    Enemy.transform.Translate(throwDirection * pullForce * Time.deltaTime);
 
                     yield return null;
                 }
                 isHoldingEnemy = true;
-                
+
             }
         }
         yield return new WaitForSeconds(0f);
@@ -711,7 +714,7 @@ public class PlayerController : MonoBehaviour
                     Transform childTransform = collision.gameObject.transform;
                     childTransform.SetParent(parentTransform);
 
-                    Destroy(collision.gameObject.GetComponent<Rigidbody2D>(), 0.1f);
+                    //Destroy(collision.gameObject.GetComponent<Rigidbody2D>(), 0.1f);
                 }
             }
         }

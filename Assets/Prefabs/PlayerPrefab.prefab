@@ -162,6 +162,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myColor: 0
+  cam: {fileID: 0}
   colorWeapons:
   - {fileID: 6312281354645909693}
   - {fileID: 3364718941259214008}
@@ -171,6 +172,27 @@ MonoBehaviour:
   - {fileID: 7165747113895478536}
   - {fileID: 8533986571667845559}
   - {fileID: 7608925706783770372}
+  red_Weapon: {fileID: 1086310549815544557}
+  purple_Weapon: {fileID: 5002476609168166349}
+  green_Weapon: {fileID: 669936272836410247}
+  blue_Weapon: {fileID: 4656912621596376202}
+  yellow_WeaponEffect: {fileID: 5593871760870967025}
+  orange_WeaponEffect: {fileID: 1975305393455804576}
+  particleJumpUp: {fileID: 198584872278178884}
+  particleJumpDown: {fileID: 198967111524372206}
+  healEffect: {fileID: 393088699325398}
+  purpleEffect: {fileID: 2659571520275563058}
+  attackCheck: {fileID: 4370582630649528}
+  isAttack: 0
+  coolTime: 0
+  knockBackForce: 10
+  invincible: 0
+  canHealOnFountain: 1
+  currentHealth: 100
+  faceSprite: {fileID: 7243554273347533079}
+  m_Rigidbody2D: {fileID: 50738830109512580}
+  animator: {fileID: 95975118031919256}
+  playerSprite: {fileID: 212971026275759962}
   m_MovementSmoothing: 0.05
   m_MoveSpeed: 7
   m_DashForce: 25
@@ -181,25 +203,11 @@ MonoBehaviour:
     m_Bits: 53
   m_GroundCheck: {fileID: 4291727345091452}
   m_WallCheck: {fileID: 4986330650710208}
-  particleJumpUp: {fileID: 198584872278178884}
-  particleJumpDown: {fileID: 198967111524372206}
-  yellowAttackEffect: {fileID: 5593871760870967025}
-  orangeAttackEffect: {fileID: 1975305393455804576}
-  healEffect: {fileID: 393088699325398}
-  purpleEffect: {fileID: 2659571520275563058}
-  currentHealth: 100
-  m_Rigidbody2D: {fileID: 50738830109512580}
-  animator: {fileID: 95975118031919256}
-  faceSprite: {fileID: 7243554273347533079}
-  playerSprite: {fileID: 212971026275759962}
-  attackCheck: {fileID: 4370582630649528}
-  cam: {fileID: 0}
-  invincible: 0
-  canHealOnFountain: 1
-  red_Weapon: {fileID: 1086310549815544557}
-  purple_Weapon: {fileID: 5002476609168166349}
-  green_Weapon: {fileID: 669936272836410247}
-  blue_Weapon: {fileID: 4656912621596376202}
+  doAttack: 0
+  canAttack: 1
+  maxHealth: 100
+  damage: 10
+  WeaponPosition: {fileID: 1920087943}
   OnFallEvent:
     m_PersistentCalls:
       m_Calls:
@@ -230,14 +238,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  doAttack: 0
-  canAttack: 1
-  isAttack: 0
-  coolTime: 0
-  knockBackForce: 10
-  maxHealth: 100
-  damage: 10
-  WeaponPosition: {fileID: 1920087943}
   isHoldingEnemy: 0
 --- !u!114 &248749117310158783
 MonoBehaviour:
