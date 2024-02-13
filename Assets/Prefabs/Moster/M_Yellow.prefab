@@ -208,6 +208,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterData: {fileID: 11400000, guid: 716984c261b21344aa973a0c748bb51e, type: 2}
   damage: 0
+  animator: {fileID: 2464650107546937746}
   monsterBody: {fileID: 8786403146393016133}
   voltObject: {fileID: 3098668588875234849}
 --- !u!1001 &6082248599611351085
@@ -285,7 +286,8 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3511057619875830368, guid: 34135ba62c675814097b6e729722193d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 34135ba62c675814097b6e729722193d, type: 3}
 --- !u!1 &3098668588875234849 stripped
 GameObject:

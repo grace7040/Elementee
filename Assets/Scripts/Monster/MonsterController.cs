@@ -66,7 +66,7 @@ public class MonsterController : MonoBehaviour
     protected float waypointDirection;
     protected float distanceX;
     protected float distanceY;
-    protected Animator animator;
+    public Animator animator;
     #endregion
 
     Quaternion flipQuaternion = Quaternion.Euler(new Vector3(0, 180, 0));
@@ -88,7 +88,6 @@ public class MonsterController : MonoBehaviour
 
         m_sprite = GetComponentInChildren<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
-        animator = GetComponentInChildren<Animator>();
 
         // waypoint 초기화
         SetWaypoints();
