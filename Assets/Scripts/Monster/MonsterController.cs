@@ -12,31 +12,21 @@ using DG.Tweening;
 public class MonsterController : MonoBehaviour
 {
     #region variables
-    private M_IColorState color;
-    public M_IColorState Color
-    {
-        get { return color; }
-        set
-        {
-            color = value;
-            m_JumpForce = value.M_JumpForce;
-            m_damage = value.M_damage;
-            maxHealth = value.M_health;
-        }
-    }
-    public Colors myColor;
 
-    bool isDie = false;
+    public Monster monsterData;
+    Colors myColor;
+
+    protected bool isDie = false;
 
     protected SpriteRenderer m_sprite;
     static protected Transform player;
     protected Rigidbody2D rb;
 
-    public int maxHealth = 100;
+    private int maxHealth = 100;
     protected int currentHealth;
-    public float moveSpeed = 3f;
-    public float detectionRange = 10f;
-    public float attackRange = 2f;
+    protected float moveSpeed = 3f;
+    protected float detectionRange = 10f;
+    protected float attackRange = 2f;
 
     // Cooltime
     protected bool canAttack = true;
@@ -45,12 +35,8 @@ public class MonsterController : MonoBehaviour
     // update의 start 역할
     protected bool Isfirst = true;
 
-    // flip
-    protected bool canflip = true;
-
-    protected float m_JumpForce; // 없애고 싶다
     [HideInInspector]
-    public int m_damage; // 없애고 싶다
+    public int damage;
 
     // Random move
     protected Vector3 waypoint_L; // 좌측 목적지
@@ -77,7 +63,7 @@ public class MonsterController : MonoBehaviour
     protected Image hpBarBG;
     protected float hpBarMAX;
 
-    protected float distance;
+    protected float waypointDirection;
     protected float distanceX;
     protected float distanceY;
     protected Animator animator;
@@ -85,29 +71,9 @@ public class MonsterController : MonoBehaviour
 
     protected void Awake()
     {
-        SetColor();
-    }
-
-    protected void SetColor()
-    {
-        switch (myColor)
-        {
-            case Colors.def:
-                Color = new M_DefaultColor();
-                break;
-
-            case Colors.red:
-                Color = new M_RedColor();
-                break;
-
-            case Colors.blue:
-                Color = new M_BlueColor();
-                break;
-
-            case Colors.yellow:
-                Color = new M_YellowColor();
-                break;
-        }
+        damage = monsterData.Damage;
+        maxHealth = monsterData.Health;
+        myColor = monsterData.MyColor;
     }
 
     protected void Start()
@@ -135,10 +101,26 @@ public class MonsterController : MonoBehaviour
         if (isDie) return;
 
         // float distanceToPlayer = Vector2.Distance(transform.position, player.position);
-        distance = player.position.x - transform.position.x;
+        waypointDirection = currentWaypoint.x - transform.position.x;
         distanceX = Mathf.Abs(transform.position.x - player.position.x);
         distanceY = Mathf.Abs(transform.position.y - player.position.y);
 
+        m_sprite.flipX = waypointDirection > 0f;
+    }
+
+    protected void Move()
+    {
+        timer += Time.deltaTime;
+
+        if (timer >= interval)
+        {
+            SetWaypoints();
+            timer = 0.0f;
+        }
+
+        if (currentWaypoint != null && !isKnockedBack) {
+            MoveTowardsWaypoint();
+        }
     }
     protected void SetWaypoints()
     {
@@ -246,13 +228,13 @@ public class MonsterController : MonoBehaviour
     {
         if (!m_sprite.flipX)
         {
-            m_sprite.flipX = true;
+            //m_sprite.flipX = true;
             currentWaypoint = waypoint_R;
             direction *= -1;
         }
         else
         {
-            m_sprite.flipX = false;
+            //m_sprite.flipX = false;
             currentWaypoint = waypoint_L;
             direction *= -1;
         }
@@ -339,12 +321,12 @@ public class MonsterController : MonoBehaviour
     protected IEnumerator AttackCooldown_R()
     {
         canAttack = false;
-        canflip = false;
+        //canflip = false;
         rb.velocity = Vector2.zero;
         yield return new WaitForSeconds(2.0f);
         animator.SetBool("IsAttacking", false);
         canAttack = true;
-        canflip = true;
+        //canflip = true;
     }
 
     protected IEnumerator AttackCooldown_B()
@@ -358,13 +340,6 @@ public class MonsterController : MonoBehaviour
         //canflip = true;
     }
 
-    protected IEnumerator Delay()
-    {
-        animator.SetBool("IsAttacking", true);
-        yield return new WaitForSeconds(1.0f);
-        if (isDie) yield break;
-        color.Attack(this);
-    }
 
     protected IEnumerator ChargeAfterDelay()
     {
@@ -386,20 +361,9 @@ public class MonsterController : MonoBehaviour
         direction.y = 0;
         direction.Normalize();
 
-        //if (distance < -0.1f)
-        //{
-        //    m_sprite.flipX = false;
-        //}
-        //else if (distance > 0.1f)
-        //{
-        //    m_sprite.flipX = true;
-        //}
 
         while (Time.time - startTime < duration)
         {
-            //Vector2 direction = (player.position - transform.position);
-            //direction.y = 0;
-            //direction.Normalize();
             Vector2 movement = 7f * Time.deltaTime * direction;
             transform.Translate(movement);
 

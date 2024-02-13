@@ -7,23 +7,9 @@ public class M_Blue : MonsterController
     void Update()
     {
         base.Update();
+        if (isDie) return;
         if (distanceX <= detectionRange && distanceY <= 1.0f)
         {
-            Isfirst = true;
-
-            if (canflip)
-            {
-                // Flip
-                if (distance < -0.1f)
-                {
-                    m_sprite.flipX = false;
-                }
-                else if (distance > 0.1f)
-                {
-                    m_sprite.flipX = true;
-                }
-            }
-
             // Attack
             if (distanceX <= attackRange && distanceY <= 1.0f)
             {
@@ -34,7 +20,11 @@ public class M_Blue : MonsterController
                     {
                         animator.SetBool("IsWalking", false);
                         rb.velocity = Vector2.zero;
-                        StartCoroutine(Delay());
+                        animator.SetBool("IsAttacking", true);
+                        this.CallOnDelay(1f, () => {
+                            animator.SetBool("IsAttacking", true);
+                            Attack();
+                        });
                         StartCoroutine(AttackCooldown_B());
                     }
                 }
@@ -49,6 +39,7 @@ public class M_Blue : MonsterController
                 {
                     if (canAttack)
                     {
+                        currentWaypoint = player.position;
                         // Move
                         animator.SetBool("IsWalking", true);
                         Vector2 moveDirection = new Vector2(player.position.x - transform.position.x, 0).normalized;
@@ -58,34 +49,12 @@ public class M_Blue : MonsterController
             }
         }
         else
-        {
-            if (canAttack)
-            {
-                if (Isfirst)
-                {
-                    SetWaypoints();
-                    currentWaypoint = waypoint_L;
-                    m_sprite.flipX = false;
-                    Isfirst = false;
-                }
+            Move();
+    }
 
-                timer += Time.deltaTime;
-
-                if (timer >= interval)
-                {
-                    SetWaypoints();
-                    timer = 0.0f;
-                }
-
-                if (isKnockedBack) { }
-                else
-                {
-                    if (currentWaypoint != null)
-                    {
-                        MoveTowardsWaypoint();
-                    }
-                }
-            }
-        }
+    void Attack()
+    {
+        GameObject Water = Instantiate(Resources.Load("Monster/Waters"), transform.position, Quaternion.identity) as GameObject;
+        GameObject Waters = Instantiate(Resources.Load("Monster/Blue_Attack_Effect_"), transform.position, Quaternion.Euler(0, 0, 0)) as GameObject;
     }
 }

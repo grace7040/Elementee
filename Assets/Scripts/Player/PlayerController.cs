@@ -672,7 +672,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            TakeDamage(collision.gameObject.GetComponent<MonsterController>().m_damage,
+            TakeDamage(collision.gameObject.GetComponent<MonsterController>().damage,
             collision.gameObject.transform.position);
         }
     }

@@ -9,20 +9,9 @@ public class M_Yellow : MonsterController
     void Update()
     {
         base.Update();
+        if (isDie) return;
         if (distanceX <= detectionRange && distanceY <= 1.0f)
         {
-            Isfirst = true;
-
-            // Flip
-            if (distance < -0.1f)
-            {
-                m_sprite.flipX = false;
-            }
-            else if (distance > 0.1f)
-            {
-                m_sprite.flipX = true;
-            }
-
             // Attack
             if (distanceX <= attackRange && distanceY <= 1.0f)
             {
@@ -35,7 +24,7 @@ public class M_Yellow : MonsterController
                     {
                         // Àá½Ã ¸ØÃè´Ù°¡ µ¹Áø
                         StartCoroutine(ChargeAfterDelay());
-                        Color.Attack(this);
+                        Attack();
                     }
                 }
             }
@@ -49,6 +38,7 @@ public class M_Yellow : MonsterController
                 {
                     if (canAttack)
                     {
+                        currentWaypoint = player.position;
                         // Move
                         animator.SetBool("IsWalking", true);
                         Vector2 moveDirection = new Vector2(player.position.x - transform.position.x, 0).normalized;
@@ -58,34 +48,14 @@ public class M_Yellow : MonsterController
             }
         }
         else
-        {
-            if (canAttack)
-            {
-                if (Isfirst)
-                {
-                    SetWaypoints();
-                    currentWaypoint = waypoint_L;
-                    m_sprite.flipX = false;
-                    Isfirst = false;
-                }
+            Move();
+    }
 
-                timer += Time.deltaTime;
-
-                if (timer >= interval)
-                {
-                    SetWaypoints();
-                    timer = 0.0f;
-                }
-
-                if (isKnockedBack) { }
-                else
-                {
-                    if (currentWaypoint != null)
-                    {
-                        MoveTowardsWaypoint();
-                    }
-                }
-            }
-        }
+    void Attack()
+    {
+        GameObject volt = ObjectPoolManager.Instance.GetGo("Volt");
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        volt.transform.SetParent(rb.transform);
+        volt.transform.localPosition = Vector3.zero;
     }
 }

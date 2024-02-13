@@ -173,12 +173,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb8a2e4897b3db84eb09cfad5b361011, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  monsterData: {fileID: 11400000, guid: fe19ed216363dde488d05453d7abcfad, type: 2}
   myColor: 1
   maxHealth: 100
   moveSpeed: 3
   detectionRange: 10
   attackRange: 2
-  m_damage: 0
+  damage: 0
 --- !u!1001 &4252201636997788723
 PrefabInstance:
   m_ObjectHideFlags: 0

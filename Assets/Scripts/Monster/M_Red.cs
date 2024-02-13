@@ -9,23 +9,9 @@ public class M_Red : MonsterController
     void Update()
     {
         base.Update();
+        if (isDie) return;
         if (distanceX <= detectionRange && distanceY <= 1.0f)
         {
-            Isfirst = true;
-
-            if (canflip)
-            {
-                // Flip
-                if (distance < -0.1f)
-                {
-                    m_sprite.flipX = false;
-                }
-                else if (distance > 0.1f)
-                {
-                    m_sprite.flipX = true;
-                }
-            }
-
             // Attack
             if (distanceX <= attackRange && distanceY <= 1.0f)
             {
@@ -37,7 +23,8 @@ public class M_Red : MonsterController
                         animator.SetBool("IsWalking", false);
                         rb.velocity = Vector2.zero;
                         animator.SetBool("IsAttacking", true);
-                        Color.Attack(this);
+                        //Color.Attack(this);
+                        Attack();
                         StartCoroutine(AttackCooldown_R());
                     }
                 }
@@ -52,6 +39,7 @@ public class M_Red : MonsterController
                 {
                     if (canAttack)
                     {
+                        currentWaypoint = player.position;
                         // Move
                         animator.SetBool("IsWalking", true);
                         Vector2 moveDirection = new Vector2(player.position.x - transform.position.x, 0).normalized;
@@ -60,35 +48,27 @@ public class M_Red : MonsterController
                 }
             }
         }
+        else 
+            Move();
+    }
+
+    void Attack()
+    {
+        var fire = ObjectPoolManager.Instance.GetGo("Fire");
+
+        // 방향 처리
+        SpriteRenderer monsterSpriteRenderer = GetComponent<SpriteRenderer>();
+        if (monsterSpriteRenderer.flipX)
+        {
+            fire.transform.localRotation = Quaternion.Euler(0, 0, 90);
+        }
         else
         {
-            if (canAttack)
-            {
-                if (Isfirst)
-                {
-                    SetWaypoints();
-                    currentWaypoint = waypoint_L;
-                    m_sprite.flipX = false;
-                    Isfirst = false;
-                }
-
-                timer += Time.deltaTime;
-
-                if (timer >= interval)
-                {
-                    SetWaypoints();
-                    timer = 0.0f;
-                }
-
-                if (isKnockedBack) { }
-                else
-                {
-                    if (currentWaypoint != null)
-                    {
-                        MoveTowardsWaypoint();
-                    }
-                }
-            }
+            fire.transform.localRotation = Quaternion.Euler(0, 0, -90);
         }
+
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        fire.transform.SetParent(rb.transform);
+        fire.transform.localPosition = Vector3.zero;
     }
 }
