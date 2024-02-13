@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class M_Blue : MonsterController
 {
+    GameObject Water;
 
     void Update()
     {
@@ -55,7 +56,6 @@ public class M_Blue : MonsterController
 
     void Attack()
     {
-        GameObject Water = Instantiate(Resources.Load("Monster/Waters"), transform.position, Quaternion.identity) as GameObject;
-        GameObject Waters = Instantiate(Resources.Load("Monster/Blue_Attack_Effect_"), transform.position, Quaternion.Euler(0, 0, 0)) as GameObject;
+        Water = Instantiate(Resources.Load("Monster/Waters"), transform.position, Quaternion.identity) as GameObject;
     }
 }

@@ -67,10 +67,14 @@ public class MonsterController : MonoBehaviour
     protected float distanceX;
     protected float distanceY;
     public Animator animator;
-    #endregion
 
     Quaternion flipQuaternion = Quaternion.Euler(new Vector3(0, 180, 0));
     public Transform monsterBody;
+
+    bool isFlip = false;
+    #endregion
+
+
 
     protected void Awake()
     {
@@ -97,24 +101,24 @@ public class MonsterController : MonoBehaviour
         hpBar = transform.Find("HPBar").GetChild(1).gameObject.GetComponent<Image>();
         hpBarMAX = hpBar.gameObject.GetComponent<RectTransform>().rect.width;
         hpBarBG = transform.Find("HPBar").GetChild(0).gameObject.GetComponent<Image>();
+
     }
 
     protected void Update()
     {
         if (isDie) return;
 
-        // float distanceToPlayer = Vector2.Distance(transform.position, player.position);
         waypointDirection = currentWaypoint.x - transform.position.x;
         distanceX = Mathf.Abs(transform.position.x - player.position.x);
         distanceY = Mathf.Abs(transform.position.y - player.position.y);
 
-        //m_sprite.flipX = waypointDirection > 0f;
-        //transform.rotation = waypointDirection < 0f ? Quaternion.identity : flipQuaternion;
-        monsterBody.rotation = waypointDirection < 0f ? Quaternion.identity : flipQuaternion;
+        isFlip = waypointDirection < 0f;
+        monsterBody.rotation = isFlip ? Quaternion.identity : flipQuaternion;
     }
 
     protected void Move()
     {
+        
         timer += Time.deltaTime;
 
         if (timer >= interval)
@@ -181,7 +185,7 @@ public class MonsterController : MonoBehaviour
             }
 
             // 이동 중일 때
-            transform.position = Vector2.MoveTowards(transform.position, currentWaypoint, moveSpeed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, new Vector2(currentWaypoint.x, transform.position.y), moveSpeed * Time.deltaTime);
 
             if (myColor != Colors.def)
             {
@@ -231,18 +235,9 @@ public class MonsterController : MonoBehaviour
 
     private void SetNextWaypoint()
     {
-        if (!m_sprite.flipX)
-        {
-            //m_sprite.flipX = true;
-            currentWaypoint = waypoint_R;
-            direction *= -1;
-        }
-        else
-        {
-            //m_sprite.flipX = false;
-            currentWaypoint = waypoint_L;
-            direction *= -1;
-        }
+        direction *= -1;
+        if (isFlip) currentWaypoint = waypoint_R;
+        else currentWaypoint = waypoint_L;
     }
 
     protected bool CheckGround()
