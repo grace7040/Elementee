@@ -22,8 +22,38 @@ public class PlayerController : MonoBehaviour
     }
 
     public Colors myColor = Colors.def;
+    public GameObject cam;
 
+    [Header("Weapon")]
     public SpriteRenderer[] colorWeapons;
+    public GameObject red_Weapon;
+    public GameObject purple_Weapon;
+    public GameObject green_Weapon;
+    public GameObject blue_Weapon;
+    public GameObject yellow_WeaponEffect;
+    public GameObject orange_WeaponEffect;
+
+    [Header("ParticleSystem")]
+    public ParticleSystem particleJumpUp; //Trail particles
+    public ParticleSystem particleJumpDown; //Explosion particles
+    public GameObject healEffect;
+    public GameObject purpleEffect;
+
+    [Header("Attack")]
+    public Transform attackCheck;
+    public bool isAttack = false; //attack btn input
+    public float coolTime;
+    public float knockBackForce = 10f;
+    public bool invincible = false;
+    public bool canHealOnFountain = true;
+    //private bool isTimeToCheck = false; 
+
+    [Header("Player Properties")]
+    public int currentHealth;
+    public SpriteRenderer faceSprite;
+    [HideInInspector] public Rigidbody2D m_Rigidbody2D;
+    [HideInInspector] public Animator animator;
+    [HideInInspector] public SpriteRenderer playerSprite;
 
     [Header("Movement Customizing")]
     [Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;  // How much to smooth out the movement
@@ -37,32 +67,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform m_GroundCheck;                           // A position marking where to check if the player is grounded.
     [SerializeField] private Transform m_WallCheck;                             //Posicion que controla si el personaje toca una pared
 
-    [Header("ParticleSystem")]
-    public ParticleSystem particleJumpUp; //Trail particles
-    public ParticleSystem particleJumpDown; //Explosion particles
-    public GameObject yellowAttackEffect;
-    public GameObject orangeAttackEffect;
-    public GameObject healEffect;
-    public GameObject purpleEffect;
+    //Attack
+    [HideInInspector] public bool doAttack = false; //attack input
+    [HideInInspector] public bool canAttack = true;
 
-    [Header("Player Properties")]
-    public int currentHealth;
-    public Rigidbody2D m_Rigidbody2D;
-    public Animator animator;
-    public SpriteRenderer faceSprite;
-    public SpriteRenderer playerSprite;
+    //Health
+    [HideInInspector] public int maxHealth = 100;
+    [HideInInspector] public int damage = 0;
 
-    [Header("Attack")]
-    public Transform attackCheck;
-    public GameObject cam;
-    public bool invincible = false;
-    public bool canHealOnFountain = true;
-
-    [Header("WeaponPosition")]
-    public GameObject red_Weapon;
-    public GameObject purple_Weapon;
-    public GameObject green_Weapon;
-    public GameObject blue_Weapon;
+    // weapon position
+    public GameObject WeaponPosition;
 
     [Header("Events")]
     [Space]
@@ -105,20 +119,6 @@ public class PlayerController : MonoBehaviour
     private FixedJoint2D fixJoint;
     private bool isRope = false;
 
-    //Attack
-    [HideInInspector] public bool doAttack = false; //attack input
-    [HideInInspector] public bool canAttack = true;
-    //private bool isTimeToCheck = false; 
-    public bool isAttack = false; //attack btn input
-    public float coolTime;
-    public float knockBackForce = 10f;
-
-    //Health
-    [HideInInspector] public int maxHealth = 100;
-    [HideInInspector] public int damage = 0;
-
-    // weapon position
-    public GameObject WeaponPosition;
 
     // Black
     private float pullForce = 0.05f; // 끌어당기는 힘 조절용 변수
@@ -129,6 +129,11 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        m_Rigidbody2D = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        playerSprite = GetComponent<SpriteRenderer>();
+
+
         if(GameManager.Instance.sponPos != null)
             transform.position = GameManager.Instance.sponPos.position;
 
@@ -407,7 +412,7 @@ public class PlayerController : MonoBehaviour
         {
             for(int i = 0; i < 4; i++)
             {
-                yellowAttackEffect.transform.GetChild(i).GetComponent<SpriteRenderer>().sprite = colorWeapons[(int)Colors.yellow].sprite;
+                yellow_WeaponEffect.transform.GetChild(i).GetComponent<SpriteRenderer>().sprite = colorWeapons[(int)Colors.yellow].sprite;
             }
         }
     }
@@ -420,7 +425,7 @@ public class PlayerController : MonoBehaviour
         {
             for (int i = 0; i < 4; i++)
             {
-                yellowAttackEffect.transform.GetChild(i).GetComponent<SpriteRenderer>().sprite = colorWeapons[(int)Colors.yellow].sprite;
+                yellow_WeaponEffect.transform.GetChild(i).GetComponent<SpriteRenderer>().sprite = colorWeapons[(int)Colors.yellow].sprite;
             }
         }
     }
@@ -444,9 +449,9 @@ public class PlayerController : MonoBehaviour
         Vector3 theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;
-        Vector3 yellowScale = yellowAttackEffect.transform.localScale;
+        Vector3 yellowScale = yellow_WeaponEffect.transform.localScale;
         yellowScale.x *= -1;
-        yellowAttackEffect.transform.localScale = yellowScale;
+        yellow_WeaponEffect.transform.localScale = yellowScale;
     }
 
     public void Move(float move, bool jump, bool dash)

@@ -20,7 +20,7 @@ public class OrangeColor : IColorState
         player.CallOnDelay(CoolTime, () =>
         {
             player.animator.SetBool("IsOrangeAttacking", false);
-            player.GetComponent<PlayerController>().orangeAttackEffect.SetActive(false);
+            player.GetComponent<PlayerController>().orange_WeaponEffect.SetActive(false);
             player.canAttack = true;
             player.gameObject.layer = 3;
 
