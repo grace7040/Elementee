@@ -9,7 +9,7 @@ public class DefaultColor : IColorState
     public float JumpForce { get { return 850f; } }
     public int Damage { get { return 25; } }
     public bool WallSliding { get { return false; } }
-    public float CoolTime { get { return 0.5f; } }
+    public float CoolTime { get { return 0.35f; } }
 
 
     //Temporal Setting : Default Color Attack -> Sword

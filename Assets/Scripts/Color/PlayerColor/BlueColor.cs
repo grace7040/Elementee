@@ -7,7 +7,7 @@ public class BlueColor : IColorState
     public float JumpForce { get { return 800f; } }
     public int Damage { get { return 35; } }
     public bool WallSliding { get { return false; } }
-    public float CoolTime { get { return 1f; } }
+    public float CoolTime { get { return 0.5f; } }
 
 
     //Temporal Setting : BLue Color Attack -> Throw Water obj
