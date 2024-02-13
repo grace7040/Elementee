@@ -158,6 +158,7 @@ public class ColorManager : Singleton<ColorManager>
                 hasYellow = false;
                 hasRed = false;
                 hasBlue = false;
+                player.black_Weapon.SetActive(true);
                 SetColorState(new BlackColor());
                 break;
         }
@@ -190,6 +191,7 @@ public class ColorManager : Singleton<ColorManager>
         player.purple_Weapon.SetActive(false);
         player.green_Weapon.SetActive(false);
         player.blue_Weapon.SetActive(false);
+        player.black_Weapon.SetActive(false);
     }
 
     public void StartDrawing(Colors _color)

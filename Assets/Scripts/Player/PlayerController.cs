@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
     public GameObject purple_Weapon;
     public GameObject green_Weapon;
     public GameObject blue_Weapon;
+    public GameObject black_Weapon;
     public GameObject yellow_WeaponEffect;
     public GameObject orange_WeaponEffect;
 
@@ -121,7 +122,7 @@ public class PlayerController : MonoBehaviour
 
 
     // Black
-    private float pullForce = 0.05f; // 끌어당기는 힘 조절용 변수
+    private float pullForce = 10f; // 끌어당기는 힘 조절용 변수
     private float throwForce = 15f; // 던지는 힘 조절용 변수
     public bool isHoldingEnemy = false; // 적을 가지고 있는지 여부
     private Rigidbody2D heldEnemyRigidbody; // 가지고 있는 적의 Rigidbody2D
@@ -167,9 +168,6 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        //print("Now:" + animator.GetBool("IsJumping"));
-
-        //Attack input -> x
         if ( (Input.GetKeyDown(KeyCode.X) || isAttack) && canAttack)
         {
             doAttack = true;
@@ -180,54 +178,14 @@ public class PlayerController : MonoBehaviour
 
         if (myColor == Colors.black)
         {
-            foreach (Transform child in gameObject.transform)
+            if (isHoldingEnemy)
             {
-                if (child.name == "DrawWeaponSprite")
-                {
-                    foreach (Transform child_ in child.transform)
-                    {
-                        if (child_.name.Contains("M_"))
-                        {
-                            if (child_.transform.localPosition.x != 0 || child_.transform.localPosition.y != 0)
-                            {
-                                child_.transform.localPosition = new Vector2(0, 0);
-                            }
-                        }
-                    }
-                }
-                else if (child.name == "BlackAttack")
-                {
-                    child.gameObject.SetActive(true);
-                }
-                //else if (child.name == "detectarea")
-                //{
-                //    child.gameObject.SetActive(true);
-                //}
+                Enemy.transform.localPosition = new Vector2(0, 0);
             }
         }
         else if (myColor != Colors.black)
         {
-            foreach (Transform child in gameObject.transform)
-            {
-                if (child.name == "DrawWeaponSprite")
-                {
-                    foreach (Transform child_ in child.transform)
-                    {
-                        if (child_.name.Contains("M_"))
-                        {
-                            Destroy(child_.gameObject, 0.1f);
-                        }
-                    }
-                }
-                else if (child.name == "BlackAttack")
-                {
-                    child.gameObject.SetActive(false);
-                }
-                //else if (child.name == "detectarea")
-                //{
-                //    child.gameObject.SetActive(false);
-                //}
-            }
+            Destroy(Enemy, 0.1f);
         }
     }
 
@@ -353,9 +311,6 @@ public class PlayerController : MonoBehaviour
 
                 //closestEnemy.GetComponent<Animator>().enabled = false;
                 closestEnemy.GetComponent<MonsterController>().enabled = false;
-                //closestEnemy.GetComponent<MonsterController>().isDie = true;
-                //heldEnemyRigidbody.isKinematic = true;
-                //heldEnemyRigidbody.simulated = false;
                 closestEnemy.GetComponent<Rigidbody2D>().mass = 0.0f;
                 closestEnemy.GetComponent<Rigidbody2D>().gravityScale = 0.0f;
                 closestEnemy.GetComponent<CapsuleCollider2D>().isTrigger = true;
@@ -363,17 +318,13 @@ public class PlayerController : MonoBehaviour
 
                 float distance = Vector2.Distance(Enemy.transform.position, transform.position);
 
-                while (distance > 1f)
+                while (!isHoldingEnemy)
                 {
-                    distance = Vector2.Distance(Enemy.transform.position, transform.position);
                     Vector2 throwDirection = (transform.position - Enemy.transform.position).normalized;
-                    // heldEnemyRigidbody.AddForce(throwDirection * pullForce, ForceMode2D.Impulse);
                     Enemy.transform.Translate(throwDirection * pullForce * Time.deltaTime);
 
                     yield return null;
                 }
-                isHoldingEnemy = true;
-
             }
         }
         yield return new WaitForSeconds(0f);
@@ -381,14 +332,12 @@ public class PlayerController : MonoBehaviour
 
     public void BlackThrow()
     {
-        Rigidbody2D rb = Enemy.AddComponent<Rigidbody2D>();
+        Rigidbody2D rb = Enemy.GetComponent<Rigidbody2D>();
 
         if (rb != null)
         {
-            // 하위 객체의 Transform 얻기
             Transform childTransform = Enemy.gameObject.transform;
 
-            // 부모-자식 관계 해제
             childTransform.SetParent(null);
 
             isHoldingEnemy = false;
@@ -398,10 +347,9 @@ public class PlayerController : MonoBehaviour
 
             Vector2 throwDirection = (rb.transform.position - transform.position).normalized;
             rb.velocity = throwDirection * throwForce;
-            rb.gameObject.tag = "WeaponB"; // 태그 변경
+            rb.gameObject.tag = "WeaponB";
             heldEnemyRigidbody = null;
 
-            // 죽은 몬스터 색 획득
             Enemy.GetComponent<MonsterController>().Die();
         }
     }
@@ -679,16 +627,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    //private void OnCollisionStay2D(Collision2D collision)
-    //{
-    //    if (collision.gameObject.CompareTag("Enemy"))
-    //    {
-    //        TakeDamage(collision.gameObject.GetComponent<MonsterController>().m_damage,
-    //        collision.gameObject.transform.position);
-    //    }
-    //}
-
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Rope"))
@@ -714,7 +652,7 @@ public class PlayerController : MonoBehaviour
                     Transform childTransform = collision.gameObject.transform;
                     childTransform.SetParent(parentTransform);
 
-                    //Destroy(collision.gameObject.GetComponent<Rigidbody2D>(), 0.1f);
+                    isHoldingEnemy = true;
                 }
             }
         }
@@ -751,8 +689,7 @@ public class PlayerController : MonoBehaviour
         // 새롭게 씬 로드할 코드 추가
 
         GameManager.Instance.GameOver();
-    }
-    
+    } 
 
     public void PurpleAttackEffect()
     {
