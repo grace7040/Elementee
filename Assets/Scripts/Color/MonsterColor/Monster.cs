@@ -15,6 +15,11 @@ public class Monster : ScriptableObject
     public int Health { get { return health; } }
 
     [SerializeField]
+    private float attackRange;
+    public float AttackRange { get { return attackRange; } }
+
+
+    [SerializeField]
     private Colors myColor;
     public Colors MyColor { get { return myColor; } }
 }

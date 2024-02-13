@@ -26,7 +26,7 @@ public class MonsterController : MonoBehaviour
     protected int currentHealth;
     protected float moveSpeed = 3f;
     protected float detectionRange = 10f;
-    protected float attackRange = 10f;
+    protected float attackRange;
 
     // Cooltime
     protected bool canAttack = true;
@@ -81,6 +81,7 @@ public class MonsterController : MonoBehaviour
         damage = monsterData.Damage;
         maxHealth = monsterData.Health;
         myColor = monsterData.MyColor;
+        attackRange = monsterData.AttackRange;
 
         currentHealth = maxHealth;
     }
