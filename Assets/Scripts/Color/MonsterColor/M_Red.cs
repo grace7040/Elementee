@@ -5,7 +5,6 @@ using UnityEngine;
 public class M_Red : MonsterController
 {
     public GameObject fireObject;
-    // Update is called once per frame
 
     void Update()
     {
@@ -16,15 +15,13 @@ public class M_Red : MonsterController
             // Attack
             if (distanceX <= attackRange && distanceY <= 1.0f)
             {
-                if (!CheckGround()) { }
-                else
+                if (CheckGround())
                 {
                     if (canAttack)
                     {
                         animator.SetBool("IsWalking", false);
                         rb.velocity = Vector2.zero;
                         animator.SetBool("IsAttacking", true);
-                        //Color.Attack(this);
                         Attack();
 
                         //StartCoroutine(AttackCooldown_R());
@@ -70,21 +67,5 @@ public class M_Red : MonsterController
     {
         fireObject.SetActive(true);
         this.CallOnDelay(1f, () => { fireObject.SetActive(false); });
-        //var fire = ObjectPoolManager.Instance.GetGo("Fire");
-
-        //// 방향 처리
-        //SpriteRenderer monsterSpriteRenderer = GetComponent<SpriteRenderer>();
-        //if (monsterSpriteRenderer.flipX)
-        //{
-        //    fire.transform.localRotation = Quaternion.Euler(0, 0, 90);
-        //}
-        //else
-        //{
-        //    fire.transform.localRotation = Quaternion.Euler(0, 0, -90);
-        //}
-
-        //Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        //fire.transform.SetParent(rb.transform);
-        //fire.transform.localPosition = Vector3.zero;
     }
 }

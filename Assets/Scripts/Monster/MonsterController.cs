@@ -118,8 +118,7 @@ public class MonsterController : MonoBehaviour
     }
 
     protected void Move()
-    {
-        
+    {  
         timer += Time.deltaTime;
 
         if (timer >= interval)
