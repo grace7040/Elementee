@@ -104,8 +104,10 @@ public class UI_SoundCustom : UI_Popup
         GetButton((int)Buttons.Record).gameObject.BindEvent(RecordBtnClicked);
         GetButton((int)Buttons.Play).gameObject.BindEvent(PlayBtnClicked);
         GetButton((int)Buttons.Default).gameObject.BindEvent(DafaultBtnClicked);
-        GetButton((int)Buttons.Back).gameObject.BindEvent(BackBtnClicked);
         GetButton((int)Buttons.Pause).gameObject.BindEvent(PauseBtnClicked);
+
+        GetButton((int)Buttons.Back).gameObject.BindEvent(BackBtnClicked);
+
     }
 
 

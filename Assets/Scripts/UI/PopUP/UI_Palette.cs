@@ -10,7 +10,8 @@ public class UI_Palette : UI_Popup
 {
 
     public Colors color;
-    public GameObject canvas;
+    private Image canvasImg;
+    private Image redrawImg;
     ColorManager C_Mgr;
 
     Colors redrawColor = Colors.def;
@@ -55,8 +56,9 @@ public class UI_Palette : UI_Popup
         GetButton((int)Buttons.ResetBtn).gameObject.BindEvent(ResetBtnBtnClicked);
         GetButton((int)Buttons.BackBtn).gameObject.BindEvent(BackBtnClicked);
         GetButton((int)Buttons.ReDrawItem).gameObject.BindEvent(ReDraw);
-        
-        canvas = GetImage((int)Images.ColorImg).gameObject;
+
+        canvasImg = GetImage((int)Images.ColorImg).gameObject.GetComponent<Image>();
+        redrawImg = GetButton((int)Buttons.ReDrawItem).gameObject.GetComponent<Image>();
     }
 
 
@@ -81,14 +83,8 @@ public class UI_Palette : UI_Popup
         else
             GetButton((int)Buttons.YellowBtn).gameObject.BindEvent(YellowBtnClicked);
 
-        // ReDraw 아이템
-        if (redrawColor == Colors.def)
-            GetButton((int)Buttons.ReDrawItem).gameObject.SetActive(false);
-        else
-        {
-            GetButton((int)Buttons.ReDrawItem).gameObject.SetActive(true);
             GetButton((int)Buttons.ReDrawItem).gameObject.GetComponent<Image>().color = ColorManager.Instance.GetColor(redrawColor);
-        }
+
     }
 
     public void BackBtnClicked(PointerEventData data)
@@ -180,15 +176,14 @@ public class UI_Palette : UI_Popup
     // 물감 클릭했을 때 UI 색 변경
     public void ChangeColor(Colors color)
     {
-        Image canvasColor = canvas.GetComponent<Image>();
-        canvasColor.color = ColorManager.Instance.GetColor(color);
-       
+        redrawImg.color = ColorManager.Instance.GetColor(color);
+        canvasImg.color = ColorManager.Instance.GetColor(color);
     }
 
     // 무기 다시 그리기
     public void ReDraw(PointerEventData data)
     {
-        ColorManager.Instance.StartDrawing(redrawColor);
+        ColorManager.Instance.StartDrawing(currentColor);
         GameManager.Instance.ReDrawItemColor = Colors.def;
     }
 
