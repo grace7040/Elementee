@@ -8,11 +8,9 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: cfxr proc glow crisp ab
-  m_Shader: {fileID: -6465566751694194690, guid: 67dfcda17071f4a41be79c4049965e67,
-    type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 67dfcda17071f4a41be79c4049965e67, type: 3}
   m_ValidKeywords:
   - _CFXR_DITHERED_SHADOWS_ON
-  - _FADING_ON
   m_InvalidKeywords:
   - _CFXR_AMBIENT_LIGHTING
   - _CFXR_FWIDTH
@@ -64,7 +62,7 @@ Material:
     - _UseDissolve: 0
     - _UseFwidth: 1
     - _UseSG: 1
-    - _UseSP: 1
+    - _UseSP: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
