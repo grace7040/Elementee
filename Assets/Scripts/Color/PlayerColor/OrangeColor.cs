@@ -8,7 +8,7 @@ public class OrangeColor : IColorState
     public float JumpForce { get { return 800f; } }
     public int Damage { get { return 25; } }
     public bool WallSliding { get { return false; } }
-    public float CoolTime { get { return 2f; } }
+    public float CoolTime { get { return 7f; } }
 
     public float durationTime = 5f;
     //모래 폭풍
@@ -22,7 +22,7 @@ public class OrangeColor : IColorState
         player.orange_WeaponEffect.SetActive(true);
 
         //이동속도 up
-        //player.m_MoveSpeed = 20f;
+        player.m_MoveSpeed = 20f;
      
 
         // 지속시간
@@ -30,14 +30,14 @@ public class OrangeColor : IColorState
         {
             player.orange_WeaponEffect.SetActive(false); 
             player.gameObject.layer = 3;
-            //player.m_MoveSpeed = 10f;
+            player.m_MoveSpeed = 10f;
 
             //이동수단 down
         });
 
 
         //쿨타임 
-        player.CallOnDelay(durationTime+CoolTime, () =>
+        player.CallOnDelay(CoolTime, () =>
         {
             player.canAttack = true;
         });
