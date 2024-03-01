@@ -8,6 +8,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 using DG.Tweening;
+using TMPro;
 
 public class MonsterController : MonoBehaviour
 {
@@ -266,6 +267,13 @@ public class MonsterController : MonoBehaviour
 
         //피격 이팩트 추가
         m_sprite.DOFade(0.2f, 0.25f).SetLoops(4, LoopType.Yoyo);
+
+        //데미지 텍스트
+        var DamageText = ObjectPoolManager.Instance.GetGo("DamageText");
+        DamageText.GetComponent<TextMeshPro>().text = damage.ToString();
+        DamageText.transform.position = transform.position;
+        DamageText.transform.SetParent(this.transform);
+
 
         if (!isKnockedBack)
         {

@@ -56,7 +56,7 @@ public class UI_Game : UI_Scene
         Yellow,
         Blue,
         Attack_Cool_Time,
-        Potal,
+        PotalArrow,
     }
 
     enum Texts
@@ -165,7 +165,7 @@ public class UI_Game : UI_Scene
         hpBarMAX = hpBar.gameObject.GetComponent<RectTransform>().rect.width;
 
         // Potal
-        PotalArr_IMG = GetImage((int)Images.Potal);
+        PotalArr_IMG = GetImage((int)Images.PotalArrow);
         if(GameManager.Instance.Potal != null)
             potalVec = GameManager.Instance.Potal.transform.position;
 
