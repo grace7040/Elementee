@@ -24,8 +24,13 @@ public class ColorGround : MonoBehaviour
                 collision.gameObject.GetComponent<PlayerController>().TakeDamage(damage, this.transform.position);
             }
         }
-        
-
+        else if (collision.gameObject.CompareTag("Enemy"))
+        {
+            if (collision.gameObject.GetComponent<MonsterController>().myColor != groundColor)
+            {
+                collision.gameObject.GetComponent<MonsterController>().TakeDamage(damage, this.transform.position);
+            }
+        }
     }
 
 }

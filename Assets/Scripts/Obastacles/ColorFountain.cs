@@ -28,6 +28,13 @@ public class ColorFountain : MonoBehaviour
                 player.TakeDamage(damage, this.transform.position);
 
         }
+        else if (collision.gameObject.CompareTag("Enemy"))
+        {
+            if (collision.gameObject.GetComponent<MonsterController>().myColor != fountainColor)
+            {
+                collision.gameObject.GetComponent<MonsterController>().TakeDamage(damage, this.transform.position);
+            }
+        }
     }
 
     // ¿Ã∆Â∆Æ √ﬂ∞°

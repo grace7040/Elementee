@@ -15,7 +15,7 @@ public class MonsterController : MonoBehaviour
     #region variables
 
     public Monster monsterData;
-    Colors myColor;
+    public Colors myColor;
 
     public bool isDie = false;
 
