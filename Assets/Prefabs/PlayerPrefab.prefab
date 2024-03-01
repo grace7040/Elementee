@@ -31,7 +31,6 @@ Transform:
   - {fileID: 7904705462964304283}
   - {fileID: 5141713217506903117}
   - {fileID: 1115279004326933820}
-  - {fileID: 3153863963931878667}
   - {fileID: 9052164886905190887}
   - {fileID: 6593501756218022772}
   m_Father: {fileID: 4660076192433278}
@@ -174,6 +173,7 @@ MonoBehaviour:
   - {fileID: 8533986571667845559}
   - {fileID: 7608925706783770372}
   red_Weapon: {fileID: 1086310549815544557}
+  orange_Weapon: {fileID: 4920797071980387407}
   purple_Weapon: {fileID: 5002476609168166349}
   green_Weapon: {fileID: 669936272836410247}
   blue_Weapon: {fileID: 4656912621596376202}
@@ -16010,7 +16010,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3153863963931878667
 Transform:
   m_ObjectHideFlags: 0
@@ -16018,13 +16018,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4920797071980387407}
-  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -0.537, y: -0.236, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0.5757141, y: -0.28714284, z: 0}
+  m_LocalScale: {x: 0.42857146, y: 0.42857146, z: 0.3}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 1920087944}
-  m_RootOrder: 3
+  m_Father: {fileID: 8289671993383888045}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!212 &3258715048601368542
 SpriteRenderer:
@@ -16193,7 +16193,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1920087944}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7165747113895478536
 SpriteRenderer:
@@ -16596,7 +16596,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1920087944}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7608925706783770372
 SpriteRenderer:
@@ -16839,6 +16839,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1595102382950448701}
+  - {fileID: 3153863963931878667}
   m_Father: {fileID: 7358796680991470667}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

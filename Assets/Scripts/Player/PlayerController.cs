@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     [Header("Weapon")]
     public SpriteRenderer[] colorWeapons;
     public GameObject red_Weapon;
+    public GameObject orange_Weapon;
     public GameObject purple_Weapon;
     public GameObject green_Weapon;
     public GameObject blue_Weapon;
