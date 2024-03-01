@@ -9,6 +9,8 @@ public class GreenEffect : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             collision.GetComponent<MonsterController>().SetOnDieByGreenPlayer();
+            var greenLeafEffect = ObjectPoolManager.Instance.GetGo("GreenLeafEffect");
+            greenLeafEffect.transform.position = collision.transform.position;
         }
     }
 }
