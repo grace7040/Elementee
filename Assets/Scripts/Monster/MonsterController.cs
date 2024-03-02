@@ -9,6 +9,7 @@ using UnityEngine.AI;
 using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class MonsterController : MonoBehaviour
 {
@@ -186,7 +187,9 @@ public class MonsterController : MonoBehaviour
             }
 
             // 이동 중일 때
-            transform.position = Vector2.MoveTowards(transform.position, new Vector2(currentWaypoint.x, transform.position.y), moveSpeed * Time.deltaTime);
+            Vector2 moveDirection = new Vector2(currentWaypoint.x - transform.position.x, 0).normalized;
+            rb.velocity = moveDirection * moveSpeed;
+            //transform.position = Vector2.MoveTowards(transform.position, new Vector2(currentWaypoint.x, transform.position.y), moveSpeed * Time.deltaTime);
 
             if (myColor != Colors.def)
             {
