@@ -129,8 +129,8 @@ public class ColorManager : Singleton<ColorManager>
             case Colors.yellow:
                 hasYellow = false;
                 player.canAttack = false;
-                player.yellow_WeaponEffect.SetActive(true);
                 SetColorState(new YellowColor());
+                player.yellow_WeaponEffect.SetActive(true);
                 break;
             case Colors.blue:
                 hasBlue = false;
@@ -179,6 +179,7 @@ public class ColorManager : Singleton<ColorManager>
     {
         player.Color = _color;
         player.red_Weapon.SetActive(false);
+        player.yellow_WeaponEffect.SetActive(false);
         player.purple_Weapon.SetActive(false);
         player.green_Weapon.SetActive(false);
         player.blue_Weapon.SetActive(false);
