@@ -11,13 +11,12 @@ public class M_Yellow : MonsterController
     {
         base.Update();
         if (isDie) return;
-        if (distanceX <= detectionRange && distanceY <= 1.0f)
+        if (distanceX <= detectionRange)
         {
             // Attack
-            if (distanceX <= attackRange && distanceY <= 1.0f)
+            if (distanceX <= attackRange)
             {
-                if (!CheckGround()) { }
-                else
+                if (CheckGround())
                 {
                     animator.SetBool("IsWalking", false);
 

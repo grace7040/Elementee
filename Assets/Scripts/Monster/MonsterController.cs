@@ -111,6 +111,8 @@ public class MonsterController : MonoBehaviour
     {
         if (isDie) return;
 
+        //if (myColor == Colors.def) waypointDirection = currentWaypoint.x - transform.position.x;
+        //else waypointDirection = currentWaypoint.x - transform.position.x;
         waypointDirection = currentWaypoint.x - transform.position.x;
         distanceX = Mathf.Abs(transform.position.x - player.position.x);
         distanceY = Mathf.Abs(transform.position.y - player.position.y);
@@ -129,14 +131,15 @@ public class MonsterController : MonoBehaviour
             timer = 0.0f;
         }
 
-        if (currentWaypoint != null && !isKnockedBack) {
+        if (currentWaypoint != null && !isKnockedBack)
+        {
             MoveTowardsWaypoint();
         }
     }
     protected void SetWaypoints()
     {
         // 무시할 Layer 설정
-        LayerMask ignoreLayers = LayerMask.GetMask("m_self", "Player", "DectectArea", "TransparentFX");
+        LayerMask ignoreLayers = LayerMask.GetMask("Monster", "Player", "TransparentFX");
 
         float raycastDistance = moveRange;
         float backstepDistance = 1.0f; // Collider 크기 반영
@@ -214,7 +217,7 @@ public class MonsterController : MonoBehaviour
                 if (Random.value < 0.3 * Time.deltaTime)
                 {
                     // 정지할 시간을 랜덤으로 설정
-                    stopTime = Random.Range(0.2f, 1.0f); // TOCHANGE
+                    stopTime = Random.Range(0.4f, 1.0f); // TOCHANGE
                     isStopping = true;
                     canMove = false;
                     timeSinceLastStop = 0;
