@@ -51,7 +51,7 @@ public class MonsterController : MonoBehaviour
     protected bool canMove = true; // 움직일 수 있는지 여부
     protected int direction = -1; // 초기 방향 설정 (1이면 오른쪽, -1이면 왼쪽)
     protected float timer = 0.0f; // 타이머 변수
-    protected float interval = 5.0f; // 호출 간격
+    protected float interval = 1.0f; // 호출 간격
 
     // 넉백
     protected bool isKnockedBack = false;
@@ -75,9 +75,11 @@ public class MonsterController : MonoBehaviour
 
     protected bool isFlip = false;
     protected bool canflip = true;
+    protected bool isGrounded = true;
     #endregion
 
     protected Vector2 dir;
+    protected GameObject playerobj;
 
     protected void Awake()
     {
@@ -92,7 +94,10 @@ public class MonsterController : MonoBehaviour
     protected void Start()
     {
         if(player == null)
-            player = GameObject.FindGameObjectWithTag("Player").transform;
+        {
+            playerobj = GameObject.FindGameObjectWithTag("Player");
+            player = playerobj.transform;
+        }
 
         m_sprite = GetComponentInChildren<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
@@ -111,6 +116,8 @@ public class MonsterController : MonoBehaviour
     protected void Update()
     {
         if (isDie) return;
+
+        isGrounded = playerobj.GetComponent<PlayerController>().m_Grounded;
 
         waypointDirection = currentWaypoint.x - transform.position.x;
         distanceX = Mathf.Abs(transform.position.x - player.position.x);
@@ -249,11 +256,10 @@ public class MonsterController : MonoBehaviour
     protected bool CheckGround()
     {
         float raycastDistance = 0.8f; // 바닥과의 간격 설정
-        LayerMask groundLayer = 1<<0; // To change
 
         // 몬스터 아래에 레이캐스트를 쏘아 발판이 있는지 확인
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, raycastDistance, groundLayer);
-        // Debug.DrawRay(transform.position, Vector2.down * raycastDistance, UnityEngine.Color.red);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, raycastDistance, 1 << 0);
+        // UnityEngine.Debug.DrawRay(transform.position, Vector2.down * raycastDistance, UnityEngine.Color.red);
 
         // 발판이 없다면 추락
         if (hit.collider == null)
@@ -322,7 +328,6 @@ public class MonsterController : MonoBehaviour
 
         animator.enabled = false;
         gameObject.GetComponent<CapsuleCollider2D>().isTrigger = true;
-        //this.enabled = false;
 
         // 서서히 사라지게 하기
         m_sprite.DOFade(0, 2.5f);
@@ -336,13 +341,10 @@ public class MonsterController : MonoBehaviour
         canAttack = false;
         canflip = false;
         rb.velocity = Vector2.zero;
-        //animator.SetBool("IsAttacking", true);
-        //currentWaypoint = player.position;
         dir = (player.position - transform.position);
         yield return new WaitForSeconds(1.2f);
         animator.SetBool("IsAttacking", true);
         StartCoroutine(ChargeForDuration(0.4f));
-        //gameObject.GetComponent<Animator>().SetBool("IsAttacking", true);
     }
 
     IEnumerator ChargeForDuration(float duration)
@@ -360,7 +362,6 @@ public class MonsterController : MonoBehaviour
             yield return null;
         }
         yield return new WaitForSeconds(1.0f);
-        print(canflip);
         animator.SetBool("IsAttacking", false);
         canAttack = true;
         canflip = true;

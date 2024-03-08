@@ -91,7 +91,7 @@ public class PlayerController : MonoBehaviour
 
     private float jumpForce;                          // Amount of force added when the player jumps.
 
-    private bool m_Grounded;
+    public bool m_Grounded;
     const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
 
     private bool m_IsWall = false; //If there is a wall in front of the player

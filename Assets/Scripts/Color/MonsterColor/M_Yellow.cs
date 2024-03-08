@@ -6,15 +6,16 @@ public class M_Yellow : MonsterController
 {
     public GameObject voltObject;
 
-    // Update is called once per frame
     void Update()
     {
         base.Update();
         if (isDie) return;
-        if (distanceX <= detectionRange)
+
+        print(distanceY);
+        if (distanceX <= detectionRange && distanceY <= 1.0f)
         {
             // Attack
-            if (distanceX <= attackRange)
+            if (distanceX <= attackRange && distanceY <= 1.0f)
             {
                 if (CheckGround())
                 {
@@ -52,7 +53,20 @@ public class M_Yellow : MonsterController
             }
         }
         else
-            if (canAttack) Move();
+        {
+            if (!CheckGround())
+            {
+                rb.velocity += Time.deltaTime * Vector2.down;
+            }
+            else
+            {
+                if (!isGrounded && distanceX <= detectionRange) currentWaypoint = player.position;
+                else
+                {
+                    if (canAttack) Move();
+                }
+            }
+        }
     }
 
     void Attack()
