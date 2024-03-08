@@ -19,6 +19,7 @@ public class M_Yellow : MonsterController
                 if (CheckGround())
                 {
                     animator.SetBool("IsWalking", false);
+                    currentWaypoint = player.position;
 
                     if (canAttack)
                     {
@@ -39,25 +40,24 @@ public class M_Yellow : MonsterController
                     if (canAttack)
                     {
                         currentWaypoint = player.position;
+
                         // Move
                         animator.SetBool("IsWalking", true);
-                        Vector2 moveDirection = new Vector2(player.position.x - transform.position.x, 0).normalized;
+                        Vector2 moveDirection = (player.position - transform.position);
+                        moveDirection.y = 0;
+                        moveDirection.Normalize();
                         rb.velocity = moveDirection * moveSpeed;
                     }
                 }
             }
         }
         else
-            Move();
+            if (canAttack) Move();
     }
 
     void Attack()
     {
         voltObject.SetActive(true);
         this.CallOnDelay(1f, () => { voltObject.SetActive(false); });
-        //GameObject volt = ObjectPoolManager.Instance.GetGo("Volt");
-        //Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        //volt.transform.SetParent(rb.transform);
-        //volt.transform.localPosition = Vector3.zero;
     }
 }

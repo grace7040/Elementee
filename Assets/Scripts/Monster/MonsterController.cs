@@ -74,9 +74,10 @@ public class MonsterController : MonoBehaviour
     public Transform monsterBody;
 
     protected bool isFlip = false;
+    protected bool canflip = true;
     #endregion
 
-
+    protected Vector2 dir;
 
     protected void Awake()
     {
@@ -111,14 +112,12 @@ public class MonsterController : MonoBehaviour
     {
         if (isDie) return;
 
-        //if (myColor == Colors.def) waypointDirection = currentWaypoint.x - transform.position.x;
-        //else waypointDirection = currentWaypoint.x - transform.position.x;
         waypointDirection = currentWaypoint.x - transform.position.x;
         distanceX = Mathf.Abs(transform.position.x - player.position.x);
         distanceY = Mathf.Abs(transform.position.y - player.position.y);
 
         isFlip = waypointDirection < 0f;
-        monsterBody.rotation = isFlip ? Quaternion.identity : flipQuaternion;
+        if (canflip) monsterBody.rotation = isFlip ? Quaternion.identity : flipQuaternion;
     }
 
     protected void Move()
@@ -335,8 +334,11 @@ public class MonsterController : MonoBehaviour
     protected IEnumerator ChargeAfterDelay()
     {
         canAttack = false;
+        canflip = false;
         rb.velocity = Vector2.zero;
         //animator.SetBool("IsAttacking", true);
+        //currentWaypoint = player.position;
+        dir = (player.position - transform.position);
         yield return new WaitForSeconds(1.2f);
         animator.SetBool("IsAttacking", true);
         StartCoroutine(ChargeForDuration(0.4f));
@@ -347,22 +349,21 @@ public class MonsterController : MonoBehaviour
     {
         float startTime = Time.time;
 
-        //canflip = false;
-        Vector2 direction = (player.position - transform.position);
-        direction.y = 0;
-        direction.Normalize();
-
+        dir.y = 0;
+        dir.Normalize();
 
         while (Time.time - startTime < duration)
         {
-            Vector2 movement = 7f * Time.deltaTime * direction;
+            Vector2 movement = 7f * Time.deltaTime * dir;
             transform.Translate(movement);
 
             yield return null;
         }
         yield return new WaitForSeconds(1.0f);
+        print(canflip);
         animator.SetBool("IsAttacking", false);
         canAttack = true;
+        canflip = true;
     }
 
     protected void OnTriggerEnter2D(Collider2D other)
