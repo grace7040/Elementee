@@ -4,11 +4,18 @@ using UnityEngine;
 
 public class M_Default : MonsterController
 {
-    // Update is called once per frame
     void Update()
     {
         base.Update();
         if (isDie) return;
-        Move();
+
+        if (!CheckGround())
+        {
+            rb.velocity += Time.deltaTime * Vector2.down;
+        }
+        else
+        {
+            Move();
+        }
     }
 }

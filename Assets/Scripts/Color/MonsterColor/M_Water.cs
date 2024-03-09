@@ -12,11 +12,7 @@ public class M_Water : PoolAble
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        // 방향 처리 필요
-        //direction = GameObject.FindGameObjectWithTag("Player").transform.position - gameObject.transform.position;
-        //Destroy(gameObject, 2.0f);
-        
+        rb = GetComponent<Rigidbody2D>();     
     }
 
     private void OnEnable()
@@ -26,24 +22,13 @@ public class M_Water : PoolAble
     }
     private void FixedUpdate()
     {
-        //direction.y = 0;
         rb.velocity = direction.normalized * speed;
     }
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    if (collision.gameObject.CompareTag("Map"))
-    //    {
-    //        //Destroy(gameObject);
-    //        m_isReleased = true;
-    //        ReleaseObject();
-    //    }
-    //}
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Map") || collision.gameObject.CompareTag("Player"))
         {
-            //Destroy(gameObject);
             m_isReleased = true;
             ReleaseObject();
         }

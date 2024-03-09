@@ -123,12 +123,7 @@ public class MonsterController : MonoBehaviour
         distanceX = Mathf.Abs(transform.position.x - player.position.x);
         distanceY = Mathf.Abs(transform.position.y - player.position.y);
 
-        print(waypoint_L);
-        print(waypoint_R);
-        print(currentWaypoint.x);
-        print(transform.position.x);
         isFlip = waypointDirection < 0f;
-        print(isFlip);
         if (canflip) monsterBody.rotation = isFlip ? Quaternion.identity : flipQuaternion;
     }
 
@@ -203,7 +198,6 @@ public class MonsterController : MonoBehaviour
             // 이동 중일 때
             Vector2 moveDirection = new Vector2(currentWaypoint.x - transform.position.x, 0).normalized;
             rb.velocity = moveDirection * moveSpeed;
-            //transform.position = Vector2.MoveTowards(transform.position, new Vector2(currentWaypoint.x, transform.position.y), moveSpeed * Time.deltaTime);
 
             if (myColor != Colors.def)
             {
@@ -416,7 +410,6 @@ public class MonsterController : MonoBehaviour
 
         while (timer < duration)
         {
-            // deltaTime 대신 Time.fixedDeltaTime 사용
             rb.AddForce(force * Time.fixedDeltaTime * direction, ForceMode2D.Impulse);
 
             timer += Time.fixedDeltaTime;

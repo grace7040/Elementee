@@ -80,7 +80,6 @@ public class M_Blue : MonsterController
 
     void Attack()
     {
-        //Water = Instantiate(Resources.Load("Monster/Waters"), transform.position, Quaternion.identity) as GameObject;
         Water = ObjectPoolManager.Instance.GetGo("MonsterWater");
         Water.transform.position = transform.position;
         Water.GetComponent<M_Water>().direction = isFlip ? new Vector3(-1, 0,0): new Vector3(1, 0, 0);
