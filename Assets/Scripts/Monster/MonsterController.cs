@@ -51,7 +51,7 @@ public class MonsterController : MonoBehaviour
     protected bool canMove = true; // 움직일 수 있는지 여부
     protected int direction = -1; // 초기 방향 설정 (1이면 오른쪽, -1이면 왼쪽)
     protected float timer = 0.0f; // 타이머 변수
-    protected float interval = 1.0f; // 호출 간격
+    protected float interval = 0.5f; // 호출 간격
 
     // 넉백
     protected bool isKnockedBack = false;
@@ -123,7 +123,12 @@ public class MonsterController : MonoBehaviour
         distanceX = Mathf.Abs(transform.position.x - player.position.x);
         distanceY = Mathf.Abs(transform.position.y - player.position.y);
 
+        print(waypoint_L);
+        print(waypoint_R);
+        print(currentWaypoint.x);
+        print(transform.position.x);
         isFlip = waypointDirection < 0f;
+        print(isFlip);
         if (canflip) monsterBody.rotation = isFlip ? Quaternion.identity : flipQuaternion;
     }
 
@@ -212,7 +217,7 @@ public class MonsterController : MonoBehaviour
             }
 
             // 목적지 도착 여부 확인
-            if (Vector2.Distance(transform.position, currentWaypoint) < 0.1f)
+            if (Vector2.Distance(transform.position, currentWaypoint) < 0.2f)
             {
                 SetNextWaypoint();
             }
@@ -248,6 +253,7 @@ public class MonsterController : MonoBehaviour
 
     private void SetNextWaypoint()
     {
+        print("next");
         direction *= -1;
         if (isFlip) currentWaypoint = waypoint_R;
         else currentWaypoint = waypoint_L;
