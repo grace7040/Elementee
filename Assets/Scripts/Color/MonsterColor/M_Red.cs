@@ -10,6 +10,7 @@ public class M_Red : MonsterController
     {
         base.Update();
         if (isDie) return;
+
         if (distanceX <= detectionRange && distanceY <= 1.0f)
         {
             // Attack
@@ -19,24 +20,19 @@ public class M_Red : MonsterController
                 {
                     if (canAttack)
                     {
-                        animator.SetBool("IsWalking", false);
                         rb.velocity = Vector2.zero;
+                        animator.SetBool("IsWalking", false);
                         animator.SetBool("IsAttacking", true);
                         Attack();
 
-                        //StartCoroutine(AttackCooldown_R());
                         canAttack = false;
-                        //canflip = false;
-                        rb.velocity = Vector2.zero;
+                        canflip = false;
 
                         this.CallOnDelay(2f, () => {
                             animator.SetBool("IsAttacking", false);
                             canAttack = true;
+                            canflip = true;
                         });
-                        //yield return new WaitForSeconds(2.0f);
-                        //animator.SetBool("IsAttacking", false);
-                        //canAttack = true;
-                        //canflip = true;
                     }
                 }
             }
@@ -53,14 +49,29 @@ public class M_Red : MonsterController
                         currentWaypoint = player.position;
                         // Move
                         animator.SetBool("IsWalking", true);
-                        Vector2 moveDirection = new Vector2(player.position.x - transform.position.x, 0).normalized;
+                        Vector2 moveDirection = (player.position - transform.position);
+                        moveDirection.y = 0;
+                        moveDirection.Normalize();
                         rb.velocity = moveDirection * moveSpeed;
                     }
                 }
             }
         }
-        else 
-            Move();
+        else
+        {
+            if (!CheckGround())
+            {
+                rb.velocity += Time.deltaTime * Vector2.down;
+            }
+            else
+            {
+                if (!isGrounded && distanceX <= detectionRange) currentWaypoint = player.position;
+                else
+                {
+                    if (canAttack) Move();
+                }
+            }
+        }
     }
 
     void Attack()

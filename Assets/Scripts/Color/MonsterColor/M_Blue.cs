@@ -15,31 +15,28 @@ public class M_Blue : MonsterController
             // Attack
             if (distanceX <= attackRange && distanceY <= 1.0f)
             {
-                if (!CheckGround()) { }
-                else
+                if (CheckGround())
                 {
                     if (canAttack)
                     {
-                        animator.SetBool("IsWalking", false);
                         rb.velocity = Vector2.zero;
+                        animator.SetBool("IsWalking", false);
                         animator.SetBool("IsAttacking", true);
+
                         this.CallOnDelay(1f, () => {
                             animator.SetBool("IsAttacking", true);
                             Attack();
                         });
-                        //StartCoroutine(AttackCooldown_B());
 
                         canAttack = false;
-                        //canflip = false;
-                        rb.velocity = Vector2.zero;
+                        canflip = false;
 
                         this.CallOnDelay(3f, () =>
                         {
                             animator.SetBool("IsAttacking", false);
                             canAttack = true;
+                            canflip = true;
                         });
-                        //yield return new WaitForSeconds(3.0f);
-                        
                     }
                 }
             }
@@ -56,23 +53,36 @@ public class M_Blue : MonsterController
                         currentWaypoint = player.position;
                         // Move
                         animator.SetBool("IsWalking", true);
-                        Vector2 moveDirection = new Vector2(player.position.x - transform.position.x, 0).normalized;
+                        Vector2 moveDirection = (player.position - transform.position);
+                        moveDirection.y = 0;
+                        moveDirection.Normalize();
                         rb.velocity = moveDirection * moveSpeed;
                     }
                 }
             }
         }
         else
-            Move();
+        {
+            if (!CheckGround())
+            {
+                rb.velocity += Time.deltaTime * Vector2.down;
+            }
+            else
+            {
+                if (!isGrounded && distanceX <= detectionRange) currentWaypoint = player.position;
+                else
+                {
+                    if (canAttack) Move();
+                }
+            }
+        }
     }
 
     void Attack()
     {
-
         //Water = Instantiate(Resources.Load("Monster/Waters"), transform.position, Quaternion.identity) as GameObject;
         Water = ObjectPoolManager.Instance.GetGo("MonsterWater");
         Water.transform.position = transform.position;
         Water.GetComponent<M_Water>().direction = isFlip ? new Vector3(-1, 0,0): new Vector3(1, 0, 0);
-
     }
 }

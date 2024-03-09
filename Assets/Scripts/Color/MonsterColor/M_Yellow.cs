@@ -11,7 +11,6 @@ public class M_Yellow : MonsterController
         base.Update();
         if (isDie) return;
 
-        print(distanceY);
         if (distanceX <= detectionRange && distanceY <= 1.0f)
         {
             // Attack

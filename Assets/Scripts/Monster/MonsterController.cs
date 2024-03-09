@@ -324,8 +324,6 @@ public class MonsterController : MonoBehaviour
                 break;
         }
 
-        
-
         animator.enabled = false;
         gameObject.GetComponent<CapsuleCollider2D>().isTrigger = true;
 
