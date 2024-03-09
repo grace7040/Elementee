@@ -623,8 +623,15 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            TakeDamage(collision.gameObject.GetComponent<MonsterController>().damage,
-            collision.gameObject.transform.position);
+            TakeDamage(collision.gameObject.GetComponent<MonsterController>().damage, collision.gameObject.transform.position);
+        }
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            TakeDamage(collision.gameObject.GetComponent<MonsterController>().damage, collision.gameObject.transform.position);
         }
     }
 
@@ -668,7 +675,6 @@ public class PlayerController : MonoBehaviour
             Destroy(collision.gameObject, 0.1f);
         }
     }
-
     public void RopeOut()
     {
         if (!isRope) return;
