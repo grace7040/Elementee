@@ -117,7 +117,7 @@ public class MonsterController : MonoBehaviour
     {
         if (isDie) return;
 
-        isGrounded = playerobj.GetComponent<PlayerController>().m_Grounded;
+        if (playerobj != null) isGrounded = playerobj.GetComponent<PlayerController>().m_Grounded;
 
         waypointDirection = currentWaypoint.x - transform.position.x;
         distanceX = Mathf.Abs(transform.position.x - player.position.x);
@@ -247,7 +247,6 @@ public class MonsterController : MonoBehaviour
 
     private void SetNextWaypoint()
     {
-        print("next");
         direction *= -1;
         if (isFlip) currentWaypoint = waypoint_R;
         else currentWaypoint = waypoint_L;
