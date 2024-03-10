@@ -71,6 +71,7 @@ public class M_Yellow : MonsterController
     void Attack()
     {
         voltObject.SetActive(true);
-        this.CallOnDelay(1f, () => { voltObject.SetActive(false); });
+        if (isDie) { voltObject.SetActive(false); print("stop"); }
+        else this.CallOnDelay(5f, () => { voltObject.SetActive(false); print("Hi"); });
     }
 }

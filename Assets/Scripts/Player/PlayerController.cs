@@ -311,6 +311,7 @@ public class PlayerController : MonoBehaviour
                 Enemy = closestEnemy.gameObject;
 
                 //closestEnemy.GetComponent<Animator>().enabled = false;
+                closestEnemy.GetComponent<MonsterController>().isDie = true;
                 closestEnemy.GetComponent<MonsterController>().enabled = false;
                 closestEnemy.GetComponent<Rigidbody2D>().mass = 0.0f;
                 closestEnemy.GetComponent<Rigidbody2D>().gravityScale = 0.0f;
