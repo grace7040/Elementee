@@ -19,6 +19,7 @@ public class Generator : MonoBehaviour
     private void Start()
     {
         CountTxt.text = count.ToString();
+        NameTxt.text = objectName;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
