@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4773335675795415723}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.37, y: -3.62, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.4938861, y: 0.4938861, z: 0.4938861}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -128,6 +128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doorColor: 0
+  boxcollider: {fileID: 0}
   force: 30
 --- !u!95 &2043989292988077246
 Animator:
