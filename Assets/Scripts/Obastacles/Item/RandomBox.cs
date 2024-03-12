@@ -25,9 +25,9 @@ public class RandomBox : MonoBehaviour
 
             anim.Play("RandomBox", -1, 0f);
 
-            this.CallOnDelay(1.5f, () => { 
+            this.CallOnDelay(1f, () => { 
                 Instantiate(randomObjects[randomIdx], transform.position, Quaternion.identity, this.transform.parent);
-                Destroy(gameObject);
+                Destroy(gameObject, 0.5f);
             });
         }
     }

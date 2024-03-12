@@ -6,7 +6,7 @@ public class GoalPost : MonoBehaviour
 {
     Rigidbody2D rigid;
     FrictionJoint2D  fj;
-    public GameObject star;
+    public GameObject obj;
     private void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -21,7 +21,7 @@ public class GoalPost : MonoBehaviour
             fj.maxForce = 100;
             fj.maxTorque = 5;
             collision.GetComponent<CapsuleCollider2D>().isTrigger = true;
-            star.SetActive(true);
+            Instantiate(obj, transform);
         }
     }
 }
