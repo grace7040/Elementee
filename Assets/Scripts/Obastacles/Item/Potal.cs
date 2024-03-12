@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Potal : MonoBehaviour
 {
-    // Start is called before the first frame update
+    // Start is called before the first frame update\
+    bool IsClear = false;
     void Awake()
     {
         GameManager.Instance.Potal = this.gameObject;
@@ -13,13 +14,17 @@ public class Potal : MonoBehaviour
     // Update is called once per frame
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (!IsClear)
         {
-            // Sound
-            AudioManager.Instacne.PlaySFX("Star");
-            
-            Invoke("EndGame", 2f);
+            if (collision.CompareTag("Player"))
+            {
+                // Sound
+                AudioManager.Instacne.PlaySFX("Star");
+                IsClear = true;
+                Invoke("EndGame", 2f);
+            }
         }
+        
     }
 
     public void EndGame()

@@ -17,7 +17,7 @@ public class OB_JumpPlatform : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // 플레이어와 발판의 충돌을 확인합니다.
-        if (collision.gameObject.CompareTag("Player"))
+        //if (collision.gameObject.CompareTag("Player"))
         {
             // Debug.Log(jumpVector);
             Rigidbody2D playerRigidbody = collision.gameObject.GetComponent<Rigidbody2D>();
@@ -28,7 +28,7 @@ public class OB_JumpPlatform : MonoBehaviour
                 //Vector2 upDirection = transform.TransformDirection(Vector2.up);
                 //upDirection = upDirection.normalized;
                 //collision.rigidbody.AddForce(upDirection * jumpVector.magnitude, ForceMode2D.Impulse);
-                playerRigidbody.velocity = Vector2.zero;
+                playerRigidbody.velocity = jumpVector;// Vector2.zero;
                 collision.rigidbody.AddForce(jumpVector, ForceMode2D.Impulse);
             }
 
