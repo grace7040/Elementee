@@ -326,6 +326,9 @@ public class MonsterController : MonoBehaviour
         animator.enabled = false;
         gameObject.GetComponent<CapsuleCollider2D>().isTrigger = true;
 
+        OnDie?.Invoke();
+
+
         // 서서히 사라지게 하기
         m_sprite.DOFade(0, 2.5f);
         hpBarBG.DOFade(0, 2f);
@@ -443,8 +446,4 @@ public class MonsterController : MonoBehaviour
         OnDie = OnDieByGreenPlayer;
     }
 
-    protected void OnDestroy()
-    {
-        OnDie?.Invoke();
-    }
 }
