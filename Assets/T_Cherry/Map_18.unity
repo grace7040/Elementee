@@ -3049,6 +3049,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1640248988}
     m_Modifications:
+    - target: {fileID: 173000791303541774, guid: b363420604914cb46b58ec4fcf1f7bca, type: 3}
+      propertyPath: m_SpriteTilingProperty.drawMode
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2603914500132307493, guid: b363420604914cb46b58ec4fcf1f7bca, type: 3}
       propertyPath: m_RootOrder
       value: 9
@@ -3056,6 +3060,10 @@ PrefabInstance:
     - target: {fileID: 2603914500132307493, guid: b363420604914cb46b58ec4fcf1f7bca, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.3592532
+      objectReference: {fileID: 0}
+    - target: {fileID: 2603914500132307493, guid: b363420604914cb46b58ec4fcf1f7bca, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2603914500132307493, guid: b363420604914cb46b58ec4fcf1f7bca, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3100,6 +3108,10 @@ PrefabInstance:
     - target: {fileID: 4169069171345943120, guid: b363420604914cb46b58ec4fcf1f7bca, type: 3}
       propertyPath: m_Name
       value: Ground  (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8128113155533727354, guid: b363420604914cb46b58ec4fcf1f7bca, type: 3}
+      propertyPath: m_DrawMode
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b363420604914cb46b58ec4fcf1f7bca, type: 3}
