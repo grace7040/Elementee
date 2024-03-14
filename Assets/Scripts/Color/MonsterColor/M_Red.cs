@@ -77,7 +77,6 @@ public class M_Red : MonsterController
     void Attack()
     {
         fireObject.SetActive(true);
-        if (isDie) fireObject.SetActive(false);
-        else this.CallOnDelay(1f, () => { fireObject.SetActive(false); });
+        this.CallOnDelay(1f, () => fireObject.SetActive(false));
     }
 }

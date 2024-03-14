@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using System.IO;
 using DG.Tweening;
+using Unity.VisualScripting;
 
 public class PlayerController : MonoBehaviour
 {
@@ -312,6 +313,8 @@ public class PlayerController : MonoBehaviour
 
                 //closestEnemy.GetComponent<Animator>().enabled = false;
                 closestEnemy.GetComponent<MonsterController>().isDie = true;
+                if (closestEnemy.GetComponent<MonsterController>().myColor == Colors.yellow) closestEnemy.GetComponent<M_Yellow>().voltObject.SetActive(false);
+                else if (closestEnemy.GetComponent<MonsterController>().myColor == Colors.red) closestEnemy.GetComponent<M_Red>().fireObject.SetActive(false);
                 closestEnemy.GetComponent<MonsterController>().enabled = false;
                 closestEnemy.GetComponent<Rigidbody2D>().mass = 0.0f;
                 closestEnemy.GetComponent<Rigidbody2D>().gravityScale = 0.0f;

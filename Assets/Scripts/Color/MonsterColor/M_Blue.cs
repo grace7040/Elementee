@@ -23,10 +23,7 @@ public class M_Blue : MonsterController
                         animator.SetBool("IsWalking", false);
                         animator.SetBool("IsAttacking", true);
 
-                        this.CallOnDelay(1f, () => {
-                            //animator.SetBool("IsAttacking", true);
-                            if (!isDie) Attack();
-                        });
+                        this.CallOnDelay(1f, () => { if (!isDie) Attack(); });
 
                         canAttack = false;
                         canflip = false;
