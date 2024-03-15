@@ -10,6 +10,7 @@ public class UI_Game : UI_Scene
 {
     public GameObject player;
     public TextMeshProUGUI Score;
+    public TextMeshProUGUI Coin;
    // public int mapNum;
     Colors player_color = Colors.def;
 
@@ -62,6 +63,7 @@ public class UI_Game : UI_Scene
     enum Texts
     {
         StarCount,
+        CoinCount,
     }
 
     public void Start()
@@ -79,6 +81,11 @@ public class UI_Game : UI_Scene
         // º°
         int star = 10 - GameManager.Instance.starCount;
         Score.text = star + "/10";
+
+        
+        // ÄÚÀÎ
+        Coin.text = GameManager.Instance.mapCoin.ToString();
+
         //GetText((int)Texts.StarCount).text = 
     }
 

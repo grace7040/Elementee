@@ -13,6 +13,7 @@ public class GameManager : Singleton<GameManager>
     public List<int> mapFlag = new List<int>();
     public List<Vector3> yehh = new List<Vector3>();
     public int mapBest;  // 플레이 가능한 가장 큰 맵
+    public int mapCoin = 0;
 
 
     public int currentMapNum = 0;
@@ -32,6 +33,7 @@ public class GameManager : Singleton<GameManager>
     public Del SetJoystick = null;
 
     [Header("Item")]
+    public int coin;
     public Colors ReDrawItemColor = Colors.def;
 
     void Start()
@@ -69,6 +71,7 @@ public class GameManager : Singleton<GameManager>
     public void NewGame()
     {
         starCount = 0;
+        mapCoin = 0;
         ResumeGame();
         SceneManager.LoadScene("Map_0");
         DataManager.Instance.JsonClear(); // 데이터 초기화
@@ -79,6 +82,7 @@ public class GameManager : Singleton<GameManager>
     {
         ResumeGame();
         isGameOver = false;
+        mapCoin = 0;
 
         // 플레이어 피 초기화 + Color State 초기화
         playerHP = playerMAXHP;
@@ -100,6 +104,7 @@ public class GameManager : Singleton<GameManager>
     public void GameWin()
     {
         Time.timeScale = 0;
+        coin += mapCoin;
 
         // 기록 저장
         if (mapBest<=currentMapNum) // 처음 Clear한 맵일 경우
