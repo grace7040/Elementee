@@ -16,12 +16,14 @@ public class Grass : MonoBehaviour
         {
             GetComponent<Animator>().Play("MovingGrassR");
         }
-        if (col.gameObject.tag == "Player") AudioManager.Instacne.PlaySFX("GrassPass");
+        if (col.gameObject.CompareTag("Player")) AudioManager.Instacne.PlaySFX("GrassPass");
     }
 
-    public void ApplyDamage(float damage)
+    public void ApplyDamage()
     {
-        Instantiate(leafParticle, transform.position, Quaternion.identity);
+        var leaf = ObjectPoolManager.Instance.GetGo("LeafCut");
+        leaf.transform.position = transform.position;
+
         Destroy(gameObject);
     }
 }
