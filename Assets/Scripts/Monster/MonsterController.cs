@@ -51,7 +51,7 @@ public class MonsterController : MonoBehaviour
     protected bool canMove = true; // 움직일 수 있는지 여부
     protected int direction = -1; // 초기 방향 설정 (1이면 오른쪽, -1이면 왼쪽)
     protected float timer = 0.0f; // 타이머 변수
-    protected float interval = 0.5f; // 호출 간격
+    protected float interval = 5.0f; // 호출 간격
 
     // 넉백
     protected bool isKnockedBack = false;

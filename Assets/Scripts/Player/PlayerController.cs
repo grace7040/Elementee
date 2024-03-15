@@ -166,9 +166,9 @@ public class PlayerController : MonoBehaviour
         // 코인 초기화
         GameManager.Instance.mapCoin = 0;
 
-        ColorManager.Instance.HasBlue = true;
-        ColorManager.Instance.HasRed = true;
-        ColorManager.Instance.HasYellow = true;
+        //ColorManager.Instance.HasBlue = true;
+        //ColorManager.Instance.HasRed = true;
+        //ColorManager.Instance.HasYellow = true;
     }
 
     private void Update()
