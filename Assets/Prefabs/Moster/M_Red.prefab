@@ -101,6 +101,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monsterData: {fileID: 11400000, guid: fe19ed216363dde488d05453d7abcfad, type: 2}
+  myColor: 0
+  isDie: 0
   damage: 0
   animator: {fileID: 5805800743243854448}
   monsterBody: {fileID: 1195889129445914115}
@@ -218,6 +220,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1195889129445914115}
     m_Modifications:
+    - target: {fileID: 743650830032846468, guid: f3e32c5c72b2e234c84a96e6c00ed401, type: 3}
+      propertyPath: m_Size.y
+      value: 1.0181003
+      objectReference: {fileID: 0}
+    - target: {fileID: 743650830032846468, guid: f3e32c5c72b2e234c84a96e6c00ed401, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.652212
+      objectReference: {fileID: 0}
     - target: {fileID: 6523076972119063984, guid: f3e32c5c72b2e234c84a96e6c00ed401, type: 3}
       propertyPath: m_Name
       value: Fire
