@@ -50,6 +50,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
         if (null == instance)
         {
             instance = this;
+            SetColorName(Colors.def);
         }
         else
         {

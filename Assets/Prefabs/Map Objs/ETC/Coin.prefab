@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6699335644068745829}
   - component: {fileID: 6699335644068745828}
   - component: {fileID: 6699335644068745835}
-  - component: {fileID: 7001401456444734821}
   - component: {fileID: 2285667491021606514}
   m_Layer: 0
   m_Name: Coin
@@ -116,20 +115,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae8ec9bf31197b64f907ec5b242cb5d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7001401456444734821
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6699335644068745831}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4cb75487caadf094883de53abea0a0f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  centerPoint: {fileID: 6699335644068745834}
-  rotationSpeed: 60
 --- !u!50 &2285667491021606514
 Rigidbody2D:
   serializedVersion: 4
