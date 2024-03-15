@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2695474698538883632}
   - component: {fileID: 2695474698538883647}
-  - component: {fileID: 2695474698538883646}
   - component: {fileID: 2695474698538883645}
   m_Layer: 0
   m_Name: Segment
@@ -86,22 +85,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!70 &2695474698538883646
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2695474698538883644}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.78, y: 2.13}
-  m_Direction: 0
 --- !u!50 &2695474698538883645
 Rigidbody2D:
   serializedVersion: 4
@@ -1213,7 +1196,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2695474700281189060}
   - component: {fileID: 2695474700281189080}
-  - component: {fileID: 2695474700281189063}
   - component: {fileID: 2695474700281189062}
   - component: {fileID: 2695474700281189061}
   m_Layer: 0
@@ -1290,22 +1272,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!70 &2695474700281189063
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2695474700281189059}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.78, y: 2.13}
-  m_Direction: 0
 --- !u!50 &2695474700281189062
 Rigidbody2D:
   serializedVersion: 4
