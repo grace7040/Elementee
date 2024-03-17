@@ -13,26 +13,24 @@ public class UI_MainScene : UI_Scene
     {
         StartBtn,
         CustomBtn,
-
+        StoreBtn,
     }
 
     private void Start()
     {
         GameManager.Instance.isGameOver = false;
         Init();
-        //DataManager.Instance.JsonLoad();
     }
 
     public override void Init()
     {
-        base.Init(); // 📜UI_Button 의 부모인 📜UI_PopUp 의 Init() 호출
-        
+        base.Init();
 
         Bind<Button>(typeof(Buttons));
 
         GetButton((int)Buttons.StartBtn).gameObject.BindEvent(StartBtnClicked);
-      //  GetButton((int)Buttons.SettingBtn).gameObject.BindEvent(SettingBtnClicked);
         GetButton((int)Buttons.CustomBtn).gameObject.BindEvent(CustomBtnClicked);
+        GetButton((int)Buttons.StoreBtn).gameObject.BindEvent(StoreBtnClicked);
 
     }
 
@@ -47,10 +45,17 @@ public class UI_MainScene : UI_Scene
         Managers.UI.ShowPopupUI<UI_MainSetting>();
 
     }
-
     public void CustomBtnClicked(PointerEventData data)
     {
         SceneManager.LoadScene("Custom");
+        Time.timeScale = 1;
+
+        AudioManager.Instacne.PlaySFX("UiClick");
+    }
+
+    public void StoreBtnClicked(PointerEventData data)
+    {
+        SceneManager.LoadScene("Store");
         Time.timeScale = 1;
 
         AudioManager.Instacne.PlaySFX("UiClick");
