@@ -76,6 +76,7 @@ public class MonsterController : MonoBehaviour
     protected bool isFlip = false;
     protected bool canflip = true;
     protected bool isGrounded = true;
+    protected bool isOver = false;
     #endregion
 
     protected Vector2 dir;
@@ -124,18 +125,39 @@ public class MonsterController : MonoBehaviour
         distanceY = Mathf.Abs(transform.position.y - player.position.y);
 
         isFlip = waypointDirection < 0f;
+        //print(waypointDirection);
         if (canflip) monsterBody.rotation = isFlip ? Quaternion.identity : flipQuaternion;
     }
 
     protected void Move()
-    {  
-        timer += Time.deltaTime;
+    {
+        // timer += Time.deltaTime;
 
-        if (timer >= interval)
+        if (isKnockedBack)
         {
-            SetWaypoints();
-            timer = 0.0f;
+            if (CheckGround()) SetWaypoints();
+            else isOver = true;
         }
+        else
+        {
+            if (isOver)
+            {
+                SetWaypoints();
+                timer += Time.deltaTime;
+            }
+        }
+
+        //if (timer >= interval)
+        //{
+        //    isOver = false;
+        //    timer = 0.0f;
+        //}
+
+        //if (timer >= interval)
+        //{
+        //    SetWaypoints();
+        //    timer = 0.0f;
+        //}
 
         if (currentWaypoint != null && !isKnockedBack)
         {
@@ -211,7 +233,7 @@ public class MonsterController : MonoBehaviour
             }
 
             // 목적지 도착 여부 확인
-            if (Vector2.Distance(transform.position, currentWaypoint) < 0.2f)
+            if (Mathf.Abs(waypointDirection) < 0.2f)
             {
                 SetNextWaypoint();
             }
@@ -247,6 +269,7 @@ public class MonsterController : MonoBehaviour
 
     private void SetNextWaypoint()
     {
+        //print("setnext");
         direction *= -1;
         if (isFlip) currentWaypoint = waypoint_R;
         else currentWaypoint = waypoint_L;
