@@ -679,7 +679,7 @@ public class PlayerController : MonoBehaviour
         else if (collision.gameObject.CompareTag("EnemyFarWeapon"))
         {
             TakeDamage(10, collision.gameObject.transform.position);
-            Destroy(collision.gameObject, 0.1f);
+            //Destroy(collision.gameObject, 0.1f);
         }
     }
     public void RopeOut()
