@@ -20,6 +20,7 @@ public class M_Blue : MonsterController
                     if (canAttack)
                     {
                         rb.velocity = Vector2.zero;
+                        currentWaypoint = player.position;
                         animator.SetBool("IsWalking", false);
                         animator.SetBool("IsAttacking", true);
 
