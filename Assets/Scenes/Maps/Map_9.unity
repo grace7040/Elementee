@@ -1408,6 +1408,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI_Game
       objectReference: {fileID: 0}
+    - target: {fileID: 2981682265872985591, guid: da33ac4f4d81e24458dcc41b75c0628d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2981682265872985595, guid: da33ac4f4d81e24458dcc41b75c0628d, type: 3}
       propertyPath: m_Camera
       value: 
@@ -2379,7 +2383,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4058981380186920901, guid: b30077d457412d74ba8a5899778b8c67, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4058981380186920901, guid: b30077d457412d74ba8a5899778b8c67, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3082,7 +3086,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1028097123
 PrefabInstance:
@@ -3338,7 +3342,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1112340022
 PrefabInstance:
@@ -3425,7 +3429,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1127149421
 Transform:
   m_ObjectHideFlags: 0
@@ -3460,7 +3464,7 @@ Transform:
   - {fileID: 877405515}
   - {fileID: 1506792960}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1161969577 stripped
 Transform:
@@ -3921,7 +3925,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1289670977
 PrefabInstance:
@@ -4257,7 +4261,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7373634730636206171, guid: 7b60c2a799d10864d9943d87d2e5d8a5, type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 7373634730636206171, guid: 7b60c2a799d10864d9943d87d2e5d8a5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4803,7 +4807,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7373634730636206171, guid: 7b60c2a799d10864d9943d87d2e5d8a5, type: 3}
       propertyPath: m_RootOrder
-      value: 16
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 7373634730636206171, guid: 7b60c2a799d10864d9943d87d2e5d8a5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5401,7 +5405,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4247873158766730032, guid: a992f63460582c745b2e09d3c8745c22, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4247873158766730032, guid: a992f63460582c745b2e09d3c8745c22, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6106,7 +6110,7 @@ BoxCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.95664316}
   m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
+    border: {x: 0.14999999, y: 0.19999999, z: 0.14999999, w: 0.19999999}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 1.75, y: 2.09}
     newSize: {x: 1.75, y: 2.09}
@@ -6132,7 +6136,7 @@ BoxCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0.81150925, y: -0.09793317}
   m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
+    border: {x: 0.14999999, y: 0.19999999, z: 0.14999999, w: 0.19999999}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 1.75, y: 2.09}
     newSize: {x: 1.75, y: 2.09}
@@ -6158,7 +6162,7 @@ BoxCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: -0.7995749, y: -0.09793317}
   m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
+    border: {x: 0.14999999, y: 0.19999999, z: 0.14999999, w: 0.19999999}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 1.75, y: 2.09}
     newSize: {x: 1.75, y: 2.09}
