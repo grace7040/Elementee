@@ -50399,6 +50399,7 @@ GameObject:
   - component: {fileID: 2783554346365561456}
   - component: {fileID: 4149040039382520253}
   - component: {fileID: 5013959115809936680}
+  - component: {fileID: 3190138248594337915}
   m_Layer: 0
   m_Name: OrangeAttackEffect
   m_TagString: WeaponOrange
@@ -50513,6 +50514,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!114 &3190138248594337915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7648603465766718409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bb24004fa75ffc44a3d6c7aad360ee2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7844493748619954878
 GameObject:
   m_ObjectHideFlags: 0
