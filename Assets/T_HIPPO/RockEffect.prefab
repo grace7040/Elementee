@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 198499209413112314}
   - component: {fileID: 199646569410326802}
   - component: {fileID: 114667553580105858}
+  - component: {fileID: -7530858008824497083}
   m_Layer: 0
-  m_Name: CFX4 Drill Air Hit (NO COLLISION)
+  m_Name: RockEffect
   m_TagString: FxTemporaire
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -189,8 +190,8 @@ ParticleSystem:
     startColor:
       serializedVersion: 2
       minMaxState: 2
-      minColor: {r: 0.54509807, g: 0.43529412, b: 0.36078432, a: 1}
-      maxColor: {r: 0.47058824, g: 0.36862746, b: 0.30980393, a: 1}
+      minColor: {r: 0.5660378, g: 0.5660378, b: 0.5660378, a: 1}
+      maxColor: {r: 0.7735849, g: 0.75534, b: 0.75534, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -252,8 +253,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.4
-      minScalar: 0.2
+      scalar: 0.6
+      minScalar: 0.4
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -460,7 +461,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    maxNumParticles: 30
+    maxNumParticles: 5
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0
@@ -883,9 +884,9 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: 0.5
-          inSlope: 1.4285715
-          outSlope: 1.4285715
+          value: 1
+          inSlope: 0
+          outSlope: 0
           tangentMode: 34
           weightedMode: 0
           inWeight: 0.33333334
@@ -4655,6 +4656,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OnlyDeactivate: 0
+--- !u!114 &-7530858008824497083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1462327970484030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52a487f53c11ba441b79869d538337df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroyTime: 0.5
 --- !u!1 &1894011419027366
 GameObject:
   m_ObjectHideFlags: 0
@@ -4842,7 +4856,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 0.6666667, b: 0.23529412, a: 0.7058824}
-      maxColor: {r: 0.4627451, g: 0.32156864, b: 0.24313726, a: 0.5882353}
+      maxColor: {r: 0.3207547, g: 0.3207547, b: 0.3207547, a: 0.5882353}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 0.8784314, b: 0.1882353, a: 0}
@@ -9328,6 +9342,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4710985079006256}
     m_Modifications:
+    - target: {fileID: 7269497557246017146, guid: ac3b4f39336a8cc4eb007087acc18460, type: 3}
+      propertyPath: InitialModule.maxNumParticles
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7269497557246017146, guid: ac3b4f39336a8cc4eb007087acc18460, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.a
+      value: 0.13333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 7269497557246017146, guid: ac3b4f39336a8cc4eb007087acc18460, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7269497557246017146, guid: ac3b4f39336a8cc4eb007087acc18460, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7269497557246017146, guid: ac3b4f39336a8cc4eb007087acc18460, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7270062536564067568, guid: ac3b4f39336a8cc4eb007087acc18460, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2971af36b69b5924fb0f74d572a91646, type: 2}
     - target: {fileID: 7360280867286287188, guid: ac3b4f39336a8cc4eb007087acc18460, type: 3}
       propertyPath: m_Name
       value: CFX4 Smoke
