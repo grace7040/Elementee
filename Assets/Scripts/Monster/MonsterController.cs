@@ -131,21 +131,21 @@ public class MonsterController : MonoBehaviour
 
     protected void Move()
     {
-        timer += Time.deltaTime;
+        // timer += Time.deltaTime;
 
-        //if (isKnockedBack)
-        //{
-        //    if (CheckGround()) SetWaypoints();
-        //    else isOver = true;
-        //}
-        //else
-        //{
-        //    if (isOver)
-
-        //        SetWaypoints();
-        //        timer += Time.deltaTime;
-        //    }
-        //}
+        if (isKnockedBack)
+        {
+            if (CheckGround()) SetWaypoints();
+            else isOver = true;
+        }
+        else
+        {
+            if (isOver)
+            {
+                SetWaypoints();
+                timer += Time.deltaTime;
+            }
+        }
 
         //if (timer >= interval)
         //{
@@ -153,11 +153,11 @@ public class MonsterController : MonoBehaviour
         //    timer = 0.0f;
         //}
 
-        if (timer >= interval)
-        {
-            SetWaypoints();
-            timer = 0.0f;
-        }
+        //if (timer >= interval)
+        //{
+        //    SetWaypoints();
+        //    timer = 0.0f;
+        //}
 
         if (currentWaypoint != null && !isKnockedBack)
         {
