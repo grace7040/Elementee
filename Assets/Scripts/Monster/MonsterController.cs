@@ -131,21 +131,21 @@ public class MonsterController : MonoBehaviour
 
     protected void Move()
     {
-        // timer += Time.deltaTime;
+        timer += Time.deltaTime;
 
-        if (isKnockedBack)
-        {
-            if (CheckGround()) SetWaypoints();
-            else isOver = true;
-        }
-        else
-        {
-            if (isOver)
-            {
-                SetWaypoints();
-                timer += Time.deltaTime;
-            }
-        }
+        //if (isKnockedBack)
+        //{
+        //    if (CheckGround()) SetWaypoints();
+        //    else isOver = true;
+        //}
+        //else
+        //{
+        //    if (isOver)
+
+        //        SetWaypoints();
+        //        timer += Time.deltaTime;
+        //    }
+        //}
 
         //if (timer >= interval)
         //{
@@ -153,11 +153,11 @@ public class MonsterController : MonoBehaviour
         //    timer = 0.0f;
         //}
 
-        //if (timer >= interval)
-        //{
-        //    SetWaypoints();
-        //    timer = 0.0f;
-        //}
+        if (timer >= interval)
+        {
+            SetWaypoints();
+            timer = 0.0f;
+        }
 
         if (currentWaypoint != null && !isKnockedBack)
         {
@@ -390,6 +390,31 @@ public class MonsterController : MonoBehaviour
         canflip = true;
     }
 
+    protected IEnumerator Electrocuted()
+    {
+        enabled = false;
+        animator.speed = 0f;
+        StartCoroutine(ShakeMonster());
+        yield return new WaitForSeconds(2.0f);
+        enabled = true;
+        animator.speed = 1f;
+    }
+
+    protected IEnumerator ShakeMonster()
+    {
+        float shakeDuration = 1.5f;
+        float shakeIntensity = 0.05f;
+
+        while (shakeDuration > 0)
+        {
+            transform.position += new Vector3(Random.Range(-shakeIntensity, shakeIntensity), 0f, 0f);
+
+            shakeDuration -= Time.deltaTime;
+
+            yield return null;
+        }
+    }
+
     protected void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Weapon"))
@@ -414,6 +439,7 @@ public class MonsterController : MonoBehaviour
         if (collision.CompareTag("WeaponYellow"))
         {
             TakeDamage(15, collision.transform.position);
+            StartCoroutine(Electrocuted());
         }
         else if(collision.CompareTag("WeaponOrange"))
         {

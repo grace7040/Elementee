@@ -10,7 +10,7 @@ public class RotateWeapon : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("rotate");
+        //Debug.Log("rotate");
         transform.RotateAround(center.transform.position, Vector3.forward, speed * Time.deltaTime);
     }
 

@@ -19,7 +19,7 @@ public class ColorManager : Singleton<ColorManager>
     [SerializeField]
     private bool hasBlue = false;
     [SerializeField]
-    private bool hasYellow = false;
+    private bool hasYellow = true;
 
     public bool HasRed
     {
