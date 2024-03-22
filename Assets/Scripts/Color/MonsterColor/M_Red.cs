@@ -21,6 +21,7 @@ public class M_Red : MonsterController
                     if (canAttack)
                     {
                         rb.velocity = Vector2.zero;
+                        currentWaypoint = player.position;
                         animator.SetBool("IsWalking", false);
                         animator.SetBool("IsAttacking", true);
                         Attack();
@@ -65,7 +66,10 @@ public class M_Red : MonsterController
             }
             else
             {
-                if (!isGrounded && distanceX <= detectionRange) currentWaypoint = player.position;
+                if (!isGrounded && distanceX <= detectionRange)
+                {
+                    currentWaypoint = player.position;
+                }
                 else
                 {
                     if (canAttack) Move();
