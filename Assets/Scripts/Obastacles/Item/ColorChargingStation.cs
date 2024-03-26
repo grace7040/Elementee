@@ -22,13 +22,16 @@ public class ColorChargingStation : MonoBehaviour
             if (isSelected)
                 return;
 
-            lock (_lock)
+            if(otherPaintObjects.Length > 0)
             {
-                isSelected = true;
-                foreach (GameObject paint in otherPaintObjects)
-                    paint.SetActive(false);
+                lock (_lock)
+                {
+                    isSelected = true;
+                    foreach (GameObject paint in otherPaintObjects)
+                        paint.SetActive(false);
+                }
             }
-               
+            
             GetComponent<BoxCollider2D>().isTrigger = true;
 
             switch (paintColor)

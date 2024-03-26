@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 462812760}
   - component: {fileID: 462812759}
   m_Layer: 0
-  m_Name: BtnTrigger
+  m_Name: Btn Pushed Pos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73,6 +73,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Door: {fileID: 6662942113884234445}
   DoorOpen: {fileID: 5979624516336040595}
+  time: 1
 --- !u!1 &72115605799968049
 GameObject:
   m_ObjectHideFlags: 0
@@ -240,7 +241,7 @@ BoxCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
+    border: {x: 0.14999999, y: 0.19999999, z: 0.14999999, w: 0.19999999}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 1.76, y: 5.83}
     newSize: {x: 1.76, y: 5.83}
@@ -354,7 +355,7 @@ BoxCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.022076584}
   m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
+    border: {x: 0.099999994, y: 0.099999994, z: 0.099999994, w: 0.19999999}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 3.26, y: 0.37}
     newSize: {x: 3.26, y: 0.37}
@@ -401,7 +402,7 @@ BoxCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.14227585}
   m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
+    border: {x: 0.099999994, y: 0.099999994, z: 0.099999994, w: 0.19999999}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 3.26, y: 0.37}
     newSize: {x: 3.26, y: 0.37}
@@ -442,7 +443,7 @@ GameObject:
   - component: {fileID: 2432057778913640162}
   - component: {fileID: 862192085}
   m_Layer: 0
-  m_Name: Btn Pushed Pos
+  m_Name: Btn Fixed Pos
   m_TagString: Untagged
   m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0

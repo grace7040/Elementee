@@ -7,7 +7,7 @@ public class BtnPushDoor : MonoBehaviour
 {
     public Transform Door;
     public Transform DoorOpen;
-
+    public float time = 1f;
     private Vector3 OriginalDoor;
 
     private bool isPush = false;
@@ -21,7 +21,7 @@ public class BtnPushDoor : MonoBehaviour
         if (collision.gameObject.CompareTag("Btn") && isPush == false)
         {
             isPush = true;
-            Door.DOMove(DoorOpen.position, 1f);
+            Door.DOMove(DoorOpen.position, time);
         }
     }
 
@@ -29,7 +29,7 @@ public class BtnPushDoor : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Btn"))
         {
-            Door.DOMove(OriginalDoor, 1f);
+            Door.DOMove(OriginalDoor, time);
             isPush = false;
         }
     }
