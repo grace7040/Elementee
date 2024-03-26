@@ -314,7 +314,7 @@ public class PlayerController : MonoBehaviour
                 heldEnemyRigidbody = closestEnemy.GetComponent<Rigidbody2D>();
                 Enemy = closestEnemy.gameObject;
 
-                //closestEnemy.GetComponent<Animator>().enabled = false;
+                // closestEnemy.GetComponent<Animator>().enabled = false;
                 closestEnemy.GetComponent<MonsterController>().isDie = true;
                 if (closestEnemy.GetComponent<MonsterController>().myColor == Colors.yellow) closestEnemy.GetComponent<M_Yellow>().voltObject.SetActive(false);
                 else if (closestEnemy.GetComponent<MonsterController>().myColor == Colors.red) closestEnemy.GetComponent<M_Red>().fireObject.SetActive(false);

@@ -2993,6 +2993,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1640248988}
     m_Modifications:
     - target: {fileID: -4150292728436705621, guid: e0b39cc86c29e03498d1ea45f70e016b, type: 3}
+      propertyPath: force
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: -4150292728436705621, guid: e0b39cc86c29e03498d1ea45f70e016b, type: 3}
       propertyPath: doorColor
       value: 2
       objectReference: {fileID: 0}
@@ -3978,6 +3982,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7967453526694144638, guid: 3cc058416b94771468623707bce31d0e, type: 3}
+      propertyPath: rightDir
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3cc058416b94771468623707bce31d0e, type: 3}
 --- !u!4 &1833102096 stripped
@@ -4188,23 +4196,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5702774561548193782, guid: 628a4fa8967da8048a6ee1648cd1db3f, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.3
+      value: 0.36432004
       objectReference: {fileID: 0}
     - target: {fileID: 5702774561548193782, guid: 628a4fa8967da8048a6ee1648cd1db3f, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.3
+      value: 0.36432004
       objectReference: {fileID: 0}
     - target: {fileID: 5702774561548193782, guid: 628a4fa8967da8048a6ee1648cd1db3f, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.3
+      value: 0.36432004
       objectReference: {fileID: 0}
     - target: {fileID: 5702774561548193782, guid: 628a4fa8967da8048a6ee1648cd1db3f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 9.7
+      value: 9.62
       objectReference: {fileID: 0}
     - target: {fileID: 5702774561548193782, guid: 628a4fa8967da8048a6ee1648cd1db3f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.2130861
+      value: 3.32
       objectReference: {fileID: 0}
     - target: {fileID: 5702774561548193782, guid: 628a4fa8967da8048a6ee1648cd1db3f, type: 3}
       propertyPath: m_LocalPosition.z
