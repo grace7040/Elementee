@@ -82,6 +82,8 @@ public class MonsterController : MonoBehaviour
     protected Vector2 dir;
     protected GameObject playerobj;
 
+    GameObject Spark;
+
     protected void Awake()
     {
         damage = monsterData.Damage;
@@ -394,6 +396,11 @@ public class MonsterController : MonoBehaviour
     {
         enabled = false;
         animator.speed = 0f;
+
+        Spark = ObjectPoolManager.Instance.GetGo("Spark");
+        Spark.transform.SetParent(transform);
+        Spark.transform.localPosition = Vector3.zero;
+
         StartCoroutine(ShakeMonster());
         yield return new WaitForSeconds(2.0f);
         enabled = true;

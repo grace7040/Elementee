@@ -2812,19 +2812,43 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3507864612459049205, guid: 28bbe6b7d4da5e54a8ffbf05f5a06aea, type: 3}
       propertyPath: objectInfos.Array.size
-      value: 15
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 3507864612459049205, guid: 28bbe6b7d4da5e54a8ffbf05f5a06aea, type: 3}
       propertyPath: objectInfos.Array.data[14].count
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3507864612459049205, guid: 28bbe6b7d4da5e54a8ffbf05f5a06aea, type: 3}
+      propertyPath: objectInfos.Array.data[15].count
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3507864612459049205, guid: 28bbe6b7d4da5e54a8ffbf05f5a06aea, type: 3}
+      propertyPath: objectInfos.Array.data[16].count
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3507864612459049205, guid: 28bbe6b7d4da5e54a8ffbf05f5a06aea, type: 3}
       propertyPath: objectInfos.Array.data[14].perfab
       value: 
       objectReference: {fileID: 1462327970484030, guid: 96bb0484cab0cd24086b1ae34242f763, type: 3}
     - target: {fileID: 3507864612459049205, guid: 28bbe6b7d4da5e54a8ffbf05f5a06aea, type: 3}
+      propertyPath: objectInfos.Array.data[15].perfab
+      value: 
+      objectReference: {fileID: 100000, guid: 6ce171f5cfe7c744bb314353681615b1, type: 3}
+    - target: {fileID: 3507864612459049205, guid: 28bbe6b7d4da5e54a8ffbf05f5a06aea, type: 3}
+      propertyPath: objectInfos.Array.data[16].perfab
+      value: 
+      objectReference: {fileID: 100000, guid: 6ce171f5cfe7c744bb314353681615b1, type: 3}
+    - target: {fileID: 3507864612459049205, guid: 28bbe6b7d4da5e54a8ffbf05f5a06aea, type: 3}
       propertyPath: objectInfos.Array.data[14].objectName
       value: Rock
+      objectReference: {fileID: 0}
+    - target: {fileID: 3507864612459049205, guid: 28bbe6b7d4da5e54a8ffbf05f5a06aea, type: 3}
+      propertyPath: objectInfos.Array.data[15].objectName
+      value: Spark
+      objectReference: {fileID: 0}
+    - target: {fileID: 3507864612459049205, guid: 28bbe6b7d4da5e54a8ffbf05f5a06aea, type: 3}
+      propertyPath: objectInfos.Array.data[16].objectName
+      value: Spark
       objectReference: {fileID: 0}
     - target: {fileID: 3507864612459049210, guid: 28bbe6b7d4da5e54a8ffbf05f5a06aea, type: 3}
       propertyPath: m_RootOrder
