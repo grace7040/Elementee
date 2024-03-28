@@ -302,6 +302,8 @@ public class MonsterController : MonoBehaviour
 
         //피격 이팩트 추가
         m_sprite.DOFade(0.2f, 0.25f).SetLoops(4, LoopType.Yoyo);
+        this.CallOnDelay(1f, () => { m_sprite.DOFade(1f, 0f); });
+        
 
         //데미지 텍스트
         var DamageText = ObjectPoolManager.Instance.GetGo("DamageText");
