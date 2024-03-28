@@ -98,7 +98,7 @@ public class MonsterController : MonoBehaviour
     {
         if(player == null)
         {
-            playerobj = GameObject.FindGameObjectWithTag("Player");
+            playerobj = GameManager.Instance.player;
             player = playerobj.transform;
         }
 

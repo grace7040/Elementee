@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
 
 public class UI_Game : UI_Scene
 {
-    public GameObject player;
+   
     public TextMeshProUGUI Score;
     public TextMeshProUGUI Coin;
    // public int mapNum;
@@ -34,6 +34,9 @@ public class UI_Game : UI_Scene
     private float attack_cool_time = 0f;
     private float attack_cool_count = 0f;
     private bool canAttack;
+    private PlayerController playerController;
+    private CharacterMove characterMove;
+    private GameObject player;
 
     //Potal
     private float angle;
@@ -69,7 +72,10 @@ public class UI_Game : UI_Scene
     public void Start()
     {
         Init();
-        ObjectManager.Instance.UI_InGame_Ready = true;
+        //ObjectManager.Instance.UI_InGame_Ready = true;
+        player = GameManager.Instance.player;
+        playerController = GameManager.Instance.player.GetComponent<PlayerController>();
+        characterMove = GameManager.Instance.player.GetComponent<CharacterMove>();
         //GameManager.Instance.currentMapNum = mapNum;
     }
 
@@ -163,9 +169,9 @@ public class UI_Game : UI_Scene
         SetPalette();
         ColorManager.Instance.OnSetColor += SetPalette;
 
-        GameManager.Instance.SetJoystick = () => {
-            FindObjectOfType<CharacterMove>().joystick = joystick;
-        };
+        //GameManager.Instance.SetJoystick = () => {
+        //    FindObjectOfType<CharacterMove>().joystick = joystick;
+        //};
 
 
         // hpBar 길이 받아두기
@@ -205,8 +211,8 @@ public class UI_Game : UI_Scene
     //공격 버튼이 눌렸을 때
     public void AttackBtnClickedDown(PointerEventData data)
     {
-        player.GetComponent<PlayerController>().AttackDown();
-        attack_cool_time = player.GetComponent<PlayerController>().coolTime;
+        playerController.AttackDown();
+        attack_cool_time = playerController.coolTime;
         attack_cool_count = attack_cool_time;
 
         GetImage((int)Images.Attack_Cool_Time).gameObject.SetActive(true);
@@ -215,27 +221,27 @@ public class UI_Game : UI_Scene
     
     public void AttackBtnClickedUp(PointerEventData data)
     {
-        player.GetComponent<PlayerController>().AttackUp();
+        playerController.AttackUp();
     }
 
     public void JumpBtnClickedDown(PointerEventData data)
     {
-        player.GetComponent<CharacterMove>().JumpDown();
+        characterMove.JumpDown();
     }
 
     public void JumpBtnClickedUp(PointerEventData data)
     {
-        player.GetComponent<CharacterMove>().JumpUp();
+        characterMove.JumpUp();
     }
 
     public void DashBtnClickedDown(PointerEventData data)
     {
-        player.GetComponent<CharacterMove>().DashDown();
+        characterMove.DashDown();
     }
 
     public void DashBtnClickedUp(PointerEventData data)
     {
-        player.GetComponent<CharacterMove>().DashUp();
+        characterMove.DashUp();
     }
 
     private void OnDestroy()
@@ -249,7 +255,7 @@ public class UI_Game : UI_Scene
         // print(player.GetComponent<PlayerController>().coolTime);
         if (canAttack)
         {
-            StartCoroutine("SkillTimeChk");
+            StartCoroutine(nameof(SkillTimeChk));
         }
 
         // Potal
@@ -273,10 +279,10 @@ public class UI_Game : UI_Scene
                 canAttack = false;
                 GetImage((int)Images.Attack_Cool_Time).gameObject.SetActive(false);
 
-                attack_cool_count = player.GetComponent<PlayerController>().coolTime;
+                attack_cool_count = playerController.coolTime;
 
             }
-            float time = attack_cool_count / player.GetComponent<PlayerController>().coolTime;
+            float time = attack_cool_count / playerController.coolTime;
             GetImage((int)Images.Attack_Cool_Time).fillAmount = time;
 
         }

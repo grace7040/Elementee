@@ -89,7 +89,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
 
         Debug.Log("오브젝트풀링 준비 완료");
         IsReady = true;
-        ObjectManager.Instance.ObjectPoolManager_Ready = true;
+        //ObjectManager.Instance.ObjectPoolManager_Ready = true;
     }
 
     // 생성

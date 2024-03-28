@@ -22,6 +22,7 @@ public class GameManager : Singleton<GameManager>
     public int starCount = 0;
 
     [Header("Player")]
+    public GameObject player;
     public Transform sponPos;
     public Colors playerColor = Colors.def;
     public Sprite playerFace;
@@ -30,15 +31,19 @@ public class GameManager : Singleton<GameManager>
     public int playerMAXHP = 200;
 
     public delegate void Del();
-    public Del SetJoystick = null;
+    //public Del SetJoystick = null;
 
     [Header("Item")]
     public int coin;
     public Colors ReDrawItemColor = Colors.def;
 
-    void Start()
+    private void Awake()
     {
         DontDestroyOnLoad(gameObject);
+        player = GameObject.FindGameObjectWithTag("Player");
+    }
+    void Start()
+    {
         //DataManager.Instance.JsonClear(); // 데이터 초기화
         DataManager.Instance.JsonLoad();
         isGameOver = false;
