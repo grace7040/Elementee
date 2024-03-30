@@ -119,7 +119,7 @@ public class PlayerController : MonoBehaviour
     private bool oldWallSlidding = false; //If player is sliding in a wall in the previous frame
     private bool canCheck = false; //For check if player is wallsliding
     //로프
-    private FixedJoint2D fixJoint;
+    public FixedJoint2D fixJoint;
     private bool isRope = false;
 
 
@@ -150,9 +150,6 @@ public class PlayerController : MonoBehaviour
 
 
         ColorManager.Instance.SetColorState(Colors.def);
-        //m_Rigidbody2D = GetComponent<Rigidbody2D>();
-        //animator = GetComponent<Animator>();
-        fixJoint = GetComponent<FixedJoint2D>();
 
         if (OnFallEvent == null) // 이건 왜하지?
             OnFallEvent = new UnityEvent();
