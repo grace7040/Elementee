@@ -19,7 +19,7 @@ public class FallingPlatform : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         
-        if(collision.gameObject.CompareTag("Player"))
+        if(collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Enemy"))
         {
             boxcollider.enabled = false;
             this.CallOnDelay(fallDelay, ()=>{ rigid0.constraints = RigidbodyConstraints2D.None; });
