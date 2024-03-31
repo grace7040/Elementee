@@ -45,7 +45,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
     }
 
 
-    private void Start()
+    private void Awake()
     {
         if (null == instance)
         {
@@ -56,6 +56,10 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
         {
             Destroy(this.gameObject);
         }
+    }
+
+    private void Start()
+    {
         Init();
     }
 
