@@ -8,7 +8,7 @@ public class ThrowableWeapon : PoolAble
     public Colors myColor;
     //public bool hasHit = false;
     public float speed = 20f;
-    bool isReleased = true;
+    private bool isReleased;
     //Rigidbody2D rigid;
     SpriteRenderer spriteRenderer;
     private void Awake()
@@ -16,6 +16,12 @@ public class ThrowableWeapon : PoolAble
         //rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = DrawManager.Instance.sprites[(int)myColor];
+    }
+
+    private void OnEnable()
+    {
+        isReleased = false;
+        this.CallOnDelay(3f, ReleaseThrowableWeapon);
     }
 
     public void SetCustomWeapon()
@@ -50,8 +56,8 @@ public class ThrowableWeapon : PoolAble
         if (!collision.CompareTag("Player"))
         {
             //Destroy(gameObject);
-            ReleaseObject();
-            isReleased = true;
+            ReleaseThrowableWeapon();
+            //isReleased = true;
         }
     }
 
@@ -64,6 +70,12 @@ public class ThrowableWeapon : PoolAble
         direction = new Vector2(playerLocalScaleX, 0);
     }
 
+    void ReleaseThrowableWeapon()
+    {
+        if (isReleased) return;
+
+        ReleaseObject();
+    }
     //void OnCollisionEnter2D(Collision2D collision)
     //{
     //    if (collision.gameObject.tag == "Enemy")
