@@ -18,9 +18,7 @@ public class UI_Shop : UI_Popup
 
     enum Buttons
     {
-        FaceBtn,
-        SoundBtn,
-        GoMainBtn,
+        Lobby,
 
     }
 
@@ -44,8 +42,13 @@ public class UI_Shop : UI_Popup
 
         Bind<Button>(typeof(Buttons));
 
-      //  GetButton((int)Buttons.FaceBtn).gameObject.BindEvent(StartFaceDrawing);
+        GetButton((int)Buttons.Lobby).gameObject.BindEvent(ToLobby);
 
+    }
+
+    public void ToLobby(PointerEventData data)
+    {
+        SceneManager.LoadScene("Lobby");
     }
 
     //public void CheckPurchaseable()
