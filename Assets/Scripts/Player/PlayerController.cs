@@ -574,7 +574,7 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Hit", true);
             //health --
             currentHealth -= damage;
-            Debug.Log($"플레이어 대미지: {damage}");
+            //Debug.Log($"플레이어 대미지: {damage}");
 
             if (currentHealth > 100)
                 currentHealth = 100;
@@ -709,7 +709,7 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator Purple_Effect_Set_Active()
     {
-        Debug.Log("Purple");
+        //Debug.Log("Purple");
         purpleEffect.SetActive(true);
         yield return new WaitForSeconds(0.5f);
         purpleEffect.SetActive(false);

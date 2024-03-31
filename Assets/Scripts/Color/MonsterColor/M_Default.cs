@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class M_Default : MonsterController
 {
-    void Update()
+    new void Update()
     {
         base.Update();
         if (isDie) return;

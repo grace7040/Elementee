@@ -426,6 +426,8 @@ public class MonsterController : MonoBehaviour
 
     protected void OnTriggerEnter2D(Collider2D other)
     {
+        if (isDie) return;
+
         if (other.CompareTag("Weapon"))
         {
             TakeDamage(other.GetComponentInParent<PlayerController>().damage, other.transform.position);
@@ -442,7 +444,7 @@ public class MonsterController : MonoBehaviour
 
     protected void OnTriggerStay2D(Collider2D collision)
     {
-        if (!canTakeDamage_RangeAttack) return;
+        if (!canTakeDamage_RangeAttack || isDie) return;
 
         canTakeDamage_RangeAttack = false;
         if (collision.CompareTag("WeaponYellow"))

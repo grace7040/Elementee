@@ -9,7 +9,7 @@ public class Test_UI : MonoBehaviour
     public GameObject hideImg; // Editor에서 Hide Image 할당
     private float hideImgFill = 1;
     private bool isUseSkill = false;
-    private float coolTime = 5;
+    //private float coolTime = 5;
     private float starTime = 1;
 
 

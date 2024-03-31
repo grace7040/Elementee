@@ -7,7 +7,7 @@ using System.IO;
 public class SaveData // ÀúÀåÇÒ µ¥ÀÌÅÍ
 {
     public List<int> mapStar = new List<int>();  // ¸Ê º° È¹µæÇÑ Star °³¼ö
-    public List<int> mapFlag = new List<int>();  // ¸Ê º° È¹µæÇÑ Star °³¼ö
+    //public List<int> mapFlag = new List<int>();  // ¸Ê º° È¹µæÇÑ Flag °³¼ö
     public int mapBest; // ÇÃ·¹ÀÌ °¡´ÉÇÑ ¸Ê Áß Best\
     public int Coin;
 }
@@ -42,7 +42,7 @@ public class DataManager : Singleton<DataManager>
                 for (int i = 0; i < saveData.mapStar.Count; i++)
                 {
                     GameManager.Instance.mapStar.Add(saveData.mapStar[i]);
-                    GameManager.Instance.mapFlag.Add(saveData.mapFlag[i]);
+                    //GameManager.Instance.mapFlag.Add(saveData.mapFlag[i]);
                 }
                 GameManager.Instance.mapBest = saveData.mapBest;
                 GameManager.Instance.coin = saveData.Coin;
@@ -61,7 +61,7 @@ public class DataManager : Singleton<DataManager>
         for (int i = 0; i < GameManager.Instance.mapStar.Count; i++)
         {
             saveData.mapStar.Add(GameManager.Instance.mapStar[i]);
-            saveData.mapFlag.Add(GameManager.Instance.mapFlag[i]);
+            //saveData.mapFlag.Add(GameManager.Instance.mapFlag[i]);
         }
         saveData.mapBest = GameManager.Instance.mapBest;
         saveData.Coin = GameManager.Instance.coin;

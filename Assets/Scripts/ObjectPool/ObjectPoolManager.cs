@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class ObjectPoolManager : Singleton<ObjectPoolManager>
+public class ObjectPoolManager : MonoBehaviour
 {
     [System.Serializable]
     private class ObjectInfo
@@ -17,7 +17,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
 
     string currentColorName = null;
     // 오브젝트풀 매니저 준비 완료표시
-    public bool IsReady { get; private set; }
+    //public bool IsReady { get; private set; }
 
     [SerializeField]
     private ObjectInfo[] objectInfos = null;
@@ -29,7 +29,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
     private Dictionary<string, IObjectPool<GameObject>> ojbectPoolDic = new Dictionary<string, IObjectPool<GameObject>>();
 
     // 오브젝트풀에서 오브젝트를 새로 생성할때 사용할 딕셔너리
-    private Dictionary<string, GameObject> goDic = new Dictionary<string, GameObject>();
+    private readonly Dictionary<string, GameObject> goDic = new Dictionary<string, GameObject>();
 
     private static ObjectPoolManager instance = null;
     public static ObjectPoolManager Instance
@@ -50,7 +50,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
         if (null == instance)
         {
             instance = this;
-            SetColorName(Colors.def);
+            //SetColorName(Colors.def);
         }
         else
         {
@@ -65,7 +65,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
 
     private void Init()
     {
-        IsReady = false;
+        //IsReady = false;
 
         for (int idx = 0; idx < objectInfos.Length; idx++)
         {
@@ -91,8 +91,8 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
             }
         }
 
-        Debug.Log("오브젝트풀링 준비 완료");
-        IsReady = true;
+        //Debug.Log("오브젝트풀링 준비 완료");
+        //IsReady = true;
         //ObjectManager.Instance.ObjectPoolManager_Ready = true;
     }
 
@@ -164,7 +164,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
         {
             case Colors.def:
                 currentColorName = "DefaultBlood";
-                Debug.Log("Blood Effect 색을 설정하세요.");
+                //Debug.Log("Blood Effect 색을 설정하세요.");
                 break;
             case Colors.red:
                 currentColorName = "RedBlood";

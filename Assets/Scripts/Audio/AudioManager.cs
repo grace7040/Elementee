@@ -88,7 +88,7 @@ public class AudioManager : MonoBehaviour
                         return;
                     }
                 }
-                Debug.Log("모든 오디오 플레이어가 재생중입니다.");
+                //Debug.Log("모든 오디오 플레이어가 재생중입니다.");
                 return;
             }
         }
@@ -130,9 +130,14 @@ public class AudioManager : MonoBehaviour
         {
             using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(dir + "/" + sfx[i].name + ".wav", AudioType.WAV))
             {
+                /* 기존코드
                 yield return www.Send();
+                if (www.isNetworkError){ Debug.Log(www.error); }
+                 */
 
-                if (www.isNetworkError)
+                yield return www.SendWebRequest();
+
+                if (www.result == UnityWebRequest.Result.ConnectionError)
                 {
                     Debug.Log(www.error);
                 }
@@ -144,8 +149,6 @@ public class AudioManager : MonoBehaviour
 
             }
         }
-        //완료했다고 알려주기. 오브젝트 매니저한테도 알려주기
-
     }
 
 

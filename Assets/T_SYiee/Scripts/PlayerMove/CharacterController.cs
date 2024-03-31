@@ -67,8 +67,8 @@ public class CharacterController : MonoBehaviour
     //-점프
     private bool canDoubleJump = true; //If player can double jump
     //-벽타기
-    private bool oldWallSlidding = false; //If player is sliding in a wall in the previous frame
-    private bool canSlide = false; //For check if player is wallsliding
+    //private bool oldWallSlidding = false; //If player is sliding in a wall in the previous frame
+    //private bool canSlide = false; //For check if player is wallsliding
 
 
     private void Awake()

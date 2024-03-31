@@ -26,9 +26,9 @@ public class CharacterController2 : MonoBehaviour
     private bool isDashing = false; //If player is dashing
     private bool m_IsWall = false; //If there is a wall in front of the player
     private bool isWallSliding = false; //If player is sliding in a wall
-    private bool oldWallSlidding = false; //If player is sliding in a wall in the previous frame
+    //private bool oldWallSlidding = false; //If player is sliding in a wall in the previous frame
     private float prevVelocityX = 0f;
-    private bool canCheck = false; //For check if player is wallsliding
+    //private bool canCheck = false; //For check if player is wallsliding
 
     public float life = 10f; //Life of the player
     public bool invincible = false; //If player can die
@@ -331,22 +331,22 @@ public class CharacterController2 : MonoBehaviour
         canMove = true;
     }
 
-    IEnumerator WaitToCheck(float time)
-    {
-        canCheck = false;
-        yield return new WaitForSeconds(time);
-        canCheck = true;
-    }
+    //IEnumerator WaitToCheck(float time)
+    //{
+    //    canCheck = false;
+    //    yield return new WaitForSeconds(time);
+    //    canCheck = true;
+    //}
 
-    IEnumerator WaitToEndSliding()
-    {
-        yield return new WaitForSeconds(0.1f);
-        canDoubleJump = true;
-        isWallSliding = false;
-        animator.SetBool("IsWallSliding", false);
-        oldWallSlidding = false;
-        m_WallCheck.localPosition = new Vector3(Mathf.Abs(m_WallCheck.localPosition.x), m_WallCheck.localPosition.y, 0);
-    }
+    //IEnumerator WaitToEndSliding()
+    //{
+    //    yield return new WaitForSeconds(0.1f);
+    //    canDoubleJump = true;
+    //    isWallSliding = false;
+    //    animator.SetBool("IsWallSliding", false);
+    //    oldWallSlidding = false;
+    //    m_WallCheck.localPosition = new Vector3(Mathf.Abs(m_WallCheck.localPosition.x), m_WallCheck.localPosition.y, 0);
+    //}
 
     IEnumerator WaitToDead()
     {

@@ -10,7 +10,7 @@ public class GameManager : Singleton<GameManager>
     [Header("GameManage")]
     // JSON 저장
     public List<int> mapStar = new List<int>();
-    public List<int> mapFlag = new List<int>();
+   // public List<int> mapFlag = new List<int>();
     public List<Vector3> yehh = new List<Vector3>();
     public int mapBest;  // 플레이 가능한 가장 큰 맵
     public int mapCoin = 0;
@@ -115,7 +115,7 @@ public class GameManager : Singleton<GameManager>
         if (mapBest<=currentMapNum) // 처음 Clear한 맵일 경우
         {
             mapStar.Add(starCount);
-            mapFlag.Add(0);
+            //mapFlag.Add(0);
             mapBest += 1;
         }
         else
@@ -123,7 +123,7 @@ public class GameManager : Singleton<GameManager>
             if (mapStar[currentMapNum] < starCount)
             {
                 mapStar[currentMapNum] = starCount;
-                mapFlag[currentMapNum] = 0;
+                //mapFlag[currentMapNum] = 0;
 
             }
         }

@@ -13,7 +13,7 @@ public class RedColor :  IColorState
     //Temporal Setting : Red Color Attack -> Throw obj
     public void Attack(PlayerController player)
     {
-        Debug.Log("Attak");
+        //Debug.Log("Attak");
         player.canAttack = false;
         player.animator.SetBool("IsRedAttacking", true);
         AudioManager.Instacne.PlaySFX("Red");

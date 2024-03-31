@@ -4,7 +4,7 @@ using UnityEngine.Pool;
 public class PoolAble : MonoBehaviour
 {
     public IObjectPool<GameObject> Pool { get; set; }
-    //bool isReleased;
+    //protected bool isReleased;
     //private void OnEnable()
     //{
     //    isReleased = false;

@@ -14,7 +14,7 @@ public class PaintBrush : MonoBehaviour
     float yCoordinate;
     RawImage rawImage;
     RenderTexture renderTexture;
-    Colors brushColor = Colors.def;
+    //Colors brushColor = Colors.def;
     public float brushSize;
     public Texture2D[] brushTextures;
     Texture2D brushTexture;

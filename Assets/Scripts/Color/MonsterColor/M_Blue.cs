@@ -6,7 +6,7 @@ public class M_Blue : MonsterController
 {
     GameObject Water;
 
-    void Update()
+    new void Update()
     {
         base.Update();
         if (isDie) return;

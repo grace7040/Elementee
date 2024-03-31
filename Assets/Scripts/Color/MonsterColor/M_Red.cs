@@ -6,7 +6,7 @@ public class M_Red : MonsterController
 {
     public GameObject fireObject;
 
-    void Update()
+    new void Update()
     {
         base.Update();
         if (isDie) return;

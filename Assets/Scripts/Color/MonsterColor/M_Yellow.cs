@@ -6,7 +6,7 @@ public class M_Yellow : MonsterController
 {
     public GameObject voltObject;
 
-    void Update()
+    new void Update()
     {
         base.Update();
         if (isDie) return;
