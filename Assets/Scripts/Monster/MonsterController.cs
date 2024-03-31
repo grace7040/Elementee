@@ -295,6 +295,7 @@ public class MonsterController : MonoBehaviour
 
     public void TakeDamage(int damage, Vector3 playerPos)
     {
+        //Debug.Log($"Monster 대미지 : {damage}");
         currentHealth -= damage;
         
         //체력바 업데이트
