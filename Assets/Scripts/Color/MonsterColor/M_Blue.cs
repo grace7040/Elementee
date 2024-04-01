@@ -10,8 +10,16 @@ public class M_Blue : MonsterController
     {
         base.Update();
         if (isDie) return;
+
         if (distanceX <= detectionRange && distanceY <= 1.0f)
         {
+            if (CheckGround())
+            {
+                if (CheckCliff())
+                {
+                    rb.velocity = Vector2.zero;
+                }
+            }
             // Attack
             if (distanceX <= attackRange && distanceY <= 1.0f)
             {
@@ -51,7 +59,7 @@ public class M_Blue : MonsterController
                         currentWaypoint = player.position;
                         // Move
                         animator.SetBool("IsWalking", true);
-                        Vector2 moveDirection = (player.position - transform.position);
+                        Vector2 moveDirection = (currentWaypoint - transform.position);
                         moveDirection.y = 0;
                         moveDirection.Normalize();
                         rb.velocity = moveDirection * moveSpeed;
@@ -67,7 +75,24 @@ public class M_Blue : MonsterController
             }
             else
             {
-                if (!isGrounded && distanceX <= detectionRange) currentWaypoint = player.position;
+                if (!isGrounded && distanceX <= detectionRange)
+                {
+                    if (CheckCliff())
+                    {
+                        rb.velocity = Vector2.zero;
+                    }
+                    else
+                    {
+                        if (canAttack)
+                        {
+                            currentWaypoint = player.position;
+                            Vector2 moveDirection = (currentWaypoint - transform.position);
+                            moveDirection.y = 0;
+                            moveDirection.Normalize();
+                            rb.velocity = moveDirection * moveSpeed;
+                        }
+                    }
+                }
                 else
                 {
                     if (canAttack) Move();

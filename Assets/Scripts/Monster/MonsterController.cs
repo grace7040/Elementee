@@ -132,13 +132,13 @@ public class MonsterController : MonoBehaviour
         isFlip = waypointDirection < 0f;
         //print(waypointDirection);
         
-        if (myColor == Colors.red)
+        if (myColor == Colors.yellow)
         {
-            monsterBody.rotation = isFlip ? Quaternion.identity : flipQuaternion;
+            if (canflip) monsterBody.rotation = isFlip ? Quaternion.identity : flipQuaternion;
         }
         else
         {
-            if (canflip) monsterBody.rotation = isFlip ? Quaternion.identity : flipQuaternion;
+            monsterBody.rotation = isFlip ? Quaternion.identity : flipQuaternion;
         }
     }
 
