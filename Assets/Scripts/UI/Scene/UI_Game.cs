@@ -9,9 +9,8 @@ using UnityEngine.EventSystems;
 public class UI_Game : UI_Scene
 {
    
-    public TextMeshProUGUI Score;
     public TextMeshProUGUI Coin;
-   // public int mapNum;
+    public List<Image> Stars = new List<Image>();
     Colors player_color = Colors.def;
 
     // Button
@@ -34,6 +33,7 @@ public class UI_Game : UI_Scene
     private float attack_cool_time = 0f;
     private float attack_cool_count = 0f;
     private bool canAttack;
+    private int starCount = 0;
     private PlayerController playerController;
     private CharacterMove characterMove;
     private GameObject player;
@@ -84,15 +84,23 @@ public class UI_Game : UI_Scene
         // 플레이어 체력바
         hpBar.fillAmount = GameManager.Instance.HPBar();
 
-        // 별
-        int star = 10 - GameManager.Instance.starCount;
-        Score.text = star + "/10";
+        // 별 개수 Update
+        if(starCount != GameManager.Instance.starCount)
+        {
+            starCount = GameManager.Instance.starCount;
+            for (int i=0; i< starCount; i++)
+            {
+                Stars[i].GetComponent<Image>().color = Color.white;
+            }
 
-        
+            //Score.text = starCount;
+        }
+
+
+
         // 코인
         Coin.text = GameManager.Instance.mapCoin.ToString();
 
-        //GetText((int)Texts.StarCount).text = 
     }
 
     public void SetPalette()
