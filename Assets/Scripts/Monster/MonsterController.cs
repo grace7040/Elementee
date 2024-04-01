@@ -16,9 +16,6 @@ public class MonsterController : MonoBehaviour
 {
     #region variables
 
-    public GameObject posobj;
-    public GameObject posobj_else;
-
     public Monster monsterData;
     public Colors myColor;
 
@@ -79,7 +76,6 @@ public class MonsterController : MonoBehaviour
     protected bool isFlip = false;
     protected bool canflip = true;
     protected bool isGrounded = true;
-    protected bool isOver = false;
     #endregion
 
     protected Vector2 dir;
@@ -146,26 +142,6 @@ public class MonsterController : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        //if (isKnockedBack)
-        //{
-        //    if (CheckGround()) SetWaypoints();
-        //    else isOver = true;
-        //}
-        //else
-        //{
-        //    if (isOver)
-        //    {
-        //        SetWaypoints();
-        //        timer += Time.deltaTime;
-        //    }
-        //}
-
-        //if (timer >= interval)
-        //{
-        //    isOver = false;
-        //    timer = 0.0f;
-        //}
-
         if (timer >= interval)
         {
             SetWaypoints();
@@ -192,13 +168,11 @@ public class MonsterController : MonoBehaviour
         if (hitLeft.collider != null)
         {
             waypoint_L = hitLeft.point - (Vector2.left * backstepDistance);
-            //Instantiate(posobj, waypoint_L, Quaternion.identity);
         }
         else
         {
             // 아무 것도 감지되지 않을 시, moveRange의 끝 지점으로 지정
             waypoint_L = new Vector3(transform.position.x - moveRange / 2, transform.position.y, transform.position.z);
-            //Instantiate(posobj, waypoint_L, Quaternion.identity);
         }
 
         // 우측 가장 가까운 물체 찾기
@@ -206,13 +180,11 @@ public class MonsterController : MonoBehaviour
         if (hitRight.collider != null)
         {
             waypoint_R = hitRight.point - (Vector2.right * backstepDistance);
-            //Instantiate(posobj, waypoint_R, Quaternion.identity);
         }
         else
         {
             // 아무 것도 감지되지 않을 시, moveRange의 끝 지점으로 지정
             waypoint_R = new Vector3(transform.position.x + moveRange / 2, transform.position.y, transform.position.z);
-            //Instantiate(posobj, waypoint_R, Quaternion.identity);
         }
     }
 
@@ -296,11 +268,11 @@ public class MonsterController : MonoBehaviour
 
     protected bool CheckGround()
     {
-        float raycastDistance = 0.8f; // 바닥과의 간격 설정
+        float raycastDistance = 1.0f; // 바닥과의 간격 설정
 
         // 몬스터 아래에 레이캐스트를 쏘아 발판이 있는지 확인
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, raycastDistance, 1 << 0);
-        // UnityEngine.Debug.DrawRay(transform.position, Vector2.down * raycastDistance, UnityEngine.Color.red);
+        //UnityEngine.Debug.DrawRay(transform.position, Vector2.down * raycastDistance, UnityEngine.Color.red);
 
         // 발판이 없다면 추락
         if (hit.collider == null)
@@ -386,7 +358,7 @@ public class MonsterController : MonoBehaviour
         canAttack = false;
         canflip = false;
         rb.velocity = Vector2.zero;
-        dir = (player.position - transform.position);
+        dir = new Vector2(waypointDirection, 0);
         yield return new WaitForSeconds(1.2f);
         animator.SetBool("IsAttacking", true);
         StartCoroutine(ChargeForDuration(0.4f));

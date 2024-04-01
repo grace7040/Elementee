@@ -59,27 +59,34 @@ public class M_Yellow : MonsterController
         }
         else
         {
-            if (!isGrounded && distanceX <= detectionRange)
+            if (!CheckGround())
             {
-                if (CheckCliff())
-                {
-                    rb.velocity = Vector2.zero;
-                }
-                else
-                {
-                    if (canAttack)
-                    {
-                        currentWaypoint = player.position;
-                        Vector2 moveDirection = (currentWaypoint - transform.position);
-                        moveDirection.y = 0;
-                        moveDirection.Normalize();
-                        rb.velocity = moveDirection * moveSpeed;
-                    }
-                }
+                rb.velocity += Time.deltaTime * Vector2.down;
             }
             else
             {
-                if (canAttack) Move();
+                if (!isGrounded && distanceX <= detectionRange)
+                {
+                    if (CheckCliff())
+                    {
+                        rb.velocity = Vector2.zero;
+                    }
+                    else
+                    {
+                        if (canAttack)
+                        {
+                            currentWaypoint = player.position;
+                            Vector2 moveDirection = (currentWaypoint - transform.position);
+                            moveDirection.y = 0;
+                            moveDirection.Normalize();
+                            rb.velocity = moveDirection * moveSpeed;
+                        }
+                    }
+                }
+                else
+                {
+                    if (canAttack) Move();
+                }
             }
         }
     }

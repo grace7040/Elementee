@@ -36,7 +36,7 @@ public class M_Red : MonsterController
                         canAttack = false;
                         canflip = false;
 
-                        this.CallOnDelay(2.0f, () => {
+                        this.CallOnDelay(1.5f, () => {
                             animator.SetBool("IsAttacking", false);
                             canAttack = true;
                             canflip = true;
@@ -102,6 +102,6 @@ public class M_Red : MonsterController
     void Attack()
     {
         fireObject.SetActive(true);
-        this.CallOnDelay(1f, () => fireObject.SetActive(false));
+        this.CallOnDelay(1.5f, () => fireObject.SetActive(false));
     }
 }
