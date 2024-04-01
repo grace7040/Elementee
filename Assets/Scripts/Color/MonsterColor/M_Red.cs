@@ -13,6 +13,13 @@ public class M_Red : MonsterController
 
         if (distanceX <= detectionRange && distanceY <= 1.0f)
         {
+            if (CheckGround())
+            {
+                if (CheckCliff())
+                {
+                    rb.velocity = Vector2.zero;
+                }
+            }
             // Attack
             if (distanceX <= attackRange && distanceY <= 1.0f)
             {
@@ -29,7 +36,7 @@ public class M_Red : MonsterController
                         canAttack = false;
                         canflip = false;
 
-                        this.CallOnDelay(2f, () => {
+                        this.CallOnDelay(2.0f, () => {
                             animator.SetBool("IsAttacking", false);
                             canAttack = true;
                             canflip = true;
@@ -50,7 +57,7 @@ public class M_Red : MonsterController
                         currentWaypoint = player.position;
                         // Move
                         animator.SetBool("IsWalking", true);
-                        Vector2 moveDirection = (player.position - transform.position);
+                        Vector2 moveDirection = (currentWaypoint - transform.position);
                         moveDirection.y = 0;
                         moveDirection.Normalize();
                         rb.velocity = moveDirection * moveSpeed;
@@ -68,7 +75,21 @@ public class M_Red : MonsterController
             {
                 if (!isGrounded && distanceX <= detectionRange)
                 {
-                    currentWaypoint = player.position;
+                    if (CheckCliff())
+                    {
+                        rb.velocity = Vector2.zero;
+                    }
+                    else
+                    {
+                        if (canAttack)
+                        {
+                            currentWaypoint = player.position;
+                            Vector2 moveDirection = (currentWaypoint - transform.position);
+                            moveDirection.y = 0;
+                            moveDirection.Normalize();
+                            rb.velocity = moveDirection * moveSpeed;
+                        }
+                    }
                 }
                 else
                 {

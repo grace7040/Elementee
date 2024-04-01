@@ -10,10 +10,14 @@ using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
 using UnityEngine.EventSystems;
+using static UnityEditor.FilePathAttribute;
 
 public class MonsterController : MonoBehaviour
 {
     #region variables
+
+    public GameObject posobj;
+    public GameObject posobj_else;
 
     public Monster monsterData;
     public Colors myColor;
@@ -44,12 +48,11 @@ public class MonsterController : MonoBehaviour
     protected Vector3 waypoint_L; // 좌측 목적지
     protected Vector3 waypoint_R; // 우측 목적지
     protected Vector3 currentWaypoint; // 현재 목적지
-    protected float moveRange = 10.0f; // 움직임 범위
+    protected float moveRange = 50.0f; // 움직임 범위
     protected float stopTime = 0; // 정지할 시간
     protected float timeSinceLastStop = 0; // 마지막으로 정지한 후 경과한 시간
     protected bool isStopping = false; // 정지 중인지 여부
     protected bool canMove = true; // 움직일 수 있는지 여부
-    protected int direction = -1; // 초기 방향 설정 (1이면 오른쪽, -1이면 왼쪽)
     protected float timer = 0.0f; // 타이머 변수
     protected float interval = 5.0f; // 호출 간격
 
@@ -128,26 +131,27 @@ public class MonsterController : MonoBehaviour
 
         isFlip = waypointDirection < 0f;
         //print(waypointDirection);
-        if (canflip) monsterBody.rotation = isFlip ? Quaternion.identity : flipQuaternion;
+        monsterBody.rotation = isFlip ? Quaternion.identity : flipQuaternion;
+        // if (canflip) monsterBody.rotation = isFlip ? Quaternion.identity : flipQuaternion;
     }
 
     protected void Move()
     {
-        // timer += Time.deltaTime;
+        timer += Time.deltaTime;
 
-        if (isKnockedBack)
-        {
-            if (CheckGround()) SetWaypoints();
-            else isOver = true;
-        }
-        else
-        {
-            if (isOver)
-            {
-                SetWaypoints();
-                timer += Time.deltaTime;
-            }
-        }
+        //if (isKnockedBack)
+        //{
+        //    if (CheckGround()) SetWaypoints();
+        //    else isOver = true;
+        //}
+        //else
+        //{
+        //    if (isOver)
+        //    {
+        //        SetWaypoints();
+        //        timer += Time.deltaTime;
+        //    }
+        //}
 
         //if (timer >= interval)
         //{
@@ -155,11 +159,11 @@ public class MonsterController : MonoBehaviour
         //    timer = 0.0f;
         //}
 
-        //if (timer >= interval)
-        //{
-        //    SetWaypoints();
-        //    timer = 0.0f;
-        //}
+        if (timer >= interval)
+        {
+            SetWaypoints();
+            timer = 0.0f;
+        }
 
         if (currentWaypoint != null && !isKnockedBack)
         {
@@ -176,14 +180,18 @@ public class MonsterController : MonoBehaviour
 
         // 좌측 가장 가까운 물체 찾기
         RaycastHit2D hitLeft = Physics2D.Raycast(transform.position, Vector2.left, raycastDistance, ~ignoreLayers);
+        //UnityEngine.Debug.DrawRay(transform.position, Vector2.down * raycastDistance, UnityEngine.Color.red);
+
         if (hitLeft.collider != null)
         {
             waypoint_L = hitLeft.point - (Vector2.left * backstepDistance);
+            Instantiate(posobj, waypoint_L, Quaternion.identity);
         }
         else
         {
             // 아무 것도 감지되지 않을 시, moveRange의 끝 지점으로 지정
             waypoint_L = new Vector3(transform.position.x - moveRange / 2, transform.position.y, transform.position.z);
+            Instantiate(posobj, waypoint_L, Quaternion.identity);
         }
 
         // 우측 가장 가까운 물체 찾기
@@ -191,11 +199,13 @@ public class MonsterController : MonoBehaviour
         if (hitRight.collider != null)
         {
             waypoint_R = hitRight.point - (Vector2.right * backstepDistance);
+            Instantiate(posobj, waypoint_R, Quaternion.identity);
         }
         else
         {
             // 아무 것도 감지되지 않을 시, moveRange의 끝 지점으로 지정
             waypoint_R = new Vector3(transform.position.x + moveRange / 2, transform.position.y, transform.position.z);
+            Instantiate(posobj, waypoint_R, Quaternion.identity);
         }
     }
 
@@ -259,11 +269,13 @@ public class MonsterController : MonoBehaviour
         }
     }
 
-    private bool CheckCliff()
+    public bool CheckCliff()
     {
         // Raycast를 사용하여 앞쪽으로 바닥 감지
-        Vector2 raycastOrigin = transform.position + (direction * Vector3.right);
+        Quaternion rotation = isFlip ? flipQuaternion : Quaternion.identity;
+        Vector2 raycastOrigin = transform.position + (rotation * Vector3.right);
         RaycastHit2D hitDown = Physics2D.Raycast(raycastOrigin, Vector2.down, 1.0f, 1 << 0); // To change
+        UnityEngine.Debug.DrawRay(raycastOrigin, Vector2.down * 1.0f, UnityEngine.Color.red);
 
         // 바닥이 감지되지 않으면 낭떠러지로 판단
         return hitDown.collider == null;
@@ -271,8 +283,6 @@ public class MonsterController : MonoBehaviour
 
     private void SetNextWaypoint()
     {
-        //print("setnext");
-        direction *= -1;
         if (isFlip) currentWaypoint = waypoint_R;
         else currentWaypoint = waypoint_L;
     }
@@ -324,7 +334,7 @@ public class MonsterController : MonoBehaviour
             damageDir += new Vector2(0, 1).normalized * 2f;
 
             // 넉백 방향으로 힘을 일정한 시간 동안 부여
-            ApplyKnockbackForce(damageDir, 10f, 0.2f);
+            ApplyKnockbackForce(damageDir, 12f, 0.3f);
         }
 
         if (currentHealth <= 0)

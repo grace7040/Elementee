@@ -13,6 +13,10 @@ public class M_Yellow : MonsterController
 
         if (distanceX <= detectionRange && distanceY <= 1.0f)
         {
+            if (CheckCliff())
+            {
+
+            }
             // Attack
             if (distanceX <= attackRange && distanceY <= 1.0f)
             {
