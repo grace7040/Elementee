@@ -13,9 +13,12 @@ public class M_Yellow : MonsterController
 
         if (distanceX <= detectionRange && distanceY <= 1.0f)
         {
-            if (CheckCliff())
+            if (CheckGround())
             {
-
+                if (CheckCliff())
+                {
+                    rb.velocity = Vector2.zero;
+                }
             }
             // Attack
             if (distanceX <= attackRange && distanceY <= 1.0f)
@@ -44,10 +47,9 @@ public class M_Yellow : MonsterController
                     if (canAttack)
                     {
                         currentWaypoint = player.position;
-
                         // Move
                         animator.SetBool("IsWalking", true);
-                        Vector2 moveDirection = (player.position - transform.position);
+                        Vector2 moveDirection = (currentWaypoint - transform.position);
                         moveDirection.y = 0;
                         moveDirection.Normalize();
                         rb.velocity = moveDirection * moveSpeed;
@@ -57,17 +59,27 @@ public class M_Yellow : MonsterController
         }
         else
         {
-            if (!CheckGround())
+            if (!isGrounded && distanceX <= detectionRange)
             {
-                rb.velocity += Time.deltaTime * Vector2.down;
+                if (CheckCliff())
+                {
+                    rb.velocity = Vector2.zero;
+                }
+                else
+                {
+                    if (canAttack)
+                    {
+                        currentWaypoint = player.position;
+                        Vector2 moveDirection = (currentWaypoint - transform.position);
+                        moveDirection.y = 0;
+                        moveDirection.Normalize();
+                        rb.velocity = moveDirection * moveSpeed;
+                    }
+                }
             }
             else
             {
-                if (!isGrounded && distanceX <= detectionRange) currentWaypoint = player.position;
-                else
-                {
-                    if (canAttack) Move();
-                }
+                if (canAttack) Move();
             }
         }
     }

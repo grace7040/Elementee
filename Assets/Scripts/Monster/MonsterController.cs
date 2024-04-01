@@ -131,8 +131,15 @@ public class MonsterController : MonoBehaviour
 
         isFlip = waypointDirection < 0f;
         //print(waypointDirection);
-        monsterBody.rotation = isFlip ? Quaternion.identity : flipQuaternion;
-        // if (canflip) monsterBody.rotation = isFlip ? Quaternion.identity : flipQuaternion;
+        
+        if (myColor == Colors.red)
+        {
+            monsterBody.rotation = isFlip ? Quaternion.identity : flipQuaternion;
+        }
+        else
+        {
+            if (canflip) monsterBody.rotation = isFlip ? Quaternion.identity : flipQuaternion;
+        }
     }
 
     protected void Move()
@@ -185,13 +192,13 @@ public class MonsterController : MonoBehaviour
         if (hitLeft.collider != null)
         {
             waypoint_L = hitLeft.point - (Vector2.left * backstepDistance);
-            Instantiate(posobj, waypoint_L, Quaternion.identity);
+            //Instantiate(posobj, waypoint_L, Quaternion.identity);
         }
         else
         {
             // 아무 것도 감지되지 않을 시, moveRange의 끝 지점으로 지정
             waypoint_L = new Vector3(transform.position.x - moveRange / 2, transform.position.y, transform.position.z);
-            Instantiate(posobj, waypoint_L, Quaternion.identity);
+            //Instantiate(posobj, waypoint_L, Quaternion.identity);
         }
 
         // 우측 가장 가까운 물체 찾기
@@ -199,13 +206,13 @@ public class MonsterController : MonoBehaviour
         if (hitRight.collider != null)
         {
             waypoint_R = hitRight.point - (Vector2.right * backstepDistance);
-            Instantiate(posobj, waypoint_R, Quaternion.identity);
+            //Instantiate(posobj, waypoint_R, Quaternion.identity);
         }
         else
         {
             // 아무 것도 감지되지 않을 시, moveRange의 끝 지점으로 지정
             waypoint_R = new Vector3(transform.position.x + moveRange / 2, transform.position.y, transform.position.z);
-            Instantiate(posobj, waypoint_R, Quaternion.identity);
+            //Instantiate(posobj, waypoint_R, Quaternion.identity);
         }
     }
 
