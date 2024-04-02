@@ -94,6 +94,7 @@ public class UI_SoundCustom : UI_Popup
         GetButton((int)Buttons.Green).gameObject.BindEvent(Green);
         GetButton((int)Buttons.Orange).gameObject.BindEvent(Orange);
         GetButton((int)Buttons.Purple).gameObject.BindEvent(Purple);
+        GetButton((int)Buttons.Black).gameObject.BindEvent(Black);
         GetButton((int)Buttons.Jump).gameObject.BindEvent(Jump);
         GetButton((int)Buttons.Dash).gameObject.BindEvent(Dash);
         GetButton((int)Buttons.Dead).gameObject.BindEvent(Dead);
@@ -217,6 +218,11 @@ public class UI_SoundCustom : UI_Popup
     public void Purple(PointerEventData data)
     {
         SetSoundObject(SoundObjects.Purple);
+    }
+
+    public void Black(PointerEventData data)
+    {
+        SetSoundObject(SoundObjects.Black);
     }
 
     public void Jump(PointerEventData data)
