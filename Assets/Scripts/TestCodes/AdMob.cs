@@ -4,9 +4,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum AdType { Revival, ReDraw }
 public class AdMob : MonoBehaviour
 {
-
+    public AdType adType;
     string adUnitId;
     RewardedAd rewardedAd;
 
@@ -53,7 +54,16 @@ public class AdMob : MonoBehaviour
 
     public void HandleRewardedAdClosed(object sender, EventArgs args) {
         Debug.Log("±¤°í Á¾·á~");
-        GameManager.Instance.Revival();
+        switch (adType)
+        {
+            case AdType.Revival:
+                GameManager.Instance.Revival();
+                break;
+            case AdType.ReDraw:
+                ColorManager.Instance.StartDrawing(GameManager.Instance.playerColor);
+                break;
+        }
+        
     }
 
     public void HandleUserEarnedReward(object sender, Reward args)

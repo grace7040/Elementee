@@ -35,6 +35,8 @@ public class CharacterMove : MonoBehaviour
 			DashDown();
 		}
 
+		
+
 	}
 
 	public void OnFall()

@@ -23,12 +23,12 @@ public class GameManager : Singleton<GameManager>
 
     [Header("Player")]
     public GameObject player;
-    public Transform sponPos;
+    //public Transform sponPos;
     public Colors playerColor = Colors.def;
     public Sprite playerFace;
 
-    public int playerHP = 200;
-    public int playerMAXHP = 200;
+    public int playerHP = 100;
+    int playerMAXHP = 100;
 
     public delegate void Del();
     //public Del SetJoystick = null;
@@ -72,28 +72,23 @@ public class GameManager : Singleton<GameManager>
         Managers.UI.ClosePopupUI();
     }
 
-    public void NewGame()
-    {
-        starCount = 0;
-        mapCoin = 0;
-        ResumeGame();
-        SceneManager.LoadScene("Map_0");
-        DataManager.Instance.JsonClear(); // 데이터 초기화
-
-    }
-
     public void RetryGame() // 게임 재시작
     {
         ResumeGame();
+        InitGame();
+
+        ColorManager.Instance.ResetColorState();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // 현재 씬 재시작        
+
+    }
+
+    public void InitGame()
+    {
         mapCoin = 0;
         isFirst = true;
 
         // 플레이어 피 초기화 + Color State 초기화
         playerHP = playerMAXHP;
-
-        ColorManager.Instance.ResetColorState();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // 현재 씬 재시작        
-
     }
 
     public void GameOver()

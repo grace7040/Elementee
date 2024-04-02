@@ -14,7 +14,7 @@ public class UI_Palette : UI_Popup
     private Image redrawImg;
     ColorManager C_Mgr;
 
-    Colors redrawColor = Colors.def;
+    //Colors redrawColor = Colors.def;
     Colors currentColor = Colors.def;
 
     enum Buttons
@@ -26,7 +26,7 @@ public class UI_Palette : UI_Popup
         RedBtn,
         YellowBtn,
         BlueBtn,
-        ReDrawItem,
+        ReDrawBtn,
 
     }
 
@@ -46,7 +46,8 @@ public class UI_Palette : UI_Popup
     {
         base.Init();
         C_Mgr = ColorManager.Instance;
-        redrawColor = GameManager.Instance.ReDrawItemColor;
+        //redrawColor = GameManager.Instance.ReDrawItemColor;
+        
 
         Bind<Button>(typeof(Buttons));
         Bind<Image>(typeof(Images));
@@ -55,10 +56,15 @@ public class UI_Palette : UI_Popup
         GetButton((int)Buttons.OkayBtn).gameObject.BindEvent(OkayBtnClicked);
         GetButton((int)Buttons.ResetBtn).gameObject.BindEvent(ResetBtnBtnClicked);
         GetButton((int)Buttons.BackBtn).gameObject.BindEvent(BackBtnClicked);
-        GetButton((int)Buttons.ReDrawItem).gameObject.BindEvent(ReDraw);
+        GetButton((int)Buttons.ReDrawBtn).gameObject.BindEvent(ReDrawBtnClicked);
 
         canvasImg = GetImage((int)Images.ColorImg).gameObject.GetComponent<Image>();
-        redrawImg = GetButton((int)Buttons.ReDrawItem).gameObject.GetComponent<Image>();
+        redrawImg = GetButton((int)Buttons.ReDrawBtn).gameObject.GetComponent<Image>();
+
+        if (GameManager.Instance.playerColor == Colors.def)
+            GetButton((int)Buttons.ReDrawBtn).interactable = false;
+        else
+            redrawImg.color = ColorManager.Instance.GetColor(GameManager.Instance.playerColor);
     }
 
 
@@ -83,7 +89,7 @@ public class UI_Palette : UI_Popup
         else
             GetButton((int)Buttons.YellowBtn).gameObject.BindEvent(YellowBtnClicked);
 
-            GetButton((int)Buttons.ReDrawItem).gameObject.GetComponent<Image>().color = ColorManager.Instance.GetColor(redrawColor);
+            //GetButton((int)Buttons.ReDrawItem).gameObject.GetComponent<Image>().color = ColorManager.Instance.GetColor(redrawColor);
 
     }
 
@@ -176,15 +182,16 @@ public class UI_Palette : UI_Popup
     // 물감 클릭했을 때 UI 색 변경
     public void ChangeColor(Colors color)
     {
-        redrawImg.color = ColorManager.Instance.GetColor(color);
         canvasImg.color = ColorManager.Instance.GetColor(color);
     }
 
     // 무기 다시 그리기
-    public void ReDraw(PointerEventData data)
+    public void ReDrawBtnClicked(PointerEventData data)
     {
-        ColorManager.Instance.StartDrawing(currentColor);
-        GameManager.Instance.ReDrawItemColor = Colors.def;
+        GetComponent<AdMob>().ShowAds();
+        Managers.UI.ClosePopupUI();
+        //ColorManager.Instance.StartDrawing(currentColor);
+        //GameManager.Instance.ReDrawItemColor = Colors.def;
     }
 
 
