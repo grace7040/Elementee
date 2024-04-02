@@ -324,6 +324,8 @@ public class MonsterController : MonoBehaviour
 
     public void Die()
     {
+        if (isDie) return;
+
         isDie = true;
         switch (myColor)
         {
