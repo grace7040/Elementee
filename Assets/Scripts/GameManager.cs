@@ -40,7 +40,6 @@ public class GameManager : Singleton<GameManager>
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
-        player = GameObject.FindGameObjectWithTag("Player");
     }
     void Start()
     {

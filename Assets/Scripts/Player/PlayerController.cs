@@ -129,6 +129,11 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D heldEnemyRigidbody; // 가지고 있는 적의 Rigidbody2D
     private GameObject Enemy;
 
+    private void Awake()
+    {
+        GameManager.Instance.player = this.gameObject;
+    }
+
     private void Start()
     {
         m_Rigidbody2D = GetComponent<Rigidbody2D>();
