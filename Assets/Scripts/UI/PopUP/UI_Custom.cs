@@ -16,6 +16,7 @@ public class UI_Custom : UI_Popup
         FaceBtn,
         SoundBtn,
         GoMainBtn,
+        Lobby,
 
     }
 
@@ -32,8 +33,9 @@ public class UI_Custom : UI_Popup
         Bind<Button>(typeof(Buttons));
 
         GetButton((int)Buttons.FaceBtn).gameObject.BindEvent(StartFaceDrawing);
-        GetButton((int)Buttons.GoMainBtn).gameObject.BindEvent(SceneJump);
+        //GetButton((int)Buttons.GoMainBtn).gameObject.BindEvent(SceneJump);
         GetButton((int)Buttons.SoundBtn).gameObject.BindEvent(SoundBtnClicked);
+        GetButton((int)Buttons.Lobby).gameObject.BindEvent(ToLobbyBtn);
 
     }
 
@@ -66,4 +68,10 @@ public class UI_Custom : UI_Popup
         GameManager.Instance.GoToMainMenu();
         AudioManager.Instacne.PlaySFX("UiClick");
     }
+
+    public void ToLobbyBtn(PointerEventData data)
+    {
+        SceneManager.LoadScene("Lobby");
+    }
+
 }

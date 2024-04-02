@@ -583,18 +583,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   developMode: 0
   mapStar: 
-  mapFlag: 
   yehh: []
   mapBest: 0
+  mapCoin: 0
   currentMapNum: 0
   Potal: {fileID: 0}
-  isGameOver: 0
   starCount: 10
+  isFirst: 1
+  player: {fileID: 0}
   sponPos: {fileID: 0}
   playerColor: 0
   playerFace: {fileID: 0}
   playerHP: 100
   playerMAXHP: 100
+  coin: 0
   ReDrawItemColor: 0
 --- !u!4 &828407975
 Transform:
@@ -712,7 +714,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1453131331}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.4, y: 0, z: 10}
+  m_LocalPosition: {x: -4.18, y: 0, z: 10}
   m_LocalScale: {x: 4, y: 4, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
