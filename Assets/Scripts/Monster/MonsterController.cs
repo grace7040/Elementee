@@ -495,5 +495,15 @@ public class MonsterController : MonoBehaviour
     {
         OnDie = OnDieByGreenPlayer;
     }
-
+    public void PulledByBlack()
+    {
+        animator.enabled = false;
+        isDie = true;
+        if (myColor == Colors.yellow) GetComponent<M_Yellow>().voltObject.SetActive(false);
+        else if (myColor == Colors.red) GetComponent<M_Red>().fireObject.SetActive(false);
+        enabled = false;
+        rb.mass = 0.0f;
+        rb.gravityScale = 0.0f;
+        GetComponent<CapsuleCollider2D>().isTrigger = true;
+    }
 }

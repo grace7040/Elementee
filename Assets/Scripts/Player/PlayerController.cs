@@ -105,6 +105,7 @@ public class PlayerController : MonoBehaviour
 
     private bool canMove = true; //If player can move
     private bool canDash = true;
+    private bool isDie = false;
 
     //Flip
     private bool m_FacingRight = true;  // For determining which way the player is currently facing.
@@ -129,6 +130,9 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D heldEnemyRigidbody; // 가지고 있는 적의 Rigidbody2D
     private GameObject Enemy;
 
+
+    Collider2D[] colliders;
+    Collider2D[] collidersWall;
     private void Awake()
     {
         GameManager.Instance.player = this.gameObject;
@@ -141,16 +145,16 @@ public class PlayerController : MonoBehaviour
         playerSprite = GetComponent<SpriteRenderer>();
 
 
-        if(GameManager.Instance.sponPos != null)
-            transform.position = GameManager.Instance.sponPos.position;
+        //if(GameManager.Instance.sponPos != null)
+        //    transform.position = GameManager.Instance.sponPos.position;
 
         // 얼굴 넣기
         faceSprite.sprite = GameManager.Instance.playerFace;
 
         //Health initiallize
         currentHealth = maxHealth;
-        GameManager.Instance.playerMAXHP = maxHealth;
-        GameManager.Instance.playerHP = maxHealth;
+        //GameManager.Instance.playerMAXHP = maxHealth;
+        //GameManager.Instance.playerHP = maxHealth;
 
 
         ColorManager.Instance.SetColorState(Colors.def);
@@ -165,7 +169,7 @@ public class PlayerController : MonoBehaviour
         //ColorManager.Instance.SetColorState(Colors.blue);
 
         // 코인 초기화
-        GameManager.Instance.mapCoin = 0;
+        //GameManager.Instance.mapCoin = 0;
 
         //ColorManager.Instance.HasBlue = true;
         //ColorManager.Instance.HasRed = true;
@@ -223,7 +227,7 @@ public class PlayerController : MonoBehaviour
             bool wasGrounded = m_Grounded;
             m_Grounded = false;
 
-            Collider2D[] colliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
+            colliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
             for (int i = 0; i < colliders.Length; i++) // 이 for문이 왜 필요하지
             {
                 //gameobject = plsyer, colliders[i].gameObject = player와 접촉하고 있는 obj
@@ -239,6 +243,8 @@ public class PlayerController : MonoBehaviour
                         if (m_Rigidbody2D.velocity.y < 0f)
                             limitVelOnWallJump = false;
                     }
+
+                    break;
                 }
             }
         }
@@ -249,13 +255,14 @@ public class PlayerController : MonoBehaviour
         if (!m_Grounded) //땅에 닿아있지 않을 때 
         {
             OnFallEvent.Invoke(); //chaingin animation -> isjumping : true
-            Collider2D[] collidersWall = Physics2D.OverlapCircleAll(m_WallCheck.position, k_GroundedRadius, m_WhatIsGround);
+            collidersWall = Physics2D.OverlapCircleAll(m_WallCheck.position, k_GroundedRadius, m_WhatIsGround);
             for (int i = 0; i < collidersWall.Length; i++)
             {
                 if (collidersWall[i].gameObject != null) //벽에 닿아있다면
                 {
                     isDashing = false;
                     m_IsWall = true;
+                    break;
                 }
             }
             prevVelocityX = m_Rigidbody2D.velocity.x; // 현재 속도를 저장
@@ -317,14 +324,7 @@ public class PlayerController : MonoBehaviour
                 heldEnemyRigidbody = closestEnemy.GetComponent<Rigidbody2D>();
                 Enemy = closestEnemy.gameObject;
 
-                closestEnemy.GetComponent<MonsterController>().animator.enabled = false;
-                closestEnemy.GetComponent<MonsterController>().isDie = true;
-                if (closestEnemy.GetComponent<MonsterController>().myColor == Colors.yellow) closestEnemy.GetComponent<M_Yellow>().voltObject.SetActive(false);
-                else if (closestEnemy.GetComponent<MonsterController>().myColor == Colors.red) closestEnemy.GetComponent<M_Red>().fireObject.SetActive(false);
-                closestEnemy.GetComponent<MonsterController>().enabled = false;
-                closestEnemy.GetComponent<Rigidbody2D>().mass = 0.0f;
-                closestEnemy.GetComponent<Rigidbody2D>().gravityScale = 0.0f;
-                closestEnemy.GetComponent<CapsuleCollider2D>().isTrigger = true;
+                Enemy.SendMessage("PulledByBlack");
                 //closestEnemy.AddComponent<BloodEffect>();
 
                 float distance = Vector2.Distance(Enemy.transform.position, transform.position);
@@ -332,7 +332,7 @@ public class PlayerController : MonoBehaviour
                 while (!isHoldingEnemy)
                 {
                     Vector2 throwDirection = (transform.position - Enemy.transform.position).normalized;
-                    Enemy.transform.Translate(throwDirection * pullForce * Time.deltaTime);
+                    Enemy.transform.Translate(pullForce * Time.deltaTime * throwDirection);
 
                     yield return null;
                 }
@@ -418,6 +418,7 @@ public class PlayerController : MonoBehaviour
 
     public void Move(float move, bool jump, bool dash)
     {
+        if (isDie) return;
         if (canMove)
         {
             if (dash && canDash && !isWallSliding)
@@ -567,9 +568,8 @@ public class PlayerController : MonoBehaviour
 
     public void Die()
     {
-        Debug.Log("Die");
-        Destroy(gameObject);
-
+        if(!isDie)
+            StartCoroutine(WaitToDead());
     }
 
     public void TakeDamage(int damage, Vector3 enemyPos)
@@ -595,8 +595,8 @@ public class PlayerController : MonoBehaviour
             if (currentHealth <= 0)
             {
                 //GameManager.Instance.GameOver();
-                StartCoroutine(WaitToDead());
-                //Die();
+                
+                Die();
             }
             else
             {
@@ -698,6 +698,7 @@ public class PlayerController : MonoBehaviour
     IEnumerator WaitToDead()
     {
         animator.SetBool("IsDead", true);
+        isDie = true;
         canMove = false;
         invincible = true;
         yield return new WaitForSeconds(0.4f);
@@ -711,7 +712,7 @@ public class PlayerController : MonoBehaviour
     public void Revival()
     {
         animator.SetBool("IsDead", false);
-
+        isDie = false;
         canMove = true;
         invincible = false;
         //m_Rigidbody2D.velocity = new Vector2(0, m_Rigidbody2D.velocity.y);
