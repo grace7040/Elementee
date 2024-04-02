@@ -5,7 +5,6 @@ using DG.Tweening;
 
 public class OrangeColor : IColorState
 {
-    public float JumpForce { get { return 800f; } }
     public int Damage { get { return 25; } }
     public bool WallSliding { get { return false; } }
     public float CoolTime { get { return 6f; } }

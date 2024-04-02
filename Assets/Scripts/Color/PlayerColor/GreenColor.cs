@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class GreenColor : IColorState
 {
-    public float JumpForce { get { return 800f; } }
     public int Damage { get { return 30; } }
     public bool WallSliding { get { return false; } }
     public float CoolTime { get { return 0.5f; } }

@@ -15,7 +15,6 @@ public class PlayerController : MonoBehaviour
         get { return color; }
         set {
             color = value;
-            jumpForce = value.JumpForce; // jumpForce: player¿« jump force, JumpForce : Color¿« jumpforce
             damage = value.Damage;
             m_WallSliding = value.WallSliding;
             coolTime = value.CoolTime;
@@ -90,7 +89,7 @@ public class PlayerController : MonoBehaviour
     [System.Serializable]
     public class BoolEvent : UnityEvent<bool> { }
 
-    private float jumpForce;                          // Amount of force added when the player jumps.
+    private float jumpForce = 850f;                          // Amount of force added when the player jumps.
 
     public bool m_Grounded;
     const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
