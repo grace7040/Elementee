@@ -13,7 +13,7 @@ public class BlueColor : IColorState
     public void Attack(PlayerController player)
     {
 
-        player.canAttack = false;
+        //player.canAttack = false;
         player.animator.SetBool("IsBlueAttacking", true);
         AudioManager.Instacne.PlaySFX("Blue");
 

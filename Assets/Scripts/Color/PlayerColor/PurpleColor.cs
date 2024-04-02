@@ -15,7 +15,7 @@ public class PurpleColor : IColorState
         player.GetComponent<PlayerController>().cam.GetComponent<FollowCamera>().ShakeCamera();
 
         //Debug.Log("Attak");
-        player.canAttack = false;
+        //player.canAttack = false;
         player.animator.SetBool("IsPurpleAttacking", true);
         AudioManager.Instacne.PlaySFX("Purple");
         player.CallOnDelay(CoolTime, () =>

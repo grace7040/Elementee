@@ -13,7 +13,7 @@ public class GreenColor : IColorState
     public void Attack(PlayerController player)
     {
 
-        player.canAttack = false;
+        //player.canAttack = false;
         player.animator.SetBool("IsGreenAttacking", true);
         AudioManager.Instacne.PlaySFX("Green");
 

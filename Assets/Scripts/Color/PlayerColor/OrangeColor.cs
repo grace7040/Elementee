@@ -13,7 +13,7 @@ public class OrangeColor : IColorState
     //모래 폭풍
     public void Attack(PlayerController player)
     {
-        player.canAttack = false;
+        //player.canAttack = false;
         player.gameObject.layer = 10; // layer 변경으로 충돌 처리 막음
         AudioManager.Instacne.PlaySFX("Orange");
 

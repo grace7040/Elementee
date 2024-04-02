@@ -13,13 +13,13 @@ public class RedColor :  IColorState
     public void Attack(PlayerController player)
     {
         //Debug.Log("Attak");
-        player.canAttack = false;
+        //player.canAttack = false;
         player.animator.SetBool("IsRedAttacking", true);
         AudioManager.Instacne.PlaySFX("Red");
         //player.UpdateCanAttack();
         player.CallOnDelay(CoolTime, () =>
-            {
-                player.canAttack = true;
-            });
+        {
+            player.canAttack = true;
+        });
     }
 }

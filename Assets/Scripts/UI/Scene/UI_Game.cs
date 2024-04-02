@@ -219,12 +219,15 @@ public class UI_Game : UI_Scene
     //공격 버튼이 눌렸을 때
     public void AttackBtnClickedDown(PointerEventData data)
     {
-        playerController.AttackDown();
-        attack_cool_time = playerController.coolTime;
-        attack_cool_count = attack_cool_time;
+        if (playerController.canAttack)
+        {
+            playerController.AttackDown();
+            attack_cool_time = playerController.coolTime;
+            attack_cool_count = attack_cool_time;
 
-        GetImage((int)Images.Attack_Cool_Time).gameObject.SetActive(true);
-        canAttack = true;
+            GetImage((int)Images.Attack_Cool_Time).gameObject.SetActive(true);
+            canAttack = true;
+        }
     }
     
     public void AttackBtnClickedUp(PointerEventData data)

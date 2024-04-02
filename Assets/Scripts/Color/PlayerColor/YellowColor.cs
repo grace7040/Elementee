@@ -19,7 +19,7 @@ public class YellowColor : IColorState
     {
         //Àü±â 
         //playerprefab on
-        player.canAttack = false;
+        //player.canAttack = false;
         player.yellow_WeaponEffect.SetActive(true);
         player.yellow_WeaponEffect.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = player.colorWeapons[(int)Colors.yellow].sprite;
         AudioManager.Instacne.PlaySFX("Yellow");

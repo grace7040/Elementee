@@ -16,7 +16,7 @@ public class BlackColor : IColorState
         if (player.isHoldingEnemy)
         {
             player.BlackThrow();
-            player.canAttack = false;
+            //player.canAttack = false;
             AudioManager.Instacne.PlaySFX("BlackRelease");
         }
         else
