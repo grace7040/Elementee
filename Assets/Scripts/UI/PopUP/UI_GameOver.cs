@@ -12,6 +12,7 @@ public class UI_GameOver : UI_Popup
     {
         ToMainBtn,
         RetryBtn,
+        RevivalBtn,
 
     }
 
@@ -27,8 +28,14 @@ public class UI_GameOver : UI_Popup
         Bind<Button>(typeof(Buttons));
         GetButton((int)Buttons.ToMainBtn).gameObject.BindEvent(ToMainBtnClicked);
         GetButton((int)Buttons.RetryBtn).gameObject.BindEvent(OnRetryBtnClicked);
+        GetButton((int)Buttons.RevivalBtn).gameObject.BindEvent(RevivalBtnClicked);
 
         
+    }
+
+    public void RevivalBtnClicked(PointerEventData data)
+    {
+        // 광고 + 부활하는거 여기에~
     }
 
     public void OnResumeBtnClicked(PointerEventData data)
