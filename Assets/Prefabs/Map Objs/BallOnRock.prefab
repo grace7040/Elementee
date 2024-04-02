@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4363886324238015190}
   m_Layer: 0
   m_Name: BallOnRock
-  m_TagString: Untagged
+  m_TagString: Map
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -88,6 +88,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ball
       objectReference: {fileID: 0}
+    - target: {fileID: 3521402765719457879, guid: a5eefef4db379d249ae51aa233a715e7, type: 3}
+      propertyPath: m_TagString
+      value: Ball
+      objectReference: {fileID: 0}
     - target: {fileID: 3572952200676535931, guid: a5eefef4db379d249ae51aa233a715e7, type: 3}
       propertyPath: m_ConnectedAnchor.x
       value: 0
@@ -117,6 +121,10 @@ PrefabInstance:
     - target: {fileID: 93208007689249718, guid: 6b68cc37e1d22e94f986c47ac3c3800f, type: 3}
       propertyPath: m_Name
       value: down
+      objectReference: {fileID: 0}
+    - target: {fileID: 93208007689249718, guid: 6b68cc37e1d22e94f986c47ac3c3800f, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 4270087438868149879, guid: 6b68cc37e1d22e94f986c47ac3c3800f, type: 3}
       propertyPath: m_RootOrder
