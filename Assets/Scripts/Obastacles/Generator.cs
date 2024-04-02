@@ -15,6 +15,7 @@ public class Generator : MonoBehaviour
 
 
     int randomIdx;
+    bool isGenerating;
 
     private void Start()
     {
@@ -24,15 +25,19 @@ public class Generator : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (isGenerating) return;
+
         if (collision.gameObject.CompareTag("Weapon") || collision.gameObject.CompareTag("WeaponB") || collision.gameObject.CompareTag("WeaponThrow") || collision.gameObject.CompareTag("WeaponOrange") || collision.gameObject.CompareTag("WeaponYellow"))
         {
             if(count > 0)
             {
+                isGenerating = true;
                 count--;
                 CountTxt.text = count.ToString();
                 this.CallOnDelay(0.5f, () => {
                     
                     Instantiate(Object, new Vector3(transform.position.x, transform.position.y -1f, transform.position.z), Quaternion.identity, this.transform.parent);
+                    isGenerating = false;
                 });  
             }
         }
