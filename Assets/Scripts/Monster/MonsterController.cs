@@ -156,7 +156,7 @@ public class MonsterController : MonoBehaviour
     protected void SetWaypoints()
     {
         // 무시할 Layer 설정
-        LayerMask ignoreLayers = LayerMask.GetMask("Monster", "Player", "TransparentFX");
+        LayerMask ignoreLayers = LayerMask.GetMask("Monster", "Player", "TransparentFX", "Coins");
 
         float raycastDistance = moveRange;
         float backstepDistance = 1.0f; // Collider 크기 반영
