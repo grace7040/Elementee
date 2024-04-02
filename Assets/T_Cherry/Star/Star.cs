@@ -41,6 +41,8 @@ public class Star : MonoBehaviour
         if (collision.tag == "Player")
         {
             // ¿Ã∆Â∆Æ ≥÷±‚
+            var effect = ObjectPoolManager.Instance.GetGo("Star");
+            effect.transform.position = this.transform.position;
             GameManager.Instance.StarCount();
             AudioManager.Instacne.PlaySFX("Star");
             Destroy(this.gameObject);
