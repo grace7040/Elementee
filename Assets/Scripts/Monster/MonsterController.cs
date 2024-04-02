@@ -254,7 +254,7 @@ public class MonsterController : MonoBehaviour
         Quaternion rotation = isFlip ? flipQuaternion : Quaternion.identity;
         Vector2 raycastOrigin = transform.position + (rotation * Vector3.right);
         RaycastHit2D hitDown = Physics2D.Raycast(raycastOrigin, Vector2.down, 1.0f, 1 << 0); // To change
-        UnityEngine.Debug.DrawRay(raycastOrigin, Vector2.down * 1.0f, UnityEngine.Color.red);
+        // UnityEngine.Debug.DrawRay(raycastOrigin, Vector2.down * 1.0f, UnityEngine.Color.red);
 
         // 바닥이 감지되지 않으면 낭떠러지로 판단
         return hitDown.collider == null;

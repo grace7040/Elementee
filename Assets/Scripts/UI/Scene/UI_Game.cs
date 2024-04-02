@@ -284,7 +284,7 @@ public class UI_Game : UI_Scene
 
             if (attack_cool_count < 0)
             {
-                print("hi");
+                // print("hi");
 
                 attack_cool_count = 0;
                 canAttack = false;
