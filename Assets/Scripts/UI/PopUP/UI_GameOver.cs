@@ -15,7 +15,6 @@ public class UI_GameOver : UI_Popup
 
     }
 
-
     private void Start()
     {
         Init();
@@ -39,7 +38,8 @@ public class UI_GameOver : UI_Popup
 
     public void OnRetryBtnClicked(PointerEventData data)
     {
-        GameManager.Instance.RetryGame();
+        // GameManager.Instance.RetryGame();
+        GameManager.Instance.Revival();
     }
 
     public void ToMainBtnClicked(PointerEventData data)

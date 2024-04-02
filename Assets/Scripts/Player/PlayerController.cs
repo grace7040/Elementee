@@ -704,7 +704,18 @@ public class PlayerController : MonoBehaviour
         // 새롭게 씬 로드할 코드 추가
 
         GameManager.Instance.GameOver();
-    } 
+    }
+
+    public void Revival()
+    {
+        animator.SetBool("IsDead", false);
+
+        canMove = true;
+        invincible = false;
+        //m_Rigidbody2D.velocity = new Vector2(0, m_Rigidbody2D.velocity.y);
+        currentHealth = maxHealth;
+        Managers.UI.ClosePopupUI();
+    }
 
     public void PurpleAttackEffect()
     {

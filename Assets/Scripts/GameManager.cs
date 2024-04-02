@@ -41,6 +41,7 @@ public class GameManager : Singleton<GameManager>
     {
         DontDestroyOnLoad(gameObject);
     }
+
     void Start()
     {
         //DataManager.Instance.JsonClear(); // 데이터 초기화
@@ -144,6 +145,13 @@ public class GameManager : Singleton<GameManager>
         currentMapNum += 1;
         ResumeGame();
         SceneManager.LoadScene("Map_" + currentMapNum);
+    }
+
+    public void Revival()
+    {
+        playerHP = playerMAXHP;
+        ResumeGame();
+        player.GetComponent<PlayerController>().Revival();
     }
 
 
