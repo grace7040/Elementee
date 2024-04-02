@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AdTest : MonoBehaviour
+public class AdMob : MonoBehaviour
 {
 
     string adUnitId;
@@ -12,8 +12,6 @@ public class AdTest : MonoBehaviour
 
     public void Start()
     {
-        //Quiz_Manager = GameObject.FindObjectOfType<Quiz_Manager>();
-
         // 모바일 광고 SDK를 초기화함.
         MobileAds.Initialize(initStatus => { });
 
