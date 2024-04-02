@@ -178,13 +178,10 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        //if ( (Input.GetKeyDown(KeyCode.X) || isAttack) && canAttack)
-        //{
-        //    //doAttack = true;
-        //    //canAttack = false;
-        //    //isAttack = false;
-
-        //}
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            AttackDown();
+        }
 
         if (myColor == Colors.black)
         {
