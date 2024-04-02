@@ -18,8 +18,8 @@ public class GameManager : Singleton<GameManager>
 
     public int currentMapNum = 0;
     public GameObject Potal;
-    public bool isGameOver;
     public int starCount = 0;
+    public bool isFirst = true;
 
     [Header("Player")]
     public GameObject player;
@@ -46,7 +46,6 @@ public class GameManager : Singleton<GameManager>
     {
         //DataManager.Instance.JsonClear(); // 데이터 초기화
         DataManager.Instance.JsonLoad();
-        isGameOver = false;
     }
 
     public float HPBar()
@@ -86,8 +85,8 @@ public class GameManager : Singleton<GameManager>
     public void RetryGame() // 게임 재시작
     {
         ResumeGame();
-        isGameOver = false;
         mapCoin = 0;
+        isFirst = true;
 
         // 플레이어 피 초기화 + Color State 초기화
         playerHP = playerMAXHP;
@@ -100,7 +99,6 @@ public class GameManager : Singleton<GameManager>
     public void GameOver()
     {
         // 패배 UI 띄우기
-        isGameOver = true;
         Time.timeScale = 0;
         Managers.UI.ShowPopupUI<UI_GameOver>();
 
@@ -130,7 +128,6 @@ public class GameManager : Singleton<GameManager>
         DataManager.Instance.JsonSave();
 
         // 승리 UI 띄우기 
-        isGameOver = true;
         Managers.UI.ShowPopupUI<UI_GameWin>();
     }
 
@@ -152,7 +149,10 @@ public class GameManager : Singleton<GameManager>
         playerHP = playerMAXHP;
         ResumeGame();
         player.GetComponent<PlayerController>().Revival();
+        isFirst = false;
     }
+
+    
 
 
 }

@@ -630,6 +630,7 @@ GameObject:
   - component: {fileID: 2981682265872985594}
   - component: {fileID: 2981682265872985593}
   - component: {fileID: 7045218428246198374}
+  - component: {fileID: -4469287970673065655}
   m_Layer: 5
   m_Name: UI_GameOver
   m_TagString: Untagged
@@ -735,6 +736,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ad0c1410a6f2ed449a70d14a7257dbbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-4469287970673065655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2981682265872985591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 192373729e50f7f4b9658f5bb44b1fa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2981682266301111492
@@ -1187,7 +1200,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1195155568249778625}
   m_OnClick:
     m_PersistentCalls:

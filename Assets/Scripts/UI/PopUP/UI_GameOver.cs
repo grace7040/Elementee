@@ -8,6 +8,7 @@ using UnityEngine.EventSystems;
 
 public class UI_GameOver : UI_Popup
 {
+    AdMob adMob;
     enum Buttons
     {
         ToMainBtn,
@@ -28,13 +29,19 @@ public class UI_GameOver : UI_Popup
         Bind<Button>(typeof(Buttons));
         GetButton((int)Buttons.ToMainBtn).gameObject.BindEvent(ToMainBtnClicked);
         GetButton((int)Buttons.RetryBtn).gameObject.BindEvent(OnRetryBtnClicked);
-        GetButton((int)Buttons.RevivalBtn).gameObject.BindEvent(RevivalBtnClicked);
-
-        
+        if (GameManager.Instance.isFirst)
+        {
+            GetButton((int)Buttons.RevivalBtn).gameObject.BindEvent(RevivalBtnClicked);
+            GetButton((int)Buttons.RevivalBtn).interactable = true;
+            //버튼 활성화
+        }
+        adMob = GetComponent<AdMob>();
     }
 
     public void RevivalBtnClicked(PointerEventData data)
     {
+        adMob.ShowAds();
+        Managers.UI.ClosePopupUI();
         // 광고 + 부활하는거 여기에~
     }
 
@@ -45,8 +52,8 @@ public class UI_GameOver : UI_Popup
 
     public void OnRetryBtnClicked(PointerEventData data)
     {
-        // GameManager.Instance.RetryGame();
-        GameManager.Instance.Revival();
+        GameManager.Instance.RetryGame();
+        //GameManager.Instance.Revival();
     }
 
     public void ToMainBtnClicked(PointerEventData data)

@@ -53,6 +53,7 @@ public class AdMob : MonoBehaviour
 
     public void HandleRewardedAdClosed(object sender, EventArgs args) {
         Debug.Log("±¤°í Á¾·á~");
+        GameManager.Instance.Revival();
     }
 
     public void HandleUserEarnedReward(object sender, Reward args)

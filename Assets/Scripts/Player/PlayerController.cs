@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform m_WallCheck;                             //Posicion que controla si el personaje toca una pared
 
     //Attack
-    [HideInInspector] public bool doAttack = false; //attack input
+    //[HideInInspector] public bool doAttack = false; //attack input
     [HideInInspector] public bool canAttack = true;
 
     //Health
@@ -174,13 +174,13 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if ( (Input.GetKeyDown(KeyCode.X) || isAttack) && canAttack)
-        {
-            doAttack = true;
-            canAttack = false;
-            isAttack = false;
+        //if ( (Input.GetKeyDown(KeyCode.X) || isAttack) && canAttack)
+        //{
+        //    //doAttack = true;
+        //    //canAttack = false;
+        //    //isAttack = false;
 
-        }
+        //}
 
         if (myColor == Colors.black)
         {
@@ -197,21 +197,23 @@ public class PlayerController : MonoBehaviour
 
     public void AttackDown()
     {
-        isAttack = true;
+        //isAttack = true;
+        canAttack = false;
+        Color.Attack(this);
     }
 
     public void AttackUp()
     {
-        isAttack = false;
+        //isAttack = false;
     }
 
     private void FixedUpdate()
     {
-        if (doAttack)
-        {
-            doAttack = false;
-            Color.Attack(this);
-        }
+        //if (doAttack)
+        //{
+        //    doAttack = false;
+        //    Color.Attack(this);
+        //}
 
         //colliders : 닿아있는 바닥수만큼 존재, 공중에 떠있으면 0개 바닥에 닿아있으면 1개
 

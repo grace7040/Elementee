@@ -18,7 +18,6 @@ public class UI_MainScene : UI_Scene
 
     private void Start()
     {
-        GameManager.Instance.isGameOver = false;
         Init();
     }
 
