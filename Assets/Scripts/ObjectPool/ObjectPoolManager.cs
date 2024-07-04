@@ -1,4 +1,6 @@
+using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -7,28 +9,28 @@ public class ObjectPoolManager : MonoBehaviour
     [System.Serializable]
     private class ObjectInfo
     {
-        // ¿ÀºêÁ§Æ® ÀÌ¸§
+        // ì˜¤ë¸Œì íŠ¸ ì´ë¦„
         public string objectName;
-        // ¿ÀºêÁ§Æ® Ç®¿¡¼­ °ü¸®ÇÒ ¿ÀºêÁ§Æ®
+        // ì˜¤ë¸Œì íŠ¸ í’€ì—ì„œ ê´€ë¦¬í•  ì˜¤ë¸Œì íŠ¸
         public GameObject perfab;
-        // ¸î°³¸¦ ¹Ì¸® »ı¼º ÇØ³õÀ»°ÇÁö
+        // ëª‡ê°œë¥¼ ë¯¸ë¦¬ ìƒì„± í•´ë†“ì„ê±´ì§€
         public int count;
     }
 
     string currentColorName = null;
-    // ¿ÀºêÁ§Æ®Ç® ¸Å´ÏÀú ÁØºñ ¿Ï·áÇ¥½Ã
+    // ì˜¤ë¸Œì íŠ¸í’€ ë§¤ë‹ˆì € ì¤€ë¹„ ì™„ë£Œí‘œì‹œ
     //public bool IsReady { get; private set; }
 
     [SerializeField]
     private ObjectInfo[] objectInfos = null;
 
-    // »ı¼ºÇÒ ¿ÀºêÁ§Æ®ÀÇ key°ªÁöÁ¤À» À§ÇÑ º¯¼ö
+    // ìƒì„±í•  ì˜¤ë¸Œì íŠ¸ì˜ keyê°’ì§€ì •ì„ ìœ„í•œ ë³€ìˆ˜
     private string objectName;
 
-    // ¿ÀºêÁ§Æ®Ç®µéÀ» °ü¸®ÇÒ µñ¼Å³Ê¸®
+    // ì˜¤ë¸Œì íŠ¸í’€ë“¤ì„ ê´€ë¦¬í•  ë”•ì…”ë„ˆë¦¬
     private Dictionary<string, IObjectPool<GameObject>> ojbectPoolDic = new Dictionary<string, IObjectPool<GameObject>>();
 
-    // ¿ÀºêÁ§Æ®Ç®¿¡¼­ ¿ÀºêÁ§Æ®¸¦ »õ·Î »ı¼ºÇÒ¶§ »ç¿ëÇÒ µñ¼Å³Ê¸®
+    // ì˜¤ë¸Œì íŠ¸í’€ì—ì„œ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒˆë¡œ ìƒì„±í• ë•Œ ì‚¬ìš©í•  ë”•ì…”ë„ˆë¦¬
     private readonly Dictionary<string, GameObject> goDic = new Dictionary<string, GameObject>();
 
     private static ObjectPoolManager instance = null;
@@ -60,10 +62,10 @@ public class ObjectPoolManager : MonoBehaviour
 
     private void Start()
     {
-        Init();
+        StartCoroutine(Init());
     }
 
-    private void Init()
+    IEnumerator Init()
     {
         //IsReady = false;
 
@@ -74,14 +76,14 @@ public class ObjectPoolManager : MonoBehaviour
 
             if (goDic.ContainsKey(objectInfos[idx].objectName))
             {
-                Debug.Log($"{objectInfos[idx].objectName} ÀÌ¹Ì µî·ÏµÈ ¿ÀºêÁ§Æ®ÀÔ´Ï´Ù.");
-                return;
+                Debug.Log($"{objectInfos[idx].objectName} ì´ë¯¸ ë“±ë¡ëœ ì˜¤ë¸Œì íŠ¸ì…ë‹ˆë‹¤.");
+                yield return null;
             }
 
             goDic.Add(objectInfos[idx].objectName, objectInfos[idx].perfab);
             ojbectPoolDic.Add(objectInfos[idx].objectName, pool);
 
-            // ¹Ì¸® ¿ÀºêÁ§Æ® »ı¼º ÇØ³õ±â
+            // ë¯¸ë¦¬ ì˜¤ë¸Œì íŠ¸ ìƒì„± í•´ë†“ê¸°
             for (int i = 0; i < objectInfos[idx].count; i++)
             {
                 objectName = objectInfos[idx].objectName;
@@ -89,38 +91,40 @@ public class ObjectPoolManager : MonoBehaviour
                 PoolAble poolAbleGo = CreatePooledItem().GetComponent<PoolAble>();
                 poolAbleGo.Pool.Release(poolAbleGo.gameObject);
             }
+
+            yield return 1;
         }
 
-        //Debug.Log("¿ÀºêÁ§Æ®Ç®¸µ ÁØºñ ¿Ï·á");
+        //Debug.Log("ì˜¤ë¸Œì íŠ¸í’€ë§ ì¤€ë¹„ ì™„ë£Œ");
         //IsReady = true;
         //ObjectManager.Instance.ObjectPoolManager_Ready = true;
     }
 
-    // »ı¼º
+    // ìƒì„±
     private GameObject CreatePooledItem()
     {
         GameObject poolGo = Instantiate(goDic[objectName], this.transform.position, Quaternion.identity);
-        //Debug.Log($"»ı¼º: {poolGo.name}");
+        //Debug.Log($"ìƒì„±: {poolGo.name}");
         poolGo.GetComponent<PoolAble>().Pool = ojbectPoolDic[objectName];
         poolGo.transform.SetParent(this.transform);
         return poolGo;
     }
 
-    // ´ë¿©
+    // ëŒ€ì—¬
     private void OnTakeFromPool(GameObject poolGo)
     {
-        //Debug.Log($"´ë¿©: {poolGo.name}");
+        //Debug.Log($"ëŒ€ì—¬: {poolGo.name}");
         poolGo.SetActive(true);
     }
 
-    // ¹İÈ¯
+    // ë°˜í™˜
     private void OnReturnedToPool(GameObject poolGo)
     {
         poolGo.SetActive(false);
-        //Debug.Log($"¹İÈ¯: {poolGo.name}");
+        //Debug.Log($"ë°˜í™˜: {poolGo.name}");
     }
 
-    // »èÁ¦
+    // ì‚­ì œ
     private void OnDestroyPoolObject(GameObject poolGo)
     {
         Destroy(poolGo);
@@ -132,20 +136,20 @@ public class ObjectPoolManager : MonoBehaviour
 
         if (goDic.ContainsKey(goName) == false)
         {
-            Debug.Log($"<{goName}> Àº ¿ÀºêÁ§Æ®Ç®¿¡ µî·ÏµÇÁö ¾ÊÀº ¿ÀºêÁ§Æ®ÀÔ´Ï´Ù.");
+            Debug.Log($"<{goName}> ì€ ì˜¤ë¸Œì íŠ¸í’€ì— ë“±ë¡ë˜ì§€ ì•Šì€ ì˜¤ë¸Œì íŠ¸ì…ë‹ˆë‹¤.");
             return null;
         }
         //Debug.Log(goName);
         return ojbectPoolDic[goName].Get();
     }
-    
+
 
     public GameObject GetGo()
     {
         objectName = currentColorName;
         if (goDic.ContainsKey(currentColorName) == false)
         {
-            Debug.Log($"<{currentColorName}> Àº ¿ÀºêÁ§Æ®Ç®¿¡ µî·ÏµÇÁö ¾ÊÀº ¿ÀºêÁ§Æ®ÀÔ´Ï´Ù.");
+            Debug.Log($"<{currentColorName}> ì€ ì˜¤ë¸Œì íŠ¸í’€ì— ë“±ë¡ë˜ì§€ ì•Šì€ ì˜¤ë¸Œì íŠ¸ì…ë‹ˆë‹¤.");
             return null;
         }
         //Debug.Log(currentColorName);
@@ -164,7 +168,7 @@ public class ObjectPoolManager : MonoBehaviour
         {
             case Colors.def:
                 currentColorName = "DefaultBlood";
-                //Debug.Log("Blood Effect »öÀ» ¼³Á¤ÇÏ¼¼¿ä.");
+                //Debug.Log("Blood Effect ìƒ‰ì„ ì„¤ì •í•˜ì„¸ìš”.");
                 break;
             case Colors.red:
                 currentColorName = "RedBlood";
