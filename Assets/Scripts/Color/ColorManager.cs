@@ -1,4 +1,4 @@
-    using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +6,7 @@ using UnityEngine;
 public class ColorManager : Singleton<ColorManager>
 {
     PlayerController player;
-    List<Colors> colorList = new List<Colors>();
+    List<Colors> colorList = new();
 
     public Action OnSetColor = null;
     public Action OnSaveColor = null;
@@ -24,7 +24,8 @@ public class ColorManager : Singleton<ColorManager>
     public bool HasRed
     {
         get { return hasRed; }
-        set { 
+        set
+        {
             hasRed = value;
             OnSetColor?.Invoke();
         }
@@ -52,7 +53,7 @@ public class ColorManager : Singleton<ColorManager>
 
     private void Awake()
     {
-        colorList.Add(Colors.def);
+        colorList.Add(Colors.Default);
     }
 
     public void ResetColorState()
@@ -62,42 +63,33 @@ public class ColorManager : Singleton<ColorManager>
         hasBlue = false;
     }
 
-    /*Colorsº° ½ÇÁ¦ »ö»ó°ª ¹İÈ¯ÇÏ´Â ÇÔ¼ö. »ö»ó°ª ¼³Á¤ ¹× º¯°æÀº ¿©±â¼­¸¸. */
+    /*Colorsë³„ ì‹¤ì œ ìƒ‰ìƒê°’ ë°˜í™˜í•˜ëŠ” í•¨ìˆ˜. ìƒ‰ìƒê°’ ì„¤ì • ë° ë³€ê²½ì€ ì—¬ê¸°ì„œë§Œ. */
     public Color GetColor(Colors color)
     {
-        switch (color)
+        return color switch
         {
-            case Colors.def:
-                return Color.white;
-            case Colors.red:
-                return new Color32(254, 120, 120, 255); 
-            case Colors.yellow:
-                return new Color32(255, 229, 73, 255);
-            case Colors.blue:
-                return new Color32(133, 151, 255, 255);
-            case Colors.orange:
-                return new Color32(255, 175, 61, 255); 
-            case Colors.green:
-                return new Color32(111, 189, 111, 255);
-            case Colors.purple:
-                return new Color32(153, 93, 227, 255);
-            case Colors.black:
-                return Color.black;
-            default:
-                return Color.black;
-        }
+            Colors.Default => Color.white,
+            Colors.Red => new Color32(254, 120, 120, 255),
+            Colors.Yellow => new Color32(255, 229, 73, 255),
+            Colors.Blue => new Color32(133, 151, 255, 255),
+            Colors.Orange => new Color32(255, 175, 61, 255),
+            Colors.Green => new Color32(111, 189, 111, 255),
+            Colors.Purple => new Color32(153, 93, 227, 255),
+            Colors.Black => Color.black,
+            _ => Color.black,
+        };
     }
 
 
-    /*ÇÃ·¹ÀÌ¾îÀÇ ColorÀ» º¯°æÇÒ ½Ã ¹«Á¶°Ç ÀÌ ÇÔ¼ö¸¦ ÅëÇØ º¯°æÇØ¾ß ÇÔ.*/
+    /*í”Œë ˆì´ì–´ì˜ Colorì„ ë³€ê²½í•  ì‹œ ë¬´ì¡°ê±´ ì´ í•¨ìˆ˜ë¥¼ í†µí•´ ë³€ê²½í•´ì•¼ í•¨.*/
     public void SetColorState(Colors _color)
     {
         player = FindObjectOfType<PlayerController>();
         player.myColor = _color;
         GameManager.Instance.playerColor = _color;
 
-        // »õ·Î¿î »ö »ç¿ëÇÒ ¶§ ¹«±â ±×¸®µµ·Ï UI ¶ç¿ì±â
-        if (!colorList.Contains(_color) && _color != Colors.black)
+        // ìƒˆë¡œìš´ ìƒ‰ ì‚¬ìš©í•  ë•Œ ë¬´ê¸° ê·¸ë¦¬ë„ë¡ UI ë„ìš°ê¸°
+        if (!colorList.Contains(_color) && _color != Colors.Black)
         {
             OffPlayerWeapon();
             StartDrawing(_color);
@@ -108,53 +100,53 @@ public class ColorManager : Singleton<ColorManager>
     }
 
 
-    // hasXXX º¯¼ö ¼³Á¤ & ÇÃ·¹ÀÌ¾î ¹«±â È°¼ºÈ­
+    // hasXXX ë³€ìˆ˜ ì„¤ì • & í”Œë ˆì´ì–´ ë¬´ê¸° í™œì„±í™”
     public void SetOnPlayer(Colors _color)
     {
         player.canAttack = true;
 
         switch (_color)
         {
-            case Colors.def:
+            case Colors.Default:
                 //hasRed = false;
                 //hasYellow = false;
                 //hasBlue = false;
                 SetColorState(new DefaultColor());
                 break;
-            case Colors.red:
+            case Colors.Red:
                 hasRed = false;
                 SetColorState(new RedColor());
                 player.red_Weapon.SetActive(true);
                 break;
-            case Colors.yellow:
+            case Colors.Yellow:
                 hasYellow = false;
                 player.canAttack = false;
                 SetColorState(new YellowColor());
                 player.yellow_WeaponEffect.SetActive(true);
                 break;
-            case Colors.blue:
+            case Colors.Blue:
                 hasBlue = false;
                 SetColorState(new BlueColor());
                 player.blue_Weapon.SetActive(true);
                 break;
-            case Colors.green:
+            case Colors.Green:
                 hasYellow = false;
                 hasBlue = false;
                 SetColorState(new GreenColor());
                 player.green_Weapon.SetActive(true);
                 break;
-            case Colors.purple:
+            case Colors.Purple:
                 hasRed = false;
                 hasBlue = false;
                 SetColorState(new PurpleColor());
                 player.purple_Weapon.SetActive(true);
                 break;
-            case Colors.orange:
+            case Colors.Orange:
                 hasYellow = false;
                 hasRed = false;
                 SetColorState(new OrangeColor());
                 break;
-            case Colors.black:
+            case Colors.Black:
                 hasYellow = false;
                 hasRed = false;
                 hasBlue = false;
@@ -164,8 +156,8 @@ public class ColorManager : Singleton<ColorManager>
         }
         player.myColor = _color;
 
-        // ±âº» ¹«±â or Ä¿½ºÅÒ ¹«±â Àû¿ë
-        if(basicWeapon)
+        // ê¸°ë³¸ ë¬´ê¸° or ì»¤ìŠ¤í…€ ë¬´ê¸° ì ìš©
+        if (basicWeapon)
             SetPlayerBasicWeapon();
         else
             SetPlayerCustomWeapon();
@@ -197,7 +189,7 @@ public class ColorManager : Singleton<ColorManager>
 
     public void StartDrawing(Colors _color)
     {
-        // °ÔÀÓ ÀÏ½ÃÁ¤Áö
+        // ê²Œì„ ì¼ì‹œì •ì§€
         GameManager.Instance.PauseGame();
 
         Managers.UI.ShowPopupUI<UI_DrawCanvas>();
@@ -212,7 +204,7 @@ public class ColorManager : Singleton<ColorManager>
     {
         basicWeapon = false;
         player.SetCustomWeapon();
-        OnSaveColor?.Invoke();    
+        OnSaveColor?.Invoke();
     }
 
     public void SetPlayerBasicWeapon()

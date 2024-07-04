@@ -87,7 +87,7 @@ public class DrawManager : MonoBehaviour
 
     public void OpenDrawing()
     {
-        // Draw¿ë Ä«¸Ş¶ó·Î
+        // Drawìš© ì¹´ë©”ë¼ë¡œ
         Cam.SetActive(false);
         DrawCam.SetActive(true);
 
@@ -96,18 +96,18 @@ public class DrawManager : MonoBehaviour
 
     public void CloseDrawing()
     {
-        // ´Ù½Ã ¿ø·¡ Ä«¸Ş¶ó·Î
+        // ë‹¤ì‹œ ì›ë˜ ì¹´ë©”ë¼ë¡œ
         Cam.SetActive(true);
         DrawCam.SetActive(false);
         Drawing.SetActive(false);
     }
 
 
-    // ¾ó±¼ ±×¸®±â
+    // ì–¼êµ´ ê·¸ë¦¬ê¸°
     public void SetFaceColor()
     {
         face_mode = true;
-        Color c = ColorManager.Instance.GetColor(Colors.black);
+        Color c = ColorManager.Instance.GetColor(Colors.Black);
 
         BackGround.GetComponent<Image>().sprite = BG_Sprites[8];
 
@@ -121,21 +121,21 @@ public class DrawManager : MonoBehaviour
 
     public void SaveFaceDrawing()
     {
-        // ´Ù½Ã ¿ø·¡ Ä«¸Ş¶ó·Î
+        // ë‹¤ì‹œ ì›ë˜ ì¹´ë©”ë¼ë¡œ
         Cam.SetActive(true);
         DrawCam.SetActive(false);
 
         Drawing.SetActive(false);
 
-        // Face ÀúÀå - 8¹ø
+        // Face ì €ì¥ - 8ë²ˆ
         GameManager.Instance.playerFace = sprites[8];
     }
 
 
-    // Äµ¹ö½º ±âº» ¹«±â on off
+    // ìº”ë²„ìŠ¤ ê¸°ë³¸ ë¬´ê¸° on off
     public void BasicWeapons(int num)
     {
-        if(num==1)
+        if (num == 1)
             BackGround.GetComponent<Image>().sprite = BG_Basic_Sprites[(int)color];
         else
             BackGround.GetComponent<Image>().sprite = BG_Sprites[(int)color];
@@ -144,60 +144,60 @@ public class DrawManager : MonoBehaviour
 
     public void LoadWeapons(string _weaponDir)
     {
-       // text.text = "ÀúÀåµÈ Weapon ºÒ·¯¿À±â. weaponDir: " + _weaponDir;
+        // text.text = "ì €ì¥ëœ Weapon ë¶ˆëŸ¬ì˜¤ê¸°. weaponDir: " + _weaponDir;
         weaponDir = _weaponDir;
 
         for (int i = 0; i < sprites.Length; i++)
         {
-            Texture2D texture= new Texture2D(0, 0);
+            Texture2D texture = new Texture2D(0, 0);
 
             string filename = weaponDir + "/" + sprites[i].name + ".png";
 
-           // text.text = i+"¹øÂ° ÆÄÀÏ: "+ filename;
+            // text.text = i+"ë²ˆì§¸ íŒŒì¼: "+ filename;
 
             byte[] byteTexture = File.ReadAllBytes(Application.persistentDataPath + filename);
 
-           // text.text = i+"¹øÂ° ¹ÙÀÌÆ® ÅØ½ºÃ³ Read ¿Ï·á";
+            // text.text = i+"ë²ˆì§¸ ë°”ì´íŠ¸ í…ìŠ¤ì²˜ Read ì™„ë£Œ";
 
             if (byteTexture.Length > 0)
             {
                 texture.LoadImage(byteTexture);
-          //      text.text = i+"¹øÂ° ¹ÙÀÌÆ® ÅØ½ºÃ³¸¦ ÅØ½ºÃ³·Î ·Îµå ¿Ï·á";
+                //      text.text = i+"ë²ˆì§¸ ë°”ì´íŠ¸ í…ìŠ¤ì²˜ë¥¼ í…ìŠ¤ì²˜ë¡œ ë¡œë“œ ì™„ë£Œ";
             }
 
             Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
-          //  text.text = i+"¹øÂ° ½ºÇÁ¶óÀÌÆ® »ı¼º ¿Ï·á";
+            //  text.text = i+"ë²ˆì§¸ ìŠ¤í”„ë¼ì´íŠ¸ ìƒì„± ì™„ë£Œ";
             sprite.name = sprites[i].name;
             sprites[i] = sprite;
-          //  text.text = i+"¹øÂ° ½ºÇÁ¶óÀÌÆ® Àû¿ë ¿Ï·á";
+            //  text.text = i+"ë²ˆì§¸ ìŠ¤í”„ë¼ì´íŠ¸ ì ìš© ì™„ë£Œ";
         }
 
-      //  text.text = "DrawManager.LoadWeapon ¿Ï·á";
+        //  text.text = "DrawManager.LoadWeapon ì™„ë£Œ";
     }
 
     public void SaveWeapon(int i)
     {
-      //  text.text = "SaveWeapon ½ÃÀÛ";
+        //  text.text = "SaveWeapon ì‹œì‘";
         byte[] bytes = sprites[i].texture.EncodeToPNG();
-     //   text.text = i + "¹øÂ° ÅØ½ºÃ³¸¦ ¹ÙÀÌÆ®·Î º¯È¯ ¿Ï·á";
+        //   text.text = i + "ë²ˆì§¸ í…ìŠ¤ì²˜ë¥¼ ë°”ì´íŠ¸ë¡œ ë³€í™˜ ì™„ë£Œ";
         string filename = weaponDir + "/" + sprites[i].name + ".png";
         File.WriteAllBytes(Application.persistentDataPath + filename, bytes);
-      //  text.text = i + "¹øÂ° WeaponÅØ½ºÃ³¸¦ ÀúÀå ¿Ï·á";
-      //  testRenderer.sprite = sprites[i];
+        //  text.text = i + "ë²ˆì§¸ Weaponí…ìŠ¤ì²˜ë¥¼ ì €ì¥ ì™„ë£Œ";
+        //  testRenderer.sprite = sprites[i];
     }
 
     public void SaveWeapons(string _weaponDir)
     {
-     //   text.text = "SaveWeapons ½ÃÀÛ";
+        //   text.text = "SaveWeapons ì‹œì‘";
         for (int i = 0; i < sprites.Length; i++)
         {
             byte[] bytes = sprites[i].texture.EncodeToPNG();
-          //  text.text = i + "¹øÂ° ÅØ½ºÃ³¸¦ ¹ÙÀÌÆ®·Î º¯È¯ ¿Ï·á";
+            //  text.text = i + "ë²ˆì§¸ í…ìŠ¤ì²˜ë¥¼ ë°”ì´íŠ¸ë¡œ ë³€í™˜ ì™„ë£Œ";
             string filename = _weaponDir + "/" + sprites[i].name + ".png";
             File.WriteAllBytes(Application.persistentDataPath + filename, bytes);
-          //  text.text = i + "¹øÂ° WeaponÅØ½ºÃ³¸¦ ÀúÀå ¿Ï·á";
+            //  text.text = i + "ë²ˆì§¸ Weaponí…ìŠ¤ì²˜ë¥¼ ì €ì¥ ì™„ë£Œ";
         }
-      //  text.text = "DrawManager.SaveWeapons ¿Ï·á";
+        //  text.text = "DrawManager.SaveWeapons ì™„ë£Œ";
         Debug.Log(Application.persistentDataPath + weaponDir + "/" + sprites[0].name);
     }
 }

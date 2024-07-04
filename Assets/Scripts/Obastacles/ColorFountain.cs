@@ -37,13 +37,11 @@ public class ColorFountain : MonoBehaviour
         }
     }
 
-    // ¿Ã∆Â∆Æ √ﬂ∞°
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // ¿Ã∆Â∆Æ √ﬂ∞°
         if (collision.gameObject.CompareTag("Player"))
         {
-            var bulletGo = ObjectPoolManager.Instance.GetGo(fountainColor);
+            var bulletGo = ObjectPoolManager.Instance.GetColorBlood(fountainColor);
             bulletGo.transform.position = transform.position;
         }
     }

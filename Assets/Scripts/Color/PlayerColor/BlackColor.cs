@@ -30,15 +30,15 @@ public class BlackColor : IColorState
     {
         switch (mon_color)
         {
-            case Colors.def:
+            case Colors.Default:
                 break;
-            case Colors.red:
+            case Colors.Red:
                 ColorManager.Instance.HasRed = true;
                 break;
-            case Colors.blue:
+            case Colors.Blue:
                 ColorManager.Instance.HasBlue = true;
                 break;
-            case Colors.yellow:
+            case Colors.Yellow:
                 ColorManager.Instance.HasYellow = true;
                 break;
         }

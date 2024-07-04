@@ -26,7 +26,7 @@ public class PaintBrush : MonoBehaviour
     void OnEnable()
     {
         /*  TEST CODE  */
-        SetBrushColor(Colors.def);
+        SetBrushColor(Colors.Default);
         /*  TEST CODE  */
 
         CreateClearTexture();// clear transparent texture to draw on
@@ -94,7 +94,7 @@ public class PaintBrush : MonoBehaviour
     }
 
 
-    // ** PaintBrush¸¦ È°¼ºÈ­ÇÒ ¶§ Ç×»ó ºê·¯½Ã ÄÃ·¯¸¦ ÁöÁ¤ÇØÁà¾ß ÇÔ. **
+    // ** PaintBrushë¥¼ í™œì„±í™”í•  ë•Œ í•­ìƒ ë¸ŒëŸ¬ì‹œ ì»¬ëŸ¬ë¥¼ ì§€ì •í•´ì¤˜ì•¼ í•¨. **
     public void SetBrushColor(Colors color)
     {
         brushTexture = brushTextures[(int)color];

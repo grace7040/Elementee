@@ -13,7 +13,8 @@ public class PlayerController : MonoBehaviour
     public IColorState Color
     {
         get { return color; }
-        set {
+        set
+        {
             color = value;
             damage = value.Damage;
             m_WallSliding = value.WallSliding;
@@ -21,7 +22,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public Colors myColor = Colors.def;
+    public Colors myColor = Colors.Default;
     public GameObject cam;
 
     [Header("Weapon")]
@@ -62,7 +63,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public float m_MoveSpeed = 10f;
     [SerializeField] private float m_DashForce = 25f;
     [SerializeField] private bool m_AirControl = false;                         // Whether or not a player can steer while jumping;
-    [SerializeField] private bool m_WallSliding = false;                         // ÇÃ·¹ÀÌ¾î º®Å¸±â ÇÒ ¼ö ÀÖ´ÂÁö ¾ø´ÂÁö
+    [SerializeField] private bool m_WallSliding = false;                         // í”Œë ˆì´ì–´ ë²½íƒ€ê¸° í•  ìˆ˜ ìˆëŠ”ì§€ ì—†ëŠ”ì§€
 
     [Header("Collision Checking")]
     [SerializeField] private LayerMask m_WhatIsGround;                          // A mask determining what is ground to the character
@@ -113,21 +114,21 @@ public class PlayerController : MonoBehaviour
     //Move
     private float limitFallSpeed = 25f; // Limit fall speed
     private Vector3 velocity = Vector3.zero;
-    //-Á¡ÇÁ
+    //-ì í”„
     private bool canDoubleJump = true; //If player can double jump
-    //-º®Å¸±â
+    //-ë²½íƒ€ê¸°
     private bool oldWallSlidding = false; //If player is sliding in a wall in the previous frame
     private bool canCheck = false; //For check if player is wallsliding
-    //·ÎÇÁ
+    //ë¡œí”„
     public FixedJoint2D fixJoint;
     private bool isRope = false;
 
 
     // Black
-    private float pullForce = 10f; // ²ø¾î´ç±â´Â Èû Á¶Àı¿ë º¯¼ö
-    private float throwForce = 15f; // ´øÁö´Â Èû Á¶Àı¿ë º¯¼ö
-    public bool isHoldingEnemy = false; // ÀûÀ» °¡Áö°í ÀÖ´ÂÁö ¿©ºÎ
-    private Rigidbody2D heldEnemyRigidbody; // °¡Áö°í ÀÖ´Â ÀûÀÇ Rigidbody2D
+    private float pullForce = 10f; // ëŒì–´ë‹¹ê¸°ëŠ” í˜ ì¡°ì ˆìš© ë³€ìˆ˜
+    private float throwForce = 15f; // ë˜ì§€ëŠ” í˜ ì¡°ì ˆìš© ë³€ìˆ˜
+    public bool isHoldingEnemy = false; // ì ì„ ê°€ì§€ê³  ìˆëŠ”ì§€ ì—¬ë¶€
+    private Rigidbody2D heldEnemyRigidbody; // ê°€ì§€ê³  ìˆëŠ” ì ì˜ Rigidbody2D
     private GameObject Enemy;
 
 
@@ -148,7 +149,7 @@ public class PlayerController : MonoBehaviour
         //if(GameManager.Instance.sponPos != null)
         //    transform.position = GameManager.Instance.sponPos.position;
 
-        // ¾ó±¼ ³Ö±â
+        // ì–¼êµ´ ë„£ê¸°
         faceSprite.sprite = GameManager.Instance.playerFace;
 
         //Health initiallize
@@ -157,9 +158,9 @@ public class PlayerController : MonoBehaviour
         //GameManager.Instance.playerHP = maxHealth;
 
 
-        ColorManager.Instance.SetColorState(Colors.def);
+        ColorManager.Instance.SetColorState(Colors.Default);
 
-        if (OnFallEvent == null) // ÀÌ°Ç ¿ÖÇÏÁö?
+        if (OnFallEvent == null) // ì´ê±´ ì™œí•˜ì§€?
             OnFallEvent = new UnityEvent();
 
         if (OnLandEvent == null)
@@ -168,7 +169,7 @@ public class PlayerController : MonoBehaviour
         //TEST CODESZ
         //ColorManager.Instance.SetColorState(Colors.blue);
 
-        // ÄÚÀÎ ÃÊ±âÈ­
+        // ì½”ì¸ ì´ˆê¸°í™”
         //GameManager.Instance.mapCoin = 0;
 
         //ColorManager.Instance.HasBlue = true;
@@ -183,14 +184,14 @@ public class PlayerController : MonoBehaviour
             AttackDown();
         }
 
-        if (myColor == Colors.black)
+        if (myColor == Colors.Black)
         {
             if (isHoldingEnemy)
             {
                 Enemy.transform.localPosition = new Vector2(0, 0);
             }
         }
-        else if (myColor != Colors.black)
+        else if (myColor != Colors.Black)
         {
             Destroy(Enemy, 0.1f);
         }
@@ -216,18 +217,18 @@ public class PlayerController : MonoBehaviour
         //    Color.Attack(this);
         //}
 
-        //colliders : ´ê¾ÆÀÖ´Â ¹Ù´Ú¼ö¸¸Å­ Á¸Àç, °øÁß¿¡ ¶°ÀÖÀ¸¸é 0°³ ¹Ù´Ú¿¡ ´ê¾ÆÀÖÀ¸¸é 1°³
+        //colliders : ë‹¿ì•„ìˆëŠ” ë°”ë‹¥ìˆ˜ë§Œí¼ ì¡´ì¬, ê³µì¤‘ì— ë– ìˆìœ¼ë©´ 0ê°œ ë°”ë‹¥ì— ë‹¿ì•„ìˆìœ¼ë©´ 1ê°œ
 
         if (!isRope)
         {
-            //¶¥¿¡ ´ê¾Æ ÀÖ´ÂÁö ÆÇº°ÇÏ´Â º¯¼ö
+            //ë•…ì— ë‹¿ì•„ ìˆëŠ”ì§€ íŒë³„í•˜ëŠ” ë³€ìˆ˜
             bool wasGrounded = m_Grounded;
             m_Grounded = false;
 
             colliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
-            for (int i = 0; i < colliders.Length; i++) // ÀÌ for¹®ÀÌ ¿Ö ÇÊ¿äÇÏÁö
+            for (int i = 0; i < colliders.Length; i++) // ì´ forë¬¸ì´ ì™œ í•„ìš”í•˜ì§€
             {
-                //gameobject = plsyer, colliders[i].gameObject = player¿Í Á¢ÃËÇÏ°í ÀÖ´Â obj
+                //gameobject = plsyer, colliders[i].gameObject = playerì™€ ì ‘ì´‰í•˜ê³  ìˆëŠ” obj
                 if (colliders[i].gameObject != gameObject)
                 {
                     m_Grounded = true;
@@ -245,30 +246,30 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
-        
+
 
 
         m_IsWall = false;
-        if (!m_Grounded) //¶¥¿¡ ´ê¾ÆÀÖÁö ¾ÊÀ» ¶§ 
+        if (!m_Grounded) //ë•…ì— ë‹¿ì•„ìˆì§€ ì•Šì„ ë•Œ 
         {
             OnFallEvent.Invoke(); //chaingin animation -> isjumping : true
             collidersWall = Physics2D.OverlapCircleAll(m_WallCheck.position, k_GroundedRadius, m_WhatIsGround);
             for (int i = 0; i < collidersWall.Length; i++)
             {
-                if (collidersWall[i].gameObject != null) //º®¿¡ ´ê¾ÆÀÖ´Ù¸é
+                if (collidersWall[i].gameObject != null) //ë²½ì— ë‹¿ì•„ìˆë‹¤ë©´
                 {
                     isDashing = false;
                     m_IsWall = true;
                     break;
                 }
             }
-            prevVelocityX = m_Rigidbody2D.velocity.x; // ÇöÀç ¼Óµµ¸¦ ÀúÀå
+            prevVelocityX = m_Rigidbody2D.velocity.x; // í˜„ì¬ ì†ë„ë¥¼ ì €ì¥
         }
 
 
-        if (limitVelOnWallJump) // º®°ú °ü·ÃµÈ µíÇÑµ¥ ÀÏ´Ü ÆĞ½º
+        if (limitVelOnWallJump) // ë²½ê³¼ ê´€ë ¨ëœ ë“¯í•œë° ì¼ë‹¨ íŒ¨ìŠ¤
         {
-            if (m_Rigidbody2D.velocity.y < -0.5f) // ÀÌ°Ô ¸ô±î
+            if (m_Rigidbody2D.velocity.y < -0.5f) // ì´ê²Œ ëª°ê¹Œ
                 limitVelOnWallJump = false;
             jumpWallDistX = (jumpWallStartX - transform.position.x) * transform.localScale.x;
             if (jumpWallDistX < -0.5f && jumpWallDistX > -1f)
@@ -366,12 +367,12 @@ public class PlayerController : MonoBehaviour
     {
         colorWeapons[(int)myColor].sprite = DrawManager.Instance.sprites[(int)myColor];
 
-        // Yellow °æ¿ì, ÀÚ½Äµé¿¡µµ sprite ÇÒ´çÀÌ ÇÊ¿äÇÔ
-        if(myColor == Colors.yellow)
+        // Yellow ê²½ìš°, ìì‹ë“¤ì—ë„ sprite í• ë‹¹ì´ í•„ìš”í•¨
+        if (myColor == Colors.Yellow)
         {
-            for(int i = 0; i < 4; i++)
+            for (int i = 0; i < 4; i++)
             {
-                yellow_WeaponEffect.transform.GetChild(i).GetComponent<SpriteRenderer>().sprite = colorWeapons[(int)Colors.yellow].sprite;
+                yellow_WeaponEffect.transform.GetChild(i).GetComponent<SpriteRenderer>().sprite = colorWeapons[(int)Colors.Yellow].sprite;
             }
         }
     }
@@ -380,11 +381,11 @@ public class PlayerController : MonoBehaviour
     {
         colorWeapons[(int)myColor].sprite = DrawManager.Instance.Basic_Sprites[(int)myColor];
 
-        if (myColor == Colors.yellow)
+        if (myColor == Colors.Yellow)
         {
             for (int i = 0; i < 4; i++)
             {
-                yellow_WeaponEffect.transform.GetChild(i).GetComponent<SpriteRenderer>().sprite = colorWeapons[(int)Colors.yellow].sprite;
+                yellow_WeaponEffect.transform.GetChild(i).GetComponent<SpriteRenderer>().sprite = colorWeapons[(int)Colors.Yellow].sprite;
             }
         }
     }
@@ -540,7 +541,7 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("IsDashing", true);
         isDashing = true;
         canDash = false;
-        yield return new WaitForSeconds(0.1f); // dash Áö¼Ó½Ã°£
+        yield return new WaitForSeconds(0.1f); // dash ì§€ì†ì‹œê°„
         isDashing = false;
         yield return new WaitForSeconds(0.5f); // dash cooltime
         canDash = true;
@@ -565,26 +566,26 @@ public class PlayerController : MonoBehaviour
 
     public void Die()
     {
-        if(!isDie)
+        if (!isDie)
             StartCoroutine(WaitToDead());
     }
 
     public void TakeDamage(int damage, Vector3 enemyPos)
     {
-        if(!invincible)
+        if (!invincible)
         {
             //animation on 
             animator.SetBool("Hit", true);
             //health --
             currentHealth -= damage;
-            //Debug.Log($"ÇÃ·¹ÀÌ¾î ´ë¹ÌÁö: {damage}");
+            //Debug.Log($"í”Œë ˆì´ì–´ ëŒ€ë¯¸ì§€: {damage}");
 
             if (currentHealth > 100)
                 currentHealth = 100;
 
-            //GameManager¿¡ Health ÀúÀå
+            //GameManagerì— Health ì €ì¥
             GameManager.Instance.playerHP = currentHealth;
-            //³Ë¹é
+            //ë„‰ë°±
             Vector2 damageDir = Vector3.Normalize(transform.position - enemyPos) * 40f;
             m_Rigidbody2D.velocity = Vector2.zero;
             m_Rigidbody2D.AddForce(damageDir * knockBackForce);
@@ -592,7 +593,7 @@ public class PlayerController : MonoBehaviour
             if (currentHealth <= 0)
             {
                 //GameManager.Instance.GameOver();
-                
+
                 Die();
             }
             else
@@ -656,7 +657,7 @@ public class PlayerController : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            if (myColor == Colors.black)
+            if (myColor == Colors.Black)
             {
                 if (!collision.gameObject.GetComponent<MonsterController>().isActiveAndEnabled)
                 {
@@ -689,7 +690,7 @@ public class PlayerController : MonoBehaviour
         fixJoint.connectedBody = null;
         fixJoint.enabled = false;
 
-        this.CallOnDelay(0.1f, ()=> { isRope = false; });
+        this.CallOnDelay(0.1f, () => { isRope = false; });
     }
 
     IEnumerator WaitToDead()
@@ -701,7 +702,7 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(0.4f);
         m_Rigidbody2D.velocity = new Vector2(0, m_Rigidbody2D.velocity.y);
         yield return new WaitForSeconds(1.1f);
-        // »õ·Ó°Ô ¾À ·ÎµåÇÒ ÄÚµå Ãß°¡
+        // ìƒˆë¡­ê²Œ ì”¬ ë¡œë“œí•  ì½”ë“œ ì¶”ê°€
 
         GameManager.Instance.GameOver();
     }

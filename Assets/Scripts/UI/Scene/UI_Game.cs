@@ -8,10 +8,10 @@ using UnityEngine.EventSystems;
 
 public class UI_Game : UI_Scene
 {
-   
+
     public TextMeshProUGUI Coin;
     public List<Image> Stars = new List<Image>();
-    Colors player_color = Colors.def;
+    Colors player_color = Colors.Default;
 
     // Button
     GameObject jump;
@@ -81,14 +81,14 @@ public class UI_Game : UI_Scene
 
     private void FixedUpdate()
     {
-        // ÇÃ·¹ÀÌ¾î Ã¼·Â¹Ù
+        // í”Œë ˆì´ì–´ ì²´ë ¥ë°”
         hpBar.fillAmount = GameManager.Instance.HPBar();
 
-        // º° °³¼ö Update
-        if(starCount != GameManager.Instance.starCount)
+        // ë³„ ê°œìˆ˜ Update
+        if (starCount != GameManager.Instance.starCount)
         {
             starCount = GameManager.Instance.starCount;
-            for (int i=0; i< starCount; i++)
+            for (int i = 0; i < starCount; i++)
             {
                 Stars[i].GetComponent<Image>().color = Color.white;
             }
@@ -98,7 +98,7 @@ public class UI_Game : UI_Scene
 
 
 
-        // ÄÚÀÎ
+        // ì½”ì¸
         Coin.text = GameManager.Instance.mapCoin.ToString();
 
     }
@@ -111,7 +111,7 @@ public class UI_Game : UI_Scene
 
         Colors current_color32 = GameManager.Instance.playerColor;
 
-        // ÇÃ·¹ÀÌ¾î state¿¡ µû¸¥ »ö º¯°æ
+        // í”Œë ˆì´ì–´ stateì— ë”°ë¥¸ ìƒ‰ ë³€ê²½
         if (player_color != current_color32)
         {
             player_color = current_color32;
@@ -126,7 +126,7 @@ public class UI_Game : UI_Scene
             dash.GetComponent<Image>().color = alpha_color32_1;
 
         }
-        if(player_color == Colors.yellow)
+        if (player_color == Colors.Yellow)
             GetImage((int)Images.Attack_Cool_Time).gameObject.SetActive(true);
         else
             GetImage((int)Images.Attack_Cool_Time).gameObject.SetActive(false);
@@ -159,21 +159,21 @@ public class UI_Game : UI_Scene
         BindEvent(attack, AttackBtnClickedUp, Define.UIEvent.UpClick);
 
 
-        // ¹°°¨ ¿ÀºêÁ§Æ® ¹Ş¾ÆµÎ±â + ColorManger¿¡ ÀúÀåµÈ »öÀ¸·Î º¯°æ
+        // ë¬¼ê° ì˜¤ë¸Œì íŠ¸ ë°›ì•„ë‘ê¸° + ColorMangerì— ì €ì¥ëœ ìƒ‰ìœ¼ë¡œ ë³€ê²½
         Red_IMG = GetImage((int)Images.Red);
-        Red_IMG.color = ColorManager.Instance.GetColor(Colors.red);
+        Red_IMG.color = ColorManager.Instance.GetColor(Colors.Red);
 
         Yellow_IMG = GetImage((int)Images.Yellow);
-        Yellow_IMG.color = ColorManager.Instance.GetColor(Colors.yellow);
+        Yellow_IMG.color = ColorManager.Instance.GetColor(Colors.Yellow);
 
 
         Blue_IMG = GetImage((int)Images.Blue);
-        Blue_IMG.color = ColorManager.Instance.GetColor(Colors.blue);
+        Blue_IMG.color = ColorManager.Instance.GetColor(Colors.Blue);
 
         Attack_Cool_Time_IMG = GetImage((int)Images.Attack_Cool_Time);
 
 
-        // Palette ¼¼ÆÃ
+        // Palette ì„¸íŒ…
         SetPalette();
         ColorManager.Instance.OnSetColor += SetPalette;
 
@@ -182,12 +182,12 @@ public class UI_Game : UI_Scene
         //};
 
 
-        // hpBar ±æÀÌ ¹Ş¾ÆµÎ±â
+        // hpBar ê¸¸ì´ ë°›ì•„ë‘ê¸°
         hpBarMAX = hpBar.gameObject.GetComponent<RectTransform>().rect.width;
 
         // Potal
         PotalArr_IMG = GetImage((int)Images.PotalArrow);
-        if(GameManager.Instance.Potal != null)
+        if (GameManager.Instance.Potal != null)
             potalVec = GameManager.Instance.Potal.transform.position;
 
 
@@ -195,9 +195,9 @@ public class UI_Game : UI_Scene
 
     }
 
-    public void OnSettingBtnClicked(PointerEventData data) // ¼³Á¤ ¹öÆ° ´­·¶À» ¶§
+    public void OnSettingBtnClicked(PointerEventData data) // ì„¤ì • ë²„íŠ¼ ëˆŒë €ì„ ë•Œ
     {
-        // °ÔÀÓ ÀÏ½ÃÁ¤Áö ÈÄ ¼³Á¤UI ¶ç¿ì±â
+        // ê²Œì„ ì¼ì‹œì •ì§€ í›„ ì„¤ì •UI ë„ìš°ê¸°
 
         GameManager.Instance.PauseGame();
         Managers.UI.ShowPopupUI<UI_Setting>();
@@ -205,7 +205,7 @@ public class UI_Game : UI_Scene
 
     public void PaletteBtnClicked(PointerEventData data)
     {
-        // °ÔÀÓ ÀÏ½ÃÁ¤Áö ÈÄ ¼³Á¤UI ¶ç¿ì±â
+        // ê²Œì„ ì¼ì‹œì •ì§€ í›„ ì„¤ì •UI ë„ìš°ê¸°
 
         GameManager.Instance.PauseGame();
         Managers.UI.ShowPopupUI<UI_Palette>();
@@ -214,9 +214,9 @@ public class UI_Game : UI_Scene
     }
 
 
-    // ÇÃ·¹ÀÌ¾î ÄÁÆ®·Ñ
+    // í”Œë ˆì´ì–´ ì»¨íŠ¸ë¡¤
 
-    //°ø°İ ¹öÆ°ÀÌ ´­·ÈÀ» ¶§
+    //ê³µê²© ë²„íŠ¼ì´ ëˆŒë ¸ì„ ë•Œ
     public void AttackBtnClickedDown(PointerEventData data)
     {
         if (playerController.canAttack)
@@ -229,7 +229,7 @@ public class UI_Game : UI_Scene
             canAttack = true;
         }
     }
-    
+
     public void AttackBtnClickedUp(PointerEventData data)
     {
         playerController.AttackUp();

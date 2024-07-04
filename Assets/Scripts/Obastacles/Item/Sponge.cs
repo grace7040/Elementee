@@ -18,17 +18,16 @@ public class Sponge : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            if (collision.GetComponent<PlayerController>().myColor == Colors.def) 
+            if (collision.GetComponent<PlayerController>().myColor == Colors.Default) 
                 return;
 
             AudioManager.Instacne.PlaySFX("Sponge");
-            var bulletGo = ObjectPoolManager.Instance.GetGo();
+            var bulletGo = ObjectPoolManager.Instance.GetCurrentColorBlood();
             bulletGo.transform.position = transform.position;
 
             GetComponent<SpriteRenderer>().color = ColorManager.Instance.GetColor(collision.GetComponent<PlayerController>().myColor);
-            ColorManager.Instance.SetColorState(Colors.def);
+            ColorManager.Instance.SetColorState(Colors.Default);
 
-            // 애니메이션 재생
             anim.Play("Sponge", -1, 0f);
 
         }

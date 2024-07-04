@@ -128,7 +128,7 @@ public class MonsterController : MonoBehaviour
         isFlip = waypointDirection < 0f;
         //print(waypointDirection);
         
-        if (myColor == Colors.yellow)
+        if (myColor == Colors.Yellow)
         {
             if (canflip) monsterBody.rotation = isFlip ? Quaternion.identity : flipQuaternion;
         }
@@ -212,7 +212,7 @@ public class MonsterController : MonoBehaviour
             Vector2 moveDirection = new Vector2(currentWaypoint.x - transform.position.x, 0).normalized;
             rb.velocity = moveDirection * moveSpeed;
 
-            if (myColor != Colors.def)
+            if (myColor != Colors.Default)
             {
                 animator.SetBool("IsWalking", true);
             }
@@ -239,7 +239,7 @@ public class MonsterController : MonoBehaviour
                     isStopping = true;
                     canMove = false;
                     timeSinceLastStop = 0;
-                    if (myColor != Colors.def)
+                    if (myColor != Colors.Default)
                     {
                         animator.SetBool("IsWalking", false);
                     }
@@ -329,15 +329,15 @@ public class MonsterController : MonoBehaviour
         isDie = true;
         switch (myColor)
         {
-            case Colors.def:
+            case Colors.Default:
                 break;
-            case Colors.red:
+            case Colors.Red:
                 ColorManager.Instance.HasRed = true;
                 break;
-            case Colors.blue:
+            case Colors.Blue:
                 ColorManager.Instance.HasBlue = true;
                 break;
-            case Colors.yellow:
+            case Colors.Yellow:
                 ColorManager.Instance.HasYellow = true;
                 break;
         }
@@ -476,7 +476,7 @@ public class MonsterController : MonoBehaviour
 
     private void OnDieByGreenPlayer()
     {
-        if (GameManager.Instance.playerColor == Colors.green)
+        if (GameManager.Instance.playerColor == Colors.Green)
         {
             Instantiate(Resources.Load("Monster/Leaf"), transform.position, Quaternion.identity);
         }
@@ -501,8 +501,8 @@ public class MonsterController : MonoBehaviour
     {
         animator.enabled = false;
         isDie = true;
-        if (myColor == Colors.yellow) GetComponent<M_Yellow>().voltObject.SetActive(false);
-        else if (myColor == Colors.red) GetComponent<M_Red>().fireObject.SetActive(false);
+        if (myColor == Colors.Yellow) GetComponent<M_Yellow>().voltObject.SetActive(false);
+        else if (myColor == Colors.Red) GetComponent<M_Red>().fireObject.SetActive(false);
         enabled = false;
         rb.mass = 0.0f;
         rb.gravityScale = 0.0f;

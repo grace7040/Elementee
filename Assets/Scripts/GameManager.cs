@@ -8,11 +8,11 @@ public class GameManager : Singleton<GameManager>
     public bool developMode;
 
     [Header("GameManage")]
-    // JSON ÀúÀå
+    // JSON ì €ì¥
     public List<int> mapStar = new List<int>();
-   // public List<int> mapFlag = new List<int>();
+    // public List<int> mapFlag = new List<int>();
     public List<Vector3> yehh = new List<Vector3>();
-    public int mapBest;  // ÇÃ·¹ÀÌ °¡´ÉÇÑ °¡Àå Å« ¸Ê
+    public int mapBest;  // í”Œë ˆì´ ê°€ëŠ¥í•œ ê°€ì¥ í° ë§µ
     public int mapCoin = 0;
 
 
@@ -24,7 +24,7 @@ public class GameManager : Singleton<GameManager>
     [Header("Player")]
     public GameObject player;
     //public Transform sponPos;
-    public Colors playerColor = Colors.def;
+    public Colors playerColor = Colors.Default;
     public Sprite playerFace;
 
     public int playerHP = 100;
@@ -35,7 +35,7 @@ public class GameManager : Singleton<GameManager>
 
     [Header("Item")]
     public int coin;
-    public Colors ReDrawItemColor = Colors.def;
+    public Colors ReDrawItemColor = Colors.Default;
 
     private void Awake()
     {
@@ -44,7 +44,7 @@ public class GameManager : Singleton<GameManager>
 
     void Start()
     {
-        //DataManager.Instance.JsonClear(); // µ¥ÀÌÅÍ ÃÊ±âÈ­
+        //DataManager.Instance.JsonClear(); // ë°ì´í„° ì´ˆê¸°í™”
         DataManager.Instance.JsonLoad();
     }
 
@@ -60,25 +60,25 @@ public class GameManager : Singleton<GameManager>
 
     public void PauseGame()
     {
-        // °ÔÀÓ ÀÏ½ÃÁ¤Áö
+        // ê²Œì„ ì¼ì‹œì •ì§€
         Time.timeScale = 0;
         Managers.UI.ClosePopupUI();
     }
 
     public void ResumeGame()
     {
-        // °ÔÀÓ ´Ù½Ã È°¼ºÈ­
+        // ê²Œì„ ë‹¤ì‹œ í™œì„±í™”
         Time.timeScale = 1;
         Managers.UI.ClosePopupUI();
     }
 
-    public void RetryGame() // °ÔÀÓ Àç½ÃÀÛ
+    public void RetryGame() // ê²Œì„ ì¬ì‹œì‘
     {
         ResumeGame();
         InitGame();
 
         ColorManager.Instance.ResetColorState();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // ÇöÀç ¾À Àç½ÃÀÛ        
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // í˜„ì¬ ì”¬ ì¬ì‹œì‘        
 
     }
 
@@ -87,13 +87,13 @@ public class GameManager : Singleton<GameManager>
         mapCoin = 0;
         isFirst = true;
 
-        // ÇÃ·¹ÀÌ¾î ÇÇ ÃÊ±âÈ­ + Color State ÃÊ±âÈ­
+        // í”Œë ˆì´ì–´ í”¼ ì´ˆê¸°í™” + Color State ì´ˆê¸°í™”
         playerHP = playerMAXHP;
     }
 
     public void GameOver()
     {
-        // ÆĞ¹è UI ¶ç¿ì±â
+        // íŒ¨ë°° UI ë„ìš°ê¸°
         Time.timeScale = 0;
         Managers.UI.ShowPopupUI<UI_GameOver>();
 
@@ -104,8 +104,8 @@ public class GameManager : Singleton<GameManager>
         Time.timeScale = 0;
         coin += mapCoin;
 
-        // ±â·Ï ÀúÀå
-        if (mapBest<=currentMapNum) // Ã³À½ ClearÇÑ ¸ÊÀÏ °æ¿ì
+        // ê¸°ë¡ ì €ì¥
+        if (mapBest <= currentMapNum) // ì²˜ìŒ Clearí•œ ë§µì¼ ê²½ìš°
         {
             mapStar.Add(starCount);
             //mapFlag.Add(0);
@@ -122,7 +122,7 @@ public class GameManager : Singleton<GameManager>
         }
         DataManager.Instance.JsonSave();
 
-        // ½Â¸® UI ¶ç¿ì±â 
+        // ìŠ¹ë¦¬ UI ë„ìš°ê¸° 
         Managers.UI.ShowPopupUI<UI_GameWin>();
     }
 
@@ -146,8 +146,4 @@ public class GameManager : Singleton<GameManager>
         player.GetComponent<PlayerController>().Revival();
         isFirst = false;
     }
-
-    
-
-
 }

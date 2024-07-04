@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -9,17 +10,12 @@ public class ObjectPoolManager : MonoBehaviour
     [System.Serializable]
     private class ObjectInfo
     {
-        // 오브젝트 이름
         public string objectName;
-        // 오브젝트 풀에서 관리할 오브젝트
         public GameObject perfab;
-        // 몇개를 미리 생성 해놓을건지
         public int count;
     }
 
     string currentColorName = null;
-    // 오브젝트풀 매니저 준비 완료표시
-    //public bool IsReady { get; private set; }
 
     [SerializeField]
     private ObjectInfo[] objectInfos = null;
@@ -67,8 +63,6 @@ public class ObjectPoolManager : MonoBehaviour
 
     IEnumerator Init()
     {
-        //IsReady = false;
-
         for (int idx = 0; idx < objectInfos.Length; idx++)
         {
             IObjectPool<GameObject> pool = new ObjectPool<GameObject>(CreatePooledItem, OnTakeFromPool, OnReturnedToPool,
@@ -83,7 +77,7 @@ public class ObjectPoolManager : MonoBehaviour
             goDic.Add(objectInfos[idx].objectName, objectInfos[idx].perfab);
             ojbectPoolDic.Add(objectInfos[idx].objectName, pool);
 
-            // 미리 오브젝트 생성 해놓기
+            // 미리 오브젝트 생성
             for (int i = 0; i < objectInfos[idx].count; i++)
             {
                 objectName = objectInfos[idx].objectName;
@@ -96,8 +90,6 @@ public class ObjectPoolManager : MonoBehaviour
         }
 
         //Debug.Log("오브젝트풀링 준비 완료");
-        //IsReady = true;
-        //ObjectManager.Instance.ObjectPoolManager_Ready = true;
     }
 
     // 생성
@@ -144,7 +136,7 @@ public class ObjectPoolManager : MonoBehaviour
     }
 
 
-    public GameObject GetGo()
+    public GameObject GetCurrentColorBlood()
     {
         objectName = currentColorName;
         if (goDic.ContainsKey(currentColorName) == false)
@@ -156,76 +148,22 @@ public class ObjectPoolManager : MonoBehaviour
         return ojbectPoolDic[currentColorName].Get();
     }
 
-    public GameObject GetGo(Colors color)
+    public GameObject GetColorBlood(Colors color)
     {
-        string name = ColorsToBloodname(color);
+        string name = GetBloodNameByColor(color);
         return ojbectPoolDic[name].Get();
     }
 
     public void SetColorName(Colors color)
     {
-        switch (color)
-        {
-            case Colors.def:
-                currentColorName = "DefaultBlood";
-                //Debug.Log("Blood Effect 색을 설정하세요.");
-                break;
-            case Colors.red:
-                currentColorName = "RedBlood";
-                break;
-            case Colors.yellow:
-                currentColorName = "YellowBlood";
-                break;
-            case Colors.blue:
-                currentColorName = "BlueBlood";
-                break;
-            case Colors.orange:
-                currentColorName = "OrangeBlood";
-                break;
-            case Colors.green:
-                currentColorName = "GreenBlood";
-                break;
-            case Colors.purple:
-                currentColorName = "PurpleBlood";
-                break;
-            case Colors.black:
-                currentColorName = "BlackBlood";
-                break;
-        }
+        currentColorName = GetBloodNameByColor(color);
     }
 
-    public string ColorsToBloodname(Colors color)
+    public string GetBloodNameByColor(Colors color)
     {
-        string colorName = "";
+        var colorName = new StringBuilder();
+        colorName.Append(color.ToString() + "Blood");
 
-        switch (color)
-        {
-            case Colors.def:
-                colorName = "DefaultBlood";
-                break;
-            case Colors.red:
-                colorName = "RedBlood";
-                break;
-            case Colors.yellow:
-                colorName = "YellowBlood";
-                break;
-            case Colors.blue:
-                colorName = "BlueBlood";
-                break;
-            case Colors.orange:
-                colorName = "OrangeBlood";
-                break;
-            case Colors.green:
-                colorName = "GreenBlood";
-                break;
-            case Colors.purple:
-                colorName = "PurpleBlood";
-                break;
-            case Colors.black:
-                colorName = "BlackBlood";
-                break;
-        }
-
-        return colorName;
+        return colorName.ToString();
     }
 }

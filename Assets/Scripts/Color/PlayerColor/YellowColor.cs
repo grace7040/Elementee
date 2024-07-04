@@ -14,17 +14,17 @@ public class YellowColor : IColorState
     //{
     //    ColorManager.Instance.OnSaveColor += SetCustomSprite;
     //}
-    //Temporal Setting : Yellow Color Attack -> ±ÙÁ¢ °ø°Ý
+    //Temporal Setting : Yellow Color Attack -> ê·¼ì ‘ ê³µê²©
     public void Attack(PlayerController player)
     {
-        //Àü±â 
+        //ì „ê¸° 
         //playerprefab on
         //player.canAttack = false;
         player.yellow_WeaponEffect.SetActive(true);
-        player.yellow_WeaponEffect.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = player.colorWeapons[(int)Colors.yellow].sprite;
+        player.yellow_WeaponEffect.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = player.colorWeapons[(int)Colors.Yellow].sprite;
         AudioManager.Instacne.PlaySFX("Yellow");
-        //3ÃÊ ÀÌÈÄ¿¡ off
-        // ³ë¶õ °ø°ÝÀº Ã³À½ºÎÅÍ ÄÑÁ® ÀÖ¾î¾ß ÇÏ´Ï ÄðÅ¸ÀÓ Àû¿ë ºÎºÐ ÁÖ¼®
+        //3ì´ˆ ì´í›„ì— off
+        // ë…¸ëž€ ê³µê²©ì€ ì²˜ìŒë¶€í„° ì¼œì ¸ ìžˆì–´ì•¼ í•˜ë‹ˆ ì¿¨íƒ€ìž„ ì ìš© ë¶€ë¶„ ì£¼ì„
         //player.CallOnDelay(CoolTime, () =>
         //{
         //    player.GetComponent<PlayerController>().yellowAttackEffect.SetActive(false);
@@ -36,7 +36,7 @@ public class YellowColor : IColorState
     //void SetCustomSprite()
     //{
     //    PlayerController player = FindObjectOfType<PlayerController>();
-        
+
     //    // ::TEST::
     //    player.yellowAttackEffect.GetComponent<SpriteRenderer>().sprite = player.colorWeapons[(int)Colors.yellow].sprite;
     //    // ::TEST::

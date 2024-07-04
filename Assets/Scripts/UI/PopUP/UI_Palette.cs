@@ -15,7 +15,7 @@ public class UI_Palette : UI_Popup
     ColorManager C_Mgr;
 
     //Colors redrawColor = Colors.def;
-    Colors currentColor = Colors.def;
+    Colors currentColor = Colors.Default;
 
     enum Buttons
     {
@@ -61,7 +61,7 @@ public class UI_Palette : UI_Popup
         canvasImg = GetImage((int)Images.ColorImg).gameObject.GetComponent<Image>();
         redrawImg = GetButton((int)Buttons.ReDrawBtn).gameObject.GetComponent<Image>();
 
-        if (GameManager.Instance.playerColor == Colors.def)
+        if (GameManager.Instance.playerColor == Colors.Default)
             GetButton((int)Buttons.ReDrawBtn).interactable = false;
         else
             redrawImg.color = ColorManager.Instance.GetColor(GameManager.Instance.playerColor);
@@ -104,13 +104,13 @@ public class UI_Palette : UI_Popup
         //Managers.UI.ClosePopupUI();
         GameManager.Instance.ResumeGame();
         ColorManager.Instance.OnSetColor?.Invoke();
-        if (currentColor != Colors.def)
+        if (currentColor != Colors.Default)
             C_Mgr.SetColorState(currentColor);  // 플레이어의 현재 Color에 적용
     }
 
     public void ResetBtnBtnClicked(PointerEventData data)
     {
-        currentColor = Colors.def;
+        currentColor = Colors.Default;
         ChangeColor(currentColor);
     }
 
@@ -118,17 +118,17 @@ public class UI_Palette : UI_Popup
     {
         switch (currentColor)
         {
-            case Colors.def:
-                currentColor = Colors.red;
+            case Colors.Default:
+                currentColor = Colors.Red;
                 break;
-            case Colors.yellow:
-                currentColor = Colors.orange;
+            case Colors.Yellow:
+                currentColor = Colors.Orange;
                 break;
-            case Colors.blue:
-                currentColor = Colors.purple;
+            case Colors.Blue:
+                currentColor = Colors.Purple;
                 break;
-            case Colors.green:
-                currentColor = Colors.black;
+            case Colors.Green:
+                currentColor = Colors.Black;
                 break;
         }
 
@@ -139,17 +139,17 @@ public class UI_Palette : UI_Popup
     {
         switch (currentColor)
         {
-            case Colors.def:
-                currentColor = Colors.yellow;
+            case Colors.Default:
+                currentColor = Colors.Yellow;
                 break;
-            case Colors.red:
-                currentColor = Colors.orange;
+            case Colors.Red:
+                currentColor = Colors.Orange;
                 break;
-            case Colors.blue:
-                currentColor = Colors.green;
+            case Colors.Blue:
+                currentColor = Colors.Green;
                 break;            
-            case Colors.purple:
-                currentColor = Colors.black;
+            case Colors.Purple:
+                currentColor = Colors.Black;
                 break;
         }
 
@@ -161,17 +161,17 @@ public class UI_Palette : UI_Popup
     {
         switch (currentColor)
         {
-            case Colors.def:
-                currentColor = Colors.blue;
+            case Colors.Default:
+                currentColor = Colors.Blue;
                 break;
-            case Colors.yellow:
-                currentColor = Colors.green;
+            case Colors.Yellow:
+                currentColor = Colors.Green;
                 break;
-            case Colors.red:
-                currentColor = Colors.purple;
+            case Colors.Red:
+                currentColor = Colors.Purple;
                 break;
-            case Colors.orange:
-                currentColor = Colors.black;
+            case Colors.Orange:
+                currentColor = Colors.Black;
                 break;
         }
 
