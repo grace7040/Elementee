@@ -14,7 +14,10 @@ public class ChaseState : BaseState
 
     public override void Update()
     {
-        if (Vector2.Distance(monster.transform.position, monster.player.position) <= monster.attackRange)
+        monster.isFlip = monster.player.position.x < monster.transform.position.x;
+        monster.monsterBody.rotation = monster.isFlip ? Quaternion.identity : monster.flipQuaternion;
+
+        if (Vector2.Distance(monster.transform.position, monster.player.position) <= monster.attackRange && monster.distanceY <= 1.0f)
         {
             monster.ChangeState(new AttackState(monster));
         }
@@ -22,10 +25,14 @@ public class ChaseState : BaseState
         {
             if (monster.CheckGround())
             {
-                Vector2 moveDirection = (monster.player.position - monster.transform.position);
-                moveDirection.y = 0;
-                moveDirection.Normalize();
-                monster.rb.velocity = moveDirection * monster.moveSpeed;
+                if (!monster.CheckCliff())
+                {
+                    Vector2 moveDirection = (monster.player.position - monster.transform.position);
+                    moveDirection.y = 0;
+                    moveDirection.Normalize();
+                    monster.rb.velocity = moveDirection * monster.moveSpeed;
+                }
+                else monster.rb.velocity = Vector2.zero;
             }
             else
             {

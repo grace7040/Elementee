@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class IdleState : BaseState
@@ -14,7 +15,7 @@ public class IdleState : BaseState
 
     public override void Update()
     {
-        if (Vector2.Distance(monster.transform.position, monster.player.position) <= monster.detectionRange)
+        if (Vector2.Distance(monster.transform.position, monster.player.position) <= monster.detectionRange && monster.distanceY <= 1.0f)
         {
             monster.ChangeState(new ChaseState(monster));
         }

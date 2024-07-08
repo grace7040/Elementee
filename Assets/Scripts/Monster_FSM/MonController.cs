@@ -17,6 +17,8 @@ public class MonController : MonoBehaviour
     public bool isDie = false;
 
     protected SpriteRenderer m_sprite;
+
+    [HideInInspector]
     public Transform player;
     [HideInInspector]
     public Rigidbody2D rb;
@@ -66,15 +68,16 @@ public class MonController : MonoBehaviour
 
     protected float waypointDirection;
     protected float distanceX;
-    protected float distanceY;
+    public float distanceY;
     public Animator animator;
 
+    [HideInInspector]
     public Quaternion flipQuaternion = Quaternion.Euler(new Vector3(0, 180, 0));
     public Transform monsterBody;
 
     [HideInInspector]
     public bool isFlip = false;
-    protected bool canflip = true;
+    public bool canflip = true;
     protected bool isGrounded = true;
 
     protected Vector2 dir;
@@ -128,8 +131,6 @@ public class MonController : MonoBehaviour
         waypointDirection = currentWaypoint.x - transform.position.x;
         distanceX = Mathf.Abs(transform.position.x - player.position.x);
         distanceY = Mathf.Abs(transform.position.y - player.position.y);
-
-        // isFlip = player.position.x < transform.position.x;
 
         isFlip = waypointDirection < 0f;
 
@@ -251,7 +252,9 @@ public class MonController : MonoBehaviour
     public bool CheckCliff()
     {
         Quaternion rotation = isFlip ? flipQuaternion : Quaternion.identity;
-        Vector2 raycastOrigin = transform.position + (rotation * Vector3.right);
+        Vector2 raycastOrigin = transform.position + (rotation * Vector3.right * 0.7f);
+
+        UnityEngine.Debug.DrawRay(raycastOrigin, Vector2.down, Color.red);
         RaycastHit2D hitDown = Physics2D.Raycast(raycastOrigin, Vector2.down, 1.0f, 1 << 0);
 
         return hitDown.collider == null;
@@ -265,7 +268,8 @@ public class MonController : MonoBehaviour
 
     public bool CheckGround()
     {
-        float raycastDistance = 1.0f;
+        float raycastDistance = 0.7f;
+        UnityEngine.Debug.DrawRay(transform.position, Vector2.down * raycastDistance, Color.red);
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, raycastDistance, 1 << 0);
 
         return hit.collider != null;

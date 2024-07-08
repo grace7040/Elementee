@@ -3235,13 +3235,17 @@ MonoBehaviour:
   monsterData: {fileID: 11400000, guid: 54a7d9d1ab6f6574186217c266ed0af1, type: 2}
   myColor: 0
   isDie: 0
+  player: {fileID: 0}
   rb: {fileID: 0}
   moveSpeed: 3
   detectionRange: 10
   attackRange: 0
   damage: 0
   animator: {fileID: 1255144468}
+  flipQuaternion: {x: 0, y: 1, z: 0, w: -0.00000004371139}
   monsterBody: {fileID: 1255144467}
+  isFlip: 0
+  canflip: 1
 --- !u!1 &1214254338
 GameObject:
   m_ObjectHideFlags: 0
@@ -4521,6 +4525,14 @@ PrefabInstance:
     - target: {fileID: 2798503389904488890, guid: 2b2b24f4a0456a7449a11d221039b1eb, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2798503389904488894, guid: 2b2b24f4a0456a7449a11d221039b1eb, type: 3}
+      propertyPath: m_Size.y
+      value: 12.182072
+      objectReference: {fileID: 0}
+    - target: {fileID: 2798503389904488894, guid: 2b2b24f4a0456a7449a11d221039b1eb, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.2502644
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b2b24f4a0456a7449a11d221039b1eb, type: 3}
