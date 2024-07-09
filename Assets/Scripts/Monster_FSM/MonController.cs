@@ -68,6 +68,7 @@ public class MonController : MonoBehaviour
 
     protected float waypointDirection;
     protected float distanceX;
+    [HideInInspector]
     public float distanceY;
     public Animator animator;
 
@@ -77,6 +78,7 @@ public class MonController : MonoBehaviour
 
     [HideInInspector]
     public bool isFlip = false;
+    [HideInInspector]
     public bool canflip = true;
     protected bool isGrounded = true;
 
@@ -140,7 +142,7 @@ public class MonController : MonoBehaviour
         }
         else
         {
-            monsterBody.rotation = isFlip ? Quaternion.identity : flipQuaternion;
+            //monsterBody.rotation = isFlip ? Quaternion.identity : flipQuaternion;
         }
 
         stateMachine.Update();
@@ -254,7 +256,7 @@ public class MonController : MonoBehaviour
         Quaternion rotation = isFlip ? flipQuaternion : Quaternion.identity;
         Vector2 raycastOrigin = transform.position + (rotation * Vector3.right * 0.7f);
 
-        UnityEngine.Debug.DrawRay(raycastOrigin, Vector2.down, Color.red);
+        //UnityEngine.Debug.DrawRay(raycastOrigin, Vector2.down, Color.red);
         RaycastHit2D hitDown = Physics2D.Raycast(raycastOrigin, Vector2.down, 1.0f, 1 << 0);
 
         return hitDown.collider == null;
@@ -269,7 +271,7 @@ public class MonController : MonoBehaviour
     public bool CheckGround()
     {
         float raycastDistance = 0.7f;
-        UnityEngine.Debug.DrawRay(transform.position, Vector2.down * raycastDistance, Color.red);
+        //UnityEngine.Debug.DrawRay(transform.position, Vector2.down * raycastDistance, Color.red);
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, raycastDistance, 1 << 0);
 
         return hit.collider != null;

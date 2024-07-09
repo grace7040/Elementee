@@ -1316,6 +1316,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1063568883809353916, guid: 7138692136fc71e48b55af172443b36e, type: 3}
     - target: {fileID: 8375561365190159219, guid: 32e26805535ac774599301511c0d49b9, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8375561365190159219, guid: 32e26805535ac774599301511c0d49b9, type: 3}
       propertyPath: posobj_else
       value: 
       objectReference: {fileID: 1063568883809353916, guid: f65b797b48fb6bf46b917bd2a91edf51, type: 3}
@@ -2895,6 +2899,16 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 531077346062870673, guid: bc4a79d607ca7fb43a4ae51c5427f25d, type: 3}
   m_PrefabInstance: {fileID: 1833790045}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1082649169 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1195889129445914115, guid: 32e26805535ac774599301511c0d49b9, type: 3}
+  m_PrefabInstance: {fileID: 498263386}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1082649170 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5805800743243854448, guid: 32e26805535ac774599301511c0d49b9, type: 3}
+  m_PrefabInstance: {fileID: 498263386}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1084618031
 GameObject:
   m_ObjectHideFlags: 0
@@ -2963,6 +2977,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1105684964 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4609821054395531861, guid: 32e26805535ac774599301511c0d49b9, type: 3}
+  m_PrefabInstance: {fileID: 498263386}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1121391164
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3241,6 +3260,7 @@ MonoBehaviour:
   detectionRange: 10
   attackRange: 0
   damage: 0
+  distanceY: 0
   animator: {fileID: 1255144468}
   flipQuaternion: {x: 0, y: 1, z: 0, w: -0.00000004371139}
   monsterBody: {fileID: 1255144467}
@@ -3504,6 +3524,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b2b24f4a0456a7449a11d221039b1eb, type: 3}
+--- !u!1 &1245307727 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6645136093791118897, guid: 32e26805535ac774599301511c0d49b9, type: 3}
+  m_PrefabInstance: {fileID: 498263386}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1245307732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1245307727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1e0992a607cadc4b86ca2fd273c5ffd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monsterData: {fileID: 11400000, guid: fe19ed216363dde488d05453d7abcfad, type: 2}
+  myColor: 0
+  isDie: 0
+  player: {fileID: 0}
+  rb: {fileID: 0}
+  moveSpeed: 3
+  detectionRange: 10
+  attackRange: 0
+  damage: 0
+  distanceY: 0
+  animator: {fileID: 1082649170}
+  flipQuaternion: {x: 0, y: 1, z: 0, w: -0.00000004371139}
+  monsterBody: {fileID: 1082649169}
+  isFlip: 0
+  canflip: 1
+  fireObject: {fileID: 1105684964}
 --- !u!4 &1255144467 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4018037361947101270, guid: 2b2b24f4a0456a7449a11d221039b1eb, type: 3}
@@ -4524,7 +4577,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2798503389904488890, guid: 2b2b24f4a0456a7449a11d221039b1eb, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2798503389904488894, guid: 2b2b24f4a0456a7449a11d221039b1eb, type: 3}
       propertyPath: m_Size.y
