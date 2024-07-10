@@ -611,7 +611,6 @@ public class PlayerController : MonoBehaviour
         if (currentHealth > 100)
             currentHealth = 100;
 
-        GameManager.Instance.playerHP = currentHealth;
         healEffect.SetActive(true);
         this.CallOnDelay(1f, () => { healEffect.SetActive(false); });
     }
