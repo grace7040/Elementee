@@ -33,11 +33,8 @@ public class MonController : MonoBehaviour
     public float attackRange;
 
     // Cooltime
-    protected bool canAttack = true;
+    // protected bool canAttack = true;
     protected bool canTakeDamage_RangeAttack = true;
-
-    // updateÀÇ start ¿ªÇÒ
-    protected bool Isfirst = true;
 
     [HideInInspector]
     public int damage;
@@ -78,8 +75,8 @@ public class MonController : MonoBehaviour
 
     [HideInInspector]
     public bool isFlip = false;
-    [HideInInspector]
-    public bool canflip = true;
+    //[HideInInspector]
+    //public bool canflip = true;
     protected bool isGrounded = true;
 
     protected Vector2 dir;
@@ -328,34 +325,34 @@ public class MonController : MonoBehaviour
         Destroy(gameObject, 2.5f);
     }
 
-    protected IEnumerator ChargeAfterDelay()
-    {
-        canAttack = false;
-        canflip = false;
-        rb.velocity = Vector2.zero;
-        dir = new Vector2(waypointDirection, 0);
-        yield return new WaitForSeconds(1.2f);
-        animator.SetBool("IsAttacking", true);
-        StartCoroutine(ChargeForDuration(0.4f));
-    }
+    //protected IEnumerator ChargeAfterDelay()
+    //{
+    //    canAttack = false;
+    //    canflip = false;
+    //    rb.velocity = Vector2.zero;
+    //    dir = new Vector2(waypointDirection, 0);
+    //    yield return new WaitForSeconds(1.2f);
+    //    animator.SetBool("IsAttacking", true);
+    //    StartCoroutine(ChargeForDuration(0.4f));
+    //}
 
-    IEnumerator ChargeForDuration(float duration)
-    {
-        float startTime = Time.time;
-        dir.y = 0;
-        dir.Normalize();
+    //IEnumerator ChargeForDuration(float duration)
+    //{
+    //    float startTime = Time.time;
+    //    dir.y = 0;
+    //    dir.Normalize();
 
-        while (Time.time - startTime < duration)
-        {
-            Vector2 movement = 7f * Time.deltaTime * dir;
-            transform.Translate(movement);
-            yield return null;
-        }
-        yield return new WaitForSeconds(1.0f);
-        animator.SetBool("IsAttacking", false);
-        canAttack = true;
-        canflip = true;
-    }
+    //    while (Time.time - startTime < duration)
+    //    {
+    //        Vector2 movement = 7f * Time.deltaTime * dir;
+    //        transform.Translate(movement);
+    //        yield return null;
+    //    }
+    //    yield return new WaitForSeconds(1.0f);
+    //    animator.SetBool("IsAttacking", false);
+    //    canAttack = true;
+    //    canflip = true;
+    //}
 
     protected IEnumerator Electrocuted()
     {
@@ -475,10 +472,7 @@ public class MonController : MonoBehaviour
         rb.gravityScale = 0.0f;
         GetComponent<CapsuleCollider2D>().isTrigger = true;
     }
-    public virtual void Attack()
-    {
-        
-    }
+    public virtual void Attack() {}
 
     public void ChangeState(BaseState newState)
     {
