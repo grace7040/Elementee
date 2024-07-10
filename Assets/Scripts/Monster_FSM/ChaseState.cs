@@ -16,12 +16,8 @@ public class ChaseState : BaseState
     {
         monster.isFlip = monster.player.position.x < monster.transform.position.x;
         monster.monsterBody.rotation = monster.isFlip ? Quaternion.identity : monster.flipQuaternion;
-        Debug.Log(monster.isFlip);
+        //Debug.Log(monster.isFlip);
 
-        if (Vector2.Distance(monster.transform.position, monster.player.position) > monster.attackRange)
-        {
-            monster.ChangeState(new IdleState(monster));
-        }
         if (Vector2.Distance(monster.transform.position, monster.player.position) <= monster.attackRange && monster.distanceY <= 1.0f)
         {
             monster.ChangeState(new AttackState(monster));
@@ -32,10 +28,18 @@ public class ChaseState : BaseState
             {
                 if (!monster.CheckCliff())
                 {
-                    Vector2 moveDirection = (monster.player.position - monster.transform.position);
-                    moveDirection.y = 0;
-                    moveDirection.Normalize();
-                    monster.rb.velocity = moveDirection * monster.moveSpeed;
+                    if (Vector2.Distance(monster.transform.position, monster.player.position) > monster.detectionRange)
+                    {
+                        monster.ChangeState(new IdleState(monster));
+                        Debug.Log("Idle");
+                    }
+                    else
+                    {
+                        Vector2 moveDirection = (monster.player.position - monster.transform.position);
+                        moveDirection.y = 0;
+                        moveDirection.Normalize();
+                        monster.rb.velocity = moveDirection * monster.moveSpeed;
+                    }
                 }
                 else monster.rb.velocity = Vector2.zero;
             }

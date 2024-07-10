@@ -18,6 +18,7 @@ public class AttackState : BaseState
 
     public override void Update()
     {
+        // 공격 중 flip 제한
         //if (monster.canflip)
         //{
         //    monster.isFlip = monster.player.position.x < monster.transform.position.x;
@@ -34,12 +35,28 @@ public class AttackState : BaseState
 
     private IEnumerator AttackRoutine()
     {
-        yield return new WaitForSeconds(1f);
-        if (!monster.isDie)
+        if (monster.myColor == Colors.Blue)
         {
-            monster.Attack();
-            yield return new WaitForSeconds(2f);
-            monster.ChangeState(new IdleState(monster));
+            yield return new WaitForSeconds(1f);
+            if (!monster.isDie)
+            {
+                monster.Attack();
+                yield return new WaitForSeconds(2f);
+                monster.ChangeState(new IdleState(monster));
+            }
+        }
+        else if (monster.myColor == Colors.Red)
+        {
+            if (!monster.isDie)
+            {
+                monster.Attack();
+                yield return new WaitForSeconds(2f);
+                monster.ChangeState(new IdleState(monster));
+            }
+        }
+        else if (monster.myColor == Colors.Yellow)
+        {
+
         }
     }
 }

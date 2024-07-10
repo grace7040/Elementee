@@ -142,7 +142,7 @@ public class MonController : MonoBehaviour
         }
         else
         {
-            //monsterBody.rotation = isFlip ? Quaternion.identity : flipQuaternion;
+            monsterBody.rotation = isFlip ? Quaternion.identity : flipQuaternion;
         }
 
         stateMachine.Update();
