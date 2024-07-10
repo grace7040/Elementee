@@ -29,7 +29,7 @@ public class UI_GameOver : UI_Popup
         Bind<Button>(typeof(Buttons));
         GetButton((int)Buttons.ToMainBtn).gameObject.BindEvent(ToMainBtnClicked);
         GetButton((int)Buttons.RetryBtn).gameObject.BindEvent(OnRetryBtnClicked);
-        if (GameManager.Instance.isFirst)
+        if (GameManager.Instance.isFirstPlay)
         {
             GetButton((int)Buttons.RevivalBtn).gameObject.BindEvent(RevivalBtnClicked);
             GetButton((int)Buttons.RevivalBtn).interactable = true;

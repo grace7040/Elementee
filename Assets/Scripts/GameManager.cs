@@ -10,16 +10,13 @@ public class GameManager : Singleton<GameManager>
     [Header("GameManage")]
     // JSON 저장
     public List<int> mapStar = new List<int>();
-    // public List<int> mapFlag = new List<int>();
-    public List<Vector3> yehh = new List<Vector3>();
-    public int mapBest;  // 플레이 가능한 가장 큰 맵
+    public int mapBest;
     public int mapCoin = 0;
 
-
     public int currentMapNum = 0;
-    public GameObject Potal;
-    public int starCount = 0;
-    public bool isFirst = true;
+    public int currentStar = 0;
+    public GameObject currentPotal;
+    public bool isFirstPlay = true;
 
     [Header("Player")]
     public GameObject player;
@@ -27,14 +24,12 @@ public class GameManager : Singleton<GameManager>
     public Colors playerColor = Colors.Default;
     public Sprite playerFace;
 
-    public int playerHP = 100;
-    int playerMAXHP = 100;
 
     public delegate void Del();
     //public Del SetJoystick = null;
 
     [Header("Item")]
-    public int coin;
+    public int totalCoin;
     public Colors ReDrawItemColor = Colors.Default;
 
     private void Awake()
@@ -48,81 +43,67 @@ public class GameManager : Singleton<GameManager>
         DataManager.Instance.JsonLoad();
     }
 
-    public float HPBar()
-    {
-        return (float)playerHP / playerMAXHP;
-    }
-
     public void StarCount()
     {
-        starCount += 1;
+        currentStar += 1;
     }
 
     public void PauseGame()
     {
-        // 게임 일시정지
         Time.timeScale = 0;
         Managers.UI.ClosePopupUI();
     }
 
     public void ResumeGame()
     {
-        // 게임 다시 활성화
         Time.timeScale = 1;
         Managers.UI.ClosePopupUI();
     }
 
-    public void RetryGame() // 게임 재시작
+    public void RetryGame()
     {
         ResumeGame();
         InitGame();
 
         ColorManager.Instance.ResetColorState();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // 현재 씬 재시작        
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);    
 
     }
 
     public void InitGame()
     {
         mapCoin = 0;
-        isFirst = true;
+        isFirstPlay = true;
 
-        // 플레이어 피 초기화 + Color State 초기화
-        playerHP = playerMAXHP;
     }
 
     public void GameOver()
     {
-        // 패배 UI 띄우기
         Time.timeScale = 0;
         Managers.UI.ShowPopupUI<UI_GameOver>();
-
     }
 
     public void GameWin()
     {
         Time.timeScale = 0;
-        coin += mapCoin;
+        totalCoin += mapCoin;
 
-        // 기록 저장
-        if (mapBest <= currentMapNum) // 처음 Clear한 맵일 경우
+        // Data Save
+        if (mapBest <= currentMapNum)
         {
-            mapStar.Add(starCount);
+            mapStar.Add(currentStar);
             //mapFlag.Add(0);
             mapBest += 1;
         }
         else
         {
-            if (mapStar[currentMapNum] < starCount)
+            if (mapStar[currentMapNum] < currentStar)
             {
-                mapStar[currentMapNum] = starCount;
-                //mapFlag[currentMapNum] = 0;
-
+                mapStar[currentMapNum] = currentStar;
             }
         }
         DataManager.Instance.JsonSave();
 
-        // 승리 UI 띄우기 
         Managers.UI.ShowPopupUI<UI_GameWin>();
     }
 
@@ -141,9 +122,8 @@ public class GameManager : Singleton<GameManager>
 
     public void Revival()
     {
-        playerHP = playerMAXHP;
         ResumeGame();
         player.GetComponent<PlayerController>().Revival();
-        isFirst = false;
+        isFirstPlay = false;
     }
 }

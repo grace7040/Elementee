@@ -30,7 +30,7 @@ public class UI_Shop : UI_Popup
         for(int i=0; i<shopItemsSO.Length; i++)
             shopPanelsGO[i].SetActive(true);
 
-        coins = GameManager.Instance.coin;
+        coins = GameManager.Instance.totalCoin;
         coinUI.text = coins.ToString();
         LoadPanels();
        // CheckPurchaseable(); -> 살 수 없을 경우 버튼 막기
@@ -68,7 +68,7 @@ public class UI_Shop : UI_Popup
         if(coins >= shopItemsSO[btnNo].baseCost)
         {
             coins -= shopItemsSO[btnNo].baseCost;
-            GameManager.Instance.coin = coins;
+            GameManager.Instance.totalCoin = coins;
             DataManager.Instance.JsonSave(); // Coin 사용 후 저장
             coinUI.text = coins.ToString();
            // CheckPurchaseable();

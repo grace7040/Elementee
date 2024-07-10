@@ -6,9 +6,9 @@ using System.IO;
 [System.Serializable]
 public class SaveData // 저장할 데이터
 {
-    public List<int> mapStar = new List<int>();  // 맵 별 획득한 Star 개수
-    //public List<int> mapFlag = new List<int>();  // 맵 별 획득한 Flag 개수
-    public int mapBest; // 플레이 가능한 맵 중 Best\
+    public List<int> mapStar = new List<int>();
+    //public List<int> mapFlag = new List<int>();
+    public int mapBest;
     public int Coin;
 }
 
@@ -18,7 +18,6 @@ public class DataManager : Singleton<DataManager>
     void Start()
     {
         path = Path.Combine(Application.persistentDataPath, "database.json");
-       // JsonLoad();
     }
 
     public void JsonLoad()
@@ -26,7 +25,6 @@ public class DataManager : Singleton<DataManager>
         SaveData saveData = new SaveData();
         path = Path.Combine(Application.persistentDataPath, "database.json");
 
-        // 없을 경우 값 초기화
         if (!File.Exists(path))
         {
             GameManager.Instance.mapBest = 0;
@@ -45,7 +43,7 @@ public class DataManager : Singleton<DataManager>
                     //GameManager.Instance.mapFlag.Add(saveData.mapFlag[i]);
                 }
                 GameManager.Instance.mapBest = saveData.mapBest;
-                GameManager.Instance.coin = saveData.Coin;
+                GameManager.Instance.totalCoin = saveData.Coin;
             }
         }
     }
@@ -54,24 +52,23 @@ public class DataManager : Singleton<DataManager>
     {
         path = Path.Combine(Application.persistentDataPath, "database.json");
 
-        // 데이터 초기화
         SaveData saveData = new SaveData();
 
-        // 데이터 로드
+        // Data Load
         for (int i = 0; i < GameManager.Instance.mapStar.Count; i++)
         {
             saveData.mapStar.Add(GameManager.Instance.mapStar[i]);
             //saveData.mapFlag.Add(GameManager.Instance.mapFlag[i]);
         }
         saveData.mapBest = GameManager.Instance.mapBest;
-        saveData.Coin = GameManager.Instance.coin;
+        saveData.Coin = GameManager.Instance.totalCoin;
 
-        // 데이터 저장
+        // Data Save
         string json = JsonUtility.ToJson(saveData, true);
         File.WriteAllText(path, json);
     }
 
-    public void JsonClear() // 테스트용 데이터 초기화
+    public void JsonClear() // Clear Data
     {
         path = Path.Combine(Application.persistentDataPath, "database.json");
 

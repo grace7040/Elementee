@@ -81,24 +81,20 @@ public class UI_Game : UI_Scene
 
     private void FixedUpdate()
     {
-        // 플레이어 체력바
-        hpBar.fillAmount = GameManager.Instance.HPBar();
+        // hpBar
+        hpBar.fillAmount = (float)playerController.currentHealth / playerController.maxHealth;
 
-        // 별 개수 Update
-        if (starCount != GameManager.Instance.starCount)
+        // star
+        if (starCount != GameManager.Instance.currentStar)
         {
-            starCount = GameManager.Instance.starCount;
+            starCount = GameManager.Instance.currentStar;
             for (int i = 0; i < starCount; i++)
             {
                 Stars[i].GetComponent<Image>().color = Color.white;
             }
-
-            //Score.text = starCount;
         }
 
-
-
-        // 코인
+        // coin
         Coin.text = GameManager.Instance.mapCoin.ToString();
 
     }
@@ -182,13 +178,13 @@ public class UI_Game : UI_Scene
         //};
 
 
-        // hpBar 길이 받아두기
+        // hpBar
         hpBarMAX = hpBar.gameObject.GetComponent<RectTransform>().rect.width;
 
         // Potal
         PotalArr_IMG = GetImage((int)Images.PotalArrow);
-        if (GameManager.Instance.Potal != null)
-            potalVec = GameManager.Instance.Potal.transform.position;
+        if (GameManager.Instance.currentPotal != null)
+            potalVec = GameManager.Instance.currentPotal.transform.position;
 
 
         GetImage((int)Images.Attack_Cool_Time).gameObject.SetActive(false);
