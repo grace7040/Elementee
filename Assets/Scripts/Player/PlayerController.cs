@@ -583,8 +583,6 @@ public class PlayerController : MonoBehaviour
             if (currentHealth > 100)
                 currentHealth = 100;
 
-            //GameManager에 Health 저장
-            GameManager.Instance.playerHP = currentHealth;
             //넉백
             Vector2 damageDir = Vector3.Normalize(transform.position - enemyPos) * 40f;
             m_Rigidbody2D.velocity = Vector2.zero;
