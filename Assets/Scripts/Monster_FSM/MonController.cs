@@ -136,14 +136,7 @@ public class MonController : MonoBehaviour
 
         isFlip = waypointDirection < 0f;
 
-        if (myColor == Colors.Yellow)
-        {
-            if (canflip) monsterBody.rotation = isFlip ? Quaternion.identity : flipQuaternion;
-        }
-        else
-        {
-            monsterBody.rotation = isFlip ? Quaternion.identity : flipQuaternion;
-        }
+        monsterBody.rotation = isFlip ? Quaternion.identity : flipQuaternion;
 
         stateMachine.Update();
     }

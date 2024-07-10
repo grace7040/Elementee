@@ -56,7 +56,12 @@ public class AttackState : BaseState
         }
         else if (monster.myColor == Colors.Yellow)
         {
-
+            if (!monster.isDie)
+            {
+                monster.Attack();
+                yield return new WaitForSeconds(2f);
+                monster.ChangeState(new IdleState(monster));
+            }
         }
     }
 }
