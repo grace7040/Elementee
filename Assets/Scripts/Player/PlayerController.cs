@@ -114,6 +114,8 @@ public class PlayerController : MonoBehaviour
     //Move
     private float limitFallSpeed = 25f; // Limit fall speed
     private Vector3 velocity = Vector3.zero;
+    private float m_Acceleration = 5f; //가속 임시 변수
+
     //-점프
     private bool canDoubleJump = true; //If player can double jump
     //-벽타기
@@ -132,6 +134,8 @@ public class PlayerController : MonoBehaviour
 
     Collider2D[] colliders;
     Collider2D[] collidersWall;
+
+
 
     private void Awake()
     {
@@ -428,9 +432,14 @@ public class PlayerController : MonoBehaviour
                 if (m_Rigidbody2D.velocity.y < -limitFallSpeed)
                     m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, -limitFallSpeed);
                 // Move the character by finding the target velocity
-                Vector3 targetVelocity = new Vector2(move * m_MoveSpeed, m_Rigidbody2D.velocity.y);
+                //Vector3 targetVelocity = new Vector2(move * m_MoveSpeed, m_Rigidbody2D.velocity.y);
+                Vector2 targetVelocity = new Vector2(move * m_MoveSpeed, m_Rigidbody2D.velocity.y);
+
                 // And then smoothing it out and applying it to the character
-                m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref velocity, m_MovementSmoothing);
+                //m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref velocity, m_MovementSmoothing);
+
+                m_Rigidbody2D.velocity += (targetVelocity - m_Rigidbody2D.velocity) * m_Acceleration * Time.fixedDeltaTime;
+
 
                 // If the input is moving the player right and the player is facing left...
                 if (move > 0 && !m_FacingRight && !isWallSliding)
@@ -443,7 +452,7 @@ public class PlayerController : MonoBehaviour
                     Flip();
                 }
             }
-            // If the player should jump...
+            // Jump
             if (m_Grounded && jump)
             {
                 // Add a vertical force to the player.
