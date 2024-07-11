@@ -15,11 +15,7 @@ public class IdleState : BaseState
 
     public override void Update()
     {
-        if (Vector2.Distance(monster.transform.position, monster.Player.position) <= monster.DetectionRange && monster.DistanceY <= 1.0f)
-        {
-            monster.ChangeState(new ChaseState(monster));
-        }
-        else
+        if (monster.MyColor == Colors.Default)
         {
             if (monster.CheckGround())
             {
@@ -28,6 +24,24 @@ public class IdleState : BaseState
             else
             {
                 monster.Rb.velocity += Time.deltaTime * Vector2.down;
+            }
+        }
+        else
+        {
+            if (Vector2.Distance(monster.transform.position, monster.Player.position) <= monster.DetectionRange && monster.DistanceY <= 1.0f)
+            {
+                monster.ChangeState(new ChaseState(monster));
+            }
+            else
+            {
+                if (monster.CheckGround())
+                {
+                    monster.Move();
+                }
+                else
+                {
+                    monster.Rb.velocity += Time.deltaTime * Vector2.down;
+                }
             }
         }
     }
