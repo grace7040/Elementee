@@ -26,29 +26,29 @@ public class PlayerController : MonoBehaviour
     public GameObject cam;
 
     [Header("Weapon")]
-    public SpriteRenderer[] colorWeapons;
-    public GameObject red_Weapon;
-    public GameObject orange_Weapon;
-    public GameObject purple_Weapon;
-    public GameObject green_Weapon;
-    public GameObject blue_Weapon;
-    public GameObject black_Weapon;
-    public GameObject yellow_WeaponEffect;
-    public GameObject orange_WeaponEffect;
+    public SpriteRenderer[] ColorWeapons;
+    public GameObject RedWeapon;
+    public GameObject OrangeWeapon;
+    public GameObject PurpleWeapon;
+    public GameObject GreenWeapon;
+    public GameObject BlueWeapon;
+    public GameObject BlackWeapon;
+    public GameObject YellowWeaponEffect;
+    public GameObject OrangeWeaponEffect;
 
     [Header("ParticleSystem")]
-    public ParticleSystem particleJumpUp; //Trail particles
-    public ParticleSystem particleJumpDown; //Explosion particles
-    public GameObject healEffect;
-    public GameObject purpleEffect;
+    public ParticleSystem ParticleJumpUp; 
+    public ParticleSystem ParticleJumpDown; 
+    public GameObject HealEffect;
+    public GameObject PurpleEffect;
 
     [Header("Attack")]
-    public Transform attackCheck;
-    public bool isAttack = false; //attack btn input
+    public Transform AttackCheck;
+    public bool IsAttack = false; //attack btn input
     public float coolTime;
-    public float knockBackForce = 10f;
-    public bool invincible = false;
-    public bool canHealOnFountain = true;
+    private float knockBackForce = 10f;
+    public bool Invincible = false;
+    public bool CanHealOnFountain = true;
     //private bool isTimeToCheck = false; 
 
     [Header("Player Properties")]
@@ -90,7 +90,7 @@ public class PlayerController : MonoBehaviour
     [System.Serializable]
     public class BoolEvent : UnityEvent<bool> { }
 
-    private float jumpForce = 850f;                          // Amount of force added when the player jumps.
+    private float jumpForce = 850f;                         
 
     public bool m_Grounded;
     const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
@@ -123,17 +123,16 @@ public class PlayerController : MonoBehaviour
     public FixedJoint2D fixJoint;
     private bool isRope = false;
 
-
     // Black
     private float pullForce = 10f; // 끌어당기는 힘 조절용 변수
     private float throwForce = 15f; // 던지는 힘 조절용 변수
-    public bool isHoldingEnemy = false; // 적을 가지고 있는지 여부
+    public bool IsHoldingEnemy = false; // 적을 가지고 있는지 여부
     private Rigidbody2D heldEnemyRigidbody; // 가지고 있는 적의 Rigidbody2D
     private GameObject Enemy;
 
-
     Collider2D[] colliders;
     Collider2D[] collidersWall;
+
     private void Awake()
     {
         GameManager.Instance.player = this.gameObject;
@@ -145,7 +144,6 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         playerSprite = GetComponent<SpriteRenderer>();
 
-
         //if(GameManager.Instance.sponPos != null)
         //    transform.position = GameManager.Instance.sponPos.position;
 
@@ -156,7 +154,6 @@ public class PlayerController : MonoBehaviour
         currentHealth = maxHealth;
         //GameManager.Instance.playerMAXHP = maxHealth;
         //GameManager.Instance.playerHP = maxHealth;
-
 
         ColorManager.Instance.SetColorState(Colors.Default);
 
@@ -186,7 +183,7 @@ public class PlayerController : MonoBehaviour
 
         if (myColor == Colors.Black)
         {
-            if (isHoldingEnemy)
+            if (IsHoldingEnemy)
             {
                 Enemy.transform.localPosition = new Vector2(0, 0);
             }
@@ -208,7 +205,6 @@ public class PlayerController : MonoBehaviour
     {
         //isAttack = false;
     }
-
     private void FixedUpdate()
     {
         //if (doAttack)
@@ -236,7 +232,7 @@ public class PlayerController : MonoBehaviour
                     {
                         OnLandEvent.Invoke();
                         if (!m_IsWall && !isDashing)
-                            particleJumpDown.Play();
+                            ParticleJumpDown.Play();
                         canDoubleJump = true;
                         if (m_Rigidbody2D.velocity.y < 0f)
                             limitVelOnWallJump = false;
@@ -246,8 +242,6 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
-
-
 
         m_IsWall = false;
         if (!m_Grounded) //땅에 닿아있지 않을 때 
@@ -265,7 +259,6 @@ public class PlayerController : MonoBehaviour
             }
             prevVelocityX = m_Rigidbody2D.velocity.x; // 현재 속도를 저장
         }
-
 
         if (limitVelOnWallJump) // 벽과 관련된 듯한데 일단 패스
         {
@@ -301,7 +294,7 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator PullCoroutine()
     {
-        if (!isHoldingEnemy)
+        if (!IsHoldingEnemy)
         {
             GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
             float closestDistance = 7.5f;
@@ -327,7 +320,7 @@ public class PlayerController : MonoBehaviour
 
                 float distance = Vector2.Distance(Enemy.transform.position, transform.position);
 
-                while (!isHoldingEnemy)
+                while (!IsHoldingEnemy)
                 {
                     Vector2 throwDirection = (transform.position - Enemy.transform.position).normalized;
                     Enemy.transform.Translate(pullForce * Time.deltaTime * throwDirection);
@@ -349,7 +342,7 @@ public class PlayerController : MonoBehaviour
 
             childTransform.SetParent(null);
 
-            isHoldingEnemy = false;
+            IsHoldingEnemy = false;
             Enemy.GetComponent<Rigidbody2D>().gravityScale = 0.0f;
 
             rb.gameObject.GetComponent<OB_VerticlaMovement>().enabled = false;
@@ -365,39 +358,39 @@ public class PlayerController : MonoBehaviour
 
     public void SetCustomWeapon()
     {
-        colorWeapons[(int)myColor].sprite = DrawManager.Instance.sprites[(int)myColor];
+        ColorWeapons[(int)myColor].sprite = DrawManager.Instance.sprites[(int)myColor];
 
         // Yellow 경우, 자식들에도 sprite 할당이 필요함
         if (myColor == Colors.Yellow)
         {
             for (int i = 0; i < 4; i++)
             {
-                yellow_WeaponEffect.transform.GetChild(i).GetComponent<SpriteRenderer>().sprite = colorWeapons[(int)Colors.Yellow].sprite;
+                YellowWeaponEffect.transform.GetChild(i).GetComponent<SpriteRenderer>().sprite = ColorWeapons[(int)Colors.Yellow].sprite;
             }
         }
     }
 
     public void SetBasicWeapon()
     {
-        colorWeapons[(int)myColor].sprite = DrawManager.Instance.Basic_Sprites[(int)myColor];
+        ColorWeapons[(int)myColor].sprite = DrawManager.Instance.Basic_Sprites[(int)myColor];
 
         if (myColor == Colors.Yellow)
         {
             for (int i = 0; i < 4; i++)
             {
-                yellow_WeaponEffect.transform.GetChild(i).GetComponent<SpriteRenderer>().sprite = colorWeapons[(int)Colors.Yellow].sprite;
+                YellowWeaponEffect.transform.GetChild(i).GetComponent<SpriteRenderer>().sprite = ColorWeapons[(int)Colors.Yellow].sprite;
             }
         }
     }
 
     public void ShowWeapon()
     {
-        colorWeapons[(int)myColor].gameObject.SetActive(true);
+        ColorWeapons[(int)myColor].gameObject.SetActive(true);
     }
 
     public void HideWeapon()
     {
-        colorWeapons[(int)myColor].gameObject.SetActive(false);
+        ColorWeapons[(int)myColor].gameObject.SetActive(false);
     }
 
     private void Flip()
@@ -409,9 +402,9 @@ public class PlayerController : MonoBehaviour
         Vector3 theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;
-        Vector3 yellowScale = yellow_WeaponEffect.transform.localScale;
+        Vector3 yellowScale = YellowWeaponEffect.transform.localScale;
         yellowScale.x *= -1;
-        yellow_WeaponEffect.transform.localScale = yellowScale;
+        YellowWeaponEffect.transform.localScale = yellowScale;
     }
 
     public void Move(float move, bool jump, bool dash)
@@ -460,8 +453,8 @@ public class PlayerController : MonoBehaviour
                 m_Rigidbody2D.velocity = Vector2.zero;
                 m_Rigidbody2D.AddForce(new Vector2(0f, jumpForce));
                 canDoubleJump = true;
-                particleJumpDown.Play();
-                particleJumpUp.Play();
+                ParticleJumpDown.Play();
+                ParticleJumpUp.Play();
             }
             else if (!m_Grounded && jump && canDoubleJump && !isWallSliding)
             {
@@ -472,7 +465,6 @@ public class PlayerController : MonoBehaviour
             }
 
             //Wall Sliding
-
             else if (m_WallSliding && m_IsWall && !m_Grounded)
             {
                 if (!oldWallSlidding && m_Rigidbody2D.velocity.y < 0 || isDashing)
@@ -572,13 +564,12 @@ public class PlayerController : MonoBehaviour
 
     public void TakeDamage(int damage, Vector3 enemyPos)
     {
-        if (!invincible)
+        if (!Invincible)
         {
             //animation on 
             animator.SetBool("Hit", true);
             //health --
             currentHealth -= damage;
-            //Debug.Log($"플레이어 대미지: {damage}");
 
             if (currentHealth > 100)
                 currentHealth = 100;
@@ -591,14 +582,13 @@ public class PlayerController : MonoBehaviour
             if (currentHealth <= 0)
             {
                 //GameManager.Instance.GameOver();
-
                 Die();
             }
             else
             {
-                invincible = true;
+                Invincible = true;
                 playerSprite.DOFade(0.2f, 0.25f).SetLoops(4, LoopType.Yoyo);
-                this.CallOnDelay(1f, () => { invincible = false; });
+                this.CallOnDelay(1f, () => { Invincible = false; });
             }
         }
 
@@ -611,17 +601,17 @@ public class PlayerController : MonoBehaviour
         if (currentHealth > 100)
             currentHealth = 100;
 
-        healEffect.SetActive(true);
-        this.CallOnDelay(1f, () => { healEffect.SetActive(false); });
+        HealEffect.SetActive(true);
+        this.CallOnDelay(1f, () => { HealEffect.SetActive(false); });
     }
 
     public void HealWithFountain(int health)
     {
-        if (!canHealOnFountain) return;
+        if (!CanHealOnFountain) return;
 
         Heal(health);
-        canHealOnFountain = false;
-        this.CallOnDelay(1f, () => { canHealOnFountain = true; });
+        CanHealOnFountain = false;
+        this.CallOnDelay(1f, () => { CanHealOnFountain = true; });
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -665,7 +655,7 @@ public class PlayerController : MonoBehaviour
                     Transform childTransform = collision.gameObject.transform;
                     childTransform.SetParent(parentTransform);
 
-                    isHoldingEnemy = true;
+                    IsHoldingEnemy = true;
                 }
             }
         }
@@ -695,12 +685,10 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("IsDead", true);
         isDie = true;
         canMove = false;
-        invincible = true;
+        Invincible = true;
         yield return new WaitForSeconds(0.4f);
         m_Rigidbody2D.velocity = new Vector2(0, m_Rigidbody2D.velocity.y);
-        yield return new WaitForSeconds(1.1f);
-        // 새롭게 씬 로드할 코드 추가
-
+            yield return new WaitForSeconds(1.1f);
         GameManager.Instance.GameOver();
     }
 
@@ -709,7 +697,7 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("IsDead", false);
         isDie = false;
         canMove = true;
-        invincible = false;
+        Invincible = false;
         //m_Rigidbody2D.velocity = new Vector2(0, m_Rigidbody2D.velocity.y);
         currentHealth = maxHealth;
         Managers.UI.ClosePopupUI();
@@ -722,12 +710,9 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator Purple_Effect_Set_Active()
     {
-        //Debug.Log("Purple");
-        purpleEffect.SetActive(true);
+        PurpleEffect.SetActive(true);
         yield return new WaitForSeconds(0.5f);
-        purpleEffect.SetActive(false);
-
+        PurpleEffect.SetActive(false);
     }
-
 
 }

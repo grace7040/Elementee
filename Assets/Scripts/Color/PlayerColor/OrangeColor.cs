@@ -18,7 +18,7 @@ public class OrangeColor : IColorState
         AudioManager.Instacne.PlaySFX("Orange");
 
         // 그린 무기 + effect 켜기
-        player.orange_WeaponEffect.SetActive(true);
+        player.OrangeWeaponEffect.SetActive(true);
         //player.orange_Weapon.SetActive(true);
 
         //이동속도 up
@@ -28,7 +28,7 @@ public class OrangeColor : IColorState
         // 지속시간
         player.CallOnDelay(durationTime, () =>
         {
-            player.orange_WeaponEffect.SetActive(false);
+            player.OrangeWeaponEffect.SetActive(false);
             player.gameObject.layer = 3;
             player.m_MoveSpeed = 10f;
 

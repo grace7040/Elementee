@@ -163,28 +163,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myColor: 0
   cam: {fileID: 0}
-  colorWeapons:
-  - {fileID: 6312281354645909693}
-  - {fileID: 3364718941259214008}
-  - {fileID: 7563759527471843738}
-  - {fileID: 7556410489127752601}
-  - {fileID: 3258715048601368542}
-  - {fileID: 7165747113895478536}
-  - {fileID: 8533986571667845559}
-  - {fileID: 7608925706783770372}
-  red_Weapon: {fileID: 1086310549815544557}
-  orange_Weapon: {fileID: 4920797071980387407}
-  purple_Weapon: {fileID: 5002476609168166349}
-  green_Weapon: {fileID: 669936272836410247}
-  blue_Weapon: {fileID: 4656912621596376202}
-  black_Weapon: {fileID: 1490252109}
-  yellow_WeaponEffect: {fileID: 5593871760870967025}
-  orange_WeaponEffect: {fileID: 7648603465766718409}
-  particleJumpUp: {fileID: 198584872278178884}
-  particleJumpDown: {fileID: 198967111524372206}
-  healEffect: {fileID: 393088699325398}
-  purpleEffect: {fileID: 2659571520275563058}
-  attackCheck: {fileID: 4370582630649528}
+  ColorWeapons: []
+  RedWeapon: {fileID: 1086310549815544557}
+  OrangeWeapon: {fileID: 4920797071980387407}
+  PurpleWeapon: {fileID: 5002476609168166349}
+  GreenWeapon: {fileID: 5126789568211997987}
+  BlueWeapon: {fileID: 8475338824270332780}
+  BlackWeapon: {fileID: 5998208090524668600}
+  YellowWeaponEffect: {fileID: 5593871760870967025}
+  OrangeWeaponEffect: {fileID: 7648603465766718409}
+  ParticleJumpUp: {fileID: 198584872278178884}
+  ParticleJumpDown: {fileID: 198967111524372206}
+  HealEffect: {fileID: 393088699325398}
+  PurpleEffect: {fileID: 8410189878276244301}
+  AttackCheck: {fileID: 4370582630649528}
   isAttack: 0
   coolTime: 0
   knockBackForce: 10
@@ -205,7 +197,6 @@ MonoBehaviour:
     m_Bits: 309
   m_GroundCheck: {fileID: 4291727345091452}
   m_WallCheck: {fileID: 4986330650710208}
-  doAttack: 0
   canAttack: 1
   maxHealth: 100
   damage: 10
@@ -50986,11 +50977,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b56cd9b663f23f429e131a54ec87db0, type: 3}
---- !u!1 &1490252109 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 100000, guid: 7b56cd9b663f23f429e131a54ec87db0, type: 3}
-  m_PrefabInstance: {fileID: 1490221037}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1490349421 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 7b56cd9b663f23f429e131a54ec87db0, type: 3}

@@ -13,7 +13,7 @@ public class BlackColor : IColorState
     {
         player.CallOnDelay(CoolTime, () => { player.canAttack = true; });
 
-        if (player.isHoldingEnemy)
+        if (player.IsHoldingEnemy)
         {
             player.BlackThrow();
             //player.canAttack = false;

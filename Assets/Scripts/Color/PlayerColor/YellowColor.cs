@@ -20,8 +20,8 @@ public class YellowColor : IColorState
         //전기 
         //playerprefab on
         //player.canAttack = false;
-        player.yellow_WeaponEffect.SetActive(true);
-        player.yellow_WeaponEffect.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = player.colorWeapons[(int)Colors.Yellow].sprite;
+        player.YellowWeaponEffect.SetActive(true);
+        player.YellowWeaponEffect.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = player.ColorWeapons[(int)Colors.Yellow].sprite;
         AudioManager.Instacne.PlaySFX("Yellow");
         //3초 이후에 off
         // 노란 공격은 처음부터 켜져 있어야 하니 쿨타임 적용 부분 주석

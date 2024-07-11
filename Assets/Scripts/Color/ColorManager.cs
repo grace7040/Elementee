@@ -116,30 +116,30 @@ public class ColorManager : Singleton<ColorManager>
             case Colors.Red:
                 hasRed = false;
                 SetColorState(new RedColor());
-                player.red_Weapon.SetActive(true);
+                player.RedWeapon.SetActive(true);
                 break;
             case Colors.Yellow:
                 hasYellow = false;
                 player.canAttack = false;
                 SetColorState(new YellowColor());
-                player.yellow_WeaponEffect.SetActive(true);
+                player.YellowWeaponEffect.SetActive(true);
                 break;
             case Colors.Blue:
                 hasBlue = false;
                 SetColorState(new BlueColor());
-                player.blue_Weapon.SetActive(true);
+                player.BlueWeapon.SetActive(true);
                 break;
             case Colors.Green:
                 hasYellow = false;
                 hasBlue = false;
                 SetColorState(new GreenColor());
-                player.green_Weapon.SetActive(true);
+                player.GreenWeapon.SetActive(true);
                 break;
             case Colors.Purple:
                 hasRed = false;
                 hasBlue = false;
                 SetColorState(new PurpleColor());
-                player.purple_Weapon.SetActive(true);
+                player.PurpleWeapon.SetActive(true);
                 break;
             case Colors.Orange:
                 hasYellow = false;
@@ -150,7 +150,7 @@ public class ColorManager : Singleton<ColorManager>
                 hasYellow = false;
                 hasRed = false;
                 hasBlue = false;
-                player.black_Weapon.SetActive(true);
+                player.BlackWeapon.SetActive(true);
                 SetColorState(new BlackColor());
                 break;
         }
@@ -170,21 +170,21 @@ public class ColorManager : Singleton<ColorManager>
     private void SetColorState(IColorState _color)
     {
         player.Color = _color;
-        player.red_Weapon.SetActive(false);
-        player.yellow_WeaponEffect.SetActive(false);
-        player.purple_Weapon.SetActive(false);
-        player.green_Weapon.SetActive(false);
-        player.blue_Weapon.SetActive(false);
+        player.RedWeapon.SetActive(false);
+        player.YellowWeaponEffect.SetActive(false);
+        player.PurpleWeapon.SetActive(false);
+        player.GreenWeapon.SetActive(false);
+        player.BlueWeapon.SetActive(false);
     }
 
     private void OffPlayerWeapon()
     {
-        player.red_Weapon.SetActive(false);
-        player.yellow_WeaponEffect.SetActive(false);
-        player.purple_Weapon.SetActive(false);
-        player.green_Weapon.SetActive(false);
-        player.blue_Weapon.SetActive(false);
-        player.black_Weapon.SetActive(false);
+        player.RedWeapon.SetActive(false);
+        player.YellowWeaponEffect.SetActive(false);
+        player.PurpleWeapon.SetActive(false);
+        player.GreenWeapon.SetActive(false);
+        player.BlueWeapon.SetActive(false);
+        player.BlackWeapon.SetActive(false);
     }
 
     public void StartDrawing(Colors _color)
