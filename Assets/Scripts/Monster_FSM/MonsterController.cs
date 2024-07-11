@@ -10,53 +10,56 @@ public class MonsterController : MonoBehaviour
     #region variables
 
     public Monster monsterData;
+
     [HideInInspector]
     public Colors myColor;
+
+    protected SpriteRenderer monsterSprite;
+
+    [HideInInspector]
+    public Transform player;
+
+    [HideInInspector]
+    public Rigidbody2D rb;
+
+    protected int maxHealth;
+    protected int currentHealth;
+
+    [HideInInspector]
+    public float moveSpeed = 3f;
+
+    [HideInInspector]
+    public float detectionRange = 10f;
+
+    [HideInInspector]
+    public float attackRange;
 
     [HideInInspector]
     public bool isDie = false;
 
-    protected SpriteRenderer m_sprite;
-
-    [HideInInspector]
-    public Transform player;
-    [HideInInspector]
-    public Rigidbody2D rb;
-
-    private int maxHealth;
-    protected int currentHealth;
-    [HideInInspector]
-    public float moveSpeed = 3f;
-    [HideInInspector]
-    public float detectionRange = 10f;
-    [HideInInspector]
-    public float attackRange;
-
-    // Cooltime
-    // protected bool canAttack = true;
-    protected bool canTakeDamage_RangeAttack = true;
-
     [HideInInspector]
     public int damage;
 
-    // Random move
-    protected Vector3 waypoint_L; // 좌측 목적지
-    protected Vector3 waypoint_R; // 우측 목적지
-    protected Vector3 currentWaypoint; // 현재 목적지
-    protected float moveRange = 50.0f; // 움직임 범위
-    protected float stopTime = 0; // 정지할 시간
-    protected float timeSinceLastStop = 0; // 마지막으로 정지한 후 경과한 시간
-    protected bool isStopping = false; // 정지 중인지 여부
-    protected bool canMove = true; // 움직일 수 있는지 여부
-    protected float timer = 0.0f; // 타이머 변수
-    protected float interval = 5.0f; // 호출 간격
+    // Cooltime
+    protected bool canTakeDamage_RangeAttack = true;
+
+    protected Vector3 leftWaypoint;
+    protected Vector3 rightWaypoint;
+    protected Vector3 currentWaypoint;
+    protected float moveRange = 50.0f;
+    protected float stopTime = 0;
+    protected float timeSinceLastStop = 0;
+    protected bool isStopping = false;
+    protected bool canMove = true;
+    protected float timer = 0.0f;
+    protected float interval = 5.0f;
 
     // 넉백
     protected bool isKnockedBack = false;
 
     // Die
     public delegate void Del();
-    public Del OnDie = null;
+    public Del onDie = null;
 
     // HP Bar
     protected Image hpBar;
@@ -65,24 +68,29 @@ public class MonsterController : MonoBehaviour
 
     protected float waypointDirection;
     protected float distanceX;
+
     [HideInInspector]
     public float distanceY;
+
     public Animator animator;
 
     [HideInInspector]
     public Quaternion flipQuaternion = Quaternion.Euler(new Vector3(0, 180, 0));
+
     public Transform monsterBody;
 
     [HideInInspector]
     public bool isFlip = false;
+
     //[HideInInspector]
-    //public bool canflip = true;
+    //public bool canFlip = true;
+
     protected bool isGrounded = true;
 
     protected Vector2 dir;
-    protected GameObject playerobj;
+    protected GameObject playerObj;
 
-    GameObject Spark;
+    GameObject spark;
 
     protected StateMachine stateMachine;
 
@@ -90,10 +98,10 @@ public class MonsterController : MonoBehaviour
 
     protected virtual void Awake()
     {
-        damage = monsterData.Damage;
-        maxHealth = monsterData.Health;
-        myColor = monsterData.MyColor;
-        attackRange = monsterData.AttackRange;
+        damage = monsterData.damage;
+        maxHealth = monsterData.health;
+        myColor = monsterData.myColor;
+        attackRange = monsterData.attackRange;
         currentHealth = maxHealth;
     }
 
@@ -101,16 +109,16 @@ public class MonsterController : MonoBehaviour
     {
         if (player == null)
         {
-            playerobj = GameManager.Instance.player;
-            player = playerobj.transform;
+            playerObj = GameManager.Instance.player;
+            player = playerObj.transform;
         }
 
-        m_sprite = GetComponentInChildren<SpriteRenderer>();
+        monsterSprite = GetComponentInChildren<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
 
         // waypoint 초기화
         SetWaypoints();
-        currentWaypoint = waypoint_L;
+        currentWaypoint = leftWaypoint;
 
         // 체력바
         hpBar = transform.Find("HPBar").GetChild(1).gameObject.GetComponent<Image>();
@@ -125,7 +133,7 @@ public class MonsterController : MonoBehaviour
     {
         if (isDie) return;
 
-        if (playerobj != null) isGrounded = playerobj.GetComponent<PlayerController>().m_Grounded;
+        if (playerObj != null) isGrounded = playerObj.GetComponent<PlayerController>().m_Grounded;
 
         waypointDirection = currentWaypoint.x - transform.position.x;
         distanceX = Mathf.Abs(transform.position.x - player.position.x);
@@ -156,7 +164,6 @@ public class MonsterController : MonoBehaviour
 
     protected void SetWaypoints()
     {
-        // 무시할 Layer 설정
         LayerMask ignoreLayers = LayerMask.GetMask("Monster", "Player", "TransparentFX", "Coins");
 
         float raycastDistance = moveRange;
@@ -166,24 +173,22 @@ public class MonsterController : MonoBehaviour
         RaycastHit2D hitLeft = Physics2D.Raycast(transform.position, Vector2.left, raycastDistance, ~ignoreLayers);
         if (hitLeft.collider != null)
         {
-            waypoint_L = hitLeft.point - (Vector2.left * backstepDistance);
+            leftWaypoint = hitLeft.point - (Vector2.left * backstepDistance);
         }
         else
         {
-            // 아무 것도 감지되지 않을 시, moveRange의 끝 지점으로 지정
-            waypoint_L = new Vector3(transform.position.x - moveRange / 2, transform.position.y, transform.position.z);
+            leftWaypoint = new Vector3(transform.position.x - moveRange / 2, transform.position.y, transform.position.z); // 아무 것도 감지되지 않을 시, moveRange의 끝 지점으로 지정
         }
 
         // 우측 가장 가까운 물체 찾기
         RaycastHit2D hitRight = Physics2D.Raycast(transform.position, Vector2.right, raycastDistance, ~ignoreLayers);
         if (hitRight.collider != null)
         {
-            waypoint_R = hitRight.point - (Vector2.right * backstepDistance);
+            rightWaypoint = hitRight.point - (Vector2.right * backstepDistance);
         }
         else
         {
-            // 아무 것도 감지되지 않을 시, moveRange의 끝 지점으로 지정
-            waypoint_R = new Vector3(transform.position.x + moveRange / 2, transform.position.y, transform.position.z);
+            rightWaypoint = new Vector3(transform.position.x + moveRange / 2, transform.position.y, transform.position.z);
         }
     }
 
@@ -247,6 +252,7 @@ public class MonsterController : MonoBehaviour
         Vector2 raycastOrigin = transform.position + (rotation * Vector3.right * 0.7f);
 
         //UnityEngine.Debug.DrawRay(raycastOrigin, Vector2.down, Color.red);
+
         RaycastHit2D hitDown = Physics2D.Raycast(raycastOrigin, Vector2.down, 1.0f, 1 << 0);
 
         return hitDown.collider == null;
@@ -254,14 +260,16 @@ public class MonsterController : MonoBehaviour
 
     private void SetNextWaypoint()
     {
-        if (isFlip) currentWaypoint = waypoint_R;
-        else currentWaypoint = waypoint_L;
+        if (isFlip) currentWaypoint = rightWaypoint;
+        else currentWaypoint = leftWaypoint;
     }
 
     public bool CheckGround()
     {
         float raycastDistance = 0.7f;
+
         //UnityEngine.Debug.DrawRay(transform.position, Vector2.down * raycastDistance, Color.red);
+
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, raycastDistance, 1 << 0);
 
         return hit.collider != null;
@@ -273,8 +281,8 @@ public class MonsterController : MonoBehaviour
 
         UpdateHPBar();
 
-        m_sprite.DOFade(0.2f, 0.25f).SetLoops(4, LoopType.Yoyo);
-        this.CallOnDelay(1f, () => { m_sprite.DOFade(1f, 0f); });
+        monsterSprite.DOFade(0.2f, 0.25f).SetLoops(4, LoopType.Yoyo);
+        this.CallOnDelay(1f, () => { monsterSprite.DOFade(1f, 0f); });
 
         var DamageText = ObjectPoolManager.Instance.GetGo("DamageText");
         DamageText.GetComponent<TextMeshPro>().text = damage.ToString();
@@ -318,53 +326,25 @@ public class MonsterController : MonoBehaviour
         animator.enabled = false;
         gameObject.GetComponent<CapsuleCollider2D>().isTrigger = true;
 
-        OnDie?.Invoke();
+        onDie?.Invoke();
 
-        m_sprite.DOFade(0, 2.5f);
+        monsterSprite.DOFade(0, 2.5f);
         hpBarBG.DOFade(0, 2f);
         Destroy(gameObject, 2.5f);
     }
-
-    //protected IEnumerator ChargeAfterDelay()
-    //{
-    //    canAttack = false;
-    //    canflip = false;
-    //    rb.velocity = Vector2.zero;
-    //    dir = new Vector2(waypointDirection, 0);
-    //    yield return new WaitForSeconds(1.2f);
-    //    animator.SetBool("IsAttacking", true);
-    //    StartCoroutine(ChargeForDuration(0.4f));
-    //}
-
-    //IEnumerator ChargeForDuration(float duration)
-    //{
-    //    float startTime = Time.time;
-    //    dir.y = 0;
-    //    dir.Normalize();
-
-    //    while (Time.time - startTime < duration)
-    //    {
-    //        Vector2 movement = 7f * Time.deltaTime * dir;
-    //        transform.Translate(movement);
-    //        yield return null;
-    //    }
-    //    yield return new WaitForSeconds(1.0f);
-    //    animator.SetBool("IsAttacking", false);
-    //    canAttack = true;
-    //    canflip = true;
-    //}
 
     protected IEnumerator Electrocuted()
     {
         enabled = false;
         animator.speed = 0f;
 
-        Spark = ObjectPoolManager.Instance.GetGo("Spark");
-        Spark.transform.SetParent(transform);
-        Spark.transform.localPosition = Vector3.zero;
+        spark = ObjectPoolManager.Instance.GetGo("Spark");
+        spark.transform.SetParent(transform);
+        spark.transform.localPosition = Vector3.zero;
 
         StartCoroutine(ShakeMonster());
         yield return new WaitForSeconds(2.0f);
+
         enabled = true;
         animator.speed = 1f;
     }
@@ -447,7 +427,7 @@ public class MonsterController : MonoBehaviour
         }
         else
         {
-            OnDie -= OnDieByGreenPlayer;
+            onDie -= OnDieByGreenPlayer;
         }
     }
 
@@ -458,20 +438,23 @@ public class MonsterController : MonoBehaviour
 
     public void SetOnDieByGreenPlayer()
     {
-        OnDie = OnDieByGreenPlayer;
+        onDie = OnDieByGreenPlayer;
     }
 
-    //public void PulledByBlack()
-    //{
-    //    animator.enabled = false;
-    //    isDie = true;
-    //    if (myColor == Colors.Yellow) GetComponent<M_Yellow>().voltObject.SetActive(false);
-    //    else if (myColor == Colors.Red) GetComponent<M_Red>().fireObject.SetActive(false);
-    //    enabled = false;
-    //    rb.mass = 0.0f;
-    //    rb.gravityScale = 0.0f;
-    //    GetComponent<CapsuleCollider2D>().isTrigger = true;
-    //}
+    public void PulledByBlack()
+    {
+        animator.enabled = false;
+        isDie = true;
+
+        if (myColor == Colors.Yellow) GetComponent<YellowMonster>().voltObject.SetActive(false);
+        else if (myColor == Colors.Red) GetComponent<RedMonster>().fireObject.SetActive(false);
+
+        enabled = false;
+        rb.mass = 0.0f;
+        rb.gravityScale = 0.0f;
+        GetComponent<CapsuleCollider2D>().isTrigger = true;
+    }
+
     public virtual void Attack() {}
 
     public void ChangeState(BaseState newState)

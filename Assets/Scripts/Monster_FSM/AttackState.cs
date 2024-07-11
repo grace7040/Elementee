@@ -19,7 +19,7 @@ public class AttackState : BaseState
     public override void Update()
     {
         // 공격 중 flip 제한
-        //if (monster.canflip)
+        //if (monster.canFlip)
         //{
         //    monster.isFlip = monster.player.position.x < monster.transform.position.x;
         //    monster.monsterBody.rotation = monster.isFlip ? Quaternion.identity : monster.flipQuaternion;

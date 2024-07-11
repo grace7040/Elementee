@@ -6,20 +6,18 @@ using UnityEngine;
 public class Monster : ScriptableObject
 {
     [SerializeField]
-    private int damage;
-    public int Damage { get { return damage; } }
+    private int _damage;
+    public int damage { get { return _damage; } }
 
     [SerializeField]
-
-    private int health;
-    public int Health { get { return health; } }
-
-    [SerializeField]
-    private float attackRange;
-    public float AttackRange { get { return attackRange; } }
-
+    private int _health;
+    public int health { get { return _health; } }
 
     [SerializeField]
-    private Colors myColor;
-    public Colors MyColor { get { return myColor; } }
+    private float _attackRange;
+    public float attackRange { get { return _attackRange; } }
+
+    [SerializeField]
+    private Colors _myColor;
+    public Colors myColor { get { return _myColor; } }
 }
