@@ -4,21 +4,17 @@ using UnityEngine;
 
 public class CharacterMove : MonoBehaviour
 {
-	public PlayerController controller;
-	public Animator animator;
-	public VariableJoystick joystick;
+	[SerializeField] private PlayerController controller;
+	[SerializeField] private Animator animator;
+	public VariableJoystick joystick; // 확인 필요
 
-	public float runSpeed = 40f;
+	private float runSpeed = 60f;
 
-	float horizontalMove = 0f;
-	bool dash = false;
+	private float horizontalMove = 0f;
 
+	private bool dashDown = false;
 	private bool jumpDown = false;
 
-  //  private void Start()
-  //  {
-		//GameManager.Instance.SetJoystick.Invoke();
-  //  }
     void Update()
 	{
 		horizontalMove = joystick.Horizontal * runSpeed;
@@ -35,8 +31,6 @@ public class CharacterMove : MonoBehaviour
 			DashDown();
 		}
 
-		
-
 	}
 
 	public void OnFall()
@@ -52,7 +46,7 @@ public class CharacterMove : MonoBehaviour
 	void FixedUpdate()
 	{
 		// Move our character
-		controller.Move(horizontalMove * Time.fixedDeltaTime, jumpDown, dash);
+		controller.Move(horizontalMove * Time.fixedDeltaTime, jumpDown, dashDown);
 		JumpUp();
 		DashUp();
 	}
@@ -69,12 +63,11 @@ public class CharacterMove : MonoBehaviour
 	}
 	public void DashDown()
 	{
-		dash = true;
-
+		dashDown = true;
 	}
 	public void DashUp()
 	{
-		dash = false;
+		dashDown = false;
 	}
 
 }

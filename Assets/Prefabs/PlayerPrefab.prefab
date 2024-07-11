@@ -177,13 +177,12 @@ MonoBehaviour:
   HealEffect: {fileID: 393088699325398}
   PurpleEffect: {fileID: 8410189878276244301}
   AttackCheck: {fileID: 4370582630649528}
-  isAttack: 0
+  IsAttack: 0
   coolTime: 0
-  knockBackForce: 10
-  invincible: 0
-  canHealOnFountain: 1
-  currentHealth: 100
-  faceSprite: {fileID: 7243554273347533079}
+  Invincible: 0
+  CanHealOnFountain: 1
+  CurrentHealth: 100
+  FaceSprite: {fileID: 7243554273347533079}
   m_Rigidbody2D: {fileID: 50738830109512580}
   animator: {fileID: 95975118031919256}
   playerSprite: {fileID: 212971026275759962}
@@ -233,7 +232,7 @@ MonoBehaviour:
         m_CallState: 2
   m_Grounded: 0
   fixJoint: {fileID: 1371218208993128490}
-  isHoldingEnemy: 0
+  IsHoldingEnemy: 0
 --- !u!114 &248749117310158783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,7 +248,6 @@ MonoBehaviour:
   controller: {fileID: 175512587402798207}
   animator: {fileID: 95975118031919256}
   joystick: {fileID: 0}
-  runSpeed: 40
 --- !u!212 &212971026275759962
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -52,8 +52,8 @@ public class PlayerController : MonoBehaviour
     //private bool isTimeToCheck = false; 
 
     [Header("Player Properties")]
-    public int currentHealth;
-    public SpriteRenderer faceSprite;
+    public int CurrentHealth;
+    public SpriteRenderer FaceSprite;
     [HideInInspector] public Rigidbody2D m_Rigidbody2D;
     [HideInInspector] public Animator animator;
     [HideInInspector] public SpriteRenderer playerSprite;
@@ -148,10 +148,10 @@ public class PlayerController : MonoBehaviour
         //    transform.position = GameManager.Instance.sponPos.position;
 
         // 얼굴 넣기
-        faceSprite.sprite = GameManager.Instance.playerFace;
+        FaceSprite.sprite = GameManager.Instance.playerFace;
 
         //Health initiallize
-        currentHealth = maxHealth;
+        CurrentHealth = maxHealth;
         //GameManager.Instance.playerMAXHP = maxHealth;
         //GameManager.Instance.playerHP = maxHealth;
 
@@ -569,17 +569,17 @@ public class PlayerController : MonoBehaviour
             //animation on 
             animator.SetBool("Hit", true);
             //health --
-            currentHealth -= damage;
+            CurrentHealth -= damage;
 
-            if (currentHealth > 100)
-                currentHealth = 100;
+            if (CurrentHealth > 100)
+                CurrentHealth = 100;
 
             //넉백
             Vector2 damageDir = Vector3.Normalize(transform.position - enemyPos) * 40f;
             m_Rigidbody2D.velocity = Vector2.zero;
             m_Rigidbody2D.AddForce(damageDir * knockBackForce);
 
-            if (currentHealth <= 0)
+            if (CurrentHealth <= 0)
             {
                 //GameManager.Instance.GameOver();
                 Die();
@@ -596,10 +596,10 @@ public class PlayerController : MonoBehaviour
 
     public void Heal(int health)
     {
-        currentHealth += health;
+        CurrentHealth += health;
         AudioManager.Instacne.PlaySFX("Heal");
-        if (currentHealth > 100)
-            currentHealth = 100;
+        if (CurrentHealth > 100)
+            CurrentHealth = 100;
 
         HealEffect.SetActive(true);
         this.CallOnDelay(1f, () => { HealEffect.SetActive(false); });
@@ -699,7 +699,7 @@ public class PlayerController : MonoBehaviour
         canMove = true;
         Invincible = false;
         //m_Rigidbody2D.velocity = new Vector2(0, m_Rigidbody2D.velocity.y);
-        currentHealth = maxHealth;
+        CurrentHealth = maxHealth;
         Managers.UI.ClosePopupUI();
     }
 

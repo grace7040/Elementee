@@ -82,7 +82,7 @@ public class UI_Game : UI_Scene
     private void FixedUpdate()
     {
         // hpBar
-        hpBar.fillAmount = (float)playerController.currentHealth / playerController.maxHealth;
+        hpBar.fillAmount = (float)playerController.CurrentHealth / playerController.maxHealth;
 
         // star
         if (starCount != GameManager.Instance.currentStar)
