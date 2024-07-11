@@ -30,7 +30,7 @@ public class ColorFountain : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Enemy"))
         {
-            if (collision.gameObject.GetComponent<MonsterController>().myColor != fountainColor)
+            if (collision.gameObject.GetComponent<MonsterController>().MyColor != fountainColor)
             {
                 collision.gameObject.GetComponent<MonsterController>().TakeDamage(damage, this.transform.position);
             }

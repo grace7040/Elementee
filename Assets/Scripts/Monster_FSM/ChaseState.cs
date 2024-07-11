@@ -9,15 +9,15 @@ public class ChaseState : BaseState
 
     public override void Enter()
     {
-        monster.animator.SetBool("IsWalking", true);
+        monster.Animator.SetBool("IsWalking", true);
     }
 
     public override void Update()
     {
-        monster.isFlip = monster.player.position.x < monster.transform.position.x;
-        monster.monsterBody.rotation = monster.isFlip ? Quaternion.identity : monster.flipQuaternion;
+        monster.IsFlip = monster.Player.position.x < monster.transform.position.x;
+        monster.MonsterBody.rotation = monster.IsFlip ? Quaternion.identity : monster.FlipQuaternion;
 
-        if (Vector2.Distance(monster.transform.position, monster.player.position) <= monster.attackRange && monster.distanceY <= 1.0f)
+        if (Vector2.Distance(monster.transform.position, monster.Player.position) <= monster.AttackRange && monster.DistanceY <= 1.0f)
         {
             monster.ChangeState(new AttackState(monster));
         }
@@ -27,30 +27,30 @@ public class ChaseState : BaseState
             {
                 if (!monster.CheckCliff())
                 {
-                    if (Vector2.Distance(monster.transform.position, monster.player.position) > monster.detectionRange)
+                    if (Vector2.Distance(monster.transform.position, monster.Player.position) > monster.DetectionRange)
                     {
                         monster.ChangeState(new IdleState(monster));
                         Debug.Log("Idle");
                     }
                     else
                     {
-                        Vector2 moveDirection = (monster.player.position - monster.transform.position);
+                        Vector2 moveDirection = (monster.Player.position - monster.transform.position);
                         moveDirection.y = 0;
                         moveDirection.Normalize();
-                        monster.rb.velocity = moveDirection * monster.moveSpeed;
+                        monster.Rb.velocity = moveDirection * monster.MoveSpeed;
                     }
                 }
-                else monster.rb.velocity = Vector2.zero;
+                else monster.Rb.velocity = Vector2.zero;
             }
             else
             {
-                monster.rb.velocity += Time.deltaTime * Vector2.down;
+                monster.Rb.velocity += Time.deltaTime * Vector2.down;
             }
         }
     }
 
     public override void Exit()
     {
-        monster.animator.SetBool("IsWalking", false);
+        monster.Animator.SetBool("IsWalking", false);
     }
 }

@@ -15,7 +15,7 @@ public class YellowMonster : MonsterController
 
     protected override void Update()
     {
-        if (isDie) return;
+        if (IsDie) return;
         base.Update();
     }
 
@@ -26,8 +26,8 @@ public class YellowMonster : MonsterController
 
     protected IEnumerator Charge()
     {
-        rb.velocity = Vector2.zero;
-        dir = new Vector2(player.position.x - transform.position.x, 0);
+        Rb.velocity = Vector2.zero;
+        dir = new Vector2(Player.position.x - transform.position.x, 0);
 
         yield return new WaitForSeconds(1.2f);
 

@@ -9,36 +9,36 @@ public class MonsterController : MonoBehaviour
 {
     #region variables
 
-    public Monster monsterData;
+    public Monster MonsterData;
 
     [HideInInspector]
-    public Colors myColor;
+    public Colors MyColor;
 
     protected SpriteRenderer monsterSprite;
 
     [HideInInspector]
-    public Transform player;
+    public Transform Player;
 
     [HideInInspector]
-    public Rigidbody2D rb;
+    public Rigidbody2D Rb;
 
     protected int maxHealth;
     protected int currentHealth;
 
     [HideInInspector]
-    public float moveSpeed = 3f;
+    public float MoveSpeed = 3f;
 
     [HideInInspector]
-    public float detectionRange = 10f;
+    public float DetectionRange = 10f;
 
     [HideInInspector]
-    public float attackRange;
+    public float AttackRange;
 
     [HideInInspector]
-    public bool isDie = false;
+    public bool IsDie = false;
 
     [HideInInspector]
-    public int damage;
+    public int Damage;
 
     // Cooltime
     protected bool canTakeDamage_RangeAttack = true;
@@ -59,7 +59,7 @@ public class MonsterController : MonoBehaviour
 
     // Die
     public delegate void Del();
-    public Del onDie = null;
+    public Del OnDie = null;
 
     // HP Bar
     protected Image hpBar;
@@ -70,20 +70,20 @@ public class MonsterController : MonoBehaviour
     protected float distanceX;
 
     [HideInInspector]
-    public float distanceY;
+    public float DistanceY;
 
-    public Animator animator;
-
-    [HideInInspector]
-    public Quaternion flipQuaternion = Quaternion.Euler(new Vector3(0, 180, 0));
-
-    public Transform monsterBody;
+    public Animator Animator;
 
     [HideInInspector]
-    public bool isFlip = false;
+    public Quaternion FlipQuaternion = Quaternion.Euler(new Vector3(0, 180, 0));
+
+    public Transform MonsterBody;
+
+    [HideInInspector]
+    public bool IsFlip = false;
 
     //[HideInInspector]
-    //public bool canFlip = true;
+    //public bool CanFlip = true;
 
     protected bool isGrounded = true;
 
@@ -98,23 +98,23 @@ public class MonsterController : MonoBehaviour
 
     protected virtual void Awake()
     {
-        damage = monsterData.damage;
-        maxHealth = monsterData.health;
-        myColor = monsterData.myColor;
-        attackRange = monsterData.attackRange;
+        Damage = MonsterData.Damage;
+        maxHealth = MonsterData.Health;
+        MyColor = MonsterData.MyColor;
+        AttackRange = MonsterData.AttackRange;
         currentHealth = maxHealth;
     }
 
     protected virtual void Start()
     {
-        if (player == null)
+        if (Player == null)
         {
             playerObj = GameManager.Instance.player;
-            player = playerObj.transform;
+            Player = playerObj.transform;
         }
 
         monsterSprite = GetComponentInChildren<SpriteRenderer>();
-        rb = GetComponent<Rigidbody2D>();
+        Rb = GetComponent<Rigidbody2D>();
 
         // waypoint √ ±‚»≠
         SetWaypoints();
@@ -131,17 +131,17 @@ public class MonsterController : MonoBehaviour
 
     protected virtual void Update()
     {
-        if (isDie) return;
+        if (IsDie) return;
 
         if (playerObj != null) isGrounded = playerObj.GetComponent<PlayerController>().m_Grounded;
 
         waypointDirection = currentWaypoint.x - transform.position.x;
-        distanceX = Mathf.Abs(transform.position.x - player.position.x);
-        distanceY = Mathf.Abs(transform.position.y - player.position.y);
+        distanceX = Mathf.Abs(transform.position.x - Player.position.x);
+        DistanceY = Mathf.Abs(transform.position.y - Player.position.y);
 
-        isFlip = waypointDirection < 0f;
+        IsFlip = waypointDirection < 0f;
 
-        monsterBody.rotation = isFlip ? Quaternion.identity : flipQuaternion;
+        MonsterBody.rotation = IsFlip ? Quaternion.identity : FlipQuaternion;
 
         stateMachine.Update();
     }
@@ -212,11 +212,11 @@ public class MonsterController : MonoBehaviour
             }
 
             Vector2 moveDirection = new Vector2(currentWaypoint.x - transform.position.x, 0).normalized;
-            rb.velocity = moveDirection * moveSpeed;
+            Rb.velocity = moveDirection * MoveSpeed;
 
-            if (myColor != Colors.Default)
+            if (MyColor != Colors.Default)
             {
-                animator.SetBool("IsWalking", true);
+                Animator.SetBool("IsWalking", true);
             }
 
             if (CheckCliff())
@@ -237,9 +237,9 @@ public class MonsterController : MonoBehaviour
                     isStopping = true;
                     canMove = false;
                     timeSinceLastStop = 0;
-                    if (myColor != Colors.Default)
+                    if (MyColor != Colors.Default)
                     {
-                        animator.SetBool("IsWalking", false);
+                        Animator.SetBool("IsWalking", false);
                     }
                 }
             }
@@ -248,7 +248,7 @@ public class MonsterController : MonoBehaviour
 
     public bool CheckCliff()
     {
-        Quaternion rotation = isFlip ? flipQuaternion : Quaternion.identity;
+        Quaternion rotation = IsFlip ? FlipQuaternion : Quaternion.identity;
         Vector2 raycastOrigin = transform.position + (rotation * Vector3.right * 0.7f);
 
         //UnityEngine.Debug.DrawRay(raycastOrigin, Vector2.down, Color.red);
@@ -260,7 +260,7 @@ public class MonsterController : MonoBehaviour
 
     private void SetNextWaypoint()
     {
-        if (isFlip) currentWaypoint = rightWaypoint;
+        if (IsFlip) currentWaypoint = rightWaypoint;
         else currentWaypoint = leftWaypoint;
     }
 
@@ -291,7 +291,7 @@ public class MonsterController : MonoBehaviour
 
         if (!isKnockedBack)
         {
-            rb.velocity = Vector2.zero;
+            Rb.velocity = Vector2.zero;
             Vector2 damageDir = new Vector2(transform.position.x - playerPos.x, 0).normalized * 2f;
             damageDir += new Vector2(0, 1).normalized * 2f;
             ApplyKnockbackForce(damageDir, 12f, 0.3f);
@@ -305,10 +305,10 @@ public class MonsterController : MonoBehaviour
 
     public void Die()
     {
-        if (isDie) return;
+        if (IsDie) return;
 
-        isDie = true;
-        switch (myColor)
+        IsDie = true;
+        switch (MyColor)
         {
             case Colors.Default:
                 break;
@@ -323,10 +323,10 @@ public class MonsterController : MonoBehaviour
                 break;
         }
 
-        animator.enabled = false;
+        Animator.enabled = false;
         gameObject.GetComponent<CapsuleCollider2D>().isTrigger = true;
 
-        onDie?.Invoke();
+        OnDie?.Invoke();
 
         monsterSprite.DOFade(0, 2.5f);
         hpBarBG.DOFade(0, 2f);
@@ -336,7 +336,7 @@ public class MonsterController : MonoBehaviour
     protected IEnumerator Electrocuted()
     {
         enabled = false;
-        animator.speed = 0f;
+        Animator.speed = 0f;
 
         spark = ObjectPoolManager.Instance.GetGo("Spark");
         spark.transform.SetParent(transform);
@@ -346,7 +346,7 @@ public class MonsterController : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
 
         enabled = true;
-        animator.speed = 1f;
+        Animator.speed = 1f;
     }
 
     protected IEnumerator ShakeMonster()
@@ -364,7 +364,7 @@ public class MonsterController : MonoBehaviour
 
     protected void OnTriggerEnter2D(Collider2D other)
     {
-        if (isDie) return;
+        if (IsDie) return;
 
         if (other.CompareTag("Weapon"))
         {
@@ -382,7 +382,7 @@ public class MonsterController : MonoBehaviour
 
     protected void OnTriggerStay2D(Collider2D collision)
     {
-        if (!canTakeDamage_RangeAttack || isDie) return;
+        if (!canTakeDamage_RangeAttack || IsDie) return;
 
         canTakeDamage_RangeAttack = false;
         if (collision.CompareTag("WeaponYellow"))
@@ -410,7 +410,7 @@ public class MonsterController : MonoBehaviour
 
         while (timer < duration)
         {
-            rb.AddForce(force * Time.fixedDeltaTime * direction, ForceMode2D.Impulse);
+            Rb.AddForce(force * Time.fixedDeltaTime * direction, ForceMode2D.Impulse);
             timer += Time.fixedDeltaTime;
             yield return new WaitForFixedUpdate();
         }
@@ -427,7 +427,7 @@ public class MonsterController : MonoBehaviour
         }
         else
         {
-            onDie -= OnDieByGreenPlayer;
+            OnDie -= OnDieByGreenPlayer;
         }
     }
 
@@ -438,20 +438,20 @@ public class MonsterController : MonoBehaviour
 
     public void SetOnDieByGreenPlayer()
     {
-        onDie = OnDieByGreenPlayer;
+        OnDie = OnDieByGreenPlayer;
     }
 
     public void PulledByBlack()
     {
-        animator.enabled = false;
-        isDie = true;
+        Animator.enabled = false;
+        IsDie = true;
 
-        if (myColor == Colors.Yellow) GetComponent<YellowMonster>().voltObject.SetActive(false);
-        else if (myColor == Colors.Red) GetComponent<RedMonster>().fireObject.SetActive(false);
+        if (MyColor == Colors.Yellow) GetComponent<YellowMonster>().voltObject.SetActive(false);
+        else if (MyColor == Colors.Red) GetComponent<RedMonster>().fireObject.SetActive(false);
 
         enabled = false;
-        rb.mass = 0.0f;
-        rb.gravityScale = 0.0f;
+        Rb.mass = 0.0f;
+        Rb.gravityScale = 0.0f;
         GetComponent<CapsuleCollider2D>().isTrigger = true;
     }
 

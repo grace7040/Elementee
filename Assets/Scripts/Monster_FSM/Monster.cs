@@ -7,17 +7,17 @@ public class Monster : ScriptableObject
 {
     [SerializeField]
     private int _damage;
-    public int damage { get { return _damage; } }
+    public int Damage { get { return _damage; } }
 
     [SerializeField]
     private int _health;
-    public int health { get { return _health; } }
+    public int Health { get { return _health; } }
 
     [SerializeField]
     private float _attackRange;
-    public float attackRange { get { return _attackRange; } }
+    public float AttackRange { get { return _attackRange; } }
 
     [SerializeField]
     private Colors _myColor;
-    public Colors myColor { get { return _myColor; } }
+    public Colors MyColor { get { return _myColor; } }
 }

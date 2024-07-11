@@ -935,6 +935,16 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2603914500132307493, guid: b363420604914cb46b58ec4fcf1f7bca, type: 3}
   m_PrefabInstance: {fileID: 360229984}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &388368643 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5805655821547122843, guid: ac6fae954e5b9204d9331c5161e95abf, type: 3}
+  m_PrefabInstance: {fileID: 559023500}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &388368644 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5762546575137201772, guid: ac6fae954e5b9204d9331c5161e95abf, type: 3}
+  m_PrefabInstance: {fileID: 559023500}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &396537224 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5408671948676450287, guid: e82435c4078d14a499de732dca7e69b5, type: 3}
@@ -1387,7 +1397,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4931950790173185123, guid: ac6fae954e5b9204d9331c5161e95abf, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5327967623794229967, guid: ac6fae954e5b9204d9331c5161e95abf, type: 3}
       propertyPath: m_RootOrder
@@ -1433,6 +1443,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6939465070343909622, guid: ac6fae954e5b9204d9331c5161e95abf, type: 3}
+      propertyPath: Animator
+      value: 
+      objectReference: {fileID: 388368644}
+    - target: {fileID: 6939465070343909622, guid: ac6fae954e5b9204d9331c5161e95abf, type: 3}
+      propertyPath: MonsterBody
+      value: 
+      objectReference: {fileID: 388368643}
+    - target: {fileID: 6939465070343909622, guid: ac6fae954e5b9204d9331c5161e95abf, type: 3}
+      propertyPath: MonsterData
+      value: 
+      objectReference: {fileID: 11400000, guid: 269a076a8febb5b45acf1c93faec4fac, type: 2}
     - target: {fileID: 9053396682473363538, guid: ac6fae954e5b9204d9331c5161e95abf, type: 3}
       propertyPath: m_Size.x
       value: 4.742241

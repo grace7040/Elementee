@@ -14,7 +14,7 @@ public class BlueMonster : MonsterController
 
     protected override void Update()
     {
-        if (isDie) return;
+        if (IsDie) return;
         base.Update();
     }
 
@@ -22,6 +22,6 @@ public class BlueMonster : MonsterController
     {
         Water = ObjectPoolManager.Instance.GetGo("MonsterWater");
         Water.transform.position = transform.position;
-        Water.GetComponent<M_Water>().direction = isFlip ? new Vector3(-1, 0, 0) : new Vector3(1, 0, 0);
+        Water.GetComponent<M_Water>().direction = IsFlip ? new Vector3(-1, 0, 0) : new Vector3(1, 0, 0);
     }
 }

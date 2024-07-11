@@ -10,12 +10,12 @@ public class IdleState : BaseState
 
     public override void Enter()
     {
-        monster.animator.SetBool("IsWalking", false);
+        monster.Animator.SetBool("IsWalking", false);
     }
 
     public override void Update()
     {
-        if (Vector2.Distance(monster.transform.position, monster.player.position) <= monster.detectionRange && monster.distanceY <= 1.0f)
+        if (Vector2.Distance(monster.transform.position, monster.Player.position) <= monster.DetectionRange && monster.DistanceY <= 1.0f)
         {
             monster.ChangeState(new ChaseState(monster));
         }
@@ -27,7 +27,7 @@ public class IdleState : BaseState
             }
             else
             {
-                monster.rb.velocity += Time.deltaTime * Vector2.down;
+                monster.Rb.velocity += Time.deltaTime * Vector2.down;
             }
         }
     }

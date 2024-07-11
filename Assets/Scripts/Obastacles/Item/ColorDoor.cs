@@ -39,7 +39,7 @@ public class ColorDoor : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Enemy"))
         {
-            if (collision.gameObject.GetComponent<MonsterController>().myColor == doorColor)
+            if (collision.gameObject.GetComponent<MonsterController>().MyColor == doorColor)
             {
                 boxcollider.enabled = false;
                 return;

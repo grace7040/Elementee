@@ -14,7 +14,7 @@ public class RedMonster : MonsterController
 
     protected override void Update()
     {
-        if (isDie) return;
+        if (IsDie) return;
         base.Update();
     }
 

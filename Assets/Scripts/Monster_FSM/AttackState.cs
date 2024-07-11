@@ -11,52 +11,52 @@ public class AttackState : BaseState
 
     public override void Enter()
     {
-        monster.rb.velocity = Vector2.zero;
-        monster.animator.SetBool("IsAttacking", true);
+        monster.Rb.velocity = Vector2.zero;
+        monster.Animator.SetBool("IsAttacking", true);
         monster.StartCoroutine(AttackRoutine());
     }
 
     public override void Update()
     {
         // 공격 중 flip 제한
-        //if (monster.canFlip)
+        //if (monster.CanFlip)
         //{
-        //    monster.isFlip = monster.player.position.x < monster.transform.position.x;
-        //    monster.monsterBody.rotation = monster.isFlip ? Quaternion.identity : monster.flipQuaternion;
+        //    monster.IsFlip = monster.player.position.x < monster.transform.position.x;
+        //    monster.MonsterBody.rotation = monster.IsFlip ? Quaternion.identity : monster.FlipQuaternion;
         //}
-        monster.isFlip = monster.player.position.x < monster.transform.position.x;
-        monster.monsterBody.rotation = monster.isFlip ? Quaternion.identity : monster.flipQuaternion;
+        monster.IsFlip = monster.Player.position.x < monster.transform.position.x;
+        monster.MonsterBody.rotation = monster.IsFlip ? Quaternion.identity : monster.FlipQuaternion;
     }
 
     public override void Exit()
     {
-        monster.animator.SetBool("IsAttacking", false);
+        monster.Animator.SetBool("IsAttacking", false);
     }
 
     private IEnumerator AttackRoutine()
     {
-        if (monster.myColor == Colors.Blue)
+        if (monster.MyColor == Colors.Blue)
         {
             yield return new WaitForSeconds(1f);
-            if (!monster.isDie)
+            if (!monster.IsDie)
             {
                 monster.Attack();
                 yield return new WaitForSeconds(2f);
                 monster.ChangeState(new IdleState(monster));
             }
         }
-        else if (monster.myColor == Colors.Red)
+        else if (monster.MyColor == Colors.Red)
         {
-            if (!monster.isDie)
+            if (!monster.IsDie)
             {
                 monster.Attack();
                 yield return new WaitForSeconds(2f);
                 monster.ChangeState(new IdleState(monster));
             }
         }
-        else if (monster.myColor == Colors.Yellow)
+        else if (monster.MyColor == Colors.Yellow)
         {
-            if (!monster.isDie)
+            if (!monster.IsDie)
             {
                 monster.Attack();
                 yield return new WaitForSeconds(2f);
