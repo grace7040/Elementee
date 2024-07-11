@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class AttackState : BaseState
 {
-    public AttackState(MonController monster) : base(monster) { }
+    public AttackState(MonsterController monster) : base(monster) { }
 
     public override void Enter()
     {

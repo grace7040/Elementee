@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
 
-public class MonController : MonoBehaviour
+public class MonsterController : MonoBehaviour
 {
     #region variables
 
@@ -461,17 +461,17 @@ public class MonController : MonoBehaviour
         OnDie = OnDieByGreenPlayer;
     }
 
-    public void PulledByBlack()
-    {
-        animator.enabled = false;
-        isDie = true;
-        if (myColor == Colors.Yellow) GetComponent<M_Yellow>().voltObject.SetActive(false);
-        else if (myColor == Colors.Red) GetComponent<M_Red>().fireObject.SetActive(false);
-        enabled = false;
-        rb.mass = 0.0f;
-        rb.gravityScale = 0.0f;
-        GetComponent<CapsuleCollider2D>().isTrigger = true;
-    }
+    //public void PulledByBlack()
+    //{
+    //    animator.enabled = false;
+    //    isDie = true;
+    //    if (myColor == Colors.Yellow) GetComponent<M_Yellow>().voltObject.SetActive(false);
+    //    else if (myColor == Colors.Red) GetComponent<M_Red>().fireObject.SetActive(false);
+    //    enabled = false;
+    //    rb.mass = 0.0f;
+    //    rb.gravityScale = 0.0f;
+    //    GetComponent<CapsuleCollider2D>().isTrigger = true;
+    //}
     public virtual void Attack() {}
 
     public void ChangeState(BaseState newState)

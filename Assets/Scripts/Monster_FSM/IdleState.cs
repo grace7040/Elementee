@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class IdleState : BaseState
 {
-    public IdleState(MonController monster) : base(monster) { }
+    public IdleState(MonsterController monster) : base(monster) { }
 
     public override void Enter()
     {

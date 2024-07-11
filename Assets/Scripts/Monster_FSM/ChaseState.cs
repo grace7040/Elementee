@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ChaseState : BaseState
 {
-    public ChaseState(MonController monster) : base(monster) { }
+    public ChaseState(MonsterController monster) : base(monster) { }
 
     public override void Enter()
     {

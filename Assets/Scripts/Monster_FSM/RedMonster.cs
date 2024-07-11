@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MonBlue : MonController
+public class RedMonster : MonsterController
 {
-    GameObject Water;
+    public GameObject fireObject;
 
     protected override void Start()
     {
@@ -20,8 +20,7 @@ public class MonBlue : MonController
 
     public override void Attack()
     {
-        Water = ObjectPoolManager.Instance.GetGo("MonsterWater");
-        Water.transform.position = transform.position;
-        Water.GetComponent<M_Water>().direction = isFlip ? new Vector3(-1, 0, 0) : new Vector3(1, 0, 0);
+        fireObject.SetActive(true);
+        this.CallOnDelay(1.5f, () => fireObject.SetActive(false));
     }
 }

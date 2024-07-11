@@ -2,10 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MonRed : MonController
+public class DefaultMonster : MonsterController
 {
-    public GameObject fireObject;
-
     protected override void Start()
     {
         base.Start();
@@ -16,11 +14,5 @@ public class MonRed : MonController
     {
         if (isDie) return;
         base.Update();
-    }
-
-    public override void Attack()
-    {
-        fireObject.SetActive(true);
-        this.CallOnDelay(1.5f, () => fireObject.SetActive(false));
     }
 }

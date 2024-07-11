@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
 
-public class MonYellow : MonController
+public class YellowMonster : MonsterController
 {
     public GameObject voltObject;
 

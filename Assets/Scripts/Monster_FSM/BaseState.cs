@@ -4,9 +4,9 @@ using UnityEngine;
 
 public abstract class BaseState
 {
-    protected MonController monster;
+    protected MonsterController monster;
 
-    public BaseState(MonController monster)
+    public BaseState(MonsterController monster)
     {
         this.monster = monster;
     }
