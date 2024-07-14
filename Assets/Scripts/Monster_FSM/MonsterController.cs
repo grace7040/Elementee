@@ -82,8 +82,8 @@ public class MonsterController : MonoBehaviour
     [HideInInspector]
     public bool IsFlip = false;
 
-    //[HideInInspector]
-    //public bool CanFlip = true;
+    [HideInInspector]
+    public bool CanFlip = true;
 
     protected bool isGrounded = true;
 
@@ -117,7 +117,7 @@ public class MonsterController : MonoBehaviour
         Rb = GetComponent<Rigidbody2D>();
 
         // waypoint 초기화
-        SetWaypoints();
+        SetWaypoints();    
         currentWaypoint = leftWaypoint;
 
         // 체력바
@@ -135,13 +135,8 @@ public class MonsterController : MonoBehaviour
 
         if (playerObj != null) isGrounded = playerObj.GetComponent<PlayerController>().m_Grounded;
 
-        waypointDirection = currentWaypoint.x - transform.position.x;
         distanceX = Mathf.Abs(transform.position.x - Player.position.x);
         DistanceY = Mathf.Abs(transform.position.y - Player.position.y);
-
-        IsFlip = waypointDirection < 0f;
-
-        MonsterBody.rotation = IsFlip ? Quaternion.identity : FlipQuaternion;
 
         stateMachine.Update();
     }

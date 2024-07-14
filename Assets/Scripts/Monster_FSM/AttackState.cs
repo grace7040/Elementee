@@ -18,14 +18,11 @@ public class AttackState : BaseState
 
     public override void Update()
     {
-        // 공격 중 flip 제한
-        //if (monster.CanFlip)
-        //{
-        //    monster.IsFlip = monster.player.position.x < monster.transform.position.x;
-        //    monster.MonsterBody.rotation = monster.IsFlip ? Quaternion.identity : monster.FlipQuaternion;
-        //}
-        monster.IsFlip = monster.Player.position.x < monster.transform.position.x;
-        monster.MonsterBody.rotation = monster.IsFlip ? Quaternion.identity : monster.FlipQuaternion;
+        if (monster.CanFlip)
+        {
+            monster.IsFlip = monster.Player.position.x < monster.transform.position.x;
+            monster.MonsterBody.rotation = monster.IsFlip ? Quaternion.identity : monster.FlipQuaternion;
+        }
     }
 
     public override void Exit()
@@ -37,12 +34,14 @@ public class AttackState : BaseState
     {
         if (monster.MyColor == Colors.Blue)
         {
+            monster.CanFlip = false;
             yield return new WaitForSeconds(1f);
             if (!monster.IsDie)
             {
                 monster.Attack();
-                yield return new WaitForSeconds(2f);
-                monster.ChangeState(new IdleState(monster));
+                yield return new WaitForSeconds(2.0f);
+                monster.CanFlip = true;
+                monster.ChangeState(new ChaseState(monster));
             }
         }
         else if (monster.MyColor == Colors.Red)
