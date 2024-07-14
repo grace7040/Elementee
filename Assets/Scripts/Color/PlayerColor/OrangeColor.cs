@@ -10,41 +10,34 @@ public class OrangeColor : IColorState
     public float CoolTime { get { return 6f; } }
 
     public float durationTime = 5f;
-    //¸ğ·¡ ÆøÇ³
-    public void Attack(PlayerController player)
+    //ëª¨ë˜ í­í’
+    public void Attack(Vector3 playerPosition, float playerLocalScaleX)
     {
-        //player.canAttack = false;
-        player.gameObject.layer = 10; // layer º¯°æÀ¸·Î Ãæµ¹ Ã³¸® ¸·À½
         AudioManager.Instacne.PlaySFX("Orange");
+        // :: TODO :: ë¦¬íŒ©í† ë§ì„ ìœ„í•´ ì ì‹œ ì£¼ì„í•˜ê² ìŠµë‹ˆë‹¤. ë‚˜ì¤‘ì— ìˆ˜ì •í•´ì•¼í•¨.
 
-        // ±×¸° ¹«±â + effect ÄÑ±â
-        player.OrangeWeaponEffect.SetActive(true);
-        //player.orange_Weapon.SetActive(true);
+        //player.gameObject.layer = 10; // layer ë³€ê²½ìœ¼ë¡œ ì¶©ëŒ ì²˜ë¦¬ ë§‰ìŒ
 
-        //ÀÌµ¿¼Óµµ up
-        player.m_MoveSpeed = 20f;
-     
+        //// ê·¸ë¦° ë¬´ê¸° + effect ì¼œê¸°
+        //player.OrangeWeaponEffect.SetActive(true);
 
-        // Áö¼Ó½Ã°£
-        player.CallOnDelay(durationTime, () =>
-        {
-            player.OrangeWeaponEffect.SetActive(false);
-            player.gameObject.layer = 3;
-            player.m_MoveSpeed = 10f;
-
-            //ÀÌµ¿¼ö´Ü down
-        });
+        ////ì´ë™ì†ë„ up
+        //player.m_MoveSpeed = 20f;
 
 
-        //ÄğÅ¸ÀÓ 
-        player.CallOnDelay(CoolTime, () =>
-        {
-            player.canAttack = true;
-        });
+        //// ì§€ì†ì‹œê°„
+        //player.CallOnDelay(durationTime, () =>
+        //{
+        //    player.OrangeWeaponEffect.SetActive(false);
+        //    player.gameObject.layer = 3;
+        //    player.m_MoveSpeed = 10f;
+
+        //    //ì´ë™ìˆ˜ë‹¨ down
+        //});
 
 
-        //player.orange_WeaponEffect.GetComponent<SpriteRenderer>().DOFlip();
-        //player.animator.SetBool("IsOrangeAttacking", true);
+        // :: END ::
+
     }
 
 

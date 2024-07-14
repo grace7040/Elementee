@@ -7,7 +7,7 @@ public interface IColorState
     public int Damage { get; }
     public bool WallSliding { get; }
     public float CoolTime { get; }
-    public void Attack(PlayerController player);
+    public void Attack(Vector3 playerPosition, float playerLocalScaleX);
 
 }
 

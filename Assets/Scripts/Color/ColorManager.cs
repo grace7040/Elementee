@@ -10,8 +10,10 @@ public class ColorManager : Singleton<ColorManager>
 
     public Action OnSetColor = null;
     public Action OnSaveColor = null;
+    public Action<string, bool> SetPlayerAnimatorBool = null;
 
     public bool basicWeapon = false;
+
 
     [Header("Color State")]
     [SerializeField]
@@ -111,11 +113,11 @@ public class ColorManager : Singleton<ColorManager>
                 //hasRed = false;
                 //hasYellow = false;
                 //hasBlue = false;
-                SetColorState(new DefaultColor());
+                SetColorState(new DefaultColor(SetPlayerAnimatorBool));
                 break;
             case Colors.Red:
                 hasRed = false;
-                SetColorState(new RedColor());
+                SetColorState(new RedColor(SetPlayerAnimatorBool));
                 player.RedWeapon.SetActive(true);
                 break;
             case Colors.Yellow:
@@ -126,19 +128,19 @@ public class ColorManager : Singleton<ColorManager>
                 break;
             case Colors.Blue:
                 hasBlue = false;
-                SetColorState(new BlueColor());
-                player.BlueWeapon.SetActive(true);
+                SetColorState(new BlueColor(SetPlayerAnimatorBool));
+                //player.BlueWeapon.SetActive(true);
                 break;
             case Colors.Green:
                 hasYellow = false;
                 hasBlue = false;
-                SetColorState(new GreenColor());
-                player.GreenWeapon.SetActive(true);
+                SetColorState(new GreenColor(SetPlayerAnimatorBool));
+                //player.GreenWeapon.SetActive(true);
                 break;
             case Colors.Purple:
                 hasRed = false;
                 hasBlue = false;
-                SetColorState(new PurpleColor());
+                SetColorState(new PurpleColor(SetPlayerAnimatorBool));
                 player.PurpleWeapon.SetActive(true);
                 break;
             case Colors.Orange:

@@ -9,21 +9,22 @@ public class BlackColor : IColorState
     public bool WallSliding { get { return false; } }
     public float CoolTime { get { return 0.5f; } }
 
-    public void Attack(PlayerController player)
+    public void Attack(Vector3 playerPosition, float playerLocalScaleX)
     {
-        player.CallOnDelay(CoolTime, () => { player.canAttack = true; });
+        // :: TODO :: 리팩토링을 위해 잠시 주석하겠습니다. 나중에 수정해야함.
 
-        if (player.IsHoldingEnemy)
-        {
-            player.BlackThrow();
-            //player.canAttack = false;
-            AudioManager.Instacne.PlaySFX("BlackRelease");
-        }
-        else
-        {
-            player.BlackPull();
-            AudioManager.Instacne.PlaySFX("Black");
-        }
+        //if (player.IsHoldingEnemy)
+        //{
+        //    player.BlackThrow();
+        //    AudioManager.Instacne.PlaySFX("BlackRelease");
+        //}
+        //else
+        //{
+        //    player.BlackPull();
+        //    AudioManager.Instacne.PlaySFX("Black");
+        //}
+
+        // :: END ::
     }
 
     public void SetPlayerColor(Colors mon_color)

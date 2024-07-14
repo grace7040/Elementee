@@ -10,22 +10,13 @@ public class DefaultColor : IColorState
     public bool WallSliding { get { return false; } }
     public float CoolTime { get { return 0.35f; } }
 
-
-    //Temporal Setting : Default Color Attack -> Sword
-    public void Attack(PlayerController player)
+    public Action<string, bool> SetPlayerAnimatorBool = null;
+    public DefaultColor(Action<string, bool> setPlayerAnimatorBoolAction)
     {
-        //if (player.doAttack && player.canAttack)
-        //{
-            //player.canAttack = false;
-            player.animator.SetBool("IsAttacking", true);
-            //player.UpdateCanAttack();
-            player.CallOnDelay(CoolTime, () =>
-            {
-                player.canAttack = true;
-            });
-            
-        //}
+        SetPlayerAnimatorBool = setPlayerAnimatorBoolAction;
     }
-
-
+    public void Attack(Vector3 playerPosition, float playerLocalScaleX)
+    {
+        SetPlayerAnimatorBool("IsAttacking", true);
+    }
 }

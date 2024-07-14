@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,21 +9,21 @@ public class PurpleColor : IColorState
     public bool WallSliding { get { return true; } }
     public float CoolTime { get { return 0.7f; } }
 
+    public Action<string, bool> SetPlayerAnimatorBool = null;
+    public PurpleColor(Action<string, bool> setPlayerAnimatorBoolAction)
+    {
+        SetPlayerAnimatorBool = setPlayerAnimatorBoolAction;
+    }
 
     //Temporal Setting : Red Color Attack -> Throw obj
-    public void Attack(PlayerController player)
+    public void Attack(Vector3 playerPosition, float playerLocalScaleX)
     {
-        player.GetComponent<PlayerController>().cam.GetComponent<FollowCamera>().ShakeCamera();
+        // :: TODO :: 리팩토링을 위해 잠시 주석하겠습니다. 나중에 수정해야함.
+        //player.GetComponent<PlayerController>().cam.GetComponent<FollowCamera>().ShakeCamera();
+        // :: END ::
 
-        //Debug.Log("Attak");
-        //player.canAttack = false;
-        player.animator.SetBool("IsPurpleAttacking", true);
+        SetPlayerAnimatorBool("IsPurpleAttacking", true);
         AudioManager.Instacne.PlaySFX("Purple");
-        player.CallOnDelay(CoolTime, () =>
-        {
-            player.canAttack = true;
-        });
-        
         
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,22 +9,21 @@ public class GreenColor : IColorState
     public bool WallSliding { get { return false; } }
     public float CoolTime { get { return 0.5f; } }
 
-
+    public Action<string, bool> SetPlayerAnimatorBool = null;
+    public GreenColor(Action<string, bool> setPlayerAnimatorBoolAction)
+    {
+        SetPlayerAnimatorBool = setPlayerAnimatorBoolAction;
+    }
     //Temporal Setting : Green Color Attack -> Throw leaf obj
-    public void Attack(PlayerController player)
+    public void Attack(Vector3 playerPosition, float playerLocalScaleX)
     {
 
         //player.canAttack = false;
-        player.animator.SetBool("IsGreenAttacking", true);
+        SetPlayerAnimatorBool("IsGreenAttacking", true);
         AudioManager.Instacne.PlaySFX("Green");
 
         var throwableWeapon = ObjectPoolManager.Instance.GetGo("GreenWeapon");
-        throwableWeapon.GetComponent<ThrowableWeapon>().Throw(player.transform.position, player.transform.localScale.x);
-
-        player.CallOnDelay(CoolTime, () =>
-        {
-            player.canAttack = true;
-        });
+        throwableWeapon.GetComponent<ThrowableWeapon>().Throw(playerPosition, playerLocalScaleX);
         
     }
 }

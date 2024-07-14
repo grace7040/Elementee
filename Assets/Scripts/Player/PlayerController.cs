@@ -152,14 +152,16 @@ public class PlayerController : MonoBehaviour
         //    transform.position = GameManager.Instance.sponPos.position;
 
         // 얼굴 넣기
-        FaceSprite.sprite = GameManager.Instance.playerFace;
+        //FaceSprite.sprite = GameManager.Instance.playerFace;
 
         //Health initiallize
         CurrentHealth = maxHealth;
         //GameManager.Instance.playerMAXHP = maxHealth;
         //GameManager.Instance.playerHP = maxHealth;
 
-        ColorManager.Instance.SetColorState(Colors.Default);
+        
+
+        ColorManager.Instance.SetPlayerAnimatorBool = SetAnimatorBool;
 
         if (OnFallEvent == null) // 이건 왜하지?
             OnFallEvent = new UnityEvent();
@@ -167,15 +169,14 @@ public class PlayerController : MonoBehaviour
         if (OnLandEvent == null)
             OnLandEvent = new UnityEvent();
 
-        //TEST CODESZ
-        //ColorManager.Instance.SetColorState(Colors.blue);
-
         // 코인 초기화
         //GameManager.Instance.mapCoin = 0;
 
         //ColorManager.Instance.HasBlue = true;
         //ColorManager.Instance.HasRed = true;
         //ColorManager.Instance.HasYellow = true;
+
+        ColorManager.Instance.SetColorState(Colors.Default);
     }
 
     private void Update()
@@ -202,7 +203,8 @@ public class PlayerController : MonoBehaviour
     {
         //isAttack = true;
         canAttack = false;
-        Color.Attack(this);
+        Color.Attack(transform.position, transform.localScale.x);
+        this.CallOnDelay(Color.CoolTime, ()=> { canAttack = true; });   // ::TODO:: 노랑일 경우 예외처리 해야함
     }
 
     public void AttackUp()
@@ -724,4 +726,8 @@ public class PlayerController : MonoBehaviour
         PurpleEffect.SetActive(false);
     }
 
+    void SetAnimatorBool(string name, bool value)
+    {
+        animator.SetBool(name, value);
+    }
 }
