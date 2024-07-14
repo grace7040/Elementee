@@ -46,19 +46,23 @@ public class AttackState : BaseState
         }
         else if (monster.MyColor == Colors.Red)
         {
+            monster.CanFlip = false;
             if (!monster.IsDie)
             {
                 monster.Attack();
                 yield return new WaitForSeconds(2f);
+                monster.CanFlip = true;
                 monster.ChangeState(new IdleState(monster));
             }
         }
         else if (monster.MyColor == Colors.Yellow)
         {
+            monster.CanFlip = false;
             if (!monster.IsDie)
             {
                 monster.Attack();
                 yield return new WaitForSeconds(2f);
+                monster.CanFlip = true;
                 monster.ChangeState(new IdleState(monster));
             }
         }

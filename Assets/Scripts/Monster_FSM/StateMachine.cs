@@ -4,24 +4,24 @@ using UnityEngine;
 
 public class StateMachine
 {
-    private BaseState currentState;
+    public BaseState CurrentState;
 
     public void ChangeState(BaseState newState)
     {
-        if (currentState != null)
+        if (CurrentState != null)
         {
-            currentState.Exit();
+            CurrentState.Exit();
         }
 
-        currentState = newState;
-        currentState.Enter();
+        CurrentState = newState;
+        CurrentState.Enter();
     }
 
     public void Update()
     {
-        if (currentState != null)
+        if (CurrentState != null)
         {
-            currentState.Update();
+            CurrentState.Update();
         }
     }
 }

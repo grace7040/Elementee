@@ -48,7 +48,7 @@ public class YellowMonster : MonsterController
 
             yield return null;
         }
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.8f);
 
         voltObject.SetActive(true);
         this.CallOnDelay(1f, () => voltObject.SetActive(false));

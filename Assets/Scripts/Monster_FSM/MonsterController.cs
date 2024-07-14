@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
+using System.Threading;
 
 public class MonsterController : MonoBehaviour
 {
@@ -45,7 +46,10 @@ public class MonsterController : MonoBehaviour
 
     protected Vector3 leftWaypoint;
     protected Vector3 rightWaypoint;
-    protected Vector3 currentWaypoint;
+
+    [HideInInspector]
+    public Vector3 CurrentWaypoint;
+
     protected float moveRange = 50.0f;
     protected float stopTime = 0;
     protected float timeSinceLastStop = 0;
@@ -118,7 +122,7 @@ public class MonsterController : MonoBehaviour
 
         // waypoint 초기화
         SetWaypoints();    
-        currentWaypoint = leftWaypoint;
+        CurrentWaypoint = leftWaypoint;
 
         // 체력바
         hpBar = transform.Find("HPBar").GetChild(1).gameObject.GetComponent<Image>();
@@ -138,6 +142,13 @@ public class MonsterController : MonoBehaviour
         distanceX = Mathf.Abs(transform.position.x - Player.position.x);
         DistanceY = Mathf.Abs(transform.position.y - Player.position.y);
 
+        if (stateMachine.CurrentState is IdleState)
+        {
+            waypointDirection = CurrentWaypoint.x - transform.position.x;
+            IsFlip = waypointDirection < 0f;
+            MonsterBody.rotation = IsFlip ? Quaternion.identity : FlipQuaternion;
+        }
+
         stateMachine.Update();
     }
 
@@ -151,7 +162,7 @@ public class MonsterController : MonoBehaviour
             timer = 0.0f;
         }
 
-        if (currentWaypoint != null && !isKnockedBack)
+        if (CurrentWaypoint != null && !isKnockedBack)
         {
             MoveTowardsWaypoint();
         }
@@ -206,7 +217,7 @@ public class MonsterController : MonoBehaviour
                 canMove = true;
             }
 
-            Vector2 moveDirection = new Vector2(currentWaypoint.x - transform.position.x, 0).normalized;
+            Vector2 moveDirection = new Vector2(CurrentWaypoint.x - transform.position.x, 0).normalized;
             Rb.velocity = moveDirection * MoveSpeed;
 
             if (MyColor != Colors.Default)
@@ -253,10 +264,10 @@ public class MonsterController : MonoBehaviour
         return hitDown.collider == null;
     }
 
-    private void SetNextWaypoint()
+    private void SetNextWaypoint()  
     {
-        if (IsFlip) currentWaypoint = rightWaypoint;
-        else currentWaypoint = leftWaypoint;
+        if (IsFlip) CurrentWaypoint = rightWaypoint;
+        else CurrentWaypoint = leftWaypoint;
     }
 
     public bool CheckGround()
