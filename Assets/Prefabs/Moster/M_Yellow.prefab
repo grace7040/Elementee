@@ -215,11 +215,14 @@ MonoBehaviour:
   AttackRange: 0
   IsDie: 0
   Damage: 0
+  CurrentWaypoint: {x: 0, y: 0, z: 0}
   DistanceY: 0
   Animator: {fileID: 2464650107546937746}
   FlipQuaternion: {x: 0, y: 1, z: 0, w: -0.00000004371139}
   MonsterBody: {fileID: 8786403146393016133}
   IsFlip: 0
+  CanFlip: 1
+  MoveDirection: {x: 0, y: 0}
   voltObject: {fileID: 7116212840884399706}
 --- !u!1 &6129586330499669296
 GameObject:
@@ -9987,7 +9990,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6452034766228491899
 Transform:
   m_ObjectHideFlags: 0

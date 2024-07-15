@@ -339,6 +339,8 @@ public class MonsterController : MonoBehaviour
 
         Animator.enabled = false;
         gameObject.GetComponent<CapsuleCollider2D>().isTrigger = true;
+        Rb.velocity = Vector2.zero;
+        dir.x = 0;
 
         OnDie?.Invoke();
 

@@ -22,6 +22,9 @@ public class YellowMonster : MonsterController
     public override void Attack()
     {
         StartCoroutine(Charge());
+
+        voltObject.SetActive(true);
+        this.CallOnDelay(1f, () => voltObject.SetActive(false));
     }
 
     protected IEnumerator Charge()
@@ -50,7 +53,7 @@ public class YellowMonster : MonsterController
         }
         yield return new WaitForSeconds(0.8f);
 
-        voltObject.SetActive(true);
-        this.CallOnDelay(1f, () => voltObject.SetActive(false));
+        //voltObject.SetActive(true);
+        //this.CallOnDelay(1f, () => voltObject.SetActive(false));
     }
 }
