@@ -33,10 +33,10 @@ public class ChaseState : BaseState
                     }
                     else
                     {
-                        monster.moveDirection = (monster.Player.position - monster.transform.position);
-                        monster.moveDirection.y = 0;
-                        monster.moveDirection.Normalize();
-                        monster.Rb.velocity = monster.moveDirection * monster.MoveSpeed;
+                        monster.MoveDirection = (monster.Player.position - monster.transform.position);
+                        monster.MoveDirection.y = 0;
+                        monster.MoveDirection.Normalize();
+                        monster.Rb.velocity = monster.MoveDirection * monster.MoveSpeed;
                     }
                 }
                 else
