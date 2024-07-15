@@ -172,29 +172,23 @@ public class MonsterController : MonoBehaviour
     {
         LayerMask ignoreLayers = LayerMask.GetMask("Monster", "Player", "TransparentFX", "Coins");
 
+        leftWaypoint = GetWaypoint(Vector2.left, ignoreLayers);
+        rightWaypoint = GetWaypoint(Vector2.right, ignoreLayers);
+    }
+
+    protected Vector3 GetWaypoint(Vector2 direction, LayerMask ignoreLayers)
+    {
         float raycastDistance = moveRange;
-        float backstepDistance = 1.0f; // Collider 크기 반영
+        float backstepDistance = 1.0f;
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, raycastDistance, ~ignoreLayers);
 
-        // 좌측 가장 가까운 물체 찾기
-        RaycastHit2D hitLeft = Physics2D.Raycast(transform.position, Vector2.left, raycastDistance, ~ignoreLayers);
-        if (hitLeft.collider != null)
+        if (hit.collider != null)
         {
-            leftWaypoint = hitLeft.point - (Vector2.left * backstepDistance);
+            return hit.point - (direction * backstepDistance);
         }
         else
         {
-            leftWaypoint = new Vector3(transform.position.x - moveRange / 2, transform.position.y, transform.position.z); // 아무 것도 감지되지 않을 시, moveRange의 끝 지점으로 지정
-        }
-
-        // 우측 가장 가까운 물체 찾기
-        RaycastHit2D hitRight = Physics2D.Raycast(transform.position, Vector2.right, raycastDistance, ~ignoreLayers);
-        if (hitRight.collider != null)
-        {
-            rightWaypoint = hitRight.point - (Vector2.right * backstepDistance);
-        }
-        else
-        {
-            rightWaypoint = new Vector3(transform.position.x + moveRange / 2, transform.position.y, transform.position.z);
+            return transform.position + (Vector3)(direction * moveRange / 2);
         }
     }
 
@@ -202,54 +196,58 @@ public class MonsterController : MonoBehaviour
     {
         if (isStopping)
         {
-            stopTime -= Time.deltaTime;
-            if (stopTime <= 0)
-            {
-                isStopping = false;
-                SetNextWaypoint();
-            }
+            HandleStopping();
         }
         else
         {
-            timeSinceLastStop += Time.deltaTime;
-            if (timeSinceLastStop >= 2.0f)
-            {
-                canMove = true;
-            }
-
-            Vector2 moveDirection = new Vector2(CurrentWaypoint.x - transform.position.x, 0).normalized;
-            Rb.velocity = moveDirection * MoveSpeed;
-
-            if (MyColor != Colors.Default)
-            {
-                Animator.SetBool("IsWalking", true);
-            }
-
-            if (CheckCliff())
-            {
-                SetNextWaypoint();
-            }
-
-            if (Mathf.Abs(waypointDirection) < 0.2f)
-            {
-                SetNextWaypoint();
-            }
-
-            if (canMove)
-            {
-                if (Random.value < 0.3 * Time.deltaTime)
-                {
-                    stopTime = Random.Range(0.4f, 1.0f);
-                    isStopping = true;
-                    canMove = false;
-                    timeSinceLastStop = 0;
-                    if (MyColor != Colors.Default)
-                    {
-                        Animator.SetBool("IsWalking", false);
-                    }
-                }
-            }
+            HandleMovement();
         }
+    }
+
+    protected void HandleStopping()
+    {
+        stopTime -= Time.deltaTime;
+        if (stopTime <= 0)
+        {
+            isStopping = false;
+            SetNextWaypoint();
+        }
+    }
+
+    protected void HandleMovement()
+    {
+        timeSinceLastStop += Time.deltaTime;
+
+        if (timeSinceLastStop >= 2.0f)
+        {
+            canMove = true;
+        }
+
+        Vector2 moveDirection = (CurrentWaypoint - transform.position).normalized;
+        moveDirection.y = 0;
+        Rb.velocity = moveDirection * MoveSpeed;
+
+        Animator.SetBool("IsWalking", MyColor != Colors.Default);
+
+        if (CheckCliff() || Mathf.Abs(waypointDirection) < 0.2f)
+        {
+            SetNextWaypoint();
+        }
+
+        if (canMove && Random.value < 0.3f * Time.deltaTime)
+        {
+            InitiateStopping();
+        }
+    }
+
+    protected void InitiateStopping()
+    {
+        stopTime = Random.Range(0.4f, 1.0f);
+        isStopping = true;
+        canMove = false;
+        timeSinceLastStop = 0;
+
+        Animator.SetBool("IsWalking", MyColor != Colors.Default && false);
     }
 
     public bool CheckCliff()
@@ -266,8 +264,7 @@ public class MonsterController : MonoBehaviour
 
     private void SetNextWaypoint()  
     {
-        if (IsFlip) CurrentWaypoint = rightWaypoint;
-        else CurrentWaypoint = leftWaypoint;
+        CurrentWaypoint = IsFlip ? rightWaypoint : leftWaypoint;
     }
 
     public bool CheckGround()
