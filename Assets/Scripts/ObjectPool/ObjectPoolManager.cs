@@ -86,7 +86,7 @@ public class ObjectPoolManager : MonoBehaviour
                 poolAbleGo.Pool.Release(poolAbleGo.gameObject);
             }
 
-            yield return 1;
+            yield return 3;
         }
 
         //Debug.Log("오브젝트풀링 준비 완료");
