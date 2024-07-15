@@ -148,33 +148,16 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         playerSprite = GetComponent<SpriteRenderer>();
 
-        //if(GameManager.Instance.sponPos != null)
-        //    transform.position = GameManager.Instance.sponPos.position;
-
-        // 얼굴 넣기
-        //FaceSprite.sprite = GameManager.Instance.playerFace;
-
         //Health initiallize
         CurrentHealth = maxHealth;
-        //GameManager.Instance.playerMAXHP = maxHealth;
-        //GameManager.Instance.playerHP = maxHealth;
-
-        
 
         ColorManager.Instance.SetPlayerAnimatorBool = SetAnimatorBool;
 
-        if (OnFallEvent == null) // 이건 왜하지?
+        if (OnFallEvent == null)
             OnFallEvent = new UnityEvent();
 
         if (OnLandEvent == null)
             OnLandEvent = new UnityEvent();
-
-        // 코인 초기화
-        //GameManager.Instance.mapCoin = 0;
-
-        //ColorManager.Instance.HasBlue = true;
-        //ColorManager.Instance.HasRed = true;
-        //ColorManager.Instance.HasYellow = true;
 
         ColorManager.Instance.SetColorState(Colors.Default);
     }
@@ -201,7 +184,6 @@ public class PlayerController : MonoBehaviour
 
     public void AttackDown()
     {
-        //isAttack = true;
         canAttack = false;
         Color.Attack(transform.position, transform.localScale.x);
         this.CallOnDelay(Color.CoolTime, ()=> { canAttack = true; });   // ::TODO:: 노랑일 경우 예외처리 해야함
@@ -213,14 +195,7 @@ public class PlayerController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        //if (doAttack)
-        //{
-        //    doAttack = false;
-        //    Color.Attack(this);
-        //}
-
         //colliders : 닿아있는 바닥수만큼 존재, 공중에 떠있으면 0개 바닥에 닿아있으면 1개
-
         if (!isRope)
         {
             //땅에 닿아 있는지 판별하는 변수
@@ -230,7 +205,6 @@ public class PlayerController : MonoBehaviour
             colliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
             for (int i = 0; i < colliders.Length; i++) // 이 for문이 왜 필요하지
             {
-                //gameobject = plsyer, colliders[i].gameObject = player와 접촉하고 있는 obj
                 if (colliders[i].gameObject != gameObject)
                 {
                     m_Grounded = true;
@@ -457,7 +431,6 @@ public class PlayerController : MonoBehaviour
             // Jump
             if (m_Grounded && jump)
             {
-                // Add a vertical force to the player.
                 animator.SetBool("IsJumping", true);
                 animator.SetBool("JumpUp", true);
                 m_Grounded = false;
@@ -577,9 +550,7 @@ public class PlayerController : MonoBehaviour
     {
         if (!Invincible)
         {
-            //animation on 
             animator.SetBool("Hit", true);
-            //health --
             CurrentHealth -= damage;
 
             if (CurrentHealth > 100)
@@ -592,7 +563,6 @@ public class PlayerController : MonoBehaviour
 
             if (CurrentHealth <= 0)
             {
-                //GameManager.Instance.GameOver();
                 Die();
             }
             else
@@ -673,12 +643,10 @@ public class PlayerController : MonoBehaviour
         else if (collision.gameObject.CompareTag("EnemyWeapon"))
         {
             TakeDamage(15, collision.gameObject.transform.position);
-            //Destroy(collision.gameObject, 0.1f);
         }
         else if (collision.gameObject.CompareTag("EnemyFarWeapon"))
         {
             TakeDamage(10, collision.gameObject.transform.position);
-            //Destroy(collision.gameObject, 0.1f);
         }
     }
     public void RopeOut()
@@ -709,7 +677,6 @@ public class PlayerController : MonoBehaviour
         isDie = false;
         canMove = true;
         Invincible = false;
-        //m_Rigidbody2D.velocity = new Vector2(0, m_Rigidbody2D.velocity.y);
         CurrentHealth = maxHealth;
         Managers.UI.ClosePopupUI();
     }
