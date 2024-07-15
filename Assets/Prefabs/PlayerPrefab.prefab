@@ -34,7 +34,7 @@ Transform:
   - {fileID: 9052164886905190887}
   - {fileID: 6593501756218022772}
   m_Father: {fileID: 4660076192433278}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &393088699325398
 GameObject:
@@ -139,7 +139,6 @@ Transform:
   - {fileID: 5065860204177083804}
   - {fileID: 4291727345091452}
   - {fileID: 4986330650710208}
-  - {fileID: 4370582630649528}
   - {fileID: 2184474727651053039}
   - {fileID: 1920087944}
   - {fileID: 6549058193120634649}
@@ -163,30 +162,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myColor: 0
-  cam: {fileID: 0}
-  ColorWeapons:
-  - {fileID: 6312281354645909693}
-  - {fileID: 3364718941259214008}
-  - {fileID: 7563759527471843738}
-  - {fileID: 7556410489127752601}
-  - {fileID: 3258715048601368542}
-  - {fileID: 7165747113895478536}
-  - {fileID: 8533986571667845559}
-  - {fileID: 7608925706783770372}
-  RedWeapon: {fileID: 1086310549815544557}
-  OrangeWeapon: {fileID: 4920797071980387407}
-  PurpleWeapon: {fileID: 5002476609168166349}
-  GreenWeapon: {fileID: 5126789568211997987}
-  BlueWeapon: {fileID: 8475338824270332780}
-  BlackWeapon: {fileID: 5998208090524668600}
-  YellowWeaponEffect: {fileID: 5593871760870967025}
-  OrangeWeaponEffect: {fileID: 7648603465766718409}
+  Camera: {fileID: 0}
   ParticleJumpUp: {fileID: 198584872278178884}
   ParticleJumpDown: {fileID: 198967111524372206}
   HealEffect: {fileID: 393088699325398}
   PurpleEffect: {fileID: 8410189878276244301}
-  PlayerAttack: {fileID: 0}
-  AttackCheck: {fileID: 4370582630649528}
   IsAttack: 0
   coolTime: 0
   Invincible: 0
@@ -206,7 +186,6 @@ MonoBehaviour:
     m_Bits: 309
   m_GroundCheck: {fileID: 4291727345091452}
   m_WallCheck: {fileID: 4986330650710208}
-  canAttack: 1
   maxHealth: 100
   damage: 10
   WeaponPosition: {fileID: 1920087943}
@@ -255,8 +234,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50f85538eb788c6489d509f590fb5997, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 175512587402798207}
-  animator: {fileID: 95975118031919256}
   joystick: {fileID: 0}
 --- !u!114 &2261336932254292891
 MonoBehaviour:
@@ -5366,37 +5343,6 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!1 &1568700092027370
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4370582630649528}
-  m_Layer: 1
-  m_Name: AttackCheck
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4370582630649528
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1568700092027370}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.5, y: -0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4660076192433278}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1620716113202630
 GameObject:
   m_ObjectHideFlags: 0
@@ -10967,7 +10913,7 @@ Transform:
   m_Children:
   - {fileID: 1934683185484567441}
   m_Father: {fileID: 4660076192433278}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2023827446790648306
 GameObject:
@@ -50325,7 +50271,7 @@ Transform:
   - {fileID: 866283927030651870}
   - {fileID: 673974075906018610}
   m_Father: {fileID: 4660076192433278}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 129.925}
 --- !u!1 &6330612164962761398
 GameObject:
@@ -50448,7 +50394,7 @@ Transform:
   - {fileID: 4469641616290963807}
   - {fileID: 8289671993383888045}
   m_Father: {fileID: 4660076192433278}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7648603465766718409
 GameObject:
@@ -50620,7 +50566,7 @@ Transform:
   - {fileID: 1279650247023951323}
   - {fileID: 7974116280530575597}
   m_Father: {fileID: 4660076192433278}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7876539321045678088
 GameObject:
@@ -50749,7 +50695,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4660076192433278}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &276935597225697510
 BoxCollider2D:
@@ -50967,7 +50913,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 7b56cd9b663f23f429e131a54ec87db0, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 7b56cd9b663f23f429e131a54ec87db0, type: 3}
       propertyPath: m_LocalPosition.x

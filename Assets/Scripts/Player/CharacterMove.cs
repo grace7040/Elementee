@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class CharacterMove : MonoBehaviour
 {
-	[SerializeField] private PlayerController controller;
-	[SerializeField] private Animator animator;
-	public VariableJoystick joystick; // 확인 필요
+	public VariableJoystick joystick;
 
 	private float runSpeed = 60f;
 
@@ -15,37 +13,47 @@ public class CharacterMove : MonoBehaviour
 	private bool dashDown = false;
 	private bool jumpDown = false;
 
+	PlayerAttack _playerAttack;
+	PlayerController _playerController;
+	Animator _animator;
+
+	private void Start()
+    {
+		_playerController = GetComponent<PlayerController>();
+		_playerAttack = GetComponent<PlayerAttack>();
+		_animator = GetComponent<Animator>();
+    }
     void Update()
 	{
 		horizontalMove = joystick.Horizontal * runSpeed;
 
-		animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
+		_animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
 
-        if (Input.GetKeyDown(KeyCode.Z))
+		if (Input.GetKeyDown(KeyCode.Z))
 			JumpDown();
 
-        if (Input.GetKeyDown(KeyCode.C))
+		if (Input.GetKeyDown(KeyCode.C))
 			DashDown();
 
 		if (Input.GetKeyDown(KeyCode.X))
-			controller.PlayerAttack.AttackDown();
+			_playerAttack.AttackDown();
 
 	}
 
 	public void OnFall()
 	{
-		animator.SetBool("IsJumping", true);
+		_animator.SetBool("IsJumping", true);
 	}
 
 	public void OnLanding()
 	{
-		animator.SetBool("IsJumping", false);
+		_animator.SetBool("IsJumping", false);
 	}
 
 	void FixedUpdate()
 	{
 		// Move our character
-		controller.Move(horizontalMove * Time.fixedDeltaTime, jumpDown, dashDown);
+		_playerController.Move(horizontalMove * Time.fixedDeltaTime, jumpDown, dashDown);
 		JumpUp();
 		DashUp();
 	}
@@ -54,7 +62,7 @@ public class CharacterMove : MonoBehaviour
 	public void JumpDown()
 	{
 		jumpDown = true;
-		controller.RopeOut();
+		_playerController.RopeOut();
 	}
 	public void JumpUp()
 	{

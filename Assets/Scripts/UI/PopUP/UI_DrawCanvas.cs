@@ -27,7 +27,6 @@ public class UI_DrawCanvas : UI_Popup
 
     private void Start()
     {
-        
         player = GameObject.FindGameObjectWithTag("Player");
         color = GameManager.Instance.playerColor;
         Init();
@@ -43,8 +42,8 @@ public class UI_DrawCanvas : UI_Popup
         GetButton((int)Buttons.ResetBtn).gameObject.BindEvent(ResetBtnClicked);
         GetButton((int)Buttons.BasicBtn).gameObject.BindEvent(BasictBtnClicked);
 
-        // ¾È³»¹® Text ¼³Á¤
-        if(!DrawManager.Instance.face_mode)
+        // ì•ˆë‚´ë¬¸ Text ì„¤ì •
+        if (!DrawManager.Instance.face_mode)
             GuideText.text = DrawManager.Instance.DrawText[(int)color];
         else
             GuideText.text = DrawManager.Instance.DrawText[8];
@@ -56,13 +55,13 @@ public class UI_DrawCanvas : UI_Popup
 
         if (player != null)
         {
-            player.GetComponent<PlayerController>().PlayerAttack.SetCustomWeapon();
+            player.GetComponent<PlayerAttack>().SetCustomWeapon();
             ClosePopupUI();
 
             GameManager.Instance.ResumeGame();
             DrawManager.Instance.CloseDrawing();
 
-            // ¹«±â ¹Ù²Ù±â
+            // ë¬´ê¸° ë°”ê¾¸ê¸°
             if (basic_weapon)
             {
                 ColorManager.Instance.SetPlayerBasicWeapon();
@@ -73,25 +72,25 @@ public class UI_DrawCanvas : UI_Popup
             }
 
         }
-        else  // ¾ó±¼ ±×¸± ¶§
+        else  // ì–¼êµ´ ê·¸ë¦´ ë•Œ
         {
             ClosePopupUI();
             DrawManager.Instance.SaveFaceDrawing();
         }
 
-        // ¹«±â ÇÃ·¹ÀÌ¾î¿¡°Ô Àû¿ë
+        // ë¬´ê¸° í”Œë ˆì´ì–´ì—ê²Œ ì ìš©
         ColorManager.Instance.SetOnPlayer(GameManager.Instance.playerColor);
 
     }
 
-    //±âº» ¹«±â·Î Àû¿ëÇÏ°í ½ÍÀ» ¶§
+    //ê¸°ë³¸ ë¬´ê¸°ë¡œ ì ìš©í•˜ê³  ì‹¶ì„ ë•Œ
     public void BasictBtnClicked(PointerEventData data)
     {
-        // ±×¸®´ø°Å Áö¿ì°í ±âº» ¹«±â º¸¿©ÁÖ±â
+        // ê·¸ë¦¬ë˜ê±° ì§€ìš°ê³  ê¸°ë³¸ ë¬´ê¸° ë³´ì—¬ì£¼ê¸°
         basic_weapon = true;
         DrawManager.Instance.DrawbleObject.GetComponent<Drawable>().ResetCanvas();
         DrawManager.Instance.BasicWeapons(1);
-        
+
     }
 
 

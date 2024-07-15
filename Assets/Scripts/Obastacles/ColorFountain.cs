@@ -23,7 +23,7 @@ public class ColorFountain : MonoBehaviour
         {
             player = collision.gameObject.GetComponent<PlayerController>();
             if (player.myColor == fountainColor)
-                player.HealWithFountain(healAmount);
+                player.HealByFountain(healAmount);
             else
                 player.TakeDamage(damage, this.transform.position);
 

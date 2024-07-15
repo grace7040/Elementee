@@ -35,6 +35,7 @@ public class UI_Game : UI_Scene
     private bool canAttack;
     private int starCount = 0;
     private PlayerController playerController;
+    PlayerAttack _playerAttack;
     private CharacterMove characterMove;
     private GameObject player;
 
@@ -75,12 +76,16 @@ public class UI_Game : UI_Scene
         //ObjectManager.Instance.UI_InGame_Ready = true;
         player = GameManager.Instance.player;
         playerController = GameManager.Instance.player.GetComponent<PlayerController>();
+        _playerAttack = GameManager.Instance.player.GetComponent<PlayerAttack>();
         characterMove = GameManager.Instance.player.GetComponent<CharacterMove>();
         //GameManager.Instance.currentMapNum = mapNum;
     }
 
     private void FixedUpdate()
     {
+        // :: FIX ME :: 이거 굳이 픽스드 업데이트에서 해야하나..? 다칠때 && 힐할때만 하도록 해야돼
+        // 밑에 내용들 전부 다!!!!!!!!
+
         // hpBar
         hpBar.fillAmount = (float)playerController.CurrentHealth / playerController.maxHealth;
 
@@ -215,10 +220,10 @@ public class UI_Game : UI_Scene
     //공격 버튼이 눌렸을 때
     public void AttackBtnClickedDown(PointerEventData data)
     {
-        if (playerController.canAttack)
+        if (_playerAttack.canAttack)
         {
-            playerController.PlayerAttack.AttackDown();
-            attack_cool_time = playerController.coolTime;
+            _playerAttack.AttackDown();
+            attack_cool_time = playerController.AttackCoolTime;
             attack_cool_count = attack_cool_time;
 
             GetImage((int)Images.Attack_Cool_Time).gameObject.SetActive(true);
@@ -228,7 +233,7 @@ public class UI_Game : UI_Scene
 
     public void AttackBtnClickedUp(PointerEventData data)
     {
-        playerController.PlayerAttack.AttackUp();
+        _playerAttack.AttackUp();
     }
 
     public void JumpBtnClickedDown(PointerEventData data)
@@ -259,7 +264,6 @@ public class UI_Game : UI_Scene
 
     private void Update()
     {
-        // print(player.GetComponent<PlayerController>().coolTime);
         if (canAttack)
         {
             StartCoroutine(nameof(SkillTimeChk));
@@ -286,10 +290,10 @@ public class UI_Game : UI_Scene
                 canAttack = false;
                 GetImage((int)Images.Attack_Cool_Time).gameObject.SetActive(false);
 
-                attack_cool_count = playerController.coolTime;
+                attack_cool_count = playerController.AttackCoolTime;
 
             }
-            float time = attack_cool_count / playerController.coolTime;
+            float time = attack_cool_count / playerController.AttackCoolTime;
             GetImage((int)Images.Attack_Cool_Time).fillAmount = time;
 
         }
