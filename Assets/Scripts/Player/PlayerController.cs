@@ -23,18 +23,8 @@ public class PlayerController : MonoBehaviour
     }
 
     public Colors myColor = Colors.Default;
-    public GameObject cam;
+    public GameObject Camera;
 
-    [Header("Weapon")]
-    public SpriteRenderer[] ColorWeapons;
-    public GameObject RedWeapon;
-    public GameObject OrangeWeapon;
-    public GameObject PurpleWeapon;
-    public GameObject GreenWeapon;
-    public GameObject BlueWeapon;
-    public GameObject BlackWeapon;
-    public GameObject YellowWeaponEffect;
-    public GameObject OrangeWeaponEffect;
 
     [Header("ParticleSystem")]
     public ParticleSystem ParticleJumpUp; 
@@ -47,10 +37,9 @@ public class PlayerController : MonoBehaviour
     public Transform AttackCheck;
     public bool IsAttack = false; //attack btn input
     public float coolTime;
-    private float knockBackForce = 10f;
     public bool Invincible = false;
     public bool CanHealOnFountain = true;
-    //private bool isTimeToCheck = false; 
+    private float knockBackForce = 10f;
 
     [Header("Player Properties")]
     public int CurrentHealth;
@@ -150,7 +139,7 @@ public class PlayerController : MonoBehaviour
 
         CurrentHealth = maxHealth;
 
-        ColorManager.Instance.SetPlayerAnimatorBool = SetAnimatorBool;
+        ColorManager.Instance.InitPlayer(this, SetAnimatorBool);
 
         if (OnFallEvent == null)
             OnFallEvent = new UnityEvent();
@@ -254,35 +243,6 @@ public class PlayerController : MonoBehaviour
 
 
 
-    //public void SetCustomWeapon()
-    //{
-    //    ColorWeapons[(int)myColor].sprite = DrawManager.Instance.sprites[(int)myColor];
-
-    //    // Yellow 경우, 자식들에도 sprite 할당이 필요함
-    //    if (myColor == Colors.Yellow)
-    //    {
-    //        for (int i = 0; i < 4; i++)
-    //        {
-    //            YellowWeaponEffect.transform.GetChild(i).GetComponent<SpriteRenderer>().sprite = ColorWeapons[(int)Colors.Yellow].sprite;
-    //        }
-    //    }
-    //}
-
-    //public void SetBasicWeapon()
-    //{
-    //    ColorWeapons[(int)myColor].sprite = DrawManager.Instance.Basic_Sprites[(int)myColor];
-
-    //    if (myColor == Colors.Yellow)
-    //    {
-    //        for (int i = 0; i < 4; i++)
-    //        {
-    //            YellowWeaponEffect.transform.GetChild(i).GetComponent<SpriteRenderer>().sprite = ColorWeapons[(int)Colors.Yellow].sprite;
-    //        }
-    //    }
-    //}
-
-
-
     private void Flip()
     {
         // Switch the way the player is labelled as facing.
@@ -292,9 +252,11 @@ public class PlayerController : MonoBehaviour
         Vector3 theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;
-        Vector3 yellowScale = YellowWeaponEffect.transform.localScale;
-        yellowScale.x *= -1;
-        YellowWeaponEffect.transform.localScale = yellowScale;
+
+        //:: FIX ME :: 리팩을 위한 잠시 주석
+        //Vector3 yellowScale = YellowWeaponEffect.transform.localScale;
+        //yellowScale.x *= -1;
+        //YellowWeaponEffect.transform.localScale = yellowScale;
     }
 
     public void Move(float move, bool jump, bool dash)
@@ -611,17 +573,6 @@ public class PlayerController : MonoBehaviour
         animator.SetBool(name, value);
     }
 
-    /////////////
-
-    //public void ShowWeapon()
-    //{
-    //    ColorWeapons[(int)myColor].gameObject.SetActive(true);
-    //}
-
-    //public void HideWeapon()
-    //{
-    //    ColorWeapons[(int)myColor].gameObject.SetActive(false);
-    //}
 
     // Black Attack 유기
     public void BlackPull()

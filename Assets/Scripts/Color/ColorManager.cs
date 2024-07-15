@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class ColorManager : Singleton<ColorManager>
 {
-    PlayerController player;
+    PlayerController _player;
+    PlayerAttack _playerAttack;
     List<Colors> colorList = new();
 
     public Action OnSetColor = null;
@@ -58,6 +59,16 @@ public class ColorManager : Singleton<ColorManager>
         colorList.Add(Colors.Default);
     }
 
+    public void InitPlayer(PlayerController player, Action<string, bool> setAnimBoolAction)
+    {
+        _player = player;
+        SetPlayerAnimatorBool = setAnimBoolAction;
+    }
+
+    public void InitPlayerAttack(PlayerAttack playerAttack)
+    {
+        _playerAttack = playerAttack;
+    }
     public void ResetColorState()
     {
         hasYellow = false;
@@ -86,8 +97,8 @@ public class ColorManager : Singleton<ColorManager>
     /*플레이어의 Color을 변경할 시 무조건 이 함수를 통해 변경해야 함.*/
     public void SetColorState(Colors _color)
     {
-        player = FindObjectOfType<PlayerController>();
-        player.myColor = _color;
+        //player = FindObjectOfType<PlayerController>();
+        _player.myColor = _color;
         GameManager.Instance.playerColor = _color;
 
         // 새로운 색 사용할 때 무기 그리도록 UI 띄우기
@@ -105,7 +116,7 @@ public class ColorManager : Singleton<ColorManager>
     // hasXXX 변수 설정 & 플레이어 무기 활성화
     public void SetOnPlayer(Colors _color)
     {
-        player.canAttack = true;
+        _player.canAttack = true;
 
         switch (_color)
         {
@@ -118,13 +129,13 @@ public class ColorManager : Singleton<ColorManager>
             case Colors.Red:
                 hasRed = false;
                 SetColorState(new RedColor(SetPlayerAnimatorBool));
-                player.RedWeapon.SetActive(true);
+                _playerAttack.RedWeapon.SetActive(true);
                 break;
             case Colors.Yellow:
                 hasYellow = false;
-                player.canAttack = false;
+                _player.canAttack = false;
                 SetColorState(new YellowColor());
-                player.YellowWeaponEffect.SetActive(true);
+                _playerAttack.YellowWeaponEffect.SetActive(true);
                 break;
             case Colors.Blue:
                 hasBlue = false;
@@ -141,7 +152,7 @@ public class ColorManager : Singleton<ColorManager>
                 hasRed = false;
                 hasBlue = false;
                 SetColorState(new PurpleColor(SetPlayerAnimatorBool));
-                player.PurpleWeapon.SetActive(true);
+                _playerAttack.PurpleWeapon.SetActive(true);
                 break;
             case Colors.Orange:
                 hasYellow = false;
@@ -152,11 +163,11 @@ public class ColorManager : Singleton<ColorManager>
                 hasYellow = false;
                 hasRed = false;
                 hasBlue = false;
-                player.BlackWeapon.SetActive(true);
+                _playerAttack.BlackWeapon.SetActive(true);
                 SetColorState(new BlackColor());
                 break;
         }
-        player.myColor = _color;
+        _player.myColor = _color;
 
         // 기본 무기 or 커스텀 무기 적용
         if (basicWeapon)
@@ -171,22 +182,22 @@ public class ColorManager : Singleton<ColorManager>
 
     private void SetColorState(IColorState _color)
     {
-        player.Color = _color;
-        player.RedWeapon.SetActive(false);
-        player.YellowWeaponEffect.SetActive(false);
-        player.PurpleWeapon.SetActive(false);
-        player.GreenWeapon.SetActive(false);
-        player.BlueWeapon.SetActive(false);
+        _player.Color = _color;
+        _playerAttack.RedWeapon.SetActive(false);
+        _playerAttack.YellowWeaponEffect.SetActive(false);
+        _playerAttack.PurpleWeapon.SetActive(false);
+        _playerAttack.GreenWeapon.SetActive(false);
+        _playerAttack.BlueWeapon.SetActive(false);
     }
 
     private void OffPlayerWeapon()
     {
-        player.RedWeapon.SetActive(false);
-        player.YellowWeaponEffect.SetActive(false);
-        player.PurpleWeapon.SetActive(false);
-        player.GreenWeapon.SetActive(false);
-        player.BlueWeapon.SetActive(false);
-        player.BlackWeapon.SetActive(false);
+        _playerAttack.RedWeapon.SetActive(false);
+        _playerAttack.YellowWeaponEffect.SetActive(false);
+        _playerAttack.PurpleWeapon.SetActive(false);
+        _playerAttack.GreenWeapon.SetActive(false);
+        _playerAttack.BlueWeapon.SetActive(false);
+        _playerAttack.BlackWeapon.SetActive(false);
     }
 
     public void StartDrawing(Colors _color)
@@ -205,14 +216,14 @@ public class ColorManager : Singleton<ColorManager>
     public void SetPlayerCustomWeapon()
     {
         basicWeapon = false;
-        player.PlayerAttack.SetCustomWeapon();
+        _player.PlayerAttack.SetCustomWeapon();
         OnSaveColor?.Invoke();
     }
 
     public void SetPlayerBasicWeapon()
     {
         basicWeapon = true;
-        player.PlayerAttack.SetBasicWeapon();
+        _player.PlayerAttack.SetBasicWeapon();
         OnSaveColor?.Invoke();
     }
 

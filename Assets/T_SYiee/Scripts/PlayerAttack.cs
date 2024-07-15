@@ -26,6 +26,7 @@ public class PlayerAttack : MonoBehaviour
     private void Start()
     {
         playerController = GetComponent<PlayerController>();
+        ColorManager.Instance.InitPlayerAttack(this);
     }
 
 
@@ -33,7 +34,7 @@ public class PlayerAttack : MonoBehaviour
     {
         canAttack = false;
         playerController.Color.Attack(transform.position, transform.localScale.x);
-        this.CallOnDelay(playerController.Color.CoolTime, () => { canAttack = true; });   // ::TODO:: ³ë¶ûÀÏ °æ¿ì ¿¹¿ÜÃ³¸® ÇØ¾ßÇÔ
+        this.CallOnDelay(playerController.Color.CoolTime, () => { canAttack = true; });   // ::TODO:: ë…¸ë‘ì¼ ê²½ìš° ì˜ˆì™¸ì²˜ë¦¬ í•´ì•¼í•¨
     }
 
     public void AttackUp()
@@ -46,7 +47,7 @@ public class PlayerAttack : MonoBehaviour
         print("");
         ColorWeapons[(int)playerController.myColor].sprite = DrawManager.Instance.sprites[(int)playerController.myColor];
 
-        // Yellow °æ¿ì, ÀÚ½Äµé¿¡µµ sprite ÇÒ´çÀÌ ÇÊ¿äÇÔ
+        // Yellow ê²½ìš°, ìì‹ë“¤ì—ë„ sprite í• ë‹¹ì´ í•„ìš”í•¨
         if (playerController.myColor == Colors.Yellow)
         {
             for (int i = 0; i < 4; i++)
