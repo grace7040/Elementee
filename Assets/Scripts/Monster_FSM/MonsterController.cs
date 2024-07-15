@@ -96,7 +96,7 @@ public class MonsterController : MonoBehaviour
 
     protected LayerMask ignoreLayers;
 
-    protected Vector2 moveDirection;
+    public Vector2 moveDirection;
     protected Quaternion checkRotation;
     protected Vector2 raycastOrigin;
     protected RaycastHit2D hit;
