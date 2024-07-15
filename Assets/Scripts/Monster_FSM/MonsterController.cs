@@ -89,12 +89,17 @@ public class MonsterController : MonoBehaviour
     [HideInInspector]
     public bool CanFlip = true;
 
-    protected bool isGrounded = true;
-
     protected Vector2 dir;
     protected GameObject playerObj;
 
     GameObject spark;
+
+    protected LayerMask ignoreLayers;
+
+    protected Vector2 moveDirection;
+    protected Quaternion checkRotation;
+    protected Vector2 raycastOrigin;
+    protected RaycastHit2D hit;
 
     protected StateMachine stateMachine;
 
@@ -120,6 +125,8 @@ public class MonsterController : MonoBehaviour
         monsterSprite = GetComponentInChildren<SpriteRenderer>();
         Rb = GetComponent<Rigidbody2D>();
 
+        ignoreLayers = LayerMask.GetMask("Monster", "Player", "TransparentFX", "Coins");
+
         // waypoint √ ±‚»≠
         SetWaypoints();    
         CurrentWaypoint = leftWaypoint;
@@ -136,8 +143,6 @@ public class MonsterController : MonoBehaviour
     protected virtual void Update()
     {
         if (IsDie) return;
-
-        if (playerObj != null) isGrounded = playerObj.GetComponent<PlayerController>().m_Grounded;
 
         distanceX = Mathf.Abs(transform.position.x - Player.position.x);
         DistanceY = Mathf.Abs(transform.position.y - Player.position.y);
@@ -170,21 +175,17 @@ public class MonsterController : MonoBehaviour
 
     protected void SetWaypoints()
     {
-        LayerMask ignoreLayers = LayerMask.GetMask("Monster", "Player", "TransparentFX", "Coins");
-
         leftWaypoint = GetWaypoint(Vector2.left, ignoreLayers);
         rightWaypoint = GetWaypoint(Vector2.right, ignoreLayers);
     }
 
     protected Vector3 GetWaypoint(Vector2 direction, LayerMask ignoreLayers)
     {
-        float raycastDistance = moveRange;
-        float backstepDistance = 1.0f;
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, raycastDistance, ~ignoreLayers);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, moveRange, ~ignoreLayers);
 
         if (hit.collider != null)
         {
-            return hit.point - (direction * backstepDistance);
+            return hit.point - (direction * 1.0f);
         }
         else
         {
@@ -223,7 +224,7 @@ public class MonsterController : MonoBehaviour
             canMove = true;
         }
 
-        Vector2 moveDirection = (CurrentWaypoint - transform.position).normalized;
+        moveDirection = (CurrentWaypoint - transform.position).normalized;
         moveDirection.y = 0;
         Rb.velocity = moveDirection * MoveSpeed;
 
@@ -252,14 +253,14 @@ public class MonsterController : MonoBehaviour
 
     public bool CheckCliff()
     {
-        Quaternion rotation = IsFlip ? FlipQuaternion : Quaternion.identity;
-        Vector2 raycastOrigin = transform.position + (rotation * Vector3.right * 0.7f);
+        checkRotation = IsFlip ? FlipQuaternion : Quaternion.identity;
+        raycastOrigin = transform.position + (checkRotation * Vector3.right * 0.7f);
 
         //UnityEngine.Debug.DrawRay(raycastOrigin, Vector2.down, Color.red);
 
-        RaycastHit2D hitDown = Physics2D.Raycast(raycastOrigin, Vector2.down, 1.0f, 1 << 0);
+        hit = Physics2D.Raycast(raycastOrigin, Vector2.down, 1.0f, 1 << 0);
 
-        return hitDown.collider == null;
+        return hit.collider == null;
     }
 
     private void SetNextWaypoint()  
@@ -269,11 +270,9 @@ public class MonsterController : MonoBehaviour
 
     public bool CheckGround()
     {
-        float raycastDistance = 0.7f;
+        //UnityEngine.Debug.DrawRay(transform.position, Vector2.down * 0.7f, Color.red);
 
-        //UnityEngine.Debug.DrawRay(transform.position, Vector2.down * raycastDistance, Color.red);
-
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, raycastDistance, 1 << 0);
+        hit = Physics2D.Raycast(transform.position, Vector2.down, 0.7f, 1 << 0);
 
         return hit.collider != null;
     }
