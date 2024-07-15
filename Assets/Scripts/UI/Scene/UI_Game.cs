@@ -217,7 +217,7 @@ public class UI_Game : UI_Scene
     {
         if (playerController.canAttack)
         {
-            playerController.AttackDown();
+            playerController.PlayerAttack.AttackDown();
             attack_cool_time = playerController.coolTime;
             attack_cool_count = attack_cool_time;
 
@@ -228,7 +228,7 @@ public class UI_Game : UI_Scene
 
     public void AttackBtnClickedUp(PointerEventData data)
     {
-        playerController.AttackUp();
+        playerController.PlayerAttack.AttackUp();
     }
 
     public void JumpBtnClickedDown(PointerEventData data)

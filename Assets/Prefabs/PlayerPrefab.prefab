@@ -110,6 +110,7 @@ GameObject:
   - component: {fileID: 4660076192433278}
   - component: {fileID: 175512587402798207}
   - component: {fileID: 248749117310158783}
+  - component: {fileID: 2261336932254292891}
   - component: {fileID: 212971026275759962}
   - component: {fileID: 95975118031919256}
   - component: {fileID: 50738830109512580}
@@ -184,6 +185,7 @@ MonoBehaviour:
   ParticleJumpDown: {fileID: 198967111524372206}
   HealEffect: {fileID: 393088699325398}
   PurpleEffect: {fileID: 8410189878276244301}
+  PlayerAttack: {fileID: 0}
   AttackCheck: {fileID: 4370582630649528}
   IsAttack: 0
   coolTime: 0
@@ -256,6 +258,36 @@ MonoBehaviour:
   controller: {fileID: 175512587402798207}
   animator: {fileID: 95975118031919256}
   joystick: {fileID: 0}
+--- !u!114 &2261336932254292891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1377240496476148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4553f88aa93cdee4aaf24c0d75de82a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ColorWeapons:
+  - {fileID: 6312281354645909693}
+  - {fileID: 3364718941259214008}
+  - {fileID: 7563759527471843738}
+  - {fileID: 7556410489127752601}
+  - {fileID: 3258715048601368542}
+  - {fileID: 7165747113895478536}
+  - {fileID: 8533986571667845559}
+  - {fileID: 7608925706783770372}
+  RedWeapon: {fileID: 1086310549815544557}
+  OrangeWeapon: {fileID: 4920797071980387407}
+  PurpleWeapon: {fileID: 5002476609168166349}
+  GreenWeapon: {fileID: 5126789568211997987}
+  BlueWeapon: {fileID: 8475338824270332780}
+  BlackWeapon: {fileID: 5998208090524668600}
+  YellowWeaponEffect: {fileID: 5593871760870967025}
+  OrangeWeaponEffect: {fileID: 7648603465766718409}
+  canAttack: 1
 --- !u!212 &212971026275759962
 SpriteRenderer:
   m_ObjectHideFlags: 0

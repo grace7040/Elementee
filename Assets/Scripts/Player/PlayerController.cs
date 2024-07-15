@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour
     public GameObject PurpleEffect;
 
     [Header("Attack")]
+    public PlayerAttack PlayerAttack;
     public Transform AttackCheck;
     public bool IsAttack = false; //attack btn input
     public float coolTime;
@@ -71,7 +72,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform m_WallCheck;                             //Posicion que controla si el personaje toca una pared
 
     //Attack
-    //[HideInInspector] public bool doAttack = false; //attack input
     [HideInInspector] public bool canAttack = true;
 
     //Health
@@ -83,7 +83,6 @@ public class PlayerController : MonoBehaviour
 
     [Header("Events")]
     [Space]
-
     public UnityEvent OnFallEvent;
     public UnityEvent OnLandEvent;
 
@@ -147,8 +146,8 @@ public class PlayerController : MonoBehaviour
         m_Rigidbody2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         playerSprite = GetComponent<SpriteRenderer>();
+        PlayerAttack = GetComponent<PlayerAttack>();
 
-        //Health initiallize
         CurrentHealth = maxHealth;
 
         ColorManager.Instance.SetPlayerAnimatorBool = SetAnimatorBool;
@@ -164,11 +163,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            AttackDown();
-        }
-
+        // Black관련 코드, 추후 생사 여부 결정
         if (myColor == Colors.Black)
         {
             if (IsHoldingEnemy)
@@ -182,17 +177,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void AttackDown()
-    {
-        canAttack = false;
-        Color.Attack(transform.position, transform.localScale.x);
-        this.CallOnDelay(Color.CoolTime, ()=> { canAttack = true; });   // ::TODO:: 노랑일 경우 예외처리 해야함
-    }
 
-    public void AttackUp()
-    {
-        //isAttack = false;
-    }
     private void FixedUpdate()
     {
         //colliders : 닿아있는 바닥수만큼 존재, 공중에 떠있으면 0개 바닥에 닿아있으면 1개
@@ -267,111 +252,36 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void BlackPull()
-    {
-        StartCoroutine(PullCoroutine());
-    }
 
-    private IEnumerator PullCoroutine()
-    {
-        if (!IsHoldingEnemy)
-        {
-            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-            float closestDistance = 7.5f;
-            Transform closestEnemy = null;
 
-            foreach (GameObject enemy in enemies)
-            {
-                float distance = Vector2.Distance(transform.position, enemy.transform.position);
-                if (distance < closestDistance)
-                {
-                    closestDistance = distance;
-                    closestEnemy = enemy.transform;
-                }
-            }
+    //public void SetCustomWeapon()
+    //{
+    //    ColorWeapons[(int)myColor].sprite = DrawManager.Instance.sprites[(int)myColor];
 
-            if (closestEnemy != null)
-            {
-                heldEnemyRigidbody = closestEnemy.GetComponent<Rigidbody2D>();
-                Enemy = closestEnemy.gameObject;
+    //    // Yellow 경우, 자식들에도 sprite 할당이 필요함
+    //    if (myColor == Colors.Yellow)
+    //    {
+    //        for (int i = 0; i < 4; i++)
+    //        {
+    //            YellowWeaponEffect.transform.GetChild(i).GetComponent<SpriteRenderer>().sprite = ColorWeapons[(int)Colors.Yellow].sprite;
+    //        }
+    //    }
+    //}
 
-                Enemy.SendMessage("PulledByBlack");
-                //closestEnemy.AddComponent<BloodEffect>();
+    //public void SetBasicWeapon()
+    //{
+    //    ColorWeapons[(int)myColor].sprite = DrawManager.Instance.Basic_Sprites[(int)myColor];
 
-                float distance = Vector2.Distance(Enemy.transform.position, transform.position);
+    //    if (myColor == Colors.Yellow)
+    //    {
+    //        for (int i = 0; i < 4; i++)
+    //        {
+    //            YellowWeaponEffect.transform.GetChild(i).GetComponent<SpriteRenderer>().sprite = ColorWeapons[(int)Colors.Yellow].sprite;
+    //        }
+    //    }
+    //}
 
-                while (!IsHoldingEnemy)
-                {
-                    Vector2 throwDirection = (transform.position - Enemy.transform.position).normalized;
-                    Enemy.transform.Translate(pullForce * Time.deltaTime * throwDirection);
 
-                    yield return null;
-                }
-            }
-        }
-        yield return new WaitForSeconds(0f);
-    }
-
-    public void BlackThrow()
-    {
-        Rigidbody2D rb = Enemy.GetComponent<Rigidbody2D>();
-
-        if (rb != null)
-        {
-            Transform childTransform = Enemy.gameObject.transform;
-
-            childTransform.SetParent(null);
-
-            IsHoldingEnemy = false;
-            Enemy.GetComponent<Rigidbody2D>().gravityScale = 0.0f;
-
-            rb.gameObject.GetComponent<OB_VerticlaMovement>().enabled = false;
-
-            Vector2 throwDirection = (rb.transform.position - transform.position).normalized;
-            rb.velocity = throwDirection * throwForce;
-            rb.gameObject.tag = "WeaponB";
-            heldEnemyRigidbody = null;
-
-            Enemy.GetComponent<MonsterController>().Die();
-        }
-    }
-
-    public void SetCustomWeapon()
-    {
-        ColorWeapons[(int)myColor].sprite = DrawManager.Instance.sprites[(int)myColor];
-
-        // Yellow 경우, 자식들에도 sprite 할당이 필요함
-        if (myColor == Colors.Yellow)
-        {
-            for (int i = 0; i < 4; i++)
-            {
-                YellowWeaponEffect.transform.GetChild(i).GetComponent<SpriteRenderer>().sprite = ColorWeapons[(int)Colors.Yellow].sprite;
-            }
-        }
-    }
-
-    public void SetBasicWeapon()
-    {
-        ColorWeapons[(int)myColor].sprite = DrawManager.Instance.Basic_Sprites[(int)myColor];
-
-        if (myColor == Colors.Yellow)
-        {
-            for (int i = 0; i < 4; i++)
-            {
-                YellowWeaponEffect.transform.GetChild(i).GetComponent<SpriteRenderer>().sprite = ColorWeapons[(int)Colors.Yellow].sprite;
-            }
-        }
-    }
-
-    public void ShowWeapon()
-    {
-        ColorWeapons[(int)myColor].gameObject.SetActive(true);
-    }
-
-    public void HideWeapon()
-    {
-        ColorWeapons[(int)myColor].gameObject.SetActive(false);
-    }
 
     private void Flip()
     {
@@ -649,6 +559,7 @@ public class PlayerController : MonoBehaviour
             TakeDamage(10, collision.gameObject.transform.position);
         }
     }
+    
     public void RopeOut()
     {
         if (!isRope) return;
@@ -681,6 +592,8 @@ public class PlayerController : MonoBehaviour
         Managers.UI.ClosePopupUI();
     }
 
+
+    //Effect
     public void PurpleAttackEffect()
     {
         StartCoroutine(Purple_Effect_Set_Active());
@@ -697,4 +610,87 @@ public class PlayerController : MonoBehaviour
     {
         animator.SetBool(name, value);
     }
+
+    /////////////
+
+    //public void ShowWeapon()
+    //{
+    //    ColorWeapons[(int)myColor].gameObject.SetActive(true);
+    //}
+
+    //public void HideWeapon()
+    //{
+    //    ColorWeapons[(int)myColor].gameObject.SetActive(false);
+    //}
+
+    // Black Attack 유기
+    public void BlackPull()
+    {
+        StartCoroutine(PullCoroutine());
+    }
+
+    private IEnumerator PullCoroutine()
+    {
+        if (!IsHoldingEnemy)
+        {
+            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+            float closestDistance = 7.5f;
+            Transform closestEnemy = null;
+
+            foreach (GameObject enemy in enemies)
+            {
+                float distance = Vector2.Distance(transform.position, enemy.transform.position);
+                if (distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    closestEnemy = enemy.transform;
+                }
+            }
+
+            if (closestEnemy != null)
+            {
+                heldEnemyRigidbody = closestEnemy.GetComponent<Rigidbody2D>();
+                Enemy = closestEnemy.gameObject;
+
+                Enemy.SendMessage("PulledByBlack");
+                //closestEnemy.AddComponent<BloodEffect>();
+
+                float distance = Vector2.Distance(Enemy.transform.position, transform.position);
+
+                while (!IsHoldingEnemy)
+                {
+                    Vector2 throwDirection = (transform.position - Enemy.transform.position).normalized;
+                    Enemy.transform.Translate(pullForce * Time.deltaTime * throwDirection);
+
+                    yield return null;
+                }
+            }
+        }
+        yield return new WaitForSeconds(0f);
+    }
+
+    public void BlackThrow()
+    {
+        Rigidbody2D rb = Enemy.GetComponent<Rigidbody2D>();
+
+        if (rb != null)
+        {
+            Transform childTransform = Enemy.gameObject.transform;
+
+            childTransform.SetParent(null);
+
+            IsHoldingEnemy = false;
+            Enemy.GetComponent<Rigidbody2D>().gravityScale = 0.0f;
+
+            rb.gameObject.GetComponent<OB_VerticlaMovement>().enabled = false;
+
+            Vector2 throwDirection = (rb.transform.position - transform.position).normalized;
+            rb.velocity = throwDirection * throwForce;
+            rb.gameObject.tag = "WeaponB";
+            heldEnemyRigidbody = null;
+
+            Enemy.GetComponent<MonsterController>().Die();
+        }
+    }
+
 }

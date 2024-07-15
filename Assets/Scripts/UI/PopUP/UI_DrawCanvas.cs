@@ -56,7 +56,7 @@ public class UI_DrawCanvas : UI_Popup
 
         if (player != null)
         {
-            player.GetComponent<PlayerController>().SetCustomWeapon();
+            player.GetComponent<PlayerController>().PlayerAttack.SetCustomWeapon();
             ClosePopupUI();
 
             GameManager.Instance.ResumeGame();

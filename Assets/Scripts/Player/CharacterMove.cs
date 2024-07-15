@@ -22,14 +22,13 @@ public class CharacterMove : MonoBehaviour
 		animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
 
         if (Input.GetKeyDown(KeyCode.Z))
-        {
 			JumpDown();
-        }
 
         if (Input.GetKeyDown(KeyCode.C))
-		{
 			DashDown();
-		}
+
+		if (Input.GetKeyDown(KeyCode.X))
+			controller.PlayerAttack.AttackDown();
 
 	}
 

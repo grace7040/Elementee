@@ -205,14 +205,14 @@ public class ColorManager : Singleton<ColorManager>
     public void SetPlayerCustomWeapon()
     {
         basicWeapon = false;
-        player.SetCustomWeapon();
+        player.PlayerAttack.SetCustomWeapon();
         OnSaveColor?.Invoke();
     }
 
     public void SetPlayerBasicWeapon()
     {
         basicWeapon = true;
-        player.SetBasicWeapon();
+        player.PlayerAttack.SetBasicWeapon();
         OnSaveColor?.Invoke();
     }
 
