@@ -96,7 +96,7 @@ public class MonsterController : MonoBehaviour
 
     protected LayerMask ignoreLayers;
 
-    public Vector2 moveDirection;
+    public Vector2 MoveDirection;
     protected Quaternion checkRotation;
     protected Vector2 raycastOrigin;
     protected RaycastHit2D hit;
@@ -224,9 +224,9 @@ public class MonsterController : MonoBehaviour
             canMove = true;
         }
 
-        moveDirection = (CurrentWaypoint - transform.position).normalized;
-        moveDirection.y = 0;
-        Rb.velocity = moveDirection * MoveSpeed;
+        MoveDirection = (CurrentWaypoint - transform.position).normalized;
+        MoveDirection.y = 0;
+        Rb.velocity = MoveDirection * MoveSpeed;
 
         Animator.SetBool("IsWalking", MyColor != Colors.Default);
 
