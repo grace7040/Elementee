@@ -281,29 +281,41 @@ public class MonsterController : MonoBehaviour
     public void TakeDamage(int damage, Vector3 playerPos)
     {
         currentHealth -= damage;
-
         UpdateHPBar();
-
-        monsterSprite.DOFade(0.2f, 0.25f).SetLoops(4, LoopType.Yoyo);
-        this.CallOnDelay(1f, () => { monsterSprite.DOFade(1f, 0f); });
-
-        var DamageText = ObjectPoolManager.Instance.GetGo("DamageText");
-        DamageText.GetComponent<TextMeshPro>().text = damage.ToString();
-        DamageText.transform.position = transform.position;
-        DamageText.transform.SetParent(this.transform);
+        PlayDamageEffects();
+        DisplayDamageText(damage);
 
         if (!isKnockedBack)
         {
-            Rb.velocity = Vector2.zero;
-            Vector2 damageDir = new Vector2(transform.position.x - playerPos.x, 0).normalized * 2f;
-            damageDir += new Vector2(0, 1).normalized * 2f;
-            ApplyKnockbackForce(damageDir, 12f, 0.3f);
+            ApplyKnockback(playerPos);
         }
 
         if (currentHealth <= 0)
         {
             Die();
         }
+    }
+
+    private void PlayDamageEffects()
+    {
+        monsterSprite.DOFade(0.2f, 0.25f).SetLoops(4, LoopType.Yoyo);
+        this.CallOnDelay(1f, () => { monsterSprite.DOFade(1f, 0f); });
+    }
+
+    private void DisplayDamageText(int damage)
+    {
+        var damageText = ObjectPoolManager.Instance.GetGo("DamageText");
+        damageText.GetComponent<TextMeshPro>().text = damage.ToString();
+        damageText.transform.position = transform.position;
+        damageText.transform.SetParent(this.transform);
+    }
+
+    private void ApplyKnockback(Vector3 playerPos)
+    {
+        Rb.velocity = Vector2.zero;
+        Vector2 damageDir = new Vector2(transform.position.x - playerPos.x, 0).normalized * 2f;
+        damageDir += new Vector2(0, 1).normalized * 2f;
+        ApplyKnockbackForce(damageDir, 12f, 0.3f);
     }
 
     public void Die()
