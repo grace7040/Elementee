@@ -12,6 +12,7 @@ public class UI_Palette : UI_Popup
     public Colors color;
     private Image canvasImg;
     private Image redrawImg;
+    private GameObject[] ColorBtn = new GameObject[3];
     ColorManager C_Mgr;
 
     //Colors redrawColor = Colors.def;
@@ -47,7 +48,7 @@ public class UI_Palette : UI_Popup
         base.Init();
         C_Mgr = ColorManager.Instance;
         //redrawColor = GameManager.Instance.ReDrawItemColor;
-        
+
 
         Bind<Button>(typeof(Buttons));
         Bind<Image>(typeof(Images));
@@ -69,43 +70,51 @@ public class UI_Palette : UI_Popup
 
 
 
-    public void SettingPalette()  // 가지고 있는 물감에 이벤트 바인딩 & 없는 물감은 끄기
+    public void SettingPalette() 
     {
-        // Blue 물감
+        GameObject Blue = GetButton((int)Buttons.BlueBtn).gameObject;
+        GameObject Red = GetButton((int)Buttons.RedBtn).gameObject;
+        GameObject Yellow = GetButton((int)Buttons.YellowBtn).gameObject;
+
         if (!C_Mgr.HasBlue)
-            GetButton((int)Buttons.BlueBtn).gameObject.SetActive(false);
+            Blue.SetActive(false);
         else
-            GetButton((int)Buttons.BlueBtn).gameObject.BindEvent(BlueBtnClicked);
+        {
+            Blue.BindEvent(BlueBtnClicked);
+            Blue.GetComponent<Image>().color = ColorManager.Instance.GetColor(Colors.Blue);
+        }
 
-        // Red 물감
         if (!C_Mgr.HasRed)
-            GetButton((int)Buttons.RedBtn).gameObject.SetActive(false);
+            Red.SetActive(false);
         else
-            GetButton((int)Buttons.RedBtn).gameObject.BindEvent(RedBtnClicked);
+        {
+            Red.BindEvent(RedBtnClicked);
+            Red.GetComponent<Image>().color = ColorManager.Instance.GetColor(Colors.Red);
+        }
 
-        // Yellow 물감
         if (!C_Mgr.HasYellow)
-            GetButton((int)Buttons.YellowBtn).gameObject.SetActive(false);
+            Yellow.SetActive(false);
         else
-            GetButton((int)Buttons.YellowBtn).gameObject.BindEvent(YellowBtnClicked);
+        {
+            Yellow.BindEvent(YellowBtnClicked);
+            Yellow.GetComponent<Image>().color = ColorManager.Instance.GetColor(Colors.Yellow);
+        }
 
-            //GetButton((int)Buttons.ReDrawItem).gameObject.GetComponent<Image>().color = ColorManager.Instance.GetColor(redrawColor);
+        //GetButton((int)Buttons.ReDrawItem).gameObject.GetComponent<Image>().color = ColorManager.Instance.GetColor(redrawColor);
 
     }
 
     public void BackBtnClicked(PointerEventData data)
     {
-        //Managers.UI.ClosePopupUI();
         GameManager.Instance.ResumeGame();
     }
 
     public void OkayBtnClicked(PointerEventData data)
     {
-        //Managers.UI.ClosePopupUI();
         GameManager.Instance.ResumeGame();
         ColorManager.Instance.OnSetColor?.Invoke();
         if (currentColor != Colors.Default)
-            C_Mgr.SetColorState(currentColor);  // 플레이어의 현재 Color에 적용
+            C_Mgr.SetColorState(currentColor);
     }
 
     public void ResetBtnBtnClicked(PointerEventData data)
@@ -179,13 +188,11 @@ public class UI_Palette : UI_Popup
     }
 
 
-    // 물감 클릭했을 때 UI 색 변경
     public void ChangeColor(Colors color)
     {
         canvasImg.color = ColorManager.Instance.GetColor(color);
     }
 
-    // 무기 다시 그리기
     public void ReDrawBtnClicked(PointerEventData data)
     {
         GetComponent<AdMob>().ShowAds();
