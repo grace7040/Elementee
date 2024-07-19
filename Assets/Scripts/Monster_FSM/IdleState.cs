@@ -17,14 +17,7 @@ public class IdleState : BaseState
     {
         if (monster.MyColor == Colors.Default)
         {
-            if (monster.CheckGround())
-            {
-                monster.Move();
-            }
-            else
-            {
-                monster.Rb.velocity += Time.deltaTime * Vector2.down;
-            }
+            MoveOnGround();
         }
         else
         {
@@ -34,17 +27,22 @@ public class IdleState : BaseState
             }
             else
             {
-                if (monster.CheckGround())
-                {
-                    monster.Move();
-                }
-                else
-                {
-                    monster.Rb.velocity += Time.deltaTime * Vector2.down;
-                }
+                MoveOnGround();
             }
         }
     }
 
     public override void Exit() { }
+
+    private void MoveOnGround()
+    {
+        if (monster.CheckGround())
+        {
+            monster.Move();
+        }
+        else
+        {
+            monster.Rb.velocity += Time.deltaTime * Vector2.down;
+        }
+    }
 }

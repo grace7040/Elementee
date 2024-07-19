@@ -11,17 +11,23 @@ public class MonsterController : MonoBehaviour
     #region variables
 
     public Monster MonsterData;
+    public Transform MonsterBody;
+    protected SpriteRenderer monsterSprite;
 
     [HideInInspector]
     public Colors MyColor;
 
-    protected SpriteRenderer monsterSprite;
-
     [HideInInspector]
     public Transform Player;
 
+    protected GameObject playerObj;
+
     [HideInInspector]
     public Rigidbody2D Rb;
+
+    protected GameObject spark;
+
+    public Animator Animator;
 
     protected int maxHealth;
     protected int currentHealth;
@@ -50,6 +56,17 @@ public class MonsterController : MonoBehaviour
     [HideInInspector]
     public Vector3 CurrentWaypoint;
 
+    protected float waypointDirection;
+    protected float distanceX;
+
+    [HideInInspector]
+    public float DistanceY;
+
+    [HideInInspector]
+    public Quaternion FlipQuaternion = Quaternion.Euler(new Vector3(0, 180, 0));
+
+    protected Vector2 dir;
+
     protected float moveRange = 50.0f;
     protected float stopTime = 0;
     protected float timeSinceLastStop = 0;
@@ -58,8 +75,14 @@ public class MonsterController : MonoBehaviour
     protected float timer = 0.0f;
     protected float interval = 5.0f;
 
-    // ³Ë¹é
+    // Knockback
     protected bool isKnockedBack = false;
+
+    [HideInInspector]
+    public bool IsFlip = false;
+
+    [HideInInspector]
+    public bool CanFlip = true;
 
     // Die
     public delegate void Del();
@@ -70,32 +93,7 @@ public class MonsterController : MonoBehaviour
     protected Image hpBarBG;
     protected float hpBarMAX;
 
-    protected float waypointDirection;
-    protected float distanceX;
-
-    [HideInInspector]
-    public float DistanceY;
-
-    public Animator Animator;
-
-    [HideInInspector]
-    public Quaternion FlipQuaternion = Quaternion.Euler(new Vector3(0, 180, 0));
-
-    public Transform MonsterBody;
-
-    [HideInInspector]
-    public bool IsFlip = false;
-
-    [HideInInspector]
-    public bool CanFlip = true;
-
-    protected Vector2 dir;
-    protected GameObject playerObj;
-
-    GameObject spark;
-
     protected LayerMask ignoreLayers;
-
     public Vector2 MoveDirection;
     protected Quaternion checkRotation;
     protected Vector2 raycastOrigin;

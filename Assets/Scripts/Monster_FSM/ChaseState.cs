@@ -42,6 +42,7 @@ public class ChaseState : BaseState
                 else
                 {
                     monster.Rb.velocity = Vector2.zero;
+
                     if (Vector2.Distance(monster.transform.position, monster.Player.position) > monster.DetectionRange)
                     {
                         monster.ChangeState(new IdleState(monster));
