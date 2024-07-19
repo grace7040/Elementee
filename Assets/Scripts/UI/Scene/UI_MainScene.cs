@@ -41,7 +41,7 @@ public class UI_MainScene : UI_Scene
 
     public void SettingBtnClicked(PointerEventData data)
     {
-        Managers.UI.ShowPopupUI<UI_MainSetting>();
+        UIManager.Instance.ShowPopupUI<UI_MainSetting>();
 
     }
     public void CustomBtnClicked(PointerEventData data)

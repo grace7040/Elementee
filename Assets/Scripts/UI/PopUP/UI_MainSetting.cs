@@ -16,21 +16,6 @@ public class UI_MainSetting  : UI_Popup
         BackBtn,
     }
 
-    //enum Texts
-    //{
-    //    PointText,
-    //    ScoreText
-    //}
-
-    //enum GameObjects
-    //{
-    //    TestObject,
-    //}
-
-    //enum Images
-    //{
-    //    ItemIcon,
-    //}
 
     private void Start()
     {
@@ -39,22 +24,16 @@ public class UI_MainSetting  : UI_Popup
 
     public override void Init()
     {
-        base.Init(); // 📜UI_Button 의 부모인 📜UI_PopUp 의 Init() 호출
+        base.Init();
 
         Bind<Button>(typeof(Buttons)); 
-        //Bind<TMP_Text>(typeof(Texts)); 
-        //Bind<GameObject>(typeof(GameObjects)); 
-        //Bind<Image>(typeof(Images)); 
 
         GetButton((int)Buttons.BackBtn).gameObject.BindEvent(OnBackBtnClicked);
         GetButton((int)Buttons.ToMainBtn).gameObject.BindEvent(OnBackBtnClicked);
-        //GameObject go = GetImage((int)Images.ItemIcon).gameObject;
-        //BindEvent(go, (PointerEventData data) => { go.transform.position = data.position; }, Define.UIEvent.Drag);
     }
 
     public void OnBackBtnClicked(PointerEventData data)
     {
-        Managers.UI.ClosePopupUI();
-        Debug.Log("끄자");
+        UIManager.Instance.ClosePopupUI();
     }
 }

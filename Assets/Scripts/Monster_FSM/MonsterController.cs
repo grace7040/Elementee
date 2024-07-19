@@ -116,7 +116,7 @@ public class MonsterController : MonoBehaviour
     {
         if (Player == null)
         {
-            playerObj = GameManager.Instance.player;
+            playerObj = GameManager.Instance.Player;
             Player = playerObj.transform;
         }
 
@@ -435,7 +435,7 @@ public class MonsterController : MonoBehaviour
 
     private void OnDieByGreenPlayer()
     {
-        if (GameManager.Instance.playerColor == Colors.Green)
+        if (GameManager.Instance.PlayerColor == Colors.Green)
         {
             Instantiate(Resources.Load("Monster/Leaf"), transform.position, Quaternion.identity);
         }

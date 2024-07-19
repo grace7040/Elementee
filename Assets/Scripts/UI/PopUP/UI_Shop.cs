@@ -30,7 +30,7 @@ public class UI_Shop : UI_Popup
         for(int i=0; i<shopItemsSO.Length; i++)
             shopPanelsGO[i].SetActive(true);
 
-        coins = GameManager.Instance.totalCoin;
+        coins = GameManager.Instance.TotalCoin;
         coinUI.text = coins.ToString();
         LoadPanels();
        // CheckPurchaseable(); -> 살 수 없을 경우 버튼 막기
@@ -38,7 +38,7 @@ public class UI_Shop : UI_Popup
 
     public override void Init()
     {
-        base.Init(); // 📜UI_Button 의 부모인 📜UI_PopUp 의 Init() 호출
+        base.Init(); 
 
         Bind<Button>(typeof(Buttons));
 
@@ -68,8 +68,8 @@ public class UI_Shop : UI_Popup
         if(coins >= shopItemsSO[btnNo].baseCost)
         {
             coins -= shopItemsSO[btnNo].baseCost;
-            GameManager.Instance.totalCoin = coins;
-            DataManager.Instance.JsonSave(); // Coin 사용 후 저장
+            GameManager.Instance.TotalCoin = coins;
+            DataManager.Instance.JsonSave();
             coinUI.text = coins.ToString();
            // CheckPurchaseable();
 

@@ -8,7 +8,7 @@ public class Potal : MonoBehaviour
     bool IsClear = false;
     void Awake()
     {
-        GameManager.Instance.currentPotal = this.gameObject;
+        GameManager.Instance.CurrentPotal = this.gameObject;
     }
 
     // Update is called once per frame

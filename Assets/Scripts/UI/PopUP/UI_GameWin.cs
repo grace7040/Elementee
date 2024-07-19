@@ -36,7 +36,7 @@ public class UI_GameWin : UI_Popup
         for(int i=0; i<Stars.Count; i++)
         {
             // 개수 만큼 노란색 색칠
-            if(i<GameManager.Instance.currentStar)
+            if(i<GameManager.Instance.CurrentStar)
                 Stars[i].GetComponent<Image>().color = new Color32(255, 250, 99, 255);
             else
                 Stars[i].GetComponent<Image>().color = new Color32(150, 150, 150, 255);

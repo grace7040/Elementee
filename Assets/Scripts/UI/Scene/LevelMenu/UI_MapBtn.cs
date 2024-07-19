@@ -32,7 +32,7 @@ public class UI_MapBtn : MonoBehaviour
 
     private void MapStart()
     {
-        GameManager.Instance.currentMapNum = mapNum;
+        GameManager.Instance.CurrentMapNum = mapNum;
         SceneManager.LoadScene("Map_" + mapNum);
     }
 }

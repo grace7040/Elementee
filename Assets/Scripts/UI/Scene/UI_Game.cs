@@ -14,35 +14,35 @@ public class UI_Game : UI_Scene
     Colors player_color = Colors.Default;
 
     // Button
-    GameObject jump;
-    GameObject dash;
-    GameObject attack;
+    GameObject _jump;
+    GameObject _dash;
+    GameObject _attack;
 
     // Image
-    Image hpBar;
-    Image Red_IMG;
-    Image Yellow_IMG;
-    Image Blue_IMG;
-    Image Attack_Cool_Time_IMG;
-    Image PotalArr_IMG;
+    Image _hpBar;
+    Image _Red_IMG;
+    Image _Yellow_IMG;
+    Image _Blue_IMG;
+    Image _Attack_Cool_Time_IMG;
+    Image _PotalArr_IMG;
 
-    public float hpBarMAX;
-    public VariableJoystick joystick;
+    public float HpBarMAX;
+    public VariableJoystick Joystick;
 
-    //player
-    private float attack_cool_time = 0f;
-    private float attack_cool_count = 0f;
-    private bool canAttack;
-    private int starCount = 0;
-    private PlayerController playerController;
+    //Player
+    float _attack_cool_time = 0f;
+    float _attack_cool_count = 0f;
+    bool _canAttack;
+    int _starCount = 0;
+    PlayerController _playerController;
     PlayerAttack _playerAttack;
-    private CharacterMove characterMove;
-    private GameObject player;
+    CharacterMove _characterMove;
+    GameObject _player;
 
     //Potal
-    private float angle;
-    private Vector2 potalVec;
-    private Vector2 playerVec;
+    float _angle;
+    Vector2 _potalVec;
+    Vector2 _playerVec;
 
     enum Buttons
     {
@@ -73,44 +73,47 @@ public class UI_Game : UI_Scene
     public void Start()
     {
         Init();
-        //ObjectManager.Instance.UI_InGame_Ready = true;
-        player = GameManager.Instance.player;
-        playerController = GameManager.Instance.player.GetComponent<PlayerController>();
-        _playerAttack = GameManager.Instance.player.GetComponent<PlayerAttack>();
-        characterMove = GameManager.Instance.player.GetComponent<CharacterMove>();
-        //GameManager.Instance.currentMapNum = mapNum;
+
+        _player = GameManager.Instance.Player;
+        _playerController = GameManager.Instance.Player.GetComponent<PlayerController>();
+        _playerAttack = GameManager.Instance.Player.GetComponent<PlayerAttack>();
+        _characterMove = GameManager.Instance.Player.GetComponent<CharacterMove>();
+
+        GameManager.Instance.UIGame = this;
+
     }
 
-    private void FixedUpdate()
+
+    public void UpdateHPBar(int current, int max)
     {
-        // :: FIX ME :: 이거 굳이 픽스드 업데이트에서 해야하나..? 다칠때 && 힐할때만 하도록 해야돼
-        // 밑에 내용들 전부 다!!!!!!!!
+        _hpBar.fillAmount = (float)current / max;
+    }
 
-        // hpBar
-        hpBar.fillAmount = (float)playerController.CurrentHealth / playerController.maxHealth;
+    public void UpdateCoinUI()
+    {
+        Coin.text = GameManager.Instance.MapCoin.ToString();
+    }
 
-        // star
-        if (starCount != GameManager.Instance.currentStar)
+    public void UpdateStarUI()
+    {
+        if (_starCount != GameManager.Instance.CurrentStar)
         {
-            starCount = GameManager.Instance.currentStar;
-            for (int i = 0; i < starCount; i++)
+            _starCount = GameManager.Instance.CurrentStar;
+            for (int i = 0; i < _starCount; i++)
             {
                 Stars[i].GetComponent<Image>().color = Color.white;
             }
         }
 
-        // coin
-        Coin.text = GameManager.Instance.mapCoin.ToString();
-
     }
 
     public void SetPalette()
     {
-        Blue_IMG.gameObject.SetActive(ColorManager.Instance.HasBlue);
-        Red_IMG.gameObject.SetActive(ColorManager.Instance.HasRed);
-        Yellow_IMG.gameObject.SetActive(ColorManager.Instance.HasYellow);
+        _Blue_IMG.gameObject.SetActive(ColorManager.Instance.HasBlue);
+        _Red_IMG.gameObject.SetActive(ColorManager.Instance.HasRed);
+        _Yellow_IMG.gameObject.SetActive(ColorManager.Instance.HasYellow);
 
-        Colors current_color32 = GameManager.Instance.playerColor;
+        Colors current_color32 = GameManager.Instance.PlayerColor;
 
         // 플레이어 state에 따른 색 변경
         if (player_color != current_color32)
@@ -121,10 +124,10 @@ public class UI_Game : UI_Scene
             Color32 alpha_color32_1 = new Color32(color32.r, color32.g, color32.b, 150);
             Color32 alpha_color32_2 = new Color32(color32.r, color32.g, color32.b, 200);
 
-            hpBar.color = alpha_color32_2;
+            _hpBar.color = alpha_color32_2;
             GetButton((int)Buttons.Attack).gameObject.GetComponent<Image>().color = alpha_color32_2;
-            jump.GetComponent<Image>().color = alpha_color32_1;
-            dash.GetComponent<Image>().color = alpha_color32_1;
+            _jump.GetComponent<Image>().color = alpha_color32_1;
+            _dash.GetComponent<Image>().color = alpha_color32_1;
 
         }
         if (player_color == Colors.Yellow)
@@ -145,33 +148,33 @@ public class UI_Game : UI_Scene
         GetButton((int)Buttons.SettingBtn).gameObject.BindEvent(OnSettingBtnClicked);
         GetButton((int)Buttons.Palette).gameObject.BindEvent(PaletteBtnClicked);
         //  GetButton((int)Buttons.Attack).gameObject.BindEvent(AttackBtnClicked);
-        hpBar = GetImage((int)Images.HP);
+        _hpBar = GetImage((int)Images.HP);
 
 
-        jump = GetButton((int)Buttons.Jump).gameObject;
-        dash = GetButton((int)Buttons.Dash).gameObject;
-        attack = GetButton((int)Buttons.Attack).gameObject;
+        _jump = GetButton((int)Buttons.Jump).gameObject;
+        _dash = GetButton((int)Buttons.Dash).gameObject;
+        _attack = GetButton((int)Buttons.Attack).gameObject;
 
-        BindEvent(jump, JumpBtnClickedDown, Define.UIEvent.DownClick);
-        BindEvent(jump, JumpBtnClickedUp, Define.UIEvent.UpClick);
-        BindEvent(dash, DashBtnClickedDown, Define.UIEvent.DownClick);
-        BindEvent(dash, DashBtnClickedUp, Define.UIEvent.UpClick);
-        BindEvent(attack, AttackBtnClickedDown, Define.UIEvent.DownClick);
-        BindEvent(attack, AttackBtnClickedUp, Define.UIEvent.UpClick);
+        BindEvent(_jump, JumpBtnClickedDown, Define.UIEvent.DownClick);
+        BindEvent(_jump, JumpBtnClickedUp, Define.UIEvent.UpClick);
+        BindEvent(_dash, DashBtnClickedDown, Define.UIEvent.DownClick);
+        BindEvent(_dash, DashBtnClickedUp, Define.UIEvent.UpClick);
+        BindEvent(_attack, AttackBtnClickedDown, Define.UIEvent.DownClick);
+        BindEvent(_attack, AttackBtnClickedUp, Define.UIEvent.UpClick);
 
 
         // 물감 오브젝트 받아두기 + ColorManger에 저장된 색으로 변경
-        Red_IMG = GetImage((int)Images.Red);
-        Red_IMG.color = ColorManager.Instance.GetColor(Colors.Red);
+        _Red_IMG = GetImage((int)Images.Red);
+        _Red_IMG.color = ColorManager.Instance.GetColor(Colors.Red);
 
-        Yellow_IMG = GetImage((int)Images.Yellow);
-        Yellow_IMG.color = ColorManager.Instance.GetColor(Colors.Yellow);
+        _Yellow_IMG = GetImage((int)Images.Yellow);
+        _Yellow_IMG.color = ColorManager.Instance.GetColor(Colors.Yellow);
 
 
-        Blue_IMG = GetImage((int)Images.Blue);
-        Blue_IMG.color = ColorManager.Instance.GetColor(Colors.Blue);
+        _Blue_IMG = GetImage((int)Images.Blue);
+        _Blue_IMG.color = ColorManager.Instance.GetColor(Colors.Blue);
 
-        Attack_Cool_Time_IMG = GetImage((int)Images.Attack_Cool_Time);
+        _Attack_Cool_Time_IMG = GetImage((int)Images.Attack_Cool_Time);
 
 
         // Palette 세팅
@@ -183,51 +186,43 @@ public class UI_Game : UI_Scene
         //};
 
 
-        // hpBar
-        hpBarMAX = hpBar.gameObject.GetComponent<RectTransform>().rect.width;
+        // HpBar
+        HpBarMAX = _hpBar.gameObject.GetComponent<RectTransform>().rect.width;
 
         // Potal
-        PotalArr_IMG = GetImage((int)Images.PotalArrow);
-        if (GameManager.Instance.currentPotal != null)
-            potalVec = GameManager.Instance.currentPotal.transform.position;
+        _PotalArr_IMG = GetImage((int)Images.PotalArrow);
+        if (GameManager.Instance.CurrentPotal != null)
+            _potalVec = GameManager.Instance.CurrentPotal.transform.position;
 
 
         GetImage((int)Images.Attack_Cool_Time).gameObject.SetActive(false);
 
     }
 
-    public void OnSettingBtnClicked(PointerEventData data) // 설정 버튼 눌렀을 때
+    public void OnSettingBtnClicked(PointerEventData data)
     {
-        // 게임 일시정지 후 설정UI 띄우기
-
         GameManager.Instance.PauseGame();
-        Managers.UI.ShowPopupUI<UI_Setting>();
+        UIManager.Instance.ShowPopupUI<UI_Setting>();
     }
 
     public void PaletteBtnClicked(PointerEventData data)
     {
-        // 게임 일시정지 후 설정UI 띄우기
-
         GameManager.Instance.PauseGame();
-        Managers.UI.ShowPopupUI<UI_Palette>();
-        //  Managers.UI.ShowPopupUI<UI_Palette>();
+        UIManager.Instance.ShowPopupUI<UI_Palette>();
 
     }
 
 
-    // 플레이어 컨트롤
-
-    //공격 버튼이 눌렸을 때
     public void AttackBtnClickedDown(PointerEventData data)
     {
         if (_playerAttack.canAttack)
         {
             _playerAttack.AttackDown();
-            attack_cool_time = playerController.AttackCoolTime;
-            attack_cool_count = attack_cool_time;
+            _attack_cool_time = _playerController.AttackCoolTime;
+            _attack_cool_count = _attack_cool_time;
 
             GetImage((int)Images.Attack_Cool_Time).gameObject.SetActive(true);
-            canAttack = true;
+            _canAttack = true;
         }
     }
 
@@ -238,22 +233,22 @@ public class UI_Game : UI_Scene
 
     public void JumpBtnClickedDown(PointerEventData data)
     {
-        characterMove.JumpDown();
+        _characterMove.JumpDown();
     }
 
     public void JumpBtnClickedUp(PointerEventData data)
     {
-        characterMove.JumpUp();
+        _characterMove.JumpUp();
     }
 
     public void DashBtnClickedDown(PointerEventData data)
     {
-        characterMove.DashDown();
+        _characterMove.DashDown();
     }
 
     public void DashBtnClickedUp(PointerEventData data)
     {
-        characterMove.DashUp();
+        _characterMove.DashUp();
     }
 
     private void OnDestroy()
@@ -264,36 +259,35 @@ public class UI_Game : UI_Scene
 
     private void Update()
     {
-        if (canAttack)
+        if (_canAttack)
         {
             StartCoroutine(nameof(SkillTimeChk));
         }
 
-        // Potal
-        playerVec = player.transform.position;
-        angle = Mathf.Atan2(potalVec.y - playerVec.y, potalVec.x - playerVec.x) * Mathf.Rad2Deg;
-        PotalArr_IMG.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        // Potal Arr
+        _playerVec = _player.transform.position;
+        _angle = Mathf.Atan2(_potalVec.y - _playerVec.y, _potalVec.x - _playerVec.x) * Mathf.Rad2Deg;
+        _PotalArr_IMG.transform.rotation = Quaternion.AngleAxis(_angle, Vector3.forward);
     }
 
     IEnumerator SkillTimeChk()
     {
         yield return null;
-        if (attack_cool_count > 0)
+        if (_attack_cool_count > 0)
         {
-            attack_cool_count -= Time.deltaTime;
+            _attack_cool_count -= Time.deltaTime;
 
-            if (attack_cool_count < 0)
+            if (_attack_cool_count < 0)
             {
-                // print("hi");
 
-                attack_cool_count = 0;
-                canAttack = false;
+                _attack_cool_count = 0;
+                _canAttack = false;
                 GetImage((int)Images.Attack_Cool_Time).gameObject.SetActive(false);
 
-                attack_cool_count = playerController.AttackCoolTime;
+                _attack_cool_count = _playerController.AttackCoolTime;
 
             }
-            float time = attack_cool_count / playerController.AttackCoolTime;
+            float time = _attack_cool_count / _playerController.AttackCoolTime;
             GetImage((int)Images.Attack_Cool_Time).fillAmount = time;
 
         }

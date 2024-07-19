@@ -99,7 +99,7 @@ public class ColorManager : Singleton<ColorManager>
     {
         //player = FindObjectOfType<PlayerController>();
         _player.myColor = _color;
-        GameManager.Instance.playerColor = _color;
+        GameManager.Instance.PlayerColor = _color;
 
         // 새로운 색 사용할 때 무기 그리도록 UI 띄우기
         if (!colorList.Contains(_color) && _color != Colors.Black)
@@ -205,7 +205,7 @@ public class ColorManager : Singleton<ColorManager>
         // 게임 일시정지
         GameManager.Instance.PauseGame();
 
-        Managers.UI.ShowPopupUI<UI_DrawCanvas>();
+        UIManager.Instance.ShowPopupUI<UI_DrawCanvas>();
         colorList.Add(_color);
 
         DrawManager.Instance.SetBrushColor(_color);

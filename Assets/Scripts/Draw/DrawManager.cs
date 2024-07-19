@@ -128,7 +128,7 @@ public class DrawManager : MonoBehaviour
         Drawing.SetActive(false);
 
         // Face 저장 - 8번
-        GameManager.Instance.playerFace = sprites[8];
+        GameManager.Instance.PlayerFace = sprites[8];
     }
 
 

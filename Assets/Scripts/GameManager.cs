@@ -8,28 +8,29 @@ public class GameManager : Singleton<GameManager>
     public bool developMode;
 
     [Header("GameManage")]
-    // JSON 저장
-    public List<int> mapStar = new List<int>();
-    public int mapBest;
-    public int mapCoin = 0;
+    // JSON 저장될 Data
+    public List<int> MapStar = new List<int>();
+    public int MapBest;
+    public int MapCoin = 0;
 
-    public int currentMapNum = 0;
-    public int currentStar = 0;
-    public GameObject currentPotal;
-    public bool isFirstPlay = true;
+    public int CurrentMapNum = 0;
+    public int CurrentStar = 0;
+    public GameObject CurrentPotal;
+    public UI_Game UIGame;
+    public bool IsFirstPlay = true;
 
     [Header("Player")]
-    public GameObject player;
+    public GameObject Player;
     //public Transform sponPos;
-    public Colors playerColor = Colors.Default;
-    public Sprite playerFace;
+    public Colors PlayerColor = Colors.Default;
+    public Sprite PlayerFace;
 
 
     public delegate void Del();
     //public Del SetJoystick = null;
 
     [Header("Item")]
-    public int totalCoin;
+    public int TotalCoin;
     public Colors ReDrawItemColor = Colors.Default;
 
     private void Awake()
@@ -43,21 +44,17 @@ public class GameManager : Singleton<GameManager>
         DataManager.Instance.JsonLoad();
     }
 
-    public void StarCount()
-    {
-        currentStar += 1;
-    }
 
     public void PauseGame()
     {
         Time.timeScale = 0;
-        Managers.UI.ClosePopupUI();
+        UIManager.Instance.ClosePopupUI();
     }
 
     public void ResumeGame()
     {
         Time.timeScale = 1;
-        Managers.UI.ClosePopupUI();
+        UIManager.Instance.ClosePopupUI();
     }
 
     public void RetryGame()
@@ -72,39 +69,39 @@ public class GameManager : Singleton<GameManager>
 
     public void InitGame()
     {
-        mapCoin = 0;
-        isFirstPlay = true;
+        MapCoin = 0;
+        IsFirstPlay = true;
 
     }
 
     public void GameOver()
     {
         Time.timeScale = 0;
-        Managers.UI.ShowPopupUI<UI_GameOver>();
+        UIManager.Instance.ShowPopupUI<UI_GameOver>();
     }
 
     public void GameWin()
     {
         Time.timeScale = 0;
-        totalCoin += mapCoin;
+        TotalCoin += MapCoin;
 
         // Data Save
-        if (mapBest <= currentMapNum)
+        if (MapBest <= CurrentMapNum)
         {
-            mapStar.Add(currentStar);
+            MapStar.Add(CurrentStar);
             //mapFlag.Add(0);
-            mapBest += 1;
+            MapBest += 1;
         }
         else
         {
-            if (mapStar[currentMapNum] < currentStar)
+            if (MapStar[CurrentMapNum] < CurrentStar)
             {
-                mapStar[currentMapNum] = currentStar;
+                MapStar[CurrentMapNum] = CurrentStar;
             }
         }
         DataManager.Instance.JsonSave();
 
-        Managers.UI.ShowPopupUI<UI_GameWin>();
+        UIManager.Instance.ShowPopupUI<UI_GameWin>();
     }
 
     public void GoToMainMenu()
@@ -115,15 +112,15 @@ public class GameManager : Singleton<GameManager>
 
     public void NextStage()
     {
-        currentMapNum += 1;
+        CurrentMapNum += 1;
         ResumeGame();
-        SceneManager.LoadScene("Map_" + currentMapNum);
+        SceneManager.LoadScene("Map_" + CurrentMapNum);
     }
 
     public void Revival()
     {
         ResumeGame();
-        player.GetComponent<PlayerController>().Revival();
-        isFirstPlay = false;
+        Player.GetComponent<PlayerController>().Revival();
+        IsFirstPlay = false;
     }
 }

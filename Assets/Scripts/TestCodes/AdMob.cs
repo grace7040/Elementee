@@ -60,7 +60,7 @@ public class AdMob : MonoBehaviour
                 GameManager.Instance.Revival();
                 break;
             case AdType.ReDraw:
-                ColorManager.Instance.StartDrawing(GameManager.Instance.playerColor);
+                ColorManager.Instance.StartDrawing(GameManager.Instance.PlayerColor);
                 break;
         }
         

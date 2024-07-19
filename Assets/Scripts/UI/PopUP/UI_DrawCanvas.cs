@@ -28,7 +28,7 @@ public class UI_DrawCanvas : UI_Popup
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        color = GameManager.Instance.playerColor;
+        color = GameManager.Instance.PlayerColor;
         Init();
     }
 
@@ -79,7 +79,7 @@ public class UI_DrawCanvas : UI_Popup
         }
 
         // 무기 플레이어에게 적용
-        ColorManager.Instance.SetOnPlayer(GameManager.Instance.playerColor);
+        ColorManager.Instance.SetOnPlayer(GameManager.Instance.PlayerColor);
 
     }
 

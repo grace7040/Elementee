@@ -30,8 +30,6 @@ public class UI_Palette : UI_Popup
         ReDrawBtn,
 
     }
-
-
     enum Images
     {
         ColorImg,
@@ -62,10 +60,10 @@ public class UI_Palette : UI_Popup
         canvasImg = GetImage((int)Images.ColorImg).gameObject.GetComponent<Image>();
         redrawImg = GetButton((int)Buttons.ReDrawBtn).gameObject.GetComponent<Image>();
 
-        if (GameManager.Instance.playerColor == Colors.Default)
+        if (GameManager.Instance.PlayerColor == Colors.Default)
             GetButton((int)Buttons.ReDrawBtn).interactable = false;
         else
-            redrawImg.color = ColorManager.Instance.GetColor(GameManager.Instance.playerColor);
+            redrawImg.color = ColorManager.Instance.GetColor(GameManager.Instance.PlayerColor);
     }
 
 
@@ -196,7 +194,7 @@ public class UI_Palette : UI_Popup
     public void ReDrawBtnClicked(PointerEventData data)
     {
         GetComponent<AdMob>().ShowAds();
-        Managers.UI.ClosePopupUI();
+        UIManager.Instance.ClosePopupUI();
         //ColorManager.Instance.StartDrawing(currentColor);
         //GameManager.Instance.ReDrawItemColor = Colors.def;
     }

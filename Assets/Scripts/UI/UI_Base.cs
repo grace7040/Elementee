@@ -16,18 +16,14 @@ public abstract class UI_Base : MonoBehaviour
     {
         string[] names = Enum.GetNames(type);
         UnityEngine.Object[] objects = new UnityEngine.Object[names.Length];
-        _objects.Add(typeof(T), objects); // Dictionary 에 추가
+        _objects.Add(typeof(T), objects);
 
-        // T 에 속하는 오브젝트들을 Dictionary의 Value인 objects 배열의 원소들에 하나하나 추가
         for (int i = 0; i < names.Length; i++)
         {
             if (typeof(T) == typeof(GameObject))
                 objects[i] = Util.FindChild(gameObject, names[i], true);
             else
                 objects[i] = Util.FindChild<T>(gameObject, names[i], true);
-
-            //if (objects[i] == null)
-            //    Debug.Log($"Failed to bind({names[i]})");
         }
     }
 
@@ -40,19 +36,19 @@ public abstract class UI_Base : MonoBehaviour
         switch (type)
         {
             case Define.UIEvent.Click:
-                evt.OnClickHandler -= action; // 혹시나 이미 있을까봐 빼줌
+                evt.OnClickHandler -= action;
                 evt.OnClickHandler += action;
                 break;
             case Define.UIEvent.Drag:
-                evt.OnDragHandler -= action; // 혹시나 이미 있을까봐 빼줌
+                evt.OnDragHandler -= action;
                 evt.OnDragHandler += action;
                 break;
             case Define.UIEvent.DownClick:
-                evt.OnDownHandler -= action; // 혹시나 이미 있을까봐 빼줌
+                evt.OnDownHandler -= action;
                 evt.OnDownHandler += action;
                 break;
             case Define.UIEvent.UpClick:
-                evt.OnUPHandler -= action; // 혹시나 이미 있을까봐 빼줌
+                evt.OnUPHandler -= action;
                 evt.OnUPHandler += action;
                 break;
 
@@ -69,10 +65,10 @@ public abstract class UI_Base : MonoBehaviour
         return objects[idx] as T;
     }
 
-    protected GameObject GetObject(int idx) { return Get<GameObject>(idx); } // 오브젝트로서 가져오기
-    protected Text GetText(int idx) { return Get<Text>(idx); } // Text로서 가져오기
-    protected Button GetButton(int idx) { return Get<Button>(idx); } // Button로서 가져오기
-    protected Image GetImage(int idx) { return Get<Image>(idx); } // Image로서 가져오기
+    protected GameObject GetObject(int idx) { return Get<GameObject>(idx); }
+    protected Text GetText(int idx) { return Get<Text>(idx); }
+    protected Button GetButton(int idx) { return Get<Button>(idx); }
+    protected Image GetImage(int idx) { return Get<Image>(idx); }
 
     public static void AddUIEvent(GameObject go, Action<PointerEventData> action, Define.UIEvent type = Define.UIEvent.Click)
 
@@ -90,11 +86,11 @@ public abstract class UI_Base : MonoBehaviour
                 evt.OnDragHandler += action;
                 break;
             case Define.UIEvent.DownClick:
-                evt.OnDownHandler -= action; // 혹시나 이미 있을까봐 빼줌
+                evt.OnDownHandler -= action; 
                 evt.OnDownHandler += action;
                 break;
             case Define.UIEvent.UpClick:
-                evt.OnUPHandler -= action; // 혹시나 이미 있을까봐 빼줌
+                evt.OnUPHandler -= action; 
                 evt.OnUPHandler += action;
                 break;
 

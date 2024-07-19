@@ -2,13 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIManager
+public class UIManager : Singleton<UIManager>
 {
     int _order = 10;
 
     Stack<UI_Popup> _popupStack = new Stack<UI_Popup>();
     UI_Scene _sceneUI = null;
-
 
 
     public GameObject Root
@@ -28,14 +27,14 @@ public class UIManager
         if(go.name != "UI_Game" && go.name != "UI_Custom")
         {
             canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-            canvas.overrideSorting = true; // 캔버스 안에 캔버스 중첩 경우 (부모 캔버스가 어떤 값을 가지던 나는 내 오더값을 가지려 할때)
+            canvas.overrideSorting = true;
 
             if (sort)
             {
                 canvas.sortingOrder = _order;
                 _order++;
             }
-            else // soring 요청 X 라는 소리는 팝업이 아닌 일반 고정 UI
+            else
             {
                 canvas.sortingOrder = 0;
             }
@@ -49,7 +48,7 @@ public class UIManager
         if (string.IsNullOrEmpty(name))
             name = typeof(T).Name;
 
-        GameObject go = Managers.Resource.Instantiate($"UI/Scene/{name}");
+        GameObject go = ResourceManager.Instance.Instantiate($"UI/Scene/{name}");
         T sceneUI = Util.GetOrAddComponent<T>(go);
         _sceneUI = sceneUI;
 
@@ -60,10 +59,10 @@ public class UIManager
 
     public T ShowPopupUI<T>(string name = null) where T : UI_Popup
     {
-        if (string.IsNullOrEmpty(name)) // 이름을 안받았다면 T로 ㄱㄱ
+        if (string.IsNullOrEmpty(name))
             name = typeof(T).Name;
 
-        GameObject go = Managers.Resource.Instantiate($"UI/Popup/{name}");
+        GameObject go = ResourceManager.Instance.Instantiate($"UI/Popup/{name}");
         T popup = Util.GetOrAddComponent<T>(go);
         _popupStack.Push(popup);
 
@@ -91,7 +90,7 @@ public class UIManager
             return;
 
         UI_Popup popup = _popupStack.Pop();
-        Managers.Resource.Destroy(popup.gameObject);
+        ResourceManager.Instance.Destroy(popup.gameObject);
         popup = null;
 
         _order--;

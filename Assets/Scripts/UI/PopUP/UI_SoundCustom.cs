@@ -9,16 +9,15 @@ using UnityEngine.SceneManagement;
 
 public class UI_SoundCustom : UI_Popup
 {
-    public int recordTime = 1;
-    public Sprite[] sprites;
-    public SoundObjects currentObject;
-    public AudioClip test;
-    public GameObject blockImage;
+    public int RecordTime = 1;
+    public Sprite[] Sprites;
+    public SoundObjects CurrentObject;
+    public GameObject BlockImage;
 
-    public GameObject recordAnim;
+    public GameObject RecordAnim;
 
-    AudioClip record;
-    AudioSource aud;
+    AudioClip _record;
+    AudioSource _aud;
 
     
 
@@ -41,7 +40,6 @@ public class UI_SoundCustom : UI_Popup
 
     enum Buttons
     {
-        // 사운드 오브젝트들
         Red,
         Yellow,
         Blue,
@@ -53,8 +51,7 @@ public class UI_SoundCustom : UI_Popup
         Dash,
         Dead,
         Hurt,
-
-        // 나머지
+      
         Save,
         Record,
         Pause,
@@ -75,19 +72,18 @@ public class UI_SoundCustom : UI_Popup
     private void Start()
     {
         Init();
-        aud = GetComponent<AudioSource>();
+        _aud = GetComponent<AudioSource>();
 
     }
 
 
     public override void Init()
     {
-        base.Init(); // 📜UI_Button 의 부모인 📜UI_PopUp 의 Init() 호출
+        base.Init();
 
         Bind<Button>(typeof(Buttons));
         Bind<Image>(typeof(Images));
 
-        // 사운드 오브젝트들
         GetButton((int)Buttons.Red).gameObject.BindEvent(Red);
         GetButton((int)Buttons.Yellow).gameObject.BindEvent(Yellow);
         GetButton((int)Buttons.Blue).gameObject.BindEvent(Blue);
@@ -111,31 +107,28 @@ public class UI_SoundCustom : UI_Popup
 
     }
 
-
-    // 현재 상태 & 미리보기 이미지 업데이트
     public void SetSoundObject(SoundObjects obj)
     {
-        currentObject = obj;
-        GetImage((int)Images.Image).sprite = sprites[(int)currentObject];
+        CurrentObject = obj;
+        GetImage((int)Images.Image).sprite = Sprites[(int)CurrentObject];
     }
 
     public void PauseBtnClicked(PointerEventData data)
     {
-        aud.Pause();
+        _aud.Pause();
     }
 
     public void RecordBtnClicked(PointerEventData data)
     {
       
-        if (currentObject != SoundObjects.def)
+        if (CurrentObject != SoundObjects.def)
         {
-            //  recordAnim.Play();
-            recordAnim.GetComponent<Animator>().Play("Record", -1, 0f);
+            RecordAnim.GetComponent<Animator>().Play("Record", -1, 0f);
 
-            record = Microphone.Start(Microphone.devices[0].ToString(), false, recordTime, 44100);
-            aud.clip = record;
-            blockImage.SetActive(true);
-            Invoke("OffBlockImg", recordTime);
+            _record = Microphone.Start(Microphone.devices[0].ToString(), false, RecordTime, 44100);
+            _aud.clip = _record;
+            BlockImage.SetActive(true);
+            Invoke("OffBlockImg", RecordTime);
         }
 
 
@@ -143,48 +136,45 @@ public class UI_SoundCustom : UI_Popup
 
     public void DafaultBtnClicked(PointerEventData data)
     {
-        string name = Enum.GetName(typeof(SoundObjects), currentObject);
-        // Dafault 음성으로 바꾸기
-        AudioManager.Instacne.SetSFX(name, AudioManager.Instacne.default_sfx[(int)currentObject-1].clip);
-        aud.clip = AudioManager.Instacne.default_sfx[(int)currentObject - 1].clip;
+        string name = Enum.GetName(typeof(SoundObjects), CurrentObject);
+        AudioManager.Instacne.SetSFX(name, AudioManager.Instacne.default_sfx[(int)CurrentObject-1].clip);
+        _aud.clip = AudioManager.Instacne.default_sfx[(int)CurrentObject - 1].clip;
     }
 
 
     public void PlayBtnClicked(PointerEventData data)
     {
-        if (currentObject != SoundObjects.def)
+        if (CurrentObject != SoundObjects.def)
         {
-            if (aud.clip == null)
+            if (_aud.clip == null)
             {
-                aud.clip = AudioManager.Instacne.sfx[(int)currentObject - 1].clip;
+                _aud.clip = AudioManager.Instacne.sfx[(int)CurrentObject - 1].clip;
             }
 
-            aud.Play();
+            _aud.Play();
             
         }
     }
 
     public void OffBlockImg()
     {
-        blockImage.SetActive(false);
+        BlockImage.SetActive(false);
     }
 
 
     public void BackBtnClicked(PointerEventData data)
     {
-        Managers.UI.ClosePopupUI();
+        UIManager.Instance.ClosePopupUI();
         AudioManager.Instacne.SaveAudios();
     }
 
     public void SaveClip(PointerEventData data)
     {
-        string name = Enum.GetName(typeof(SoundObjects), currentObject);
+        string name = Enum.GetName(typeof(SoundObjects), CurrentObject);
 
-        if(currentObject != SoundObjects.def)
+        if(CurrentObject != SoundObjects.def)
         {
-            AudioManager.Instacne.SetSFX(name, aud.clip);
-            //SavWav.Save("C:/Users/user/wkspaces/Elementee/Assets/Cherry/Records/" + name, aud.clip);
-            //AudioManager에 저장
+            AudioManager.Instacne.SetSFX(name, _aud.clip);
         }
 
     }
@@ -244,18 +234,6 @@ public class UI_SoundCustom : UI_Popup
     {
         SetSoundObject(SoundObjects.Dead);
     }
-
-
-
-    public void SceneJump(PointerEventData data)
-    {
-        //ClosePopupUI();
-        //SceneManager.LoadScene(2);
-        GameManager.Instance.RetryGame();
-
-    }
-
-
 
 
 }

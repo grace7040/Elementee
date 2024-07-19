@@ -27,7 +27,7 @@ public class DataManager : Singleton<DataManager>
 
         if (!File.Exists(path))
         {
-            GameManager.Instance.mapBest = 0;
+            GameManager.Instance.MapBest = 0;
             JsonSave();
         }
         else
@@ -39,11 +39,11 @@ public class DataManager : Singleton<DataManager>
             {
                 for (int i = 0; i < saveData.mapStar.Count; i++)
                 {
-                    GameManager.Instance.mapStar.Add(saveData.mapStar[i]);
+                    GameManager.Instance.MapStar.Add(saveData.mapStar[i]);
                     //GameManager.Instance.mapFlag.Add(saveData.mapFlag[i]);
                 }
-                GameManager.Instance.mapBest = saveData.mapBest;
-                GameManager.Instance.totalCoin = saveData.Coin;
+                GameManager.Instance.MapBest = saveData.mapBest;
+                GameManager.Instance.TotalCoin = saveData.Coin;
             }
         }
     }
@@ -55,13 +55,13 @@ public class DataManager : Singleton<DataManager>
         SaveData saveData = new SaveData();
 
         // Data Load
-        for (int i = 0; i < GameManager.Instance.mapStar.Count; i++)
+        for (int i = 0; i < GameManager.Instance.MapStar.Count; i++)
         {
-            saveData.mapStar.Add(GameManager.Instance.mapStar[i]);
+            saveData.mapStar.Add(GameManager.Instance.MapStar[i]);
             //saveData.mapFlag.Add(GameManager.Instance.mapFlag[i]);
         }
-        saveData.mapBest = GameManager.Instance.mapBest;
-        saveData.Coin = GameManager.Instance.totalCoin;
+        saveData.mapBest = GameManager.Instance.MapBest;
+        saveData.Coin = GameManager.Instance.TotalCoin;
 
         // Data Save
         string json = JsonUtility.ToJson(saveData, true);

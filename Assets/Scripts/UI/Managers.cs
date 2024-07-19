@@ -4,41 +4,41 @@ using UnityEngine;
 
 public class Managers : MonoBehaviour
 {
-    static Managers s_instace;
-    static Managers Instance { get { Init(); return s_instace; } }
+    //static Managers s_instace;
+    //static Managers Instance { get { Init(); return s_instace; } }
 
 
-    ResourceManager _resource = new ResourceManager();
+    //ResourceManager _resource = new ResourceManager();
 
-    public static ResourceManager Resource { get { return Instance._resource; } }
-
-
-    UIManager _ui = new UIManager();
-    public static UIManager UI { get { return Instance._ui; } }
+    //public static ResourceManager Resource { get { return Instance._resource; } }
 
 
-    void Start()
-    {
-        Init();
-    }
+    //UIManager _ui = new UIManager();
+    //public static UIManager UI { get { return Instance._ui; } }
 
-    void Update()
-    {
-    }
 
-    static void Init()
-    {
-        if (s_instace == null)
-        {
-            GameObject obj = GameObject.Find("@Managers");
-            if (obj == null)
-            {
-                obj = new GameObject { name = "@Managers" };
-                obj.AddComponent<Managers>();
-            }
+    //void Start()
+    //{
+    //    Init();
+    //}
 
-            DontDestroyOnLoad(obj);
-            s_instace = obj.GetComponent<Managers>();
-        }
-    }
+    //void Update()
+    //{
+    //}
+
+    //static void Init()
+    //{
+    //    if (s_instace == null)
+    //    {
+    //        GameObject obj = GameObject.Find("@Managers");
+    //        if (obj == null)
+    //        {
+    //            obj = new GameObject { name = "@Managers" };
+    //            obj.AddComponent<Managers>();
+    //        }
+
+    //        DontDestroyOnLoad(obj);
+    //        s_instace = obj.GetComponent<Managers>();
+    //    }
+    //}
 }

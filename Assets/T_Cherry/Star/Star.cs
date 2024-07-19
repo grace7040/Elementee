@@ -43,7 +43,8 @@ public class Star : MonoBehaviour
             // ¿Ã∆Â∆Æ ≥÷±‚
             var effect = ObjectPoolManager.Instance.GetGo("Star");
             effect.transform.position = this.transform.position;
-            GameManager.Instance.StarCount();
+            GameManager.Instance.CurrentStar++;
+            GameManager.Instance.UIGame.UpdateStarUI();
             AudioManager.Instacne.PlaySFX("Star");
             Destroy(this.gameObject);
         }

@@ -120,7 +120,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        GameManager.Instance.player = this.gameObject;
+        GameManager.Instance.Player = this.gameObject;
     }
 
     private void Start()
@@ -420,6 +420,9 @@ public class PlayerController : MonoBehaviour
             _rigidbody.velocity = Vector2.zero;
             _rigidbody.AddForce(damageDir * _knockBackForce);
 
+            //UI Update
+            GameManager.Instance.UIGame.UpdateHPBar(CurrentHealth,maxHealth);
+
             if (CurrentHealth <= 0)
             {
                 Die();
@@ -443,6 +446,10 @@ public class PlayerController : MonoBehaviour
 
         HealEffect.SetActive(true);
         this.CallOnDelay(1f, () => { HealEffect.SetActive(false); });
+
+        //UI Update
+        GameManager.Instance.UIGame.UpdateHPBar(CurrentHealth, maxHealth);
+
     }
 
     public void HealByFountain(int health)
@@ -538,7 +545,7 @@ public class PlayerController : MonoBehaviour
         canMove = true;
         _canGetDamage = true;
         CurrentHealth = maxHealth;
-        Managers.UI.ClosePopupUI();
+        UIManager.Instance.ClosePopupUI();
     }
 
 

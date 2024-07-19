@@ -29,11 +29,10 @@ public class UI_GameOver : UI_Popup
         Bind<Button>(typeof(Buttons));
         GetButton((int)Buttons.ToMainBtn).gameObject.BindEvent(ToMainBtnClicked);
         GetButton((int)Buttons.RetryBtn).gameObject.BindEvent(OnRetryBtnClicked);
-        if (GameManager.Instance.isFirstPlay)
+        if (GameManager.Instance.IsFirstPlay)
         {
             GetButton((int)Buttons.RevivalBtn).gameObject.BindEvent(RevivalBtnClicked);
             GetButton((int)Buttons.RevivalBtn).interactable = true;
-            //버튼 활성화
         }
         adMob = GetComponent<AdMob>();
     }
@@ -41,7 +40,7 @@ public class UI_GameOver : UI_Popup
     public void RevivalBtnClicked(PointerEventData data)
     {
         adMob.ShowAds();
-        Managers.UI.ClosePopupUI();
+        UIManager.Instance.ClosePopupUI();
         // 광고 + 부활하는거 여기에~
     }
 
