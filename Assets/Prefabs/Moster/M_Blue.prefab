@@ -71,8 +71,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.43362617, y: -0.5983901}
-  m_Size: {x: 9.731998, y: 12.878323}
+  m_Offset: {x: -0.43362617, y: -0.23803234}
+  m_Size: {x: 9.731998, y: 12.157607}
   m_Direction: 0
 --- !u!114 &2798503389904488893
 MonoBehaviour:
@@ -109,11 +109,14 @@ MonoBehaviour:
   AttackRange: 0
   IsDie: 0
   Damage: 0
+  CurrentWaypoint: {x: 0, y: 0, z: 0}
   DistanceY: 0
   Animator: {fileID: 3674333060654053272}
   FlipQuaternion: {x: 0, y: 1, z: 0, w: -0.00000004371139}
   MonsterBody: {fileID: 4018037361947101270}
   IsFlip: 0
+  CanFlip: 1
+  MoveDirection: {x: 0, y: 0}
 --- !u!1 &5702889233746038203
 GameObject:
   m_ObjectHideFlags: 0
