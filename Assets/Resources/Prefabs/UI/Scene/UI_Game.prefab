@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a66af2517fd0b62408ddf93305e1835b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 62eaabe78f95ba840bcb57c1391fffc5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -956,7 +956,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 47.299988, y: 33.900013}
+  m_AnchoredPosition: {x: 47.299988, y: 33.90001}
   m_SizeDelta: {x: 55, y: 55}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1556100581
@@ -2043,8 +2043,8 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
-  m_SortingLayerID: 0
-  m_SortingOrder: 10
+  m_SortingLayerID: 1541808557
+  m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &2981682265872985594
 MonoBehaviour:
@@ -2103,8 +2103,8 @@ MonoBehaviour:
   - {fileID: 2660588872087031819}
   - {fileID: 6342409839115116983}
   - {fileID: 7249751437773855737}
-  hpBarMAX: 800
-  joystick: {fileID: 3881087803990928844}
+  HpBarMAX: 0
+  Joystick: {fileID: 0}
 --- !u!1 &2981682266301111492
 GameObject:
   m_ObjectHideFlags: 0
