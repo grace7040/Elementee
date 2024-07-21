@@ -254,57 +254,37 @@ public class PlayerController : MonoBehaviour
     public void Move(float move, bool jump, bool dash)
     {
         if (isDie) return;
+
         if (canMove)
         {
             if (dash && canDash && !isWallSliding)
             {
-                //m_Rigidbody2D.AddForce(new Vector2(transform.localScale.x * m_DashForce, 0f));
                 StartCoroutine(DashCooldown());
             }
+
             // If crouching, check to see if the character can stand up
             if (isDashing)
             {
                 _rigidbody.velocity = new Vector2(transform.localScale.x * _dashForce, 0);
             }
-            //only control the player if grounded or airControl is turned on
+
+            // NomalMove & Flip
             else if (m_Grounded || _canControlWhileJump)
             {
-                if (_rigidbody.velocity.y < -limitFallSpeed)
-                    _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, -limitFallSpeed);
-                
-                Vector2 targetVelocity = new Vector2(move * _moveSpeed, _rigidbody.velocity.y);
-                _rigidbody.velocity += (targetVelocity - _rigidbody.velocity) * m_Acceleration * Time.fixedDeltaTime;
-
-
-                // If the input is moving the player right and the player is facing left...
-                if (move > 0 && !m_FacingRight && !isWallSliding)
-                {
-                    Flip();
-                }
-                // Otherwise if the input is moving the player left and the player is facing right...
-                else if (move < 0 && m_FacingRight && !isWallSliding)
-                {
-                    Flip();
-                }
+                NomalMove(move);
             }
+
             // Jump
-            if (m_Grounded && jump)
+            if(jump)
             {
-                _animator.SetBool("IsJumping", true);
-                _animator.SetBool("JumpUp", true);
-                m_Grounded = false;
-                _rigidbody.velocity = Vector2.zero;
-                _rigidbody.AddForce(new Vector2(0f, jumpForce));
-                canDoubleJump = true;
-                ParticleJumpDown.Play();
-                ParticleJumpUp.Play();
-            }
-            else if (!m_Grounded && jump && canDoubleJump && !isWallSliding)
-            {
-                canDoubleJump = false;
-                _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, 0);
-                _rigidbody.AddForce(new Vector2(0f, jumpForce / 1.2f));
-                _animator.SetBool("IsDoubleJumping", true);
+                if (m_Grounded)
+                {
+                    Jump();
+                }
+                else if(canDoubleJump && !isWallSliding)
+                {
+                    DoubleJump();
+                }
             }
 
             //Wall Sliding
@@ -369,6 +349,46 @@ public class PlayerController : MonoBehaviour
             }
 
         }
+    }
+
+    private void NomalMove(float move)
+    {
+        if (_rigidbody.velocity.y < -limitFallSpeed)
+            _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, -limitFallSpeed);
+
+        Vector2 targetVelocity = new Vector2(move * _moveSpeed, _rigidbody.velocity.y);
+        _rigidbody.velocity += (targetVelocity - _rigidbody.velocity) * m_Acceleration * Time.fixedDeltaTime;
+
+
+        // If the input is moving the player right and the player is facing left...
+        if (move > 0 && !m_FacingRight && !isWallSliding)
+        {
+            Flip();
+        }
+        // Otherwise if the input is moving the player left and the player is facing right...
+        else if (move < 0 && m_FacingRight && !isWallSliding)
+        {
+            Flip();
+        }
+    }
+
+    private void Jump()
+    {
+        _animator.SetBool("IsJumping", true);
+        _animator.SetBool("JumpUp", true);
+        m_Grounded = false;
+        _rigidbody.velocity = Vector2.zero;
+        _rigidbody.AddForce(new Vector2(0f, jumpForce));
+        canDoubleJump = true;
+        ParticleJumpDown.Play();
+        ParticleJumpUp.Play();
+    }
+    private void DoubleJump()
+    {
+        canDoubleJump = false;
+        _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, 0);
+        _rigidbody.AddForce(new Vector2(0f, jumpForce / 1.2f));
+        _animator.SetBool("IsDoubleJumping", true);
     }
 
     IEnumerator DashCooldown()
