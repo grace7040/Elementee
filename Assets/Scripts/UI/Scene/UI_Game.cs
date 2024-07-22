@@ -91,7 +91,7 @@ public class UI_Game : UI_Scene
 
     public void UpdateCoinUI()
     {
-        Coin.text = GameManager.Instance.MapCoin.ToString();
+        Coin.text = GameManager.Instance.CurrentCoin.ToString();
     }
 
     public void UpdateStarUI()

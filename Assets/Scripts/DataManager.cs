@@ -9,7 +9,7 @@ public class SaveData // 저장할 데이터
     public List<int> mapStar = new List<int>();
     //public List<int> mapFlag = new List<int>();
     public int mapBest;
-    public int Coin;
+    public int TotalCoin;
 }
 
 public class DataManager : Singleton<DataManager>
@@ -43,7 +43,7 @@ public class DataManager : Singleton<DataManager>
                     //GameManager.Instance.mapFlag.Add(saveData.mapFlag[i]);
                 }
                 GameManager.Instance.MapBest = saveData.mapBest;
-                GameManager.Instance.TotalCoin = saveData.Coin;
+                GameManager.Instance.TotalCoin = saveData.TotalCoin;
             }
         }
     }
@@ -61,7 +61,7 @@ public class DataManager : Singleton<DataManager>
             //saveData.mapFlag.Add(GameManager.Instance.mapFlag[i]);
         }
         saveData.mapBest = GameManager.Instance.MapBest;
-        saveData.Coin = GameManager.Instance.TotalCoin;
+        saveData.TotalCoin = GameManager.Instance.TotalCoin;
 
         // Data Save
         string json = JsonUtility.ToJson(saveData, true);
@@ -74,7 +74,7 @@ public class DataManager : Singleton<DataManager>
 
         SaveData saveData = new SaveData();
         saveData.mapBest = 0;
-        saveData.Coin = 0;
+        saveData.TotalCoin = 0;
 
         string json = JsonUtility.ToJson(saveData, true);
         File.WriteAllText(path, json);

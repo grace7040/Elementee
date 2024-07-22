@@ -9,7 +9,7 @@ public class Coin : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            GameManager.Instance.MapCoin++;
+            GameManager.Instance.CurrentCoin++;
             GameManager.Instance.UIGame.UpdateCoinUI();
 
             AudioManager.Instacne.PlaySFX("Star");

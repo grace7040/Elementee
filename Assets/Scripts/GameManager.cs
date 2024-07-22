@@ -11,8 +11,9 @@ public class GameManager : Singleton<GameManager>
     // JSON 저장될 Data
     public List<int> MapStar = new List<int>();
     public int MapBest;
-    public int MapCoin = 0;
+    public int TotalCoin;
 
+    public int CurrentCoin = 0;
     public int CurrentMapNum = 0;
     public int CurrentStar = 0;
     public GameObject CurrentPotal;
@@ -30,7 +31,6 @@ public class GameManager : Singleton<GameManager>
     //public Del SetJoystick = null;
 
     [Header("Item")]
-    public int TotalCoin;
     public Colors ReDrawItemColor = Colors.Default;
 
     private void Awake()
@@ -69,7 +69,7 @@ public class GameManager : Singleton<GameManager>
 
     public void InitGame()
     {
-        MapCoin = 0;
+        CurrentCoin = 0;
         IsFirstPlay = true;
 
     }
@@ -82,14 +82,15 @@ public class GameManager : Singleton<GameManager>
 
     public void GameWin()
     {
+        UIManager.Instance.ShowPopupUI<UI_GameWin>();
+
         Time.timeScale = 0;
-        TotalCoin += MapCoin;
+        TotalCoin += CurrentCoin;
 
         // Data Save
         if (MapBest <= CurrentMapNum)
         {
             MapStar.Add(CurrentStar);
-            //mapFlag.Add(0);
             MapBest += 1;
         }
         else
@@ -101,7 +102,8 @@ public class GameManager : Singleton<GameManager>
         }
         DataManager.Instance.JsonSave();
 
-        UIManager.Instance.ShowPopupUI<UI_GameWin>();
+        CurrentStar = 0;
+        CurrentCoin = 0;
     }
 
     public void GoToMainMenu()
