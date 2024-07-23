@@ -274,16 +274,33 @@ public class PlayerController : MonoBehaviour
         }
 
         // Jump
-        if (jump)
+        //if (m_Grounded && jump)
+        //{
+        //    _animator.SetBool("IsJumping", true);
+        //    _animator.SetBool("JumpUp", true);
+        //    m_Grounded = false;
+        //    _rigidbody.velocity = Vector2.zero;
+        //    _rigidbody.AddForce(new Vector2(0f, jumpForce));
+        //    canDoubleJump = true;
+        //    ParticleJumpDown.Play();
+        //    ParticleJumpUp.Play();
+        //}
+        //else if (!m_Grounded && jump && canDoubleJump && !isWallSliding)
+        //{
+        //    canDoubleJump = false;
+        //    _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, 0);
+        //    _rigidbody.AddForce(new Vector2(0f, jumpForce / 1.2f));
+        //    _animator.SetBool("IsDoubleJumping", true);
+        //}
+
+
+        if (m_Grounded && jump)
         {
-            if (m_Grounded)
-            {
-                Jump();
-            }
-            else if (canDoubleJump && !isWallSliding)
-            {
-                DoubleJump();
-            }
+            Jump();
+        }
+        else if(!m_Grounded && jump && canDoubleJump && !isWallSliding)
+        {
+            DoubleJump();
         }
 
         //Wall Sliding
