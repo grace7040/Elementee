@@ -1418,15 +1418,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1192423666463287993, guid: 15d6aa959d7ee4249b310254ceaf1ef5, type: 3}
       propertyPath: m_Color.b
-      value: 0.6392157
+      value: 0.67058825
       objectReference: {fileID: 0}
     - target: {fileID: 1192423666463287993, guid: 15d6aa959d7ee4249b310254ceaf1ef5, type: 3}
       propertyPath: m_Color.g
-      value: 0.6784314
+      value: 0.5686275
       objectReference: {fileID: 0}
     - target: {fileID: 1192423666463287993, guid: 15d6aa959d7ee4249b310254ceaf1ef5, type: 3}
       propertyPath: m_Color.r
-      value: 0.6313726
+      value: 0.5411765
       objectReference: {fileID: 0}
     - target: {fileID: 1192423666463288006, guid: 15d6aa959d7ee4249b310254ceaf1ef5, type: 3}
       propertyPath: m_RootOrder
@@ -1723,6 +1723,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1640248988}
     m_Modifications:
+    - target: {fileID: 759505838, guid: 2b51b8382950cc84091fce7cee92da38, type: 3}
+      propertyPath: maxX
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5707533609098252435, guid: 2b51b8382950cc84091fce7cee92da38, type: 3}
       propertyPath: m_Name
       value: Rotating_Ground (2)
@@ -1770,6 +1774,10 @@ PrefabInstance:
     - target: {fileID: 5966231225539295462, guid: 2b51b8382950cc84091fce7cee92da38, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8569991380130779006, guid: 2b51b8382950cc84091fce7cee92da38, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b51b8382950cc84091fce7cee92da38, type: 3}
@@ -2733,7 +2741,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4270087438868149879, guid: 6b68cc37e1d22e94f986c47ac3c3800f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 29.03489
+      value: 30.04
       objectReference: {fileID: 0}
     - target: {fileID: 4270087438868149879, guid: 6b68cc37e1d22e94f986c47ac3c3800f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -5362,7 +5370,7 @@ SpriteRenderer:
   m_SortingLayer: -3
   m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: 5b063d88f19a6ac4d98f4cfb681533c6, type: 3}
-  m_Color: {r: 0.6313726, g: 0.6784314, b: 0.6392157, a: 1}
+  m_Color: {r: 0.5411765, g: 0.5686275, b: 0.67058825, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -5898,15 +5906,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 780467492374817247, guid: 6d96012d5b2149d4aba36c2ca34b4d3b, type: 3}
       propertyPath: m_Color.b
-      value: 0.67058825
+      value: 0.6392157
       objectReference: {fileID: 0}
     - target: {fileID: 780467492374817247, guid: 6d96012d5b2149d4aba36c2ca34b4d3b, type: 3}
       propertyPath: m_Color.g
-      value: 0.5663183
+      value: 0.6784314
       objectReference: {fileID: 0}
     - target: {fileID: 780467492374817247, guid: 6d96012d5b2149d4aba36c2ca34b4d3b, type: 3}
       propertyPath: m_Color.r
-      value: 0.5411765
+      value: 0.6313726
       objectReference: {fileID: 0}
     - target: {fileID: 1553575775692391405, guid: 6d96012d5b2149d4aba36c2ca34b4d3b, type: 3}
       propertyPath: m_RootOrder
