@@ -50,13 +50,13 @@ public class MonsterController : MonoBehaviour
     // Cooltime
     protected bool canTakeDamage_RangeAttack = true;
 
-    protected Vector3 leftWaypoint;
-    protected Vector3 rightWaypoint;
+    protected Vector3 leftEndPoint;
+    protected Vector3 rightEndPoint;
 
     [HideInInspector]
-    public Vector3 CurrentWaypoint;
+    public Vector3 CurrentEndpoint;
 
-    protected float waypointDirection;
+    protected float EndpointDirection;
     protected float distanceX;
 
     [HideInInspector]
@@ -126,8 +126,8 @@ public class MonsterController : MonoBehaviour
         ignoreLayers = LayerMask.GetMask("Monster", "Player", "TransparentFX", "Coins");
 
         // waypoint 초기화
-        SetWaypoints();    
-        CurrentWaypoint = leftWaypoint;
+        SetEndpoints();    
+        CurrentEndpoint = leftEndPoint;
 
         // 체력바
         hpBar = transform.Find("HPBar").GetChild(1).gameObject.GetComponent<Image>();
@@ -147,8 +147,8 @@ public class MonsterController : MonoBehaviour
 
         if (stateMachine.CurrentState is IdleState)
         {
-            waypointDirection = CurrentWaypoint.x - transform.position.x;
-            IsFlip = waypointDirection < 0f;
+            EndpointDirection = CurrentEndpoint.x - transform.position.x;
+            IsFlip = EndpointDirection < 0f;
             MonsterBody.rotation = IsFlip ? Quaternion.identity : FlipQuaternion;
         }
 
@@ -161,20 +161,20 @@ public class MonsterController : MonoBehaviour
 
         if (timer >= interval)
         {
-            SetWaypoints();
+            SetEndpoints();
             timer = 0.0f;
         }
 
-        if (CurrentWaypoint != null && !isKnockedBack)
+        if (CurrentEndpoint != null && !isKnockedBack)
         {
             MoveTowardsWaypoint();
         }
     }
 
-    protected void SetWaypoints()
+    protected void SetEndpoints()
     {
-        leftWaypoint = GetWaypoint(Vector2.left, ignoreLayers);
-        rightWaypoint = GetWaypoint(Vector2.right, ignoreLayers);
+        leftEndPoint = GetWaypoint(Vector2.left, ignoreLayers);
+        rightEndPoint = GetWaypoint(Vector2.right, ignoreLayers);
     }
 
     protected Vector3 GetWaypoint(Vector2 direction, LayerMask ignoreLayers)
@@ -222,13 +222,13 @@ public class MonsterController : MonoBehaviour
             canMove = true;
         }
 
-        MoveDirection = (CurrentWaypoint - transform.position).normalized;
+        MoveDirection = (CurrentEndpoint - transform.position).normalized;
         MoveDirection.y = 0;
         Rb.velocity = MoveDirection * MoveSpeed;
 
         Animator.SetBool("IsWalking", MyColor != Colors.Default);
 
-        if (CheckCliff() || Mathf.Abs(waypointDirection) < 0.2f)
+        if (CheckCliff() || Mathf.Abs(EndpointDirection) < 0.2f)
         {
             SetNextWaypoint();
         }
@@ -263,7 +263,7 @@ public class MonsterController : MonoBehaviour
 
     private void SetNextWaypoint()  
     {
-        CurrentWaypoint = IsFlip ? rightWaypoint : leftWaypoint;
+        CurrentEndpoint = IsFlip ? rightEndPoint : leftEndPoint;
     }
 
     public bool CheckGround()
