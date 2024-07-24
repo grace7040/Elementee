@@ -12,6 +12,9 @@ public class ColorManager : Singleton<ColorManager>
     public Action OnSetColor = null;
     public Action OnSaveColor = null;
     public Action<string, bool> SetPlayerAnimatorBool = null;
+    public Action ShakeCamera = null;
+    public Action<float> OnOrangeAttacked = null;
+    public Action OnYellowAttacked = null;
 
     public bool basicWeapon = false;
 
@@ -22,7 +25,7 @@ public class ColorManager : Singleton<ColorManager>
     [SerializeField]
     private bool hasBlue = false;
     [SerializeField]
-    private bool hasYellow = true;
+    private bool hasYellow = false;
 
     public bool HasRed
     {
@@ -59,15 +62,18 @@ public class ColorManager : Singleton<ColorManager>
         colorList.Add(Colors.Default);
     }
 
-    public void InitPlayer(PlayerController player, Action<string, bool> setAnimBoolAction)
+    public void InitPlayer(PlayerController player, Action<string, bool> setAnimBoolAction, Action shakeCameraAction)
     {
         _player = player;
         SetPlayerAnimatorBool = setAnimBoolAction;
+        ShakeCamera = shakeCameraAction;
     }
 
-    public void InitPlayerAttack(PlayerAttack playerAttack)
+    public void InitPlayerAttack(PlayerAttack playerAttack, Action<float> onOrangeAttackedAction, Action onYellowAttackedAction)
     {
         _playerAttack = playerAttack;
+        OnOrangeAttacked = onOrangeAttackedAction;
+        OnYellowAttacked = onYellowAttackedAction;
     }
     public void ResetColorState()
     {
@@ -134,8 +140,8 @@ public class ColorManager : Singleton<ColorManager>
             case Colors.Yellow:
                 hasYellow = false;
                 _playerAttack.canAttack = false;
-                SetColorState(new YellowColor());
-                _playerAttack.YellowWeaponEffect.SetActive(true);
+                SetColorState(new YellowColor(OnYellowAttacked));
+                _playerAttack.YellowAttackEffect.SetActive(true);
                 break;
             case Colors.Blue:
                 hasBlue = false;
@@ -151,13 +157,13 @@ public class ColorManager : Singleton<ColorManager>
             case Colors.Purple:
                 hasRed = false;
                 hasBlue = false;
-                SetColorState(new PurpleColor(SetPlayerAnimatorBool));
+                SetColorState(new PurpleColor(SetPlayerAnimatorBool, ShakeCamera));
                 _playerAttack.PurpleWeapon.SetActive(true);
                 break;
             case Colors.Orange:
                 hasYellow = false;
                 hasRed = false;
-                SetColorState(new OrangeColor());
+                SetColorState(new OrangeColor(OnOrangeAttacked));
                 break;
             case Colors.Black:
                 hasYellow = false;
@@ -184,7 +190,7 @@ public class ColorManager : Singleton<ColorManager>
     {
         _player.Color = _color;
         _playerAttack.RedWeapon.SetActive(false);
-        _playerAttack.YellowWeaponEffect.SetActive(false);
+        _playerAttack.YellowAttackEffect.SetActive(false);
         _playerAttack.PurpleWeapon.SetActive(false);
         _playerAttack.GreenWeapon.SetActive(false);
         _playerAttack.BlueWeapon.SetActive(false);
@@ -193,7 +199,7 @@ public class ColorManager : Singleton<ColorManager>
     private void OffPlayerWeapon()
     {
         _playerAttack.RedWeapon.SetActive(false);
-        _playerAttack.YellowWeaponEffect.SetActive(false);
+        _playerAttack.YellowAttackEffect.SetActive(false);
         _playerAttack.PurpleWeapon.SetActive(false);
         _playerAttack.GreenWeapon.SetActive(false);
         _playerAttack.BlueWeapon.SetActive(false);

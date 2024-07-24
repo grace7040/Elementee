@@ -23,13 +23,13 @@ public class PlayerController : MonoBehaviour
     }
 
     public Colors myColor = Colors.Default;
-    public GameObject Camera;
+    FollowCamera _followCamera;
 
     [Header("ParticleSystem")]
     public ParticleSystem ParticleJumpUp;
     public ParticleSystem ParticleJumpDown;
     public GameObject HealEffect;
-    public GameObject PurpleAttackEffect;
+    
 
 
     [Header("Player Properties")]
@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour
     SpriteRenderer _spriteRenderer;
 
     [Header("Movement Customizing")]
-    float _moveSpeed = 7f;
+    public float MoveSpeed = 7f;
     float _dashForce = 25f;
     bool _canControlWhileJump = true;
     bool _canWallSliding = false;
@@ -130,8 +130,8 @@ public class PlayerController : MonoBehaviour
         _spriteRenderer = GetComponent<SpriteRenderer>();
 
         CurrentHealth = maxHealth;
-
-        ColorManager.Instance.InitPlayer(this, SetAnimatorBool);
+        _followCamera = FindObjectOfType<FollowCamera>();
+        ColorManager.Instance.InitPlayer(this, SetAnimatorBool, ShakeCamera);
 
         if (OnFallEvent == null)
             OnFallEvent = new UnityEvent();
@@ -373,7 +373,7 @@ public class PlayerController : MonoBehaviour
         if (_rigidbody.velocity.y < -limitFallSpeed)
             _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, -limitFallSpeed);
 
-        Vector2 targetVelocity = new Vector2(move * _moveSpeed, _rigidbody.velocity.y);
+        Vector2 targetVelocity = new Vector2(move * MoveSpeed, _rigidbody.velocity.y);
         _rigidbody.velocity += (targetVelocity - _rigidbody.velocity) * m_Acceleration * Time.fixedDeltaTime;
 
 
@@ -588,17 +588,7 @@ public class PlayerController : MonoBehaviour
 
 
     //Effect
-    public void PurpleAttackEffectOn()
-    {
-        StartCoroutine(Purple_Effect_Set_Active());
-    }
 
-    IEnumerator Purple_Effect_Set_Active()
-    {
-        PurpleAttackEffect.SetActive(true);
-        yield return new WaitForSeconds(0.5f);
-        PurpleAttackEffect.SetActive(false);
-    }
 
     void SetAnimatorBool(string name, bool value)
     {
@@ -674,6 +664,11 @@ public class PlayerController : MonoBehaviour
 
             Enemy.GetComponent<MonsterController>().Die();
         }
+    }
+
+    void ShakeCamera()
+    {
+        _followCamera.ShakeCamera();
     }
 
 }

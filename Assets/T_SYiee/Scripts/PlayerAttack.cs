@@ -13,20 +13,21 @@ public class PlayerAttack : MonoBehaviour
     public GameObject GreenWeapon;
     public GameObject BlueWeapon;
     public GameObject BlackWeapon;
-    public GameObject YellowWeaponEffect;
-    public GameObject OrangeWeaponEffect;
+
+    [Header("AttackEffect")]
+    public GameObject YellowAttackEffect;
+    public GameObject OrangeAttackEffect;
+    public GameObject PurpleAttackEffect;
 
     //Attack
     [HideInInspector] public bool canAttack = true;
 
     private PlayerController playerController;
 
-
-
     private void Start()
     {
         playerController = GetComponent<PlayerController>();
-        ColorManager.Instance.InitPlayerAttack(this);
+        ColorManager.Instance.InitPlayerAttack(this, OnOrangeAttacked, OnYellowAttacked);
     }
 
 
@@ -52,7 +53,7 @@ public class PlayerAttack : MonoBehaviour
         {
             for (int i = 0; i < 4; i++)
             {
-                YellowWeaponEffect.transform.GetChild(i).GetComponent<SpriteRenderer>().sprite = ColorWeapons[(int)Colors.Yellow].sprite;
+                YellowAttackEffect.transform.GetChild(i).GetComponent<SpriteRenderer>().sprite = ColorWeapons[(int)Colors.Yellow].sprite;
             }
         }
     }
@@ -65,9 +66,43 @@ public class PlayerAttack : MonoBehaviour
         {
             for (int i = 0; i < 4; i++)
             {
-                YellowWeaponEffect.transform.GetChild(i).GetComponent<SpriteRenderer>().sprite = ColorWeapons[(int)Colors.Yellow].sprite;
+                YellowAttackEffect.transform.GetChild(i).GetComponent<SpriteRenderer>().sprite = ColorWeapons[(int)Colors.Yellow].sprite;
             }
         }
     }
 
+    public void OnPurpleAttacked()
+    {
+        StartCoroutine(PurpleAttackEffectCo());
+    }
+
+    IEnumerator PurpleAttackEffectCo()
+    {
+        PurpleAttackEffect.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        PurpleAttackEffect.SetActive(false);
+    }
+
+    void OnOrangeAttacked(float durationTime)
+    {
+        gameObject.layer = 10; // layer 변경으로 충돌 처리 막음
+
+        OrangeAttackEffect.SetActive(true);
+
+        var originalMoveSpeed = playerController.MoveSpeed;
+        playerController.MoveSpeed = 20f;
+
+        this.CallOnDelay(durationTime, () =>
+        {
+            OrangeAttackEffect.SetActive(false);
+            gameObject.layer = 3;
+            playerController.MoveSpeed = originalMoveSpeed;
+        });
+    }
+
+    void OnYellowAttacked()
+    {
+        YellowAttackEffect.SetActive(true);
+        YellowAttackEffect.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = ColorWeapons[(int)Colors.Yellow].sprite;
+    }
 }

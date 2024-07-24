@@ -10,20 +10,18 @@ public class PurpleColor : IColorState
     public float CoolTime { get { return 0.7f; } }
 
     public Action<string, bool> SetPlayerAnimatorBool = null;
-    public PurpleColor(Action<string, bool> setPlayerAnimatorBoolAction)
+    public Action ShakeCamera = null;
+    public PurpleColor(Action<string, bool> setPlayerAnimatorBoolAction, Action shakeCamera)
     {
         SetPlayerAnimatorBool = setPlayerAnimatorBoolAction;
+        ShakeCamera = shakeCamera;
     }
 
     //Temporal Setting : Red Color Attack -> Throw obj
     public void Attack(Vector3 playerPosition, float playerLocalScaleX)
     {
-        // :: TODO :: 리팩토링을 위해 잠시 주석하겠습니다. 나중에 수정해야함.
-        //player.GetComponent<PlayerController>().cam.GetComponent<FollowCamera>().ShakeCamera();
-        // :: END ::
-
+        ShakeCamera();
         SetPlayerAnimatorBool("IsPurpleAttacking", true);
         AudioManager.Instacne.PlaySFX("Purple");
-        
     }
 }

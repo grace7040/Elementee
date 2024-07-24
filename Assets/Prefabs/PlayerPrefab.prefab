@@ -162,25 +162,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myColor: 0
-  Camera: {fileID: 0}
   ParticleJumpUp: {fileID: 198584872278178884}
   ParticleJumpDown: {fileID: 198967111524372206}
   HealEffect: {fileID: 393088699325398}
-  PurpleEffect: {fileID: 8410189878276244301}
-  IsAttack: 0
-  coolTime: 0
-  Invincible: 0
-  CanHealOnFountain: 1
   CurrentHealth: 100
+  AttackCoolTime: 0
   FaceSprite: {fileID: 7243554273347533079}
-  m_Rigidbody2D: {fileID: 50738830109512580}
-  animator: {fileID: 95975118031919256}
-  playerSprite: {fileID: 212971026275759962}
-  m_MovementSmoothing: 0.05
-  m_MoveSpeed: 7
-  m_DashForce: 25
-  m_AirControl: 1
-  m_WallSliding: 0
+  MoveSpeed: 7
   m_WhatIsGround:
     serializedVersion: 2
     m_Bits: 309
@@ -262,8 +250,9 @@ MonoBehaviour:
   GreenWeapon: {fileID: 5126789568211997987}
   BlueWeapon: {fileID: 8475338824270332780}
   BlackWeapon: {fileID: 5998208090524668600}
-  YellowWeaponEffect: {fileID: 5593871760870967025}
-  OrangeWeaponEffect: {fileID: 7648603465766718409}
+  YellowAttackEffect: {fileID: 5593871760870967025}
+  OrangeAttackEffect: {fileID: 7648603465766718409}
+  PurpleAttackEffect: {fileID: 2659571520275563058}
   canAttack: 1
 --- !u!212 &212971026275759962
 SpriteRenderer:
