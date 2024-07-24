@@ -5,25 +5,27 @@ using UnityEngine;
 public class FallingPlatform : MonoBehaviour
 {
     public List<GameObject> Platforms = new List<GameObject>(2);
-    public float fallDelay = 0f;
+    public float FallDelay = 0f;
 
-    BoxCollider2D boxcollider;
-    Rigidbody2D rigid0;
-    Rigidbody2D rigid1;
+    BoxCollider2D _collider;
+    Rigidbody2D _leftRigid;
+    Rigidbody2D _rightRigid;
+    BoxCollider2D _leftCollider;
+    BoxCollider2D _rightCollider;
     private void Start()
     {
-        boxcollider = GetComponent<BoxCollider2D>();
-        rigid0 = Platforms[0].transform.GetComponent<Rigidbody2D>();
-        rigid1 = Platforms[1].transform.GetComponent<Rigidbody2D>();
+        _collider = GetComponent<BoxCollider2D>();
+        _leftRigid = Platforms[0].transform.GetComponent<Rigidbody2D>();
+        _rightRigid = Platforms[1].transform.GetComponent<Rigidbody2D>();
+        _leftCollider = Platforms[0].transform.GetComponent<BoxCollider2D>();
+        _rightCollider = Platforms[1].transform.GetComponent<BoxCollider2D>();
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        
-        if(collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Enemy"))
-        {
-            boxcollider.enabled = false;
-            this.CallOnDelay(fallDelay, ()=>{ rigid0.constraints = RigidbodyConstraints2D.None; });
-            this.CallOnDelay(fallDelay, ()=>{ rigid1.constraints = RigidbodyConstraints2D.None; });
-        }
+        _collider.enabled = false;
+        _leftCollider.enabled = true;
+        _rightCollider.enabled = true;
+        this.CallOnDelay(FallDelay, () => { _leftRigid.constraints = RigidbodyConstraints2D.None; });
+        this.CallOnDelay(FallDelay, () => { _rightRigid.constraints = RigidbodyConstraints2D.None; });
     }
 }
