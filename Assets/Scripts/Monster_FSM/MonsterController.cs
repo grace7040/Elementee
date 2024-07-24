@@ -124,11 +124,9 @@ public class MonsterController : MonoBehaviour
 
         _ignoreLayers = LayerMask.GetMask("Monster", "Player", "TransparentFX", "Coins");
 
-        // waypoint 초기화
-        SetEndpoints();    
+        SetEndpoints();
         CurrentEndpoint = _leftEndpoint;
 
-        // 체력바
         _hpBar = transform.Find("HPBar").GetChild(1).gameObject.GetComponent<Image>();
         _hpBarMAX = _hpBar.gameObject.GetComponent<RectTransform>().rect.width;
         _hpBarBG = transform.Find("HPBar").GetChild(0).gameObject.GetComponent<Image>();
@@ -255,7 +253,7 @@ public class MonsterController : MonoBehaviour
         return _hit.collider == null;
     }
 
-    private void SetNextEndpoint()  
+    private void SetNextEndpoint()
     {
         CurrentEndpoint = IsFlip ? _rightEndpoint : _leftEndpoint;
     }
@@ -464,7 +462,7 @@ public class MonsterController : MonoBehaviour
         GetComponent<CapsuleCollider2D>().isTrigger = true;
     }
 
-    public virtual void Attack() {}
+    public virtual void Attack() { }
 
     public void ChangeState(BaseState newState)
     {

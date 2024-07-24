@@ -85,7 +85,7 @@ public class PlayerAttack : MonoBehaviour
 
     void OnOrangeAttacked(float durationTime)
     {
-        gameObject.layer = 10; // layer 변경으로 충돌 처리 막음
+        gameObject.layer = (int)Layer.OrangeAttack; // layer 변경으로 충돌 처리 막음
 
         OrangeAttackEffect.SetActive(true);
 
@@ -95,7 +95,7 @@ public class PlayerAttack : MonoBehaviour
         this.CallOnDelay(durationTime, () =>
         {
             OrangeAttackEffect.SetActive(false);
-            gameObject.layer = 3;
+            gameObject.layer = (int)Layer.Player;
             playerController.MoveSpeed = originalMoveSpeed;
         });
     }

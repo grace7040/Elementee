@@ -15,7 +15,7 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instacne;
 
-    int soundObjectsNum = 2; //UI_SoundCustomÀÇ Ä¿½ºÅÒ soundObjects°³¼ö
+    int soundObjectsNum = 2; //UI_SoundCustomì˜ ì»¤ìŠ¤í…€ soundObjectsê°œìˆ˜
 
     public Sound[] sfx = null;
     public Sound[] bgm = null;
@@ -80,7 +80,7 @@ public class AudioManager : MonoBehaviour
             {
                 for (int j = 0; j < sfxPlayer.Length; j++)
                 {
-                    // SFXPlayer¿¡¼­ Àç»ı ÁßÀÌÁö ¾ÊÀº Audio Source¸¦ ¹ß°ßÇß´Ù¸é 
+                    // SFXPlayerì—ì„œ ì¬ìƒ ì¤‘ì´ì§€ ì•Šì€ Audio Sourceë¥¼ ë°œê²¬í–ˆë‹¤ë©´ 
                     if (!sfxPlayer[j].isPlaying)
                     {
                         sfxPlayer[j].clip = sfx[i].clip;
@@ -88,11 +88,11 @@ public class AudioManager : MonoBehaviour
                         return;
                     }
                 }
-                //Debug.Log("¸ğµç ¿Àµğ¿À ÇÃ·¹ÀÌ¾î°¡ Àç»ıÁßÀÔ´Ï´Ù.");
+                //Debug.Log("ëª¨ë“  ì˜¤ë””ì˜¤ í”Œë ˆì´ì–´ê°€ ì¬ìƒì¤‘ì…ë‹ˆë‹¤.");
                 return;
             }
         }
-        Debug.Log(p_sfxName + " ÀÌ¸§ÀÇ È¿°úÀ½ÀÌ ¾ø½À´Ï´Ù.");
+        Debug.Log(p_sfxName + " ì´ë¦„ì˜ íš¨ê³¼ìŒì´ ì—†ìŠµë‹ˆë‹¤.");
         return;
     }
 
@@ -108,7 +108,7 @@ public class AudioManager : MonoBehaviour
     }
 
     //WAV to AudioClip
-    void LoadAudios() //Application.persistentDataPath¿¡ ÀúÀåµÈ »ç¿îµå ·Îµå
+    void LoadAudios() //Application.persistentDataPathì— ì €ì¥ëœ ì‚¬ìš´ë“œ ë¡œë“œ
     {
         StartCoroutine(nameof(TestUnityWebRequest));
     }
@@ -119,7 +119,7 @@ public class AudioManager : MonoBehaviour
         string dir = Application.persistentDataPath + audioDir;
         for (int i = 0; i < soundObjectsNum; i++)
         {
-            SavWav.Save(dir + "/"+ sfx[i].name, sfx[i].clip);
+            SavWav.Save(dir + "/" + sfx[i].name, sfx[i].clip);
         }
     }
 
@@ -130,7 +130,7 @@ public class AudioManager : MonoBehaviour
         {
             using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(dir + "/" + sfx[i].name + ".wav", AudioType.WAV))
             {
-                /* ±âÁ¸ÄÚµå
+                /* ê¸°ì¡´ì½”ë“œ
                 yield return www.Send();
                 if (www.isNetworkError){ Debug.Log(www.error); }
                  */

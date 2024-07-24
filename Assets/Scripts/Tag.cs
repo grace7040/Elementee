@@ -1,0 +1,28 @@
+public enum Tag
+{
+    Untagged,
+    Respawn,
+    Finish,
+    EditorOnly,
+    MainCamera,
+    Player,
+    GameController,
+    Enemy,
+    Weapon,
+    EnemyWeapon,
+    WeaponB,
+    General_Enemy,
+    FxTemporaire,
+    EnemyFarWeapon,
+    Map,
+    WeaponThrow,
+    WeaponYellow,
+    WeaponOrange,
+    Potal,
+    Rope,
+    Ball,
+    Btn,
+    Generator,
+    Grass,
+    TAZOFX
+}
