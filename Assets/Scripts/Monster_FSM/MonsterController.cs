@@ -72,7 +72,9 @@ public class MonsterController : MonoBehaviour
     private bool _isStopped = false;
     private bool _canMove = true;
     private float _timer = 0.0f;
-    private float _interval = 5.0f;
+    private float _interval = 3.0f;
+
+    public float DownRayLength = 0.7f;
 
     // Knockback
     private bool _isKnockedBack = false;
@@ -122,7 +124,7 @@ public class MonsterController : MonoBehaviour
         _monsterSprite = GetComponentInChildren<SpriteRenderer>();
         Rb = GetComponent<Rigidbody2D>();
 
-        _ignoreLayers = LayerMask.GetMask("Monster", "Player", "TransparentFX", "Coins");
+        _ignoreLayers = LayerMask.GetMask("Player", "TransparentFX", "Coins");
 
         SetEndpoints();
         CurrentEndpoint = _leftEndpoint;
@@ -176,7 +178,7 @@ public class MonsterController : MonoBehaviour
 
     private Vector3 GetEndpoint(Vector2 direction, LayerMask ignoreLayers)
     {
-        RaycastHit2D _hit = Physics2D.Raycast(transform.position, direction, _moveRange, ~ignoreLayers);
+        RaycastHit2D _hit = Physics2D.Raycast(new Vector2 (transform.position.x, transform.position.y) + (direction * 1.0f) , direction, _moveRange, ~ignoreLayers);
 
         if (_hit.collider != null)
         {
@@ -206,6 +208,7 @@ public class MonsterController : MonoBehaviour
         if (_stopTime <= 0)
         {
             _isStopped = false;
+            Rb.velocity = Vector2.zero;
             SetNextEndpoint();
         }
     }
@@ -244,9 +247,9 @@ public class MonsterController : MonoBehaviour
     public bool CheckCliff()
     {
         _checkRotation = IsFlip ? FlipQuaternion : Quaternion.identity;
-        _raycastOrigin = transform.position + (_checkRotation * Vector3.right * 0.7f);
+        _raycastOrigin = transform.position + (_checkRotation * Vector3.right * 1.0f);
 
-        //UnityEngine.Debug.DrawRay(raycastOrigin, Vector2.down, Color.red);
+        UnityEngine.Debug.DrawRay(_raycastOrigin, Vector2.down, Color.red);
 
         _hit = Physics2D.Raycast(_raycastOrigin, Vector2.down, 1.0f, 1 << 0);
 
@@ -260,9 +263,9 @@ public class MonsterController : MonoBehaviour
 
     public bool CheckGround()
     {
-        //UnityEngine.Debug.DrawRay(transform.position, Vector2.down * 0.7f, Color.red);
+        // UnityEngine.Debug.DrawRay(transform.position, Vector2.down * DownRayLength, Color.red);
 
-        _hit = Physics2D.Raycast(transform.position, Vector2.down, 0.7f, 1 << 0);
+        _hit = Physics2D.Raycast(transform.position, Vector2.down, DownRayLength, 1 << 0);
 
         return _hit.collider != null;
     }

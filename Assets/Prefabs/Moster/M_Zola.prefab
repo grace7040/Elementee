@@ -176,8 +176,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.26056036, y: 0.17043471}
-  m_Size: {x: 3.483492, y: 7.6527047}
+  m_Offset: {x: 0.26056036, y: -0.16318083}
+  m_Size: {x: 3.483492, y: 8.3199415}
   m_Direction: 0
 --- !u!114 &5050473482893084783
 MonoBehaviour:
@@ -206,19 +206,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MonsterData: {fileID: 11400000, guid: 269a076a8febb5b45acf1c93faec4fac, type: 2}
+  MonsterBody: {fileID: 5218651946440200682}
   MyColor: 0
   Player: {fileID: 0}
   Rb: {fileID: 0}
+  Animator: {fileID: 5324797565746562119}
   MoveSpeed: 3
   DetectionRange: 10
   AttackRange: 0
   IsDie: 0
   Damage: 0
+  CurrentEndpoint: {x: 0, y: 0, z: 0}
   DistanceY: 0
-  Animator: {fileID: 5324797565746562119}
   FlipQuaternion: {x: 0, y: 1, z: 0, w: -0.00000004371139}
-  MonsterBody: {fileID: 5218651946440200682}
+  DownRayLength: 1
   IsFlip: 0
+  CanFlip: 1
+  MoveDirection: {x: 0, y: 0}
 --- !u!1001 &6678242493446227938
 PrefabInstance:
   m_ObjectHideFlags: 0
