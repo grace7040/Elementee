@@ -19,8 +19,6 @@ public class OB_ChangeScale : MonoBehaviour
         _body = this.gameObject;
         _decreseSpeed = Speed * 0.001f;
 
-        Debug.Log(_body.GetComponent<Transform>().localScale.x);
-
     }
 
     // Update is called once per frame
