@@ -273,27 +273,8 @@ public class PlayerController : MonoBehaviour
             NomalMove(move);
         }
 
+
         // Jump
-        //if (m_Grounded && jump)
-        //{
-        //    _animator.SetBool("IsJumping", true);
-        //    _animator.SetBool("JumpUp", true);
-        //    m_Grounded = false;
-        //    _rigidbody.velocity = Vector2.zero;
-        //    _rigidbody.AddForce(new Vector2(0f, jumpForce));
-        //    canDoubleJump = true;
-        //    ParticleJumpDown.Play();
-        //    ParticleJumpUp.Play();
-        //}
-        //else if (!m_Grounded && jump && canDoubleJump && !isWallSliding)
-        //{
-        //    canDoubleJump = false;
-        //    _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, 0);
-        //    _rigidbody.AddForce(new Vector2(0f, jumpForce / 1.2f));
-        //    _animator.SetBool("IsDoubleJumping", true);
-        //}
-
-
         if (m_Grounded && jump)
         {
             Jump();
@@ -330,40 +311,30 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
+            // Do jump while WallSliding
             if (jump && isWallSliding)
             {
-                _animator.SetBool("IsJumping", true);
-                _animator.SetBool("JumpUp", true);
-                _rigidbody.velocity = new Vector2(0f, 0f);
+                _animator.SetBool("IsJumping", true); //
+                _animator.SetBool("JumpUp", true); //
+                _rigidbody.velocity = Vector2.zero; //
                 _rigidbody.AddForce(new Vector2(transform.localScale.x * jumpForce * 1.2f, jumpForce));
                 jumpWallStartX = transform.position.x;
                 limitVelOnWallJump = true;
-                canDoubleJump = true;
-                isWallSliding = false;
-                _animator.SetBool("IsWallSliding", false);
-                oldWallSlidding = false;
-                m_WallCheck.localPosition = new Vector3(Mathf.Abs(m_WallCheck.localPosition.x), m_WallCheck.localPosition.y, 0);
+                EndWallSliding();
                 canMove = false;
             }
 
+            // Do dash while WallSliding
             else if (dash && canDash)
             {
-                isWallSliding = false;
-                _animator.SetBool("IsWallSliding", false);
-                oldWallSlidding = false;
-                m_WallCheck.localPosition = new Vector3(Mathf.Abs(m_WallCheck.localPosition.x), m_WallCheck.localPosition.y, 0);
-                canDoubleJump = true;
+                EndWallSliding();
                 StartCoroutine(DashCooldown());
             }
         }
 
         else if (isWallSliding && !m_IsWall && canCheck)
         {
-            isWallSliding = false;
-            _animator.SetBool("IsWallSliding", false);
-            oldWallSlidding = false;
-            m_WallCheck.localPosition = new Vector3(Mathf.Abs(m_WallCheck.localPosition.x), m_WallCheck.localPosition.y, 0);
-            canDoubleJump = true;
+            EndWallSliding();
         }
 
     }
@@ -406,6 +377,15 @@ public class PlayerController : MonoBehaviour
         _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, 0);
         _rigidbody.AddForce(new Vector2(0f, jumpForce / 1.2f));
         _animator.SetBool("IsDoubleJumping", true);
+    }
+
+   private void EndWallSliding()
+    {
+        isWallSliding = false;
+        _animator.SetBool("IsWallSliding", false);
+        oldWallSlidding = false;
+        m_WallCheck.localPosition = new Vector3(Mathf.Abs(m_WallCheck.localPosition.x), m_WallCheck.localPosition.y, 0);
+        canDoubleJump = true;
     }
 
     IEnumerator DashCooldown()
