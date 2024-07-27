@@ -15,6 +15,8 @@ public class ColorManager : Singleton<ColorManager>
     public Action ShakeCamera = null;
     public Action<float> OnOrangeAttacked = null;
     public Action OnYellowAttacked = null;
+    public Action OnBlackAttacked = null;
+    public Action OnSetBlackColor = null;
 
     public bool basicWeapon = false;
 
@@ -69,11 +71,13 @@ public class ColorManager : Singleton<ColorManager>
         ShakeCamera = shakeCameraAction;
     }
 
-    public void InitPlayerAttack(PlayerAttack playerAttack, Action<float> onOrangeAttackedAction, Action onYellowAttackedAction)
+    public void InitPlayerAttack(PlayerAttack playerAttack, Action<float> onOrangeAttackedAction, Action onYellowAttackedAction, Action onBlackAttackedAction, Action onSetBlackAction)
     {
         _playerAttack = playerAttack;
         OnOrangeAttacked = onOrangeAttackedAction;
         OnYellowAttacked = onYellowAttackedAction;
+        OnBlackAttacked = onBlackAttackedAction;
+        OnSetBlackColor = onSetBlackAction;
     }
     public void ResetColorState()
     {
@@ -170,7 +174,8 @@ public class ColorManager : Singleton<ColorManager>
                 hasRed = false;
                 hasBlue = false;
                 _playerAttack.BlackWeapon.SetActive(true);
-                SetColorState(new BlackColor());
+                SetColorState(new BlackColor(OnBlackAttacked));
+                OnSetBlackColor.Invoke();
                 break;
         }
         _player.myColor = _color;

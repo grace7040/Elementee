@@ -60,8 +60,6 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public int maxHealth = 100;
     [HideInInspector] public int damage = 0;
 
-    // weapon position
-    public GameObject WeaponPosition;
 
     [Header("Events")]
     [Space]
@@ -106,12 +104,8 @@ public class PlayerController : MonoBehaviour
     public FixedJoint2D fixJoint;
     private bool isRope = false;
 
-    // Black
-    private float pullForce = 10f; // 끌어당기는 힘 조절용 변수
-    private float throwForce = 15f; // 던지는 힘 조절용 변수
-    public bool IsHoldingEnemy = false; // 적을 가지고 있는지 여부
-    private Rigidbody2D heldEnemyRigidbody; // 가지고 있는 적의 Rigidbody2D
-    private GameObject Enemy;
+
+
 
     Collider2D[] colliders;
     Collider2D[] collidersWall;
@@ -140,22 +134,6 @@ public class PlayerController : MonoBehaviour
             OnLandEvent = new UnityEvent();
 
         ColorManager.Instance.SetColorState(Colors.Default);
-    }
-
-    private void Update()
-    {
-        // Black관련 코드, 추후 생사 여부 결정
-        if (myColor == Colors.Black)
-        {
-            if (IsHoldingEnemy)
-            {
-                Enemy.transform.localPosition = new Vector2(0, 0);
-            }
-        }
-        else if (myColor != Colors.Black)
-        {
-            Destroy(Enemy, 0.1f);
-        }
     }
 
 
@@ -507,24 +485,8 @@ public class PlayerController : MonoBehaviour
             m_Grounded = true;
 
         }
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            if (myColor == Colors.Black)
-            {
-                if (!collision.gameObject.GetComponent<MonsterController>().isActiveAndEnabled)
-                {
-                    collision.gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-                    collision.gameObject.GetComponent<OB_VerticlaMovement>().enabled = true;
-
-                    Transform parentTransform = WeaponPosition.transform;
-                    Transform childTransform = collision.gameObject.transform;
-                    childTransform.SetParent(parentTransform);
-
-                    IsHoldingEnemy = true;
-                }
-            }
-        }
-        else if (collision.gameObject.CompareTag("EnemyWeapon"))
+        
+        if (collision.gameObject.CompareTag("EnemyWeapon"))
         {
             TakeDamage(15, collision.gameObject.transform.position);
         }
@@ -576,75 +538,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    // Black Attack 유기
-    public void BlackPull()
-    {
-        StartCoroutine(PullCoroutine());
-    }
 
-    private IEnumerator PullCoroutine()
-    {
-        if (!IsHoldingEnemy)
-        {
-            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-            float closestDistance = 7.5f;
-            Transform closestEnemy = null;
-
-            foreach (GameObject enemy in enemies)
-            {
-                float distance = Vector2.Distance(transform.position, enemy.transform.position);
-                if (distance < closestDistance)
-                {
-                    closestDistance = distance;
-                    closestEnemy = enemy.transform;
-                }
-            }
-
-            if (closestEnemy != null)
-            {
-                heldEnemyRigidbody = closestEnemy.GetComponent<Rigidbody2D>();
-                Enemy = closestEnemy.gameObject;
-
-                Enemy.SendMessage("PulledByBlack");
-                //closestEnemy.AddComponent<BloodEffect>();
-
-                float distance = Vector2.Distance(Enemy.transform.position, transform.position);
-
-                while (!IsHoldingEnemy)
-                {
-                    Vector2 throwDirection = (transform.position - Enemy.transform.position).normalized;
-                    Enemy.transform.Translate(pullForce * Time.deltaTime * throwDirection);
-
-                    yield return null;
-                }
-            }
-        }
-        yield return new WaitForSeconds(0f);
-    }
-
-    public void BlackThrow()
-    {
-        Rigidbody2D rb = Enemy.GetComponent<Rigidbody2D>();
-
-        if (rb != null)
-        {
-            Transform childTransform = Enemy.gameObject.transform;
-
-            childTransform.SetParent(null);
-
-            IsHoldingEnemy = false;
-            Enemy.GetComponent<Rigidbody2D>().gravityScale = 0.0f;
-
-            rb.gameObject.GetComponent<OB_VerticlaMovement>().enabled = false;
-
-            Vector2 throwDirection = (rb.transform.position - transform.position).normalized;
-            rb.velocity = throwDirection * throwForce;
-            rb.gameObject.tag = "WeaponB";
-            heldEnemyRigidbody = null;
-
-            Enemy.GetComponent<MonsterController>().Die();
-        }
-    }
 
     void ShakeCamera()
     {

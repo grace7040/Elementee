@@ -176,7 +176,6 @@ MonoBehaviour:
   m_WallCheck: {fileID: 4986330650710208}
   maxHealth: 100
   damage: 10
-  WeaponPosition: {fileID: 1920087943}
   OnFallEvent:
     m_PersistentCalls:
       m_Calls:
@@ -209,7 +208,6 @@ MonoBehaviour:
         m_CallState: 2
   m_Grounded: 0
   fixJoint: {fileID: 1371218208993128490}
-  IsHoldingEnemy: 0
 --- !u!114 &248749117310158783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -254,6 +252,7 @@ MonoBehaviour:
   OrangeAttackEffect: {fileID: 7648603465766718409}
   PurpleAttackEffect: {fileID: 2659571520275563058}
   canAttack: 1
+  WeaponPosition: {fileID: 5998208090524668600}
 --- !u!212 &212971026275759962
 SpriteRenderer:
   m_ObjectHideFlags: 0
