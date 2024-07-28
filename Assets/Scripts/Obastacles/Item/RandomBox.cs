@@ -5,6 +5,7 @@ using UnityEngine;
 public class RandomBox : MonoBehaviour
 {
     public GameObject[] randomObjects;
+    public float posY = 2f;
     private Animator anim;
 
     bool isUsed = false;
@@ -26,7 +27,7 @@ public class RandomBox : MonoBehaviour
             anim.Play("RandomBox", -1, 0f);
 
             this.CallOnDelay(1f, () => { 
-                Instantiate(randomObjects[randomIdx], new Vector3(transform.position.x, transform.position.y+2, transform.position.z), Quaternion.identity, this.transform.parent);
+                Instantiate(randomObjects[randomIdx], new Vector3(transform.position.x, transform.position.y + posY, transform.position.z), Quaternion.identity, this.transform.parent);
                 Destroy(gameObject, 0.5f);
             });
         }
