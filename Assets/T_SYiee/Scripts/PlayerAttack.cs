@@ -137,7 +137,6 @@ public class PlayerAttack : MonoBehaviour
     {
         while (true)
         {
-            // Black관련 코드, 추후 생사 여부 결정
             if (_playerController.myColor == Colors.Black)
             {
                 if (_isHoldingEnemy)
@@ -155,7 +154,6 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    // Black Attack 유기
     public void BlackPull()
     {
         StartCoroutine(PullCoroutine());
@@ -171,11 +169,16 @@ public class PlayerAttack : MonoBehaviour
 
             foreach (GameObject enemy in enemies)
             {
-                float distance = Vector2.Distance(transform.position, enemy.transform.position);
-                if (distance < closestDistance)
+                MonsterController enemyController = enemy.GetComponent<MonsterController>();
+
+                if (enemyController != null && !enemyController.IsDie)
                 {
-                    closestDistance = distance;
-                    closestEnemy = enemy.transform;
+                    float distance = Vector2.Distance(transform.position, enemy.transform.position);
+                    if (distance < closestDistance)
+                    {
+                        closestDistance = distance;
+                        closestEnemy = enemy.transform;
+                    }
                 }
             }
 
@@ -200,6 +203,7 @@ public class PlayerAttack : MonoBehaviour
         }
         yield return new WaitForSeconds(0f);
     }
+
 
     public void BlackThrow()
     {
