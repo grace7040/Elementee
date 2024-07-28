@@ -250,6 +250,14 @@ public class PlayerController : MonoBehaviour
         {
             NomalMove(move);
         }
+        
+        if(m_Grounded && Math.Abs(_rigidbody.velocity.x)> 8.4f)
+        {
+            print("구르기");
+            transform.Rotate(0, 0, 2f * Time.deltaTime);
+            _animator.SetBool("IsRoliing", true);
+            //_rigidbody.constraints = RigidbodyConstraints2D.None;
+        }
 
 
         // Jump
