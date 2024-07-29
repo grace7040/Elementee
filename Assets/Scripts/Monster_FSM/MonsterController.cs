@@ -378,7 +378,7 @@ public class MonsterController : MonoBehaviour
 
         if (other.CompareTag("Weapon"))
         {
-            TakeDamage(other.GetComponentInParent<PlayerController>().damage, other.transform.position);
+            TakeDamage(other.GetComponentInParent<PlayerController>().Damage, other.transform.position);
         }
         else if (other.gameObject.CompareTag("WeaponThrow"))
         {

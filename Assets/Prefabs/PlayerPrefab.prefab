@@ -174,8 +174,7 @@ MonoBehaviour:
     m_Bits: 309
   _groundCheck: {fileID: 4291727345091452}
   _wallCheck: {fileID: 4986330650710208}
-  maxHealth: 100
-  damage: 10
+  Damage: 0
   OnFallEvent:
     m_PersistentCalls:
       m_Calls:
@@ -206,8 +205,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  m_Grounded: 0
-  fixJoint: {fileID: 1371218208993128490}
 --- !u!114 &248749117310158783
 MonoBehaviour:
   m_ObjectHideFlags: 0
