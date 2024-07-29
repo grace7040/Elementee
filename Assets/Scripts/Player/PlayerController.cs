@@ -22,43 +22,42 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public Colors myColor = Colors.Default;
     FollowCamera _followCamera;
 
     [Header("ParticleSystem")]
     public ParticleSystem ParticleJumpUp;
     public ParticleSystem ParticleJumpDown;
     public GameObject HealEffect;
-    
-
 
     [Header("Player Properties")]
-    public int CurrentHealth;
-    public float AttackCoolTime;
-    bool _canGetDamage = true;
-    bool _isFountainHealReady = true;
-    float _knockBackForce = 10f;
-
+    public Colors myColor = Colors.Default;
     public SpriteRenderer FaceSprite;
-
+    [HideInInspector] public float AttackCoolTime;
+    float _knockBackForce = 10f;
     Rigidbody2D _rigidbody;
     Animator _animator;
     SpriteRenderer _spriteRenderer;
 
+    [Header("Health Management")]
+    public int CurrentHealth;
+    bool _isDie = false;
+    int _maxHealth = 100;
+    bool _isFountainHealReady = true;
+    bool _canGetDamage = true;
+    [HideInInspector] public int Damage = 0;
+
     [Header("Movement Customizing")]
     public float MoveSpeed = 7f;
-    float _dashForce = 25f;
-    bool _canControlWhileJump = true;
-    bool _canWallSliding = false;
 
     [Header("Collision Checking")]
-    [SerializeField] LayerMask _whatIsGround;                          // A mask determining what is ground to the character
-    [SerializeField] Transform _groundCheck;                           // A position marking where to check if the player is grounded.
-    [SerializeField] Transform _wallCheck;                             //Posicion que controla si el personaje toca una pared
+    [SerializeField] LayerMask _whatIsGround;                          
+    [SerializeField] Transform _groundCheck;                           
+    [SerializeField] Transform _wallCheck;                             
+    Collider2D[] _colliders;
+    Collider2D[] _collidersWall;
 
-    //Health
-    [HideInInspector] int _maxHealth = 100;
-    [HideInInspector] public int Damage = 0;
+    bool _isGrounded;
+    const float _groundedRadius = .2f; // Radius of the overlap circle to determine if grounded
 
 
     [Header("Events")]
@@ -69,45 +68,37 @@ public class PlayerController : MonoBehaviour
     [System.Serializable]
     public class BoolEvent : UnityEvent<bool> { }
 
+    // Move
+    bool _canMove = true;
+    bool _facingRight = true;  // For determining which way the player is currently facing.
+    float _limitFallSpeed = 25f;
+    float _accelerationRate = 5f;
+
+    // Jump
     float _jumpForce = 850f;
+    bool _canDoubleJump = true;
+    bool _canControlWhileJump = true;
 
-    bool _isGrounded;
-    const float _groundedRadius = .2f; // Radius of the overlap circle to determine if grounded
+    // WallSliding
     bool _isWall = false;
-
     bool _isWallSliding = false;
-    bool _isDashing = false;
-    float _prevVelocityX = 0f;
-
+    bool _canWallSliding = false;
     bool _limitVelOnWallJump = false; //For limit wall jump distance with low fps
     float _jumpWallDistX = 0; //Distance between player and wall
     float _jumpWallStartX = 0;
-
-    bool _canMove = true; 
-    bool _canDash = true;
-    bool _isDie = false;
-
-    //Flip
-    bool _facingRight = true;  // For determining which way the player is currently facing.
-
-    // Move
-    float _limitFallSpeed = 25f; 
-    float _accelerationRate = 5f; 
-
-    // Jump
-    bool _canDoubleJump = true; 
-
-    // WallSliding
     bool _oldWallSlidding = false; //If player is sliding in a wall in the previous frame
     bool _canCheck = false; //For check if player is wallsliding
+
+    // Dash
+    bool _isDashing = false;
+    bool _canDash = true;
+    float _dashForce = 25f;
+    float _prevVelocityX = 0f;
 
     // Rope
     FixedJoint2D _fixJoint;
     bool _isRope = false;
-
-    Collider2D[] colliders;
-    Collider2D[] collidersWall;
-
+    
     private void Awake()
     {
         GameManager.Instance.Player = this.gameObject;
@@ -118,7 +109,7 @@ public class PlayerController : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
-
+        _fixJoint = GetComponent<FixedJoint2D>();
         CurrentHealth = _maxHealth;
         _followCamera = FindObjectOfType<FollowCamera>();
         ColorManager.Instance.InitPlayer(this, SetAnimatorBool, ShakeCamera);
@@ -130,8 +121,6 @@ public class PlayerController : MonoBehaviour
             OnLandEvent = new UnityEvent();
 
         ColorManager.Instance.SetColorState(Colors.Default);
-
-        _fixJoint = GetComponent<FixedJoint2D>();
     }
 
 
@@ -140,14 +129,13 @@ public class PlayerController : MonoBehaviour
         //colliders : 닿아있는 바닥수만큼 존재, 공중에 떠있으면 0개 바닥에 닿아있으면 1개
         if (!_isRope)
         {
-            //땅에 닿아 있는지 판별하는 변수
             bool wasGrounded = _isGrounded;
             _isGrounded = false;
 
-            colliders = Physics2D.OverlapCircleAll(_groundCheck.position, _groundedRadius, _whatIsGround);
-            for (int i = 0; i < colliders.Length; i++) // 이 for문이 왜 필요하지
+            _colliders = Physics2D.OverlapCircleAll(_groundCheck.position, _groundedRadius, _whatIsGround);
+            for (int i = 0; i < _colliders.Length; i++) // 이 for문이 왜 필요하지
             {
-                if (colliders[i].gameObject != gameObject)
+                if (_colliders[i].gameObject != gameObject)
                 {
                     _isGrounded = true;
                     if (!wasGrounded)
@@ -169,10 +157,10 @@ public class PlayerController : MonoBehaviour
         if (!_isGrounded) //땅에 닿아있지 않을 때 
         {
             OnFallEvent.Invoke(); //chaingin animation -> isjumping : true
-            collidersWall = Physics2D.OverlapCircleAll(_wallCheck.position, _groundedRadius, _whatIsGround);
-            for (int i = 0; i < collidersWall.Length; i++)
+            _collidersWall = Physics2D.OverlapCircleAll(_wallCheck.position, _groundedRadius, _whatIsGround);
+            for (int i = 0; i < _collidersWall.Length; i++)
             {
-                if (collidersWall[i].gameObject != null) //벽에 닿아있다면
+                if (_collidersWall[i].gameObject != null) //벽에 닿아있다면
                 {
                     _isDashing = false;
                     _isWall = true;
@@ -213,10 +201,8 @@ public class PlayerController : MonoBehaviour
 
     private void Flip()
     {
-        // Switch the way the player is labelled as facing.
         _facingRight = !_facingRight;
 
-        // Multiply the player's x local scale by -1.
         Vector3 theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;
@@ -251,7 +237,7 @@ public class PlayerController : MonoBehaviour
         
         if(_isGrounded && Math.Abs(_rigidbody.velocity.x)> 8.4f && !_isDashing)
         {
-            print("구르기");
+            //print("구르기");
             //_animator.SetBool("IsRolling", true);
         }
 
@@ -449,7 +435,6 @@ public class PlayerController : MonoBehaviour
 
         //UI Update
         GameManager.Instance.UIGame.UpdateHPBar(CurrentHealth, _maxHealth);
-
     }
 
     public void HealByFountain(int health)
@@ -532,17 +517,10 @@ public class PlayerController : MonoBehaviour
         UIManager.Instance.ClosePopupUI();
     }
 
-
-    //Effect
-
-
     void SetAnimatorBool(string name, bool value)
     {
         _animator.SetBool(name, value);
     }
-
-
-
 
     void ShakeCamera()
     {
