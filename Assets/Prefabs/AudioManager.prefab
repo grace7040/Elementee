@@ -498,79 +498,79 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3afbd2932e2048644bd17e7547c8d738, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sfx:
-  - name: Red
-    clip: {fileID: 8300000, guid: 8ba9204e5a2d20c4e8d0c14807995c1d, type: 3}
-  - name: Yellow
-    clip: {fileID: 8300000, guid: 33fb46d2d7601d54abc37e2a896397b7, type: 3}
-  - name: Blue
-    clip: {fileID: 8300000, guid: 34bc445826cb19f449d81687bd16974e, type: 3}
-  - name: Orange
-    clip: {fileID: 8300000, guid: 83a0fc700169f9940bec24d07912c881, type: 3}
-  - name: Green
-    clip: {fileID: 8300000, guid: 60cf4d2e3c8635c4e861cdef5357c32f, type: 3}
-  - name: Purple
-    clip: {fileID: 8300000, guid: f034f6d38f4473f44a0855a72ba4fbef, type: 3}
-  - name: Black
-    clip: {fileID: 8300000, guid: 531800a0e3aca4848be7d4043f6798ed, type: 3}
-  - name: Jump
-    clip: {fileID: 8300000, guid: 6b4318e8c46fddf44b9ea7261b120b50, type: 3}
-  - name: Dash
-    clip: {fileID: 8300000, guid: 74421857f61d63b41b89569dcb145160, type: 3}
-  - name: Dead
-    clip: {fileID: 8300000, guid: 60cf4d2e3c8635c4e861cdef5357c32f, type: 3}
-  - name: Hurt
-    clip: {fileID: 8300000, guid: 60cf4d2e3c8635c4e861cdef5357c32f, type: 3}
-  - name: Heal
-    clip: {fileID: 8300000, guid: 773ea83d7462f62459199ccfbb963269, type: 3}
-  - name: Star
-    clip: {fileID: 8300000, guid: e22e1ff53e86f4b42aa2cb282c5a602e, type: 3}
-  - name: UiClick
-    clip: {fileID: 8300000, guid: 253683051e4922f4e9f731e8d94c36ed, type: 3}
-  - name: Spring
-    clip: {fileID: 8300000, guid: fb8641c06bc24c340b2637f3da0e36b6, type: 3}
-  - name: Sponge
-    clip: {fileID: 8300000, guid: f4071024be27dc94cb4a4c9db281f8e1, type: 3}
-  - name: CheckPoint
-    clip: {fileID: 8300000, guid: 1c705bc52eec7014cb8bfb6c905d65fa, type: 3}
-  - name: LeafGrow
-    clip: {fileID: 8300000, guid: cd26a26949085ca4ba5128b562ac5c43, type: 3}
-  - name: PaintPop
-    clip: {fileID: 8300000, guid: 49a234a7f882d7a4783afc945aba90ed, type: 3}
-  - name: GrassPass
-    clip: {fileID: 8300000, guid: 16cf319fa169dfe42a4e72b1f77e8959, type: 3}
-  - name: BlackRelease
-    clip: {fileID: 8300000, guid: 33e665b470802164e9f0ad009e5465fd, type: 3}
-  bgm: []
-  default_sfx:
-  - name: Red
-    clip: {fileID: 8300000, guid: 0db832a8f1efeee459da90030d9ee82d, type: 3}
-  - name: Yellow
-    clip: {fileID: 8300000, guid: 33fb46d2d7601d54abc37e2a896397b7, type: 3}
-  - name: Blue
-    clip: {fileID: 8300000, guid: 34bc445826cb19f449d81687bd16974e, type: 3}
-  - name: Orange
-    clip: {fileID: 8300000, guid: 83a0fc700169f9940bec24d07912c881, type: 3}
-  - name: Green
-    clip: {fileID: 8300000, guid: 60cf4d2e3c8635c4e861cdef5357c32f, type: 3}
-  - name: Purple
-    clip: {fileID: 8300000, guid: f034f6d38f4473f44a0855a72ba4fbef, type: 3}
-  - name: Black
-    clip: {fileID: 8300000, guid: 531800a0e3aca4848be7d4043f6798ed, type: 3}
-  - name: Jump
-    clip: {fileID: 8300000, guid: 6b4318e8c46fddf44b9ea7261b120b50, type: 3}
-  - name: Dash
-    clip: {fileID: 8300000, guid: 74421857f61d63b41b89569dcb145160, type: 3}
-  - name: Dead
-    clip: {fileID: 8300000, guid: 60cf4d2e3c8635c4e861cdef5357c32f, type: 3}
-  - name: Hurt
-    clip: {fileID: 8300000, guid: 60cf4d2e3c8635c4e861cdef5357c32f, type: 3}
-  - name: Heal
-    clip: {fileID: 8300000, guid: 773ea83d7462f62459199ccfbb963269, type: 3}
-  - name: Star
-    clip: {fileID: 8300000, guid: e22e1ff53e86f4b42aa2cb282c5a602e, type: 3}
-  bgmPlayer: {fileID: 4247873157932503387}
-  sfxPlayer:
+  Sfx:
+  - Name: Red
+    Clip: {fileID: 8300000, guid: 8ba9204e5a2d20c4e8d0c14807995c1d, type: 3}
+  - Name: Yellow
+    Clip: {fileID: 8300000, guid: 33fb46d2d7601d54abc37e2a896397b7, type: 3}
+  - Name: Blue
+    Clip: {fileID: 8300000, guid: 34bc445826cb19f449d81687bd16974e, type: 3}
+  - Name: Orange
+    Clip: {fileID: 8300000, guid: 83a0fc700169f9940bec24d07912c881, type: 3}
+  - Name: Green
+    Clip: {fileID: 8300000, guid: 60cf4d2e3c8635c4e861cdef5357c32f, type: 3}
+  - Name: Purple
+    Clip: {fileID: 8300000, guid: f034f6d38f4473f44a0855a72ba4fbef, type: 3}
+  - Name: Black
+    Clip: {fileID: 8300000, guid: 531800a0e3aca4848be7d4043f6798ed, type: 3}
+  - Name: Jump
+    Clip: {fileID: 8300000, guid: 6b4318e8c46fddf44b9ea7261b120b50, type: 3}
+  - Name: Dash
+    Clip: {fileID: 8300000, guid: 74421857f61d63b41b89569dcb145160, type: 3}
+  - Name: Dead
+    Clip: {fileID: 8300000, guid: 60cf4d2e3c8635c4e861cdef5357c32f, type: 3}
+  - Name: Hurt
+    Clip: {fileID: 8300000, guid: 60cf4d2e3c8635c4e861cdef5357c32f, type: 3}
+  - Name: Heal
+    Clip: {fileID: 8300000, guid: 773ea83d7462f62459199ccfbb963269, type: 3}
+  - Name: Star
+    Clip: {fileID: 8300000, guid: e22e1ff53e86f4b42aa2cb282c5a602e, type: 3}
+  - Name: UiClick
+    Clip: {fileID: 8300000, guid: 253683051e4922f4e9f731e8d94c36ed, type: 3}
+  - Name: Spring
+    Clip: {fileID: 8300000, guid: fb8641c06bc24c340b2637f3da0e36b6, type: 3}
+  - Name: Sponge
+    Clip: {fileID: 8300000, guid: f4071024be27dc94cb4a4c9db281f8e1, type: 3}
+  - Name: CheckPoint
+    Clip: {fileID: 8300000, guid: 1c705bc52eec7014cb8bfb6c905d65fa, type: 3}
+  - Name: LeafGrow
+    Clip: {fileID: 8300000, guid: cd26a26949085ca4ba5128b562ac5c43, type: 3}
+  - Name: PaintPop
+    Clip: {fileID: 8300000, guid: 49a234a7f882d7a4783afc945aba90ed, type: 3}
+  - Name: GrassPass
+    Clip: {fileID: 8300000, guid: 16cf319fa169dfe42a4e72b1f77e8959, type: 3}
+  - Name: BlackRelease
+    Clip: {fileID: 8300000, guid: 33e665b470802164e9f0ad009e5465fd, type: 3}
+  Bgm: []
+  DefaultSfx:
+  - Name: Red
+    Clip: {fileID: 8300000, guid: 0db832a8f1efeee459da90030d9ee82d, type: 3}
+  - Name: Yellow
+    Clip: {fileID: 8300000, guid: 33fb46d2d7601d54abc37e2a896397b7, type: 3}
+  - Name: Blue
+    Clip: {fileID: 8300000, guid: 34bc445826cb19f449d81687bd16974e, type: 3}
+  - Name: Orange
+    Clip: {fileID: 8300000, guid: 83a0fc700169f9940bec24d07912c881, type: 3}
+  - Name: Green
+    Clip: {fileID: 8300000, guid: 60cf4d2e3c8635c4e861cdef5357c32f, type: 3}
+  - Name: Purple
+    Clip: {fileID: 8300000, guid: f034f6d38f4473f44a0855a72ba4fbef, type: 3}
+  - Name: Black
+    Clip: {fileID: 8300000, guid: 531800a0e3aca4848be7d4043f6798ed, type: 3}
+  - Name: Jump
+    Clip: {fileID: 8300000, guid: 6b4318e8c46fddf44b9ea7261b120b50, type: 3}
+  - Name: Dash
+    Clip: {fileID: 8300000, guid: 74421857f61d63b41b89569dcb145160, type: 3}
+  - Name: Dead
+    Clip: {fileID: 8300000, guid: 60cf4d2e3c8635c4e861cdef5357c32f, type: 3}
+  - Name: Hurt
+    Clip: {fileID: 8300000, guid: 60cf4d2e3c8635c4e861cdef5357c32f, type: 3}
+  - Name: Heal
+    Clip: {fileID: 8300000, guid: 773ea83d7462f62459199ccfbb963269, type: 3}
+  - Name: Star
+    Clip: {fileID: 8300000, guid: e22e1ff53e86f4b42aa2cb282c5a602e, type: 3}
+  BgmPlayer: {fileID: 4247873157932503387}
+  SfxPlayer:
   - {fileID: 4247873158449492080}
   - {fileID: 4247873158449492087}
   - {fileID: 4247873158449492085}

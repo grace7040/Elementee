@@ -62,14 +62,7 @@ public class UI_DrawCanvas : UI_Popup
             DrawManager.Instance.CloseDrawing();
 
             // 무기 바꾸기
-            if (basic_weapon)
-            {
-                ColorManager.Instance.SetPlayerBasicWeapon();
-            }
-            else
-            {
-                ColorManager.Instance.SetPlayerCustomWeapon();
-            }
+            ColorManager.Instance.UseBasicWeapon(basic_weapon);
 
         }
         else  // 얼굴 그릴 때
@@ -79,7 +72,7 @@ public class UI_DrawCanvas : UI_Popup
         }
 
         // 무기 플레이어에게 적용
-        ColorManager.Instance.SetOnPlayer(GameManager.Instance.PlayerColor);
+        ColorManager.Instance.SetColorState(GameManager.Instance.PlayerColor);
 
     }
 

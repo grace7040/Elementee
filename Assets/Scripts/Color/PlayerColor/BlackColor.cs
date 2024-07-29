@@ -14,6 +14,9 @@ public class BlackColor : IColorState
 
     public BlackColor(Action onBlackAttackedAction)
     {
+        ColorManager.Instance.HasRed = false;
+        ColorManager.Instance.HasYellow = false;
+        ColorManager.Instance.HasBlue = false;
         OnBlackAttacked = onBlackAttackedAction;
     }
     public void Attack(Vector3 playerPosition, float playerLocalScaleX)

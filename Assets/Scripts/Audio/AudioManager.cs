@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -7,24 +6,23 @@ using UnityEngine.Networking;
 [System.Serializable]
 public class Sound
 {
-    public string name;
-    public AudioClip clip;
+    public string Name;
+    public AudioClip Clip;
 }
 
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instacne;
 
-    int soundObjectsNum = 2; //UI_SoundCustom의 커스텀 soundObjects개수
+    public Sound[] Sfx = null;
+    public Sound[] Bgm = null;
+    public Sound[] DefaultSfx = null;
 
-    public Sound[] sfx = null;
-    public Sound[] bgm = null;
-    public Sound[] default_sfx = null;
+    [SerializeField] AudioSource BgmPlayer = null;
+    [SerializeField] AudioSource[] SfxPlayer = null;
 
-    [SerializeField] AudioSource bgmPlayer = null;
-    [SerializeField] AudioSource[] sfxPlayer = null;
-
-    string audioDir = "/audios";
+    int _customSoundCnt = 2; //UI_SoundCustom의 커스텀 soundObjects개수
+    string _audioDir = "/audios";
 
     private void Awake()
     {
@@ -41,50 +39,51 @@ public class AudioManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         else
             Destroy(gameObject);
+
+        _audioDir = Application.persistentDataPath + _audioDir;
     }
     private void Start()
     {
-        string dir = Application.persistentDataPath + audioDir;
-        if (Directory.Exists(dir))
+        if (Directory.Exists(_audioDir))
             LoadAudios();
         else
         {
-            Directory.CreateDirectory(dir);
+            Directory.CreateDirectory(_audioDir);
             SaveAudios();
         }
 
         PlayBGM("mainBGM");
     }
-    public void PlayBGM(string p_bgmName)
+    public void PlayBGM(string bgmName)
     {
-        for (int i = 0; i < bgm.Length; i++)
+        for (int i = 0; i < Bgm.Length; i++)
         {
-            if (p_bgmName == bgm[i].name)
+            if (bgmName == Bgm[i].Name)
             {
-                bgmPlayer.clip = bgm[i].clip;
-                bgmPlayer.Play();
+                BgmPlayer.clip = Bgm[i].Clip;
+                BgmPlayer.Play();
             }
         }
     }
 
     public void StopBGM()
     {
-        bgmPlayer.Stop();
+        BgmPlayer.Stop();
     }
 
-    public void PlaySFX(string p_sfxName)
+    public void PlaySFX(string sfxName)
     {
-        for (int i = 0; i < sfx.Length; i++)
+        for (int i = 0; i < Sfx.Length; i++)
         {
-            if (p_sfxName == sfx[i].name)
+            if (sfxName == Sfx[i].Name)
             {
-                for (int j = 0; j < sfxPlayer.Length; j++)
+                for (int j = 0; j < SfxPlayer.Length; j++)
                 {
                     // SFXPlayer에서 재생 중이지 않은 Audio Source를 발견했다면 
-                    if (!sfxPlayer[j].isPlaying)
+                    if (!SfxPlayer[j].isPlaying)
                     {
-                        sfxPlayer[j].clip = sfx[i].clip;
-                        sfxPlayer[j].Play();
+                        SfxPlayer[j].clip = Sfx[i].Clip;
+                        SfxPlayer[j].Play();
                         return;
                     }
                 }
@@ -92,17 +91,17 @@ public class AudioManager : MonoBehaviour
                 return;
             }
         }
-        Debug.Log(p_sfxName + " 이름의 효과음이 없습니다.");
+        Debug.Log(sfxName + " 이름의 효과음이 없습니다.");
         return;
     }
 
-    public void SetSFX(string p_sfxName, AudioClip p_clip)
+    public void SetSFX(string sfxName, AudioClip clip)
     {
-        for (int i = 0; i < sfx.Length; i++)
+        for (int i = 0; i < Sfx.Length; i++)
         {
-            if (p_sfxName == sfx[i].name)
+            if (sfxName == Sfx[i].Name)
             {
-                sfx[i].clip = p_clip;
+                Sfx[i].Clip = clip;
             }
         }
     }
@@ -116,19 +115,17 @@ public class AudioManager : MonoBehaviour
     //AudioClip to WAV
     public void SaveAudios()
     {
-        string dir = Application.persistentDataPath + audioDir;
-        for (int i = 0; i < soundObjectsNum; i++)
+        for (int i = 0; i < _customSoundCnt; i++)
         {
-            SavWav.Save(dir + "/" + sfx[i].name, sfx[i].clip);
+            SavWav.Save(_audioDir + "/" + Sfx[i].Name, Sfx[i].Clip);
         }
     }
 
     IEnumerator TestUnityWebRequest()
     {
-        string dir = Application.persistentDataPath + audioDir;
-        for (int i = 0; i < soundObjectsNum; i++)
+        for (int i = 0; i < _customSoundCnt; i++)
         {
-            using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(dir + "/" + sfx[i].name + ".wav", AudioType.WAV))
+            using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(_audioDir + "/" + Sfx[i].Name + ".wav", AudioType.WAV))
             {
                 /* 기존코드
                 yield return www.Send();
@@ -143,13 +140,12 @@ public class AudioManager : MonoBehaviour
                 }
                 else
                 {
-                    sfx[i].clip = DownloadHandlerAudioClip.GetContent(www);
-                    sfx[i].clip.name = sfx[i].name;
+                    Sfx[i].Clip = DownloadHandlerAudioClip.GetContent(www);
+                    Sfx[i].Clip.name = Sfx[i].Name;
                 }
 
             }
         }
     }
-
 
 }

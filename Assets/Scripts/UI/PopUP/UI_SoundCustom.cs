@@ -137,8 +137,8 @@ public class UI_SoundCustom : UI_Popup
     public void DafaultBtnClicked(PointerEventData data)
     {
         string name = Enum.GetName(typeof(SoundObjects), CurrentObject);
-        AudioManager.Instacne.SetSFX(name, AudioManager.Instacne.default_sfx[(int)CurrentObject-1].clip);
-        _aud.clip = AudioManager.Instacne.default_sfx[(int)CurrentObject - 1].clip;
+        AudioManager.Instacne.SetSFX(name, AudioManager.Instacne.DefaultSfx[(int)CurrentObject-1].Clip);
+        _aud.clip = AudioManager.Instacne.DefaultSfx[(int)CurrentObject - 1].Clip;
     }
 
 
@@ -148,7 +148,7 @@ public class UI_SoundCustom : UI_Popup
         {
             if (_aud.clip == null)
             {
-                _aud.clip = AudioManager.Instacne.sfx[(int)CurrentObject - 1].clip;
+                _aud.clip = AudioManager.Instacne.Sfx[(int)CurrentObject - 1].Clip;
             }
 
             _aud.Play();

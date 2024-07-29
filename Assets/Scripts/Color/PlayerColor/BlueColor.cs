@@ -12,6 +12,7 @@ public class BlueColor : IColorState
     public Action<string, bool> SetPlayerAnimatorBool = null;
     public BlueColor(Action<string, bool> setPlayerAnimatorBoolAction)
     {
+        ColorManager.Instance.HasBlue = false;
         SetPlayerAnimatorBool = setPlayerAnimatorBoolAction;
     }
     //Temporal Setting : BLue Color Attack -> Throw Water obj

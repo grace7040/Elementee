@@ -12,6 +12,8 @@ public class GreenColor : IColorState
     public Action<string, bool> SetPlayerAnimatorBool = null;
     public GreenColor(Action<string, bool> setPlayerAnimatorBoolAction)
     {
+        ColorManager.Instance.HasYellow = false;
+        ColorManager.Instance.HasBlue = false;
         SetPlayerAnimatorBool = setPlayerAnimatorBoolAction;
     }
     //Temporal Setting : Green Color Attack -> Throw leaf obj

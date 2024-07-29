@@ -12,6 +12,7 @@ public class RedColor :  IColorState
     public Action<string, bool> SetPlayerAnimatorBool = null;
     public RedColor(Action<string, bool> setPlayerAnimatorBoolAction)
     {
+        ColorManager.Instance.HasRed = true;
         SetPlayerAnimatorBool = setPlayerAnimatorBoolAction;
     }
 

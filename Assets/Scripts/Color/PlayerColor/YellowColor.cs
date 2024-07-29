@@ -10,9 +10,9 @@ public class YellowColor : IColorState
     public float CoolTime { get { return 3f; } }
 
     Action OnYellowAttacked = null;
-
     public YellowColor(Action onYellowAttackedAction)
     {
+        ColorManager.Instance.HasYellow = false;
         OnYellowAttacked = onYellowAttackedAction;
     }
 
