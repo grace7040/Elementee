@@ -52,9 +52,9 @@ public class PlayerController : MonoBehaviour
     bool _canWallSliding = false;
 
     [Header("Collision Checking")]
-    [SerializeField] private LayerMask m_WhatIsGround;                          // A mask determining what is ground to the character
-    [SerializeField] private Transform m_GroundCheck;                           // A position marking where to check if the player is grounded.
-    [SerializeField] private Transform m_WallCheck;                             //Posicion que controla si el personaje toca una pared
+    [SerializeField] private LayerMask _whatIsGround;                          // A mask determining what is ground to the character
+    [SerializeField] private Transform _groundCheck;                           // A position marking where to check if the player is grounded.
+    [SerializeField] private Transform _wallCheck;                             //Posicion que controla si el personaje toca una pared
 
     //Health
     [HideInInspector] public int maxHealth = 100;
@@ -146,7 +146,7 @@ public class PlayerController : MonoBehaviour
             bool wasGrounded = m_Grounded;
             m_Grounded = false;
 
-            colliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
+            colliders = Physics2D.OverlapCircleAll(_groundCheck.position, k_GroundedRadius, _whatIsGround);
             for (int i = 0; i < colliders.Length; i++) // 이 for문이 왜 필요하지
             {
                 if (colliders[i].gameObject != gameObject)
@@ -171,7 +171,7 @@ public class PlayerController : MonoBehaviour
         if (!m_Grounded) //땅에 닿아있지 않을 때 
         {
             OnFallEvent.Invoke(); //chaingin animation -> isjumping : true
-            collidersWall = Physics2D.OverlapCircleAll(m_WallCheck.position, k_GroundedRadius, m_WhatIsGround);
+            collidersWall = Physics2D.OverlapCircleAll(_wallCheck.position, k_GroundedRadius, _whatIsGround);
             for (int i = 0; i < collidersWall.Length; i++)
             {
                 if (collidersWall[i].gameObject != null) //벽에 닿아있다면
@@ -274,7 +274,7 @@ public class PlayerController : MonoBehaviour
             if (!oldWallSlidding && _rigidbody.velocity.y < 0 || isDashing)
             {
                 isWallSliding = true;
-                m_WallCheck.localPosition = new Vector3(-m_WallCheck.localPosition.x, m_WallCheck.localPosition.y, 0);
+                _wallCheck.localPosition = new Vector3(-_wallCheck.localPosition.x, _wallCheck.localPosition.y, 0);
                 Flip();
                 StartCoroutine(WaitToCheck(0.1f));
                 canDoubleJump = true;
@@ -368,7 +368,7 @@ public class PlayerController : MonoBehaviour
         isWallSliding = false;
         _animator.SetBool("IsWallSliding", false);
         oldWallSlidding = false;
-        m_WallCheck.localPosition = new Vector3(Mathf.Abs(m_WallCheck.localPosition.x), m_WallCheck.localPosition.y, 0);
+        _wallCheck.localPosition = new Vector3(Mathf.Abs(_wallCheck.localPosition.x), _wallCheck.localPosition.y, 0);
         canDoubleJump = true;
     }
 
@@ -398,7 +398,7 @@ public class PlayerController : MonoBehaviour
         isWallSliding = false;
         _animator.SetBool("IsWallSliding", false);
         oldWallSlidding = false;
-        m_WallCheck.localPosition = new Vector3(Mathf.Abs(m_WallCheck.localPosition.x), m_WallCheck.localPosition.y, 0);
+        _wallCheck.localPosition = new Vector3(Mathf.Abs(_wallCheck.localPosition.x), _wallCheck.localPosition.y, 0);
     }
 
     public void Die()

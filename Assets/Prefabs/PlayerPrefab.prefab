@@ -169,11 +169,11 @@ MonoBehaviour:
   AttackCoolTime: 0
   FaceSprite: {fileID: 7243554273347533079}
   MoveSpeed: 7
-  m_WhatIsGround:
+  _whatIsGround:
     serializedVersion: 2
     m_Bits: 309
-  m_GroundCheck: {fileID: 4291727345091452}
-  m_WallCheck: {fileID: 4986330650710208}
+  _groundCheck: {fileID: 4291727345091452}
+  _wallCheck: {fileID: 4986330650710208}
   maxHealth: 100
   damage: 10
   OnFallEvent:
