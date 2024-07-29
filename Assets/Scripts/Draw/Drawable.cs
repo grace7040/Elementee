@@ -13,9 +13,9 @@ namespace FreeDraw
     public class Drawable : MonoBehaviour
     {
         // PEN COLOUR
-        public static Color Pen_Colour;     // Change these to change the default drawing settings
+        public static Color PenColor;     // Change these to change the default drawing settings
         // PEN WIDTH (actually, it's a radius, in pixels)
-        public static int Pen_Width = 6;
+        public static int PenWidth = 6;
 
 
         public delegate void Brush_Function(Vector2 world_position);
@@ -73,13 +73,13 @@ namespace FreeDraw
                 // THIS IS THE FIRST CLICK
                 // FILL IN WHATEVER YOU WANT TO DO HERE
                 // Maybe mark multiple pixels to colour?
-                MarkPixelsToColour(pixel_pos, Pen_Width, Pen_Colour);
+                MarkPixelsToColour(pixel_pos, PenWidth, PenColor);
             }
             else
             {
                 // THE USER IS DRAGGING
                 // Should we do stuff between the previous mouse position and the current one?
-                ColourBetween(previous_drag_position, pixel_pos, Pen_Width, Pen_Colour);
+                ColourBetween(previous_drag_position, pixel_pos, PenWidth, PenColor);
             }
             ////////////////////////////////////////////////////////////////
 
@@ -106,12 +106,12 @@ namespace FreeDraw
             if (previous_drag_position == Vector2.zero)
             {
                 // If this is the first time we've ever dragged on this image, simply colour the pixels at our mouse position
-                MarkPixelsToColour(pixel_pos, Pen_Width, Pen_Colour);
+                MarkPixelsToColour(pixel_pos, PenWidth, PenColor);
             }
             else
             {
                 // Colour in a line from where we were on the last update call
-                ColourBetween(previous_drag_position, pixel_pos, Pen_Width, Pen_Colour);
+                ColourBetween(previous_drag_position, pixel_pos, PenWidth, PenColor);
             }
             ApplyMarkedPixelChanges();
 
