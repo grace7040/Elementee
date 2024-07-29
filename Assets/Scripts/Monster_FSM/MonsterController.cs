@@ -72,7 +72,7 @@ public class MonsterController : MonoBehaviour
     bool _isStopped = false;
     bool _canMove = true;
     float _timer = 0.0f;
-    float _interval = 3.0f;
+    float _interval = 0.1f;
 
     public float DownRayLength = 0.7f;
 
@@ -249,7 +249,7 @@ public class MonsterController : MonoBehaviour
         _checkRotation = IsFlip ? FlipQuaternion : Quaternion.identity;
         _raycastOrigin = transform.position + (_checkRotation * Vector3.right * 1.0f);
 
-        UnityEngine.Debug.DrawRay(_raycastOrigin, Vector2.down, Color.red);
+        // UnityEngine.Debug.DrawRay(_raycastOrigin, Vector2.down, Color.red);
 
         _hit = Physics2D.Raycast(_raycastOrigin, Vector2.down, 1.0f, 1 << 0);
 
