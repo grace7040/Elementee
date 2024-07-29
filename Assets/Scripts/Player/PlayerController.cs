@@ -235,10 +235,15 @@ public class PlayerController : MonoBehaviour
             NomalMove(move);
         }
         
-        if(_isGrounded && Math.Abs(_rigidbody.velocity.x)> 8.4f && !_isDashing)
+        if(!_isDashing && Math.Abs(_rigidbody.velocity.x) > 8.4f &&_isGrounded && !jump)
         {
             //print("구르기");
-            //_animator.SetBool("IsRolling", true);
+            _animator.SetBool("IsRolling", true);
+        }
+        else if( Math.Abs(_rigidbody.velocity.x) < 8.4f ) 
+        {
+            _animator.SetBool("IsRolling", false);
+            _animator.SetBool("IsJumping", false);
         }
 
 
