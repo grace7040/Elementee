@@ -148,7 +148,7 @@ public class PlayerAttack : MonoBehaviour
             {
                 if (_isHoldingEnemy)
                 {
-                    _enemy.transform.localPosition = new Vector2(0, 0);
+                    // _enemy.transform.localPosition = new Vector2(0, 0);
                 }
             }
             else if (_playerController.myColor != Colors.Black)
@@ -243,17 +243,32 @@ public class PlayerAttack : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        HandleEnemyCollision(collision);
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        Debug.Log("Stay");
+        HandleEnemyCollision(collision);
+        return;
+    }
+
+    private void HandleEnemyCollision(Collider2D collision)
+    {
         if (collision.gameObject.CompareTag("Enemy"))
         {
             if (_playerController.myColor == Colors.Black)
             {
                 if (!collision.gameObject.GetComponent<MonsterController>().isActiveAndEnabled)
                 {
-                    collision.gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+                    Rigidbody2D enemyRigidbody = collision.gameObject.GetComponent<Rigidbody2D>();
+                    enemyRigidbody.velocity = Vector2.zero;
+                    enemyRigidbody.isKinematic = true;
 
                     Transform parentTransform = WeaponPosition.transform;
                     Transform childTransform = collision.gameObject.transform;
                     childTransform.SetParent(parentTransform);
+                    childTransform.localPosition = Vector2.zero;
 
                     _isHoldingEnemy = true;
                     canAttack = true;
@@ -261,4 +276,5 @@ public class PlayerAttack : MonoBehaviour
             }
         }
     }
+
 }
