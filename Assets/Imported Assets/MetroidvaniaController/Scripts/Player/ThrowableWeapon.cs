@@ -63,7 +63,7 @@ public class ThrowableWeapon : PoolAble
 
     public void Throw(Vector3 playerPosition, float playerLocalScaleX)
     {
-        if (ColorManager.Instance.basicWeapon)
+        if (ColorManager.Instance.IsUsingBasicWeapon)
             SetBasicWeapon();
         spriteRenderer.flipX = playerLocalScaleX < 0;
         transform.SetPositionAndRotation(playerPosition + new Vector3(playerLocalScaleX * 0.5f, 0.2f), Quaternion.identity);
