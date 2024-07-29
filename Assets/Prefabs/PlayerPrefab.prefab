@@ -161,20 +161,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d24199674478c0645ac91135cf1fd33f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myColor: 0
   ParticleJumpUp: {fileID: 198584872278178884}
   ParticleJumpDown: {fileID: 198967111524372206}
   HealEffect: {fileID: 393088699325398}
-  CurrentHealth: 100
-  AttackCoolTime: 0
+  myColor: 0
   FaceSprite: {fileID: 7243554273347533079}
+  AttackCoolTime: 0
+  CurrentHealth: 100
+  Damage: 0
   MoveSpeed: 7
   _whatIsGround:
     serializedVersion: 2
     m_Bits: 309
   _groundCheck: {fileID: 4291727345091452}
   _wallCheck: {fileID: 4986330650710208}
-  Damage: 0
   OnFallEvent:
     m_PersistentCalls:
       m_Calls:
@@ -10739,15 +10739,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 287dd0b5077f4554b97c5ef98e0ae2da, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.42, y: 0.54}
+  m_Size: {x: 10, y: 7.5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1086310549815544557

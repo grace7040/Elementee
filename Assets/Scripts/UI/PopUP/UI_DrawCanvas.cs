@@ -63,16 +63,18 @@ public class UI_DrawCanvas : UI_Popup
 
             // 무기 바꾸기
             ColorManager.Instance.UseBasicWeapon(_basicWeapon);
+            ColorManager.Instance.SetColorState(GameManager.Instance.PlayerColor);
+
 
         }
         else  // 얼굴 그릴 때
         {
             ClosePopupUI();
             DrawManager.Instance.SaveFaceDrawing();
+            DrawManager.Instance.SaveWeapon((int)_color);
         }
 
         // 무기 플레이어에게 적용
-        ColorManager.Instance.SetColorState(GameManager.Instance.PlayerColor);
 
     }
 

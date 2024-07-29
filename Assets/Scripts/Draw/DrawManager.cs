@@ -117,6 +117,7 @@ public class DrawManager : MonoBehaviour
 
     public void SaveFaceDrawing()
     {
+
         // 다시 원래 카메라로
         Cam.SetActive(true);
         DrawCam.SetActive(false);
@@ -125,6 +126,8 @@ public class DrawManager : MonoBehaviour
 
         // Face 저장 - 8번
         GameManager.Instance.PlayerFace = WeaponCanvas[8];
+        SaveWeapon(8);
+
     }
 
 

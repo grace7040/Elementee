@@ -119,7 +119,15 @@ public class ColorManager : Singleton<ColorManager>
             StartDrawing(_color);
         }
         else
+        {
+            _playerAttack.canAttack = true;
             SetPlayerColorState(_color);
+            UseBasicWeapon(IsUsingBasicWeapon);
+
+            ObjectPoolManager.Instance.SetColorName(_color);
+            DrawManager.Instance.SaveWeapon((int)_color);
+            OnSetColor?.Invoke();
+        }
 
     }
 
@@ -127,8 +135,6 @@ public class ColorManager : Singleton<ColorManager>
     // hasXXX 변수 설정 & 플레이어 무기 활성화
     void SetPlayerColorState(Colors _color)
     {
-        _playerAttack.canAttack = true;
-
         switch (_color)
         {
             case Colors.Default:
@@ -164,13 +170,6 @@ public class ColorManager : Singleton<ColorManager>
                 OnSetBlackColor.Invoke();
                 break;
         }
-        //_playerController.myColor = _color;
-
-        UseBasicWeapon(IsUsingBasicWeapon);
-
-        ObjectPoolManager.Instance.SetColorName(_color);
-        DrawManager.Instance.SaveWeapon((int)_color);
-        OnSetColor?.Invoke();
     }
 
     void SetColorState(IColorState _color)
