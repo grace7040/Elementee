@@ -73,6 +73,7 @@ public class PlayerController : MonoBehaviour
     bool _facingRight = true;  // For determining which way the player is currently facing.
     float _limitFallSpeed = 25f;
     float _accelerationRate = 5f;
+    bool _isRoll = false;
 
     // Jump
     float _jumpForce = 850f;
@@ -195,6 +196,20 @@ public class PlayerController : MonoBehaviour
                 _rigidbody.velocity = new Vector2(0, _rigidbody.velocity.y);
             }
         }
+
+        if(Math.Abs(_rigidbody.velocity.x) < 9f)
+        {
+            _isRoll = false;
+
+        }
+        else if (!_isDashing && _isGrounded)
+        {
+            _isRoll = true;
+        }
+
+
+        print(_rigidbody.velocity.x + ", isRoll: " + _isRoll);
+        
     }
 
 
@@ -222,11 +237,13 @@ public class PlayerController : MonoBehaviour
         // Dash
         if (dash && _canDash && !_isWallSliding)
         {
+            _isRoll = false;
             StartCoroutine(DashCooldown());
         }
         if (_isDashing)
         {
             _rigidbody.velocity = new Vector2(transform.localScale.x * _dashForce, 0);
+            _isRoll = false;
         }
 
         // NomalMove & Flip
@@ -235,15 +252,14 @@ public class PlayerController : MonoBehaviour
             NomalMove(move);
         }
         
-        if(!_isDashing && Math.Abs(_rigidbody.velocity.x) > 8.4f &&_isGrounded && !jump)
+        if(_isRoll)
         {
-            //print("구르기");
             _animator.SetBool("IsRolling", true);
         }
-        else if( Math.Abs(_rigidbody.velocity.x) < 8.4f ) 
+        else
         {
             _animator.SetBool("IsRolling", false);
-            _animator.SetBool("IsJumping", false);
+
         }
 
 
