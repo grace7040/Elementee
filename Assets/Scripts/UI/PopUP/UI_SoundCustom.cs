@@ -11,7 +11,7 @@ public class UI_SoundCustom : UI_Popup
 {
     public int RecordTime = 1;
     public Sprite[] Sprites;
-    public SoundObjects CurrentObject;
+    public CustomSound CurrentObject;
     public GameObject BlockImage;
 
     public GameObject RecordAnim;
@@ -21,7 +21,7 @@ public class UI_SoundCustom : UI_Popup
 
     
 
-    public enum SoundObjects
+    public enum CustomSound
     {
         def,
         Red,
@@ -107,7 +107,7 @@ public class UI_SoundCustom : UI_Popup
 
     }
 
-    public void SetSoundObject(SoundObjects obj)
+    public void SetSoundObject(CustomSound obj)
     {
         CurrentObject = obj;
         GetImage((int)Images.Image).sprite = Sprites[(int)CurrentObject];
@@ -121,7 +121,7 @@ public class UI_SoundCustom : UI_Popup
     public void RecordBtnClicked(PointerEventData data)
     {
       
-        if (CurrentObject != SoundObjects.def)
+        if (CurrentObject != CustomSound.def)
         {
             RecordAnim.GetComponent<Animator>().Play("Record", -1, 0f);
 
@@ -136,7 +136,7 @@ public class UI_SoundCustom : UI_Popup
 
     public void DafaultBtnClicked(PointerEventData data)
     {
-        string name = Enum.GetName(typeof(SoundObjects), CurrentObject);
+        string name = Enum.GetName(typeof(CustomSound), CurrentObject);
         AudioManager.Instacne.SetSFX(name, AudioManager.Instacne.DefaultSfx[(int)CurrentObject-1].Clip);
         _aud.clip = AudioManager.Instacne.DefaultSfx[(int)CurrentObject - 1].Clip;
     }
@@ -144,7 +144,7 @@ public class UI_SoundCustom : UI_Popup
 
     public void PlayBtnClicked(PointerEventData data)
     {
-        if (CurrentObject != SoundObjects.def)
+        if (CurrentObject != CustomSound.def)
         {
             if (_aud.clip == null)
             {
@@ -170,9 +170,9 @@ public class UI_SoundCustom : UI_Popup
 
     public void SaveClip(PointerEventData data)
     {
-        string name = Enum.GetName(typeof(SoundObjects), CurrentObject);
+        string name = Enum.GetName(typeof(CustomSound), CurrentObject);
 
-        if(CurrentObject != SoundObjects.def)
+        if(CurrentObject != CustomSound.def)
         {
             AudioManager.Instacne.SetSFX(name, _aud.clip);
         }
@@ -182,57 +182,57 @@ public class UI_SoundCustom : UI_Popup
 
     public void Red(PointerEventData data)
     {
-        SetSoundObject(SoundObjects.Red);
+        SetSoundObject(CustomSound.Red);
     }
 
     public void Yellow(PointerEventData data)
     {
-        SetSoundObject(SoundObjects.Yellow);
+        SetSoundObject(CustomSound.Yellow);
     }
 
     public void Blue(PointerEventData data)
     {
-        SetSoundObject(SoundObjects.Blue);
+        SetSoundObject(CustomSound.Blue);
     }
 
     public void Orange(PointerEventData data)
     {
-        SetSoundObject(SoundObjects.Orange);
+        SetSoundObject(CustomSound.Orange);
     }
 
     public void Green(PointerEventData data)
     {
-        SetSoundObject(SoundObjects.Green);
+        SetSoundObject(CustomSound.Green);
     }
 
     public void Purple(PointerEventData data)
     {
-        SetSoundObject(SoundObjects.Purple);
+        SetSoundObject(CustomSound.Purple);
     }
 
     public void Black(PointerEventData data)
     {
-        SetSoundObject(SoundObjects.Black);
+        SetSoundObject(CustomSound.Black);
     }
 
     public void Jump(PointerEventData data)
     {
-        SetSoundObject(SoundObjects.Jump);
+        SetSoundObject(CustomSound.Jump);
     }
 
     public void Dash(PointerEventData data)
     {
-        SetSoundObject(SoundObjects.Dash);
+        SetSoundObject(CustomSound.Dash);
     }
 
     public void Hurt(PointerEventData data)
     {
-        SetSoundObject(SoundObjects.Hurt);
+        SetSoundObject(CustomSound.Hurt);
     }
 
     public void Dead(PointerEventData data)
     {
-        SetSoundObject(SoundObjects.Dead);
+        SetSoundObject(CustomSound.Dead);
     }
 
 
