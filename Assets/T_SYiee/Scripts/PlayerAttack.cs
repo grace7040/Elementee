@@ -27,7 +27,7 @@ public class PlayerAttack : MonoBehaviour
     // Black
     public GameObject WeaponPosition;
     bool _isHoldingEnemy = false; // 적을 가지고 있는지 여부
-    Rigidbody2D _heldEnemyRigidbody; // 가지고 있는 적의 Rigidbody2D
+    // Rigidbody2D _heldEnemyRigidbody; // 가지고 있는 적의 Rigidbody2D
     GameObject _enemy;
     Transform closestEnemy;
     float _pullForce = 15f; // 끌어당기는 힘 조절용 변수
@@ -169,7 +169,6 @@ public class PlayerAttack : MonoBehaviour
 
     private IEnumerator PullCoroutine()
     {
-        Debug.Log(canAttack);
         if (!_isHoldingEnemy && canAttack)
         {
             FindClosestEnemy();
@@ -178,7 +177,7 @@ public class PlayerAttack : MonoBehaviour
             {
                 canAttack = false;
 
-                _heldEnemyRigidbody = closestEnemy.GetComponent<Rigidbody2D>();
+                // _heldEnemyRigidbody = closestEnemy.GetComponent<Rigidbody2D>();
                 _enemy = closestEnemy.gameObject;
 
                 _enemy.SendMessage("PulledByBlack");
@@ -226,23 +225,23 @@ public class PlayerAttack : MonoBehaviour
 
     public void BlackThrow()
     {
-        Rigidbody2D rb = _enemy.GetComponent<Rigidbody2D>();
+        Rigidbody2D _enemyRigidbody = _enemy.GetComponent<Rigidbody2D>();
 
-        if (rb != null)
+        if (_enemyRigidbody != null)
         {
             Transform childTransform = _enemy.gameObject.transform;
 
             childTransform.SetParent(null);
 
             _isHoldingEnemy = false;
-            _enemy.GetComponent<Rigidbody2D>().gravityScale = 0.0f;
+            _enemyRigidbody.gravityScale = 0.0f;
 
-            rb.gameObject.GetComponent<OB_VerticlaMovement>().enabled = false;
+            // _enemy.GetComponent<OB_VerticlaMovement>().enabled = false;
 
-            Vector2 throwDirection = (rb.transform.position - transform.position).normalized;
-            rb.velocity = throwDirection * _throwForce;
-            rb.gameObject.tag = "WeaponB";
-            _heldEnemyRigidbody = null;
+            Vector2 throwDirection = (_enemyRigidbody.transform.position - transform.position).normalized;
+            _enemyRigidbody.velocity = throwDirection * _throwForce;
+            _enemyRigidbody.gameObject.tag = "WeaponB";
+            //_heldEnemyRigidbody = null;
 
             _enemy.GetComponent<MonsterController>().Die();
         }
@@ -257,7 +256,7 @@ public class PlayerAttack : MonoBehaviour
                 if (!collision.gameObject.GetComponent<MonsterController>().isActiveAndEnabled)
                 {
                     collision.gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-                    collision.gameObject.GetComponent<OB_VerticlaMovement>().enabled = true;
+                    // collision.gameObject.GetComponent<OB_VerticlaMovement>().enabled = true;
 
                     Transform parentTransform = WeaponPosition.transform;
                     Transform childTransform = collision.gameObject.transform;
