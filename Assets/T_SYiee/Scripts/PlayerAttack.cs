@@ -175,6 +175,7 @@ public class PlayerAttack : MonoBehaviour
             if (closestEnemy != null)
             {
                 canAttack = false;
+                StartCoroutine(CheckNearbyEnemiesCoroutine());
 
                 _enemy = closestEnemy.gameObject;
                 _enemy.SendMessage("PulledByBlack");
@@ -241,16 +242,29 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
+    private IEnumerator CheckNearbyEnemiesCoroutine()
+    {
+        while (!_isHoldingEnemy)
+        {
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 0.1f);
+            foreach (Collider2D collider in colliders)
+            {
+                if (collider.CompareTag("Enemy"))
+                {
+                    HandleEnemyCollision(collider);
+                    if (_isHoldingEnemy)
+                    {
+                        yield break;
+                    }
+                }
+            }
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         HandleEnemyCollision(collision);
-    }
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        Debug.Log("Stay");
-        HandleEnemyCollision(collision);
-        return;
     }
 
     private void HandleEnemyCollision(Collider2D collision)
@@ -276,5 +290,4 @@ public class PlayerAttack : MonoBehaviour
             }
         }
     }
-
 }
