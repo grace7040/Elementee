@@ -170,7 +170,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4058981379462855991}
   - component: {fileID: 4058981379462855988}
-  - component: {fileID: 4058981379462855989}
+  - component: {fileID: 2590355744006620444}
   m_Layer: 7
   m_Name: BackGround
   m_TagString: Untagged
@@ -245,7 +245,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4058981379462855989
+--- !u!114 &2590355744006620444
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -257,9 +257,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38f84a9fe7a1c78468d251e36231b3a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sr: {fileID: 4058981380410658270}
-  width: 0.1
-  height: 0.1
+  sr: {fileID: 4058981379462855988}
+  width: 0.25
+  height: 0.33333
 --- !u!1 &4058981380131913906
 GameObject:
   m_ObjectHideFlags: 0
@@ -304,7 +304,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03510ea897333a3478c3615be62b832e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Transparency: 1
 --- !u!1 &4058981380186920899
 GameObject:
   m_ObjectHideFlags: 0
@@ -410,8 +409,8 @@ MonoBehaviour:
   - "\uBCF4\uB77C\uC0C9 \uBB34\uAE30\uB97C \uADF8\uB824\uC8FC\uC138\uC694"
   - "\uBB34\uAE30\uB97C \uADF8\uB824\uC8FC\uC138\uC694"
   - "\uC5BC\uAD74\uC5D0 \uB9DE\uAC8C \uD45C\uC815\uC744 \uADF8\uB824\uC8FC\uC138\uC694"
-  WeaponWidth: 10
-  FaceWidth: 22
+  WeaponWidth: 30
+  FaceWidth: 40
   DrawSetting: {fileID: 0}
 --- !u!1 &4058981380410658268
 GameObject:
@@ -459,11 +458,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 571045d48cec88d48848f53bf379f673, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Drawing_Layers:
-    serializedVersion: 2
-    m_Bits: 384
-  Reset_Canvas_On_Play: 1
-  Reset_Colour: {r: 1, g: 1, b: 1, a: 0}
+  ResetCanvasOnPlay: 1
 --- !u!212 &4058981380410658270
 SpriteRenderer:
   m_ObjectHideFlags: 0

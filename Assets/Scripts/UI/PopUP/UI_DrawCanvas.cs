@@ -71,10 +71,8 @@ public class UI_DrawCanvas : UI_Popup
         {
             ClosePopupUI();
             DrawManager.Instance.SaveFaceDrawing();
-            DrawManager.Instance.SaveWeapon((int)_color);
+          //  DrawManager.Instance.SaveWeapon((int)_color);
         }
-
-        // 무기 플레이어에게 적용
 
     }
 

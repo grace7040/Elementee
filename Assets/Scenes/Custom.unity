@@ -582,21 +582,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   developMode: 0
-  mapStar: 
-  yehh: []
-  mapBest: 0
-  mapCoin: 0
-  currentMapNum: 0
-  Potal: {fileID: 0}
-  starCount: 10
-  isFirst: 1
-  player: {fileID: 0}
-  sponPos: {fileID: 0}
-  playerColor: 0
-  playerFace: {fileID: 0}
-  playerHP: 100
-  playerMAXHP: 100
-  coin: 0
+  MapStar: 
+  MapBest: 0
+  TotalCoin: 0
+  CurrentCoin: 0
+  CurrentMapNum: 0
+  CurrentStar: 0
+  CurrentPotal: {fileID: 0}
+  UIGame: {fileID: 0}
+  IsFirstPlay: 1
+  Player: {fileID: 0}
+  PlayerColor: 0
+  PlayerFace: {fileID: 0}
   ReDrawItemColor: 0
 --- !u!4 &828407975
 Transform:
@@ -881,6 +878,10 @@ PrefabInstance:
       propertyPath: face_mode
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4058981380186920898, guid: b30077d457412d74ba8a5899778b8c67, type: 3}
+      propertyPath: WeaponCanvas.Array.data[8]
+      value: 
+      objectReference: {fileID: 21300000, guid: 287dd0b5077f4554b97c5ef98e0ae2da, type: 3}
     - target: {fileID: 4058981380186920899, guid: b30077d457412d74ba8a5899778b8c67, type: 3}
       propertyPath: m_Name
       value: DrawManager
