@@ -144,11 +144,11 @@ public class ColorManager : Singleton<ColorManager>
                 _playerAttack.YellowAttackEffect.SetActive(true);
                 break;
             case Colors.Blue:
-                _playerAttack.BlueWeapon.SetActive(true);
+                //_playerAttack.BlueWeapon.SetActive(true);
                 SetColorState(new BlueColor(SetPlayerAnimatorBool));
                 break;
             case Colors.Green:
-                _playerAttack.GreenWeapon.SetActive(true);
+                //_playerAttack.GreenWeapon.SetActive(true);
                 SetColorState(new GreenColor(SetPlayerAnimatorBool));
                 break;
             case Colors.Purple:
