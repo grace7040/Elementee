@@ -16,7 +16,6 @@ public class DrawManager : MonoBehaviour
     public GameObject Drawing;
     public GameObject DrawbleObject;
 
-    // Face Custom
     public bool face_mode;
 
     [Header("Camera")]
@@ -26,42 +25,43 @@ public class DrawManager : MonoBehaviour
 
     [Header("Sprites")]
     public GameObject BackGround;
-    public Sprite[] sprites;
-    public Sprite[] Basic_Sprites;
-    public Sprite[] BG_Basic_Sprites;
-    public Sprite[] BG_Sprites;
+    public Sprite[] WeaponCanvas;
+    public Sprite[] BasicWeapon;
+    public Sprite[] BasicWeaponBG;
+    public Sprite[] WeaponCanvasBG;
     public List<string> DrawText;
 
 
     [Header("PenWidth")]
-    public int weaponWidth = 10;
-    public int faceWidth = 22;
+    public int WeaponWidth = 10;
+    public int FaceWidth = 22;
+
 
     [HideInInspector]
     public DrawingSettings DrawSetting;
 
 
-    string weaponDir;
-    string soundDir;
+    string _weaponDir;
+    string _soundDir;
 
-    private static DrawManager instance = null;
+    private static DrawManager _instance = null;
     public static DrawManager Instance
     {
         get
         {
-            if (null == instance)
+            if (null == _instance)
             {
                 return null;
             }
-            return instance;
+            return _instance;
         }
     }
 
     private void Awake()
     {
-        if (null == instance)
+        if (null == _instance)
         {
-            instance = this;
+            _instance = this;
         }
         else
         {
@@ -78,42 +78,38 @@ public class DrawManager : MonoBehaviour
         this.color = color;
         Color c = ColorManager.Instance.GetColor(color);
 
-        BackGround.GetComponent<Image>().sprite = BG_Sprites[(int)color];
-        DrawbleObject.GetComponent<SpriteRenderer>().sprite = sprites[(int)color];
+        BackGround.GetComponent<Image>().sprite = WeaponCanvasBG[(int)color];
+        DrawbleObject.GetComponent<SpriteRenderer>().sprite = WeaponCanvas[(int)color];
         DrawbleObject.GetComponent<Drawable>().UpdateCanvas();
-        DrawSetting.SetMarkerWidth(weaponWidth);
+        DrawSetting.SetMarkerWidth(WeaponWidth);
         DrawSetting.SetMarkerColour(c);
     }
 
     public void OpenDrawing()
     {
-        // Draw용 카메라로
         Cam.SetActive(false);
         DrawCam.SetActive(true);
-
         Drawing.SetActive(true);
     }
 
     public void CloseDrawing()
     {
-        // 다시 원래 카메라로
         Cam.SetActive(true);
         DrawCam.SetActive(false);
         Drawing.SetActive(false);
     }
 
 
-    // 얼굴 그리기
     public void SetFaceColor()
     {
         face_mode = true;
         Color c = ColorManager.Instance.GetColor(Colors.Black);
 
-        BackGround.GetComponent<Image>().sprite = BG_Sprites[8];
+        BackGround.GetComponent<Image>().sprite = WeaponCanvasBG[8];
 
-        DrawbleObject.GetComponent<SpriteRenderer>().sprite = sprites[8];
+        DrawbleObject.GetComponent<SpriteRenderer>().sprite = WeaponCanvas[8];
         DrawbleObject.GetComponent<Drawable>().UpdateCanvas();
-        DrawSetting.SetMarkerWidth(faceWidth);
+        DrawSetting.SetMarkerWidth(FaceWidth);
 
         DrawSetting.SetMarkerColour(c);
 
@@ -128,7 +124,7 @@ public class DrawManager : MonoBehaviour
         Drawing.SetActive(false);
 
         // Face 저장 - 8번
-        GameManager.Instance.PlayerFace = sprites[8];
+        GameManager.Instance.PlayerFace = WeaponCanvas[8];
     }
 
 
@@ -136,68 +132,50 @@ public class DrawManager : MonoBehaviour
     public void BasicWeapons(int num)
     {
         if (num == 1)
-            BackGround.GetComponent<Image>().sprite = BG_Basic_Sprites[(int)color];
+            BackGround.GetComponent<Image>().sprite = BasicWeaponBG[(int)color];
         else
-            BackGround.GetComponent<Image>().sprite = BG_Sprites[(int)color];
+            BackGround.GetComponent<Image>().sprite = WeaponCanvasBG[(int)color];
     }
 
 
     public void LoadWeapons(string _weaponDir)
     {
-        // text.text = "저장된 Weapon 불러오기. weaponDir: " + _weaponDir;
-        weaponDir = _weaponDir;
 
-        for (int i = 0; i < sprites.Length; i++)
+        this._weaponDir = _weaponDir;
+
+        for (int i = 0; i < WeaponCanvas.Length; i++)
         {
             Texture2D texture = new Texture2D(0, 0);
-
-            string filename = weaponDir + "/" + sprites[i].name + ".png";
-
-            // text.text = i+"번째 파일: "+ filename;
-
+            string filename = this._weaponDir + "/" + WeaponCanvas[i].name + ".png";
             byte[] byteTexture = File.ReadAllBytes(Application.persistentDataPath + filename);
-
-            // text.text = i+"번째 바이트 텍스처 Read 완료";
 
             if (byteTexture.Length > 0)
             {
                 texture.LoadImage(byteTexture);
-                //      text.text = i+"번째 바이트 텍스처를 텍스처로 로드 완료";
             }
 
             Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
-            //  text.text = i+"번째 스프라이트 생성 완료";
-            sprite.name = sprites[i].name;
-            sprites[i] = sprite;
-            //  text.text = i+"번째 스프라이트 적용 완료";
+            sprite.name = WeaponCanvas[i].name;
+            WeaponCanvas[i] = sprite;
         }
 
-        //  text.text = "DrawManager.LoadWeapon 완료";
     }
 
     public void SaveWeapon(int i)
     {
-        //  text.text = "SaveWeapon 시작";
-        byte[] bytes = sprites[i].texture.EncodeToPNG();
-        //   text.text = i + "번째 텍스처를 바이트로 변환 완료";
-        string filename = weaponDir + "/" + sprites[i].name + ".png";
+        byte[] bytes = WeaponCanvas[i].texture.EncodeToPNG();
+        string filename = _weaponDir + "/" + WeaponCanvas[i].name + ".png";
         File.WriteAllBytes(Application.persistentDataPath + filename, bytes);
-        //  text.text = i + "번째 Weapon텍스처를 저장 완료";
-        //  testRenderer.sprite = sprites[i];
     }
 
     public void SaveWeapons(string _weaponDir)
     {
-        //   text.text = "SaveWeapons 시작";
-        for (int i = 0; i < sprites.Length; i++)
+        for (int i = 0; i < WeaponCanvas.Length; i++)
         {
-            byte[] bytes = sprites[i].texture.EncodeToPNG();
-            //  text.text = i + "번째 텍스처를 바이트로 변환 완료";
-            string filename = _weaponDir + "/" + sprites[i].name + ".png";
+            byte[] bytes = WeaponCanvas[i].texture.EncodeToPNG();
+            string filename = _weaponDir + "/" + WeaponCanvas[i].name + ".png";
             File.WriteAllBytes(Application.persistentDataPath + filename, bytes);
-            //  text.text = i + "번째 Weapon텍스처를 저장 완료";
         }
-        //  text.text = "DrawManager.SaveWeapons 완료";
-        Debug.Log(Application.persistentDataPath + weaponDir + "/" + sprites[0].name);
+        Debug.Log(Application.persistentDataPath + this._weaponDir + "/" + WeaponCanvas[0].name);
     }
 }

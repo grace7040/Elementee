@@ -4,45 +4,45 @@ using UnityEngine;
 using System.IO;
 
 [System.Serializable]
-public class SaveData // 저장할 데이터
+public class SaveData
 {
-    public List<int> mapStar = new List<int>();
+    public List<int> MapStar = new List<int>();
     //public List<int> mapFlag = new List<int>();
-    public int mapBest;
+    public int MapBest;
     public int TotalCoin;
 }
 
 public class DataManager : Singleton<DataManager>
 {
-    private string path;
+    string _path;
     void Start()
     {
-        path = Path.Combine(Application.persistentDataPath, "database.json");
+        _path = Path.Combine(Application.persistentDataPath, "database.json");
     }
 
     public void JsonLoad()
     {
         SaveData saveData = new SaveData();
-        path = Path.Combine(Application.persistentDataPath, "database.json");
+        _path = Path.Combine(Application.persistentDataPath, "database.json");
 
-        if (!File.Exists(path))
+        if (!File.Exists(_path))
         {
             GameManager.Instance.MapBest = 0;
             JsonSave();
         }
         else
         {
-            string loadJson = File.ReadAllText(path);
+            string loadJson = File.ReadAllText(_path);
             saveData = JsonUtility.FromJson<SaveData>(loadJson);
 
             if (saveData != null)
             {
-                for (int i = 0; i < saveData.mapStar.Count; i++)
+                for (int i = 0; i < saveData.MapStar.Count; i++)
                 {
-                    GameManager.Instance.MapStar.Add(saveData.mapStar[i]);
+                    GameManager.Instance.MapStar.Add(saveData.MapStar[i]);
                     //GameManager.Instance.mapFlag.Add(saveData.mapFlag[i]);
                 }
-                GameManager.Instance.MapBest = saveData.mapBest;
+                GameManager.Instance.MapBest = saveData.MapBest;
                 GameManager.Instance.TotalCoin = saveData.TotalCoin;
             }
         }
@@ -50,34 +50,34 @@ public class DataManager : Singleton<DataManager>
 
     public void JsonSave()
     {
-        path = Path.Combine(Application.persistentDataPath, "database.json");
+        _path = Path.Combine(Application.persistentDataPath, "database.json");
 
         SaveData saveData = new SaveData();
 
         // Data Load
         for (int i = 0; i < GameManager.Instance.MapStar.Count; i++)
         {
-            saveData.mapStar.Add(GameManager.Instance.MapStar[i]);
+            saveData.MapStar.Add(GameManager.Instance.MapStar[i]);
             //saveData.mapFlag.Add(GameManager.Instance.mapFlag[i]);
         }
-        saveData.mapBest = GameManager.Instance.MapBest;
+        saveData.MapBest = GameManager.Instance.MapBest;
         saveData.TotalCoin = GameManager.Instance.TotalCoin;
 
         // Data Save
         string json = JsonUtility.ToJson(saveData, true);
-        File.WriteAllText(path, json);
+        File.WriteAllText(_path, json);
     }
 
     public void JsonClear() // Clear Data
     {
-        path = Path.Combine(Application.persistentDataPath, "database.json");
+        _path = Path.Combine(Application.persistentDataPath, "database.json");
 
         SaveData saveData = new SaveData();
-        saveData.mapBest = 0;
+        saveData.MapBest = 0;
         saveData.TotalCoin = 0;
 
         string json = JsonUtility.ToJson(saveData, true);
-        File.WriteAllText(path, json);
+        File.WriteAllText(_path, json);
     }
 
 }

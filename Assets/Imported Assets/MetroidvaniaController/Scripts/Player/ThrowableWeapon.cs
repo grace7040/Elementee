@@ -15,7 +15,7 @@ public class ThrowableWeapon : PoolAble
     {
         //rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        spriteRenderer.sprite = DrawManager.Instance.sprites[(int)myColor];
+        spriteRenderer.sprite = DrawManager.Instance.WeaponCanvas[(int)myColor];
     }
 
     private void OnEnable()
@@ -26,12 +26,12 @@ public class ThrowableWeapon : PoolAble
 
     public void SetCustomWeapon()
     {
-        spriteRenderer.sprite = DrawManager.Instance.sprites[(int)myColor];
+        spriteRenderer.sprite = DrawManager.Instance.WeaponCanvas[(int)myColor];
     }
 
     public void SetBasicWeapon()
     {
-        spriteRenderer.sprite = DrawManager.Instance.Basic_Sprites[(int)myColor];
+        spriteRenderer.sprite = DrawManager.Instance.BasicWeapon[(int)myColor];
     }
 
 

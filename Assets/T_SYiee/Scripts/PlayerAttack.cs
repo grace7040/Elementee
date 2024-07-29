@@ -62,7 +62,7 @@ public class PlayerAttack : MonoBehaviour
 
     public void SetCustomWeapon()
     {
-        ColorWeapons[(int)_playerController.myColor].sprite = DrawManager.Instance.sprites[(int)_playerController.myColor];
+        ColorWeapons[(int)_playerController.myColor].sprite = DrawManager.Instance.WeaponCanvas[(int)_playerController.myColor];
 
         // Yellow 경우, 자식들에도 sprite 할당이 필요함
         if (_playerController.myColor == Colors.Yellow)
@@ -76,7 +76,7 @@ public class PlayerAttack : MonoBehaviour
 
     public void SetBasicWeapon()
     {
-        ColorWeapons[(int)_playerController.myColor].sprite = DrawManager.Instance.Basic_Sprites[(int)_playerController.myColor];
+        ColorWeapons[(int)_playerController.myColor].sprite = DrawManager.Instance.BasicWeapon[(int)_playerController.myColor];
 
         if (_playerController.myColor == Colors.Yellow)
         {
