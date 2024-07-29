@@ -61,7 +61,7 @@ public class UI_Game : UI_Scene
         Yellow,
         Blue,
         Attack_Cool_Time,
-        PotalArrow,
+        //PotalArrow,
     }
 
     enum Texts
@@ -147,7 +147,7 @@ public class UI_Game : UI_Scene
 
         GetButton((int)Buttons.SettingBtn).gameObject.BindEvent(OnSettingBtnClicked);
         GetButton((int)Buttons.Palette).gameObject.BindEvent(PaletteBtnClicked);
-        //  GetButton((int)Buttons.Attack).gameObject.BindEvent(AttackBtnClicked);
+        //GetButton((int)Buttons.Attack).gameObject.BindEvent(AttackBtnClicked);
         _hpBar = GetImage((int)Images.HP);
 
 
@@ -190,7 +190,7 @@ public class UI_Game : UI_Scene
         HpBarMAX = _hpBar.gameObject.GetComponent<RectTransform>().rect.width;
 
         // Potal
-        _PotalArr_IMG = GetImage((int)Images.PotalArrow);
+        //_PotalArr_IMG = GetImage((int)Images.PotalArrow);
         if (GameManager.Instance.CurrentPotal != null)
             _potalVec = GameManager.Instance.CurrentPotal.transform.position;
 
@@ -265,9 +265,9 @@ public class UI_Game : UI_Scene
         }
 
         // Potal Arr
-        _playerVec = _player.transform.position;
-        _angle = Mathf.Atan2(_potalVec.y - _playerVec.y, _potalVec.x - _playerVec.x) * Mathf.Rad2Deg;
-        _PotalArr_IMG.transform.rotation = Quaternion.AngleAxis(_angle, Vector3.forward);
+        //_playerVec = _player.transform.position;
+        //_angle = Mathf.Atan2(_potalVec.y - _playerVec.y, _potalVec.x - _playerVec.x) * Mathf.Rad2Deg;
+        //_PotalArr_IMG.transform.rotation = Quaternion.AngleAxis(_angle, Vector3.forward);
     }
 
     IEnumerator SkillTimeChk()
