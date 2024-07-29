@@ -10,11 +10,11 @@ using UnityEngine.SceneManagement;
 
 public class UI_DrawCanvas : UI_Popup
 {
-    GameObject player;
+    GameObject _player;
     public TextMeshProUGUI GuideText;
 
-    bool basic_weapon = false;
-    private Colors color;
+    bool _basicWeapon = false;
+    Colors _color;
 
     enum Buttons
     {
@@ -27,8 +27,8 @@ public class UI_DrawCanvas : UI_Popup
 
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
-        color = GameManager.Instance.PlayerColor;
+        _player = GameObject.FindGameObjectWithTag("Player");
+        _color = GameManager.Instance.PlayerColor;
         Init();
     }
 
@@ -44,7 +44,7 @@ public class UI_DrawCanvas : UI_Popup
 
         // 안내문 Text 설정
         if (!DrawManager.Instance.face_mode)
-            GuideText.text = DrawManager.Instance.DrawText[(int)color];
+            GuideText.text = DrawManager.Instance.DrawText[(int)_color];
         else
             GuideText.text = DrawManager.Instance.DrawText[8];
 
@@ -53,16 +53,16 @@ public class UI_DrawCanvas : UI_Popup
     public void OkayBtnClicked(PointerEventData data)
     {
 
-        if (player != null)
+        if (_player != null)
         {
-            player.GetComponent<PlayerAttack>().SetCustomWeapon();
+            _player.GetComponent<PlayerAttack>().SetCustomWeapon();
             ClosePopupUI();
 
             GameManager.Instance.ResumeGame();
             DrawManager.Instance.CloseDrawing();
 
             // 무기 바꾸기
-            ColorManager.Instance.UseBasicWeapon(basic_weapon);
+            ColorManager.Instance.UseBasicWeapon(_basicWeapon);
 
         }
         else  // 얼굴 그릴 때
@@ -80,7 +80,7 @@ public class UI_DrawCanvas : UI_Popup
     public void BasictBtnClicked(PointerEventData data)
     {
         // 그리던거 지우고 기본 무기 보여주기
-        basic_weapon = true;
+        _basicWeapon = true;
         DrawManager.Instance.DrawbleObject.GetComponent<Drawable>().ResetCanvas();
         DrawManager.Instance.BasicWeapons(1);
 
@@ -89,7 +89,7 @@ public class UI_DrawCanvas : UI_Popup
 
     public void ResetBtnClicked(PointerEventData data)
     {
-        basic_weapon = false;
+        _basicWeapon = false;
         DrawManager.Instance.DrawbleObject.GetComponent<Drawable>().ResetCanvas();
         DrawManager.Instance.BasicWeapons(0);
     }

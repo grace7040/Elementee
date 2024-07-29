@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 
 public class UI_Custom : UI_Popup
 {
-    public GameObject Child_UI;
+    public GameObject ChildUI;
 
     enum Buttons
     {

@@ -19,7 +19,6 @@ public class UI_Shop : UI_Popup
     enum Buttons
     {
         Lobby,
-
     }
 
 

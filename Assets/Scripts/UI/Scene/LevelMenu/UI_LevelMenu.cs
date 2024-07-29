@@ -9,15 +9,15 @@ using UnityEngine.SceneManagement;
 
 public class UI_LevelMenu : UI_Scene
 {
-    public List<GameObject> mapBtns = new List<GameObject>();
+    public List<GameObject> MapBtns = new List<GameObject>();
     public List<GameObject> Lines = new List<GameObject>();
     
-    // Line 관련
-    private Image lineImg;
-    private float duration = 1.5f; // Line 채워지는 시간
-    private float endFillamount = 1f;
+    // Line
+    Image _lineImg;
+    float _duration = 1.5f; // Line 채워지는 시간
+    float _endFillamount = 1f;
 
-    private int mapBest;
+    int _mapBest;
 
     enum Buttons
     {
@@ -27,7 +27,7 @@ public class UI_LevelMenu : UI_Scene
 
     private void Start()
     {
-        mapBest = GameManager.Instance.MapBest;
+        _mapBest = GameManager.Instance.MapBest;
         Init();
     }
 
@@ -38,18 +38,18 @@ public class UI_LevelMenu : UI_Scene
         Bind<Button>(typeof(Buttons));
         GetButton((int)Buttons.Lobby).gameObject.BindEvent(ToLobbyBtn);
 
-        for(int i=0; i<mapBtns.Count; i++)
+        for(int i=0; i<MapBtns.Count; i++)
         {
-            if (GameManager.Instance.developMode || i < mapBest)
+            if (GameManager.Instance.developMode || i < _mapBest)
             {
-                mapBtns[i].GetComponent<Button>().interactable = true;
+                MapBtns[i].GetComponent<Button>().interactable = true;
                 Lines[i].SetActive(true);
             }
-            if(i == mapBest)
+            if(i == _mapBest)
             {
                 Lines[i].SetActive(true);
-                lineImg = Lines[i].GetComponent<Image>();
-                endFillamount = lineImg.fillAmount;
+                _lineImg = Lines[i].GetComponent<Image>();
+                _endFillamount = _lineImg.fillAmount;
                 StartCoroutine(ChangeFillAmountOverTime());
 
             }
@@ -63,19 +63,19 @@ public class UI_LevelMenu : UI_Scene
         float currentTime = 0.0f;
         float startFillAmount = 0.0f;
 
-        while (currentTime < duration)
+        while (currentTime < _duration)
         {
-            float fillAmount = Mathf.Lerp(startFillAmount, endFillamount, currentTime / duration);
+            float fillAmount = Mathf.Lerp(startFillAmount, _endFillamount, currentTime / _duration);
             fillAmount = Mathf.Clamp01(fillAmount);
 
-            lineImg.fillAmount = fillAmount;
+            _lineImg.fillAmount = fillAmount;
             currentTime += Time.deltaTime;
 
             yield return null;
         }
 
-        lineImg.fillAmount = endFillamount;
-        mapBtns[mapBest].GetComponent<Button>().interactable = true;
+        _lineImg.fillAmount = _endFillamount;
+        MapBtns[_mapBest].GetComponent<Button>().interactable = true;
     }
 
 

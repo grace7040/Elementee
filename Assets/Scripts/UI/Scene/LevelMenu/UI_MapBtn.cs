@@ -9,12 +9,11 @@ public class UI_MapBtn : MonoBehaviour
     public int mapNum = 0;
     public List<GameObject>Stars = new List<GameObject>();
 
-    // Start is called before the first frame update
     void Start()
     {
         GetComponent<Button>().onClick.AddListener(MapStart);
         
-        //// 별 관련
+        //// 별 표시
         //if (GameManager.Instance.developMode || mapNum < GameManager.Instance.mapBest)
         //{ 
         //    for (int f = 0; f < Stars.Count; f++)

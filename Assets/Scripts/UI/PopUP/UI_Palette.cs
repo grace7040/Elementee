@@ -9,11 +9,10 @@ using UnityEngine.EventSystems;
 public class UI_Palette : UI_Popup
 {
 
-    public Colors color;
-    private Image canvasImg;
-    private Image redrawImg;
-    private GameObject[] ColorBtn = new GameObject[3];
-    ColorManager C_Mgr;
+    public Colors Color;
+    Image _canvasImg;
+    Image _redrawImg;
+    ColorManager _colormanager;
 
     //Colors redrawColor = Colors.def;
     Colors currentColor = Colors.Default;
@@ -44,7 +43,7 @@ public class UI_Palette : UI_Popup
     public override void Init()
     {
         base.Init();
-        C_Mgr = ColorManager.Instance;
+        _colormanager = ColorManager.Instance;
         //redrawColor = GameManager.Instance.ReDrawItemColor;
 
 
@@ -57,13 +56,13 @@ public class UI_Palette : UI_Popup
         GetButton((int)Buttons.BackBtn).gameObject.BindEvent(BackBtnClicked);
         GetButton((int)Buttons.ReDrawBtn).gameObject.BindEvent(ReDrawBtnClicked);
 
-        canvasImg = GetImage((int)Images.ColorImg).gameObject.GetComponent<Image>();
-        redrawImg = GetButton((int)Buttons.ReDrawBtn).gameObject.GetComponent<Image>();
+        _canvasImg = GetImage((int)Images.ColorImg).gameObject.GetComponent<Image>();
+        _redrawImg = GetButton((int)Buttons.ReDrawBtn).gameObject.GetComponent<Image>();
 
         if (GameManager.Instance.PlayerColor == Colors.Default)
             GetButton((int)Buttons.ReDrawBtn).interactable = false;
         else
-            redrawImg.color = ColorManager.Instance.GetColor(GameManager.Instance.PlayerColor);
+            _redrawImg.color = ColorManager.Instance.GetColor(GameManager.Instance.PlayerColor);
     }
 
 
@@ -74,7 +73,7 @@ public class UI_Palette : UI_Popup
         GameObject Red = GetButton((int)Buttons.RedBtn).gameObject;
         GameObject Yellow = GetButton((int)Buttons.YellowBtn).gameObject;
 
-        if (!C_Mgr.HasBlue)
+        if (!_colormanager.HasBlue)
             Blue.SetActive(false);
         else
         {
@@ -82,7 +81,7 @@ public class UI_Palette : UI_Popup
             Blue.GetComponent<Image>().color = ColorManager.Instance.GetColor(Colors.Blue);
         }
 
-        if (!C_Mgr.HasRed)
+        if (!_colormanager.HasRed)
             Red.SetActive(false);
         else
         {
@@ -90,7 +89,7 @@ public class UI_Palette : UI_Popup
             Red.GetComponent<Image>().color = ColorManager.Instance.GetColor(Colors.Red);
         }
 
-        if (!C_Mgr.HasYellow)
+        if (!_colormanager.HasYellow)
             Yellow.SetActive(false);
         else
         {
@@ -112,7 +111,7 @@ public class UI_Palette : UI_Popup
         GameManager.Instance.ResumeGame();
         ColorManager.Instance.OnSetColor?.Invoke();
         if (currentColor != Colors.Default)
-            C_Mgr.SetColorState(currentColor);
+            _colormanager.SetColorState(currentColor);
     }
 
     public void ResetBtnBtnClicked(PointerEventData data)
@@ -188,7 +187,7 @@ public class UI_Palette : UI_Popup
 
     public void ChangeColor(Colors color)
     {
-        canvasImg.color = ColorManager.Instance.GetColor(color);
+        _canvasImg.color = ColorManager.Instance.GetColor(color);
     }
 
     public void ReDrawBtnClicked(PointerEventData data)
