@@ -29,7 +29,8 @@ public class PlayerAttack : MonoBehaviour
     bool _isHoldingEnemy = false; // 적을 가지고 있는지 여부
     Rigidbody2D _heldEnemyRigidbody; // 가지고 있는 적의 Rigidbody2D
     GameObject _enemy;
-    float _pullForce = 10f; // 끌어당기는 힘 조절용 변수
+    Transform closestEnemy;
+    float _pullForce = 15f; // 끌어당기는 힘 조절용 변수
     float _throwForce = 15f; // 던지는 힘 조절용 변수
 
     PlayerController _playerController;
@@ -43,9 +44,16 @@ public class PlayerAttack : MonoBehaviour
 
     public void AttackDown()
     {
-        canAttack = false;
-        _playerController.Color.Attack(transform.position, transform.localScale.x);
-        this.CallOnDelay(_playerController.Color.CoolTime, () => { canAttack = true; });   // ::TODO:: 노랑일 경우 예외처리 해야함
+        if (_playerController.myColor == Colors.Black) 
+        {
+            _playerController.Color.Attack(transform.position, transform.localScale.x);
+        }
+        else
+        {
+            canAttack = false;
+            _playerController.Color.Attack(transform.position, transform.localScale.x);
+            this.CallOnDelay(_playerController.Color.CoolTime, () => { canAttack = true; });   // ::TODO:: 노랑일 경우 예외처리 해야함
+        }
     }
 
     public void AttackUp()
@@ -161,29 +169,15 @@ public class PlayerAttack : MonoBehaviour
 
     private IEnumerator PullCoroutine()
     {
-        if (!_isHoldingEnemy)
+        Debug.Log(canAttack);
+        if (!_isHoldingEnemy && canAttack)
         {
-            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-            float closestDistance = 7.5f;
-            Transform closestEnemy = null;
-
-            foreach (GameObject enemy in enemies)
-            {
-                MonsterController enemyController = enemy.GetComponent<MonsterController>();
-
-                if (enemyController != null && !enemyController.IsDie)
-                {
-                    float distance = Vector2.Distance(transform.position, enemy.transform.position);
-                    if (distance < closestDistance)
-                    {
-                        closestDistance = distance;
-                        closestEnemy = enemy.transform;
-                    }
-                }
-            }
+            FindClosestEnemy();
 
             if (closestEnemy != null)
             {
+                canAttack = false;
+
                 _heldEnemyRigidbody = closestEnemy.GetComponent<Rigidbody2D>();
                 _enemy = closestEnemy.gameObject;
 
@@ -202,6 +196,31 @@ public class PlayerAttack : MonoBehaviour
             }
         }
         yield return new WaitForSeconds(0f);
+    }
+
+    private void FindClosestEnemy()
+    {
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 7.5f);
+        float closestDistance = 7.5f;
+        closestEnemy = null;
+
+        foreach (Collider2D collider in colliders)
+        {
+            if (collider.CompareTag("Enemy"))
+            {
+                MonsterController enemyController = collider.GetComponent<MonsterController>();
+
+                if (enemyController != null && !enemyController.IsDie)
+                {
+                    float distance = Vector2.Distance(transform.position, collider.transform.position);
+                    if (distance < closestDistance)
+                    {
+                        closestDistance = distance;
+                        closestEnemy = collider.transform;
+                    }
+                }
+            }
+        }
     }
 
 
@@ -245,6 +264,7 @@ public class PlayerAttack : MonoBehaviour
                     childTransform.SetParent(parentTransform);
 
                     _isHoldingEnemy = true;
+                    canAttack = true;
                 }
             }
         }
