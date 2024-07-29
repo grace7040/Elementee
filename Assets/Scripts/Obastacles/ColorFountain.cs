@@ -1,18 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ColorFountain : MonoBehaviour
 {
     public Colors fountainColor;
-    BoxCollider2D boxcollider;
-    int damage = 10;
-    int healAmount = 10;
-    PlayerController player;
+
+    BoxCollider2D _boxcollider;
+    int _damage = 10;
+    int _healAmount = 10;
+    PlayerController _player;
 
     private void Start()
     {
-        boxcollider = GetComponent<BoxCollider2D>();
+        _boxcollider = GetComponent<BoxCollider2D>();
         GetComponent<SpriteRenderer>().color = ColorManager.Instance.GetColor(fountainColor);
     }
 
@@ -21,18 +20,18 @@ public class ColorFountain : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            player = collision.gameObject.GetComponent<PlayerController>();
-            if (player.myColor == fountainColor)
-                player.HealByFountain(healAmount);
+            _player = collision.gameObject.GetComponent<PlayerController>();
+            if (_player.myColor == fountainColor)
+                _player.HealByFountain(_healAmount);
             else
-                player.TakeDamage(damage, this.transform.position);
+                _player.TakeDamage(_damage, this.transform.position);
 
         }
         else if (collision.gameObject.CompareTag("Enemy"))
         {
             if (collision.gameObject.GetComponent<MonsterController>().MyColor != fountainColor)
             {
-                collision.gameObject.GetComponent<MonsterController>().TakeDamage(damage, this.transform.position);
+                collision.gameObject.GetComponent<MonsterController>().TakeDamage(_damage, this.transform.position);
             }
         }
     }
@@ -41,8 +40,8 @@ public class ColorFountain : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            var bulletGo = ObjectPoolManager.Instance.GetColorBlood(fountainColor);
-            bulletGo.transform.position = transform.position;
+            var blood = ObjectPoolManager.Instance.GetColorBlood(fountainColor);
+            blood.transform.position = transform.position;
         }
     }
 

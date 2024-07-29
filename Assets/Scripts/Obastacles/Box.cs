@@ -1,28 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Box : MonoBehaviour
 {
-    int life = 2;
-    bool isDestroyed = false;
-    bool canHit = true;
+    int _life = 2;
+    bool _isDestroyed = false;
+    bool _canHit = true;
 
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Weapon") || collision.gameObject.CompareTag("WeaponB") || collision.gameObject.CompareTag("WeaponThrow") || collision.gameObject.CompareTag("WeaponOrange") || collision.gameObject.CompareTag("WeaponYellow"))
         {
-            if (!canHit || isDestroyed) return;
+            if (!_canHit || _isDestroyed) return;
 
 
-            life--;
-            canHit = false;
+            _life--;
+            _canHit = false;
             var effect = ObjectPoolManager.Instance.GetGo("Box");
             effect.transform.position = collision.bounds.ClosestPoint(transform.position);
 
-            this.CallOnDelay(0.1f, () => { canHit = true; });
-            if (life < 1)
+            this.CallOnDelay(0.1f, () => { _canHit = true; });
+            if (_life < 1)
             {
                 DestroyObject();
                 return;
@@ -32,7 +30,7 @@ public class Box : MonoBehaviour
 
     void DestroyObject()
     {
-        isDestroyed = true;
+        _isDestroyed = true;
         Destroy(gameObject);
     }
 }
