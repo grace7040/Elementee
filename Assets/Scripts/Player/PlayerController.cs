@@ -92,6 +92,7 @@ public class PlayerController : MonoBehaviour
 
     // Dash
     bool _isDashing = false;
+    bool _finishDashForRoll = false;
     bool _canDash = true;
     float _dashForce = 25f;
     float _prevVelocityX = 0f;
@@ -202,13 +203,14 @@ public class PlayerController : MonoBehaviour
             _isRoll = false;
 
         }
-        else if (!_isDashing && _isGrounded)
+        else if (_finishDashForRoll && _isGrounded)
         {
             _isRoll = true;
+            _finishDashForRoll = false;
         }
 
 
-        print(_rigidbody.velocity.x + ", isRoll: " + _isRoll);
+        // print(_rigidbody.velocity.x + ", isRoll: " + _isRoll);
         
     }
 
@@ -382,10 +384,15 @@ public class PlayerController : MonoBehaviour
         _animator.SetBool("IsDashing", true);
         _isDashing = true;
         _canDash = false;
+
+        //_rigidbody.velocity = new Vector2(transform.localScale.x * _dashForce, 0);
         yield return new WaitForSeconds(0.1f); // dash 지속시간
-        _rigidbody.velocity = new Vector2(transform.localScale.x * _dashForce, 0);
         _isDashing = false;
-        yield return new WaitForSeconds(0.5f); // dash cooltime
+
+        yield return new WaitForSeconds(0.5f);
+        _finishDashForRoll = true;
+
+        //yield return new WaitForSeconds(0.0f); // dash cooltime
         _canDash = true;
     }
 
