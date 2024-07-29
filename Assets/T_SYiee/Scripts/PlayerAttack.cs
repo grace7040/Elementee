@@ -26,12 +26,11 @@ public class PlayerAttack : MonoBehaviour
 
     // Black
     public GameObject WeaponPosition;
-    bool _isHoldingEnemy = false; // 적을 가지고 있는지 여부
-    // Rigidbody2D _heldEnemyRigidbody; // 가지고 있는 적의 Rigidbody2D
+    bool _isHoldingEnemy = false;
     GameObject _enemy;
     Transform closestEnemy;
-    float _pullForce = 15f; // 끌어당기는 힘 조절용 변수
-    float _throwForce = 15f; // 던지는 힘 조절용 변수
+    float _pullForce = 15f;
+    float _throwForce = 15f;
 
     PlayerController _playerController;
 
@@ -177,9 +176,7 @@ public class PlayerAttack : MonoBehaviour
             {
                 canAttack = false;
 
-                // _heldEnemyRigidbody = closestEnemy.GetComponent<Rigidbody2D>();
                 _enemy = closestEnemy.gameObject;
-
                 _enemy.SendMessage("PulledByBlack");
                 //closestEnemy.AddComponent<BloodEffect>();
 
@@ -236,12 +233,9 @@ public class PlayerAttack : MonoBehaviour
             _isHoldingEnemy = false;
             _enemyRigidbody.gravityScale = 0.0f;
 
-            // _enemy.GetComponent<OB_VerticlaMovement>().enabled = false;
-
             Vector2 throwDirection = (_enemyRigidbody.transform.position - transform.position).normalized;
             _enemyRigidbody.velocity = throwDirection * _throwForce;
             _enemyRigidbody.gameObject.tag = "WeaponB";
-            //_heldEnemyRigidbody = null;
 
             _enemy.GetComponent<MonsterController>().Die();
         }
@@ -256,7 +250,6 @@ public class PlayerAttack : MonoBehaviour
                 if (!collision.gameObject.GetComponent<MonsterController>().isActiveAndEnabled)
                 {
                     collision.gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-                    // collision.gameObject.GetComponent<OB_VerticlaMovement>().enabled = true;
 
                     Transform parentTransform = WeaponPosition.transform;
                     Transform childTransform = collision.gameObject.transform;

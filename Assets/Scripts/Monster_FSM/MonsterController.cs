@@ -12,8 +12,8 @@ public class MonsterController : MonoBehaviour
 
     public Monster MonsterData;
     public Transform MonsterBody;
-    private SpriteRenderer _monsterSprite;
-    private GameObject _playerObj;
+    SpriteRenderer _monsterSprite;
+    GameObject _playerObj;
 
     [HideInInspector]
     public Colors MyColor;
@@ -26,10 +26,10 @@ public class MonsterController : MonoBehaviour
 
     public Animator Animator;
 
-    private GameObject _spark;
+    GameObject _spark;
 
-    private int _maxHealth;
-    private int _currentHealth;
+    int _maxHealth;
+    int _currentHealth;
 
     [HideInInspector]
     public float MoveSpeed = 3f;
@@ -47,16 +47,16 @@ public class MonsterController : MonoBehaviour
     public int Damage;
 
     // Cooltime
-    private bool _canTakeDamage_RangeAttack = true;
+    bool _canTakeDamage_RangeAttack = true;
 
-    private Vector3 _leftEndpoint;
-    private Vector3 _rightEndpoint;
+    Vector3 _leftEndpoint;
+    Vector3 _rightEndpoint;
 
     [HideInInspector]
     public Vector3 CurrentEndpoint;
 
-    private float _EndpointDirection;
-    private float _distanceX;
+    float _EndpointDirection;
+    float _distanceX;
 
     [HideInInspector]
     public float DistanceY;
@@ -66,18 +66,18 @@ public class MonsterController : MonoBehaviour
 
     protected Vector2 dir;
 
-    private float _moveRange = 50.0f;
-    private float _stopTime = 0;
-    private float _timeSinceLastStop = 0;
-    private bool _isStopped = false;
-    private bool _canMove = true;
-    private float _timer = 0.0f;
-    private float _interval = 3.0f;
+    float _moveRange = 50.0f;
+    float _stopTime = 0;
+    float _timeSinceLastStop = 0;
+    bool _isStopped = false;
+    bool _canMove = true;
+    float _timer = 0.0f;
+    float _interval = 3.0f;
 
     public float DownRayLength = 0.7f;
 
     // Knockback
-    private bool _isKnockedBack = false;
+    bool _isKnockedBack = false;
 
     [HideInInspector]
     public bool IsFlip = false;
@@ -86,19 +86,19 @@ public class MonsterController : MonoBehaviour
     public bool CanFlip = true;
 
     // Die
-    private delegate void Del();
-    private Del OnDie = null;
+    delegate void Del();
+    Del OnDie = null;
 
     // HP Bar
-    private Image _hpBar;
-    private Image _hpBarBG;
-    private float _hpBarMAX;
+    Image _hpBar;
+    Image _hpBarBG;
+    float _hpBarMAX;
 
-    private LayerMask _ignoreLayers;
+    LayerMask _ignoreLayers;
     public Vector2 MoveDirection;
-    private Quaternion _checkRotation;
-    private Vector2 _raycastOrigin;
-    private RaycastHit2D _hit;
+    Quaternion _checkRotation;
+    Vector2 _raycastOrigin;
+    RaycastHit2D _hit;
 
     protected StateMachine stateMachine;
 
