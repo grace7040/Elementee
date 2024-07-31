@@ -43,16 +43,16 @@ public class PlayerAttack : MonoBehaviour
 
     public void AttackDown()
     {
+        if (!canAttack) return;
+
+        _playerController.Color.Attack(transform.position, transform.localScale.x);
         if (_playerController.myColor == Colors.Black) 
         {
-            _playerController.Color.Attack(transform.position, transform.localScale.x);
+            return;
         }
-        else
-        {
-            canAttack = false;
-            _playerController.Color.Attack(transform.position, transform.localScale.x);
-            this.CallOnDelay(_playerController.Color.CoolTime, () => { canAttack = true; });   // ::TODO:: 노랑일 경우 예외처리 해야함
-        }
+
+        canAttack = false;
+        this.CallOnDelay(_playerController.Color.CoolTime, () => { canAttack = true; });   // ::TODO:: 노랑일 경우 예외처리 해야함
     }
 
     public void AttackUp()
