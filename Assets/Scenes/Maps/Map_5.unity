@@ -985,7 +985,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2981682265872985591, guid: da33ac4f4d81e24458dcc41b75c0628d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2981682265872985595, guid: da33ac4f4d81e24458dcc41b75c0628d, type: 3}
       propertyPath: m_Camera
@@ -2302,6 +2302,64 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6830757053860616236, guid: 95347d8605845f34995ac97de51d3420, type: 3}
   m_PrefabInstance: {fileID: 539116073}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &548581546
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 548581547}
+  - component: {fileID: 548581548}
+  m_Layer: 0
+  m_Name: Drop Kill Checking
+  m_TagString: DropKill
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &548581547
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 548581546}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 10.1, y: -26.6, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1619641719}
+  m_RootOrder: 36
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &548581548
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 548581546}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 300, y: 1}
+  m_EdgeRadius: 0
 --- !u!1001 &587627808
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5529,8 +5587,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b01eca70bd0fb4a4393bf33fa4b7b887, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  drawManager: {fileID: 0}
-  text: {fileID: 1214254339}
+  DrawManager: {fileID: 0}
+  Text: {fileID: 0}
 --- !u!4 &1373010830
 Transform:
   m_ObjectHideFlags: 0
@@ -6294,6 +6352,7 @@ Transform:
   - {fileID: 1821698753}
   - {fileID: 1741456102}
   - {fileID: 1911007487}
+  - {fileID: 548581547}
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7278,6 +7337,10 @@ PrefabInstance:
       propertyPath: Target
       value: 
       objectReference: {fileID: 1721300197}
+    - target: {fileID: 1014887859512018334, guid: 423e8512ee925c44a978af2ba7fcffe1, type: 3}
+      propertyPath: DropKillChecking
+      value: 
+      objectReference: {fileID: 548581547}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 423e8512ee925c44a978af2ba7fcffe1, type: 3}
 --- !u!1 &1903641872 stripped

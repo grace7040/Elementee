@@ -24,5 +24,6 @@ public enum Tag
     Btn,
     Generator,
     Grass,
-    TAZOFX
+    TAZOFX,
+    DropKill
 }

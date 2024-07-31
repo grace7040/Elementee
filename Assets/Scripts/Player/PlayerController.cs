@@ -511,6 +511,10 @@ public class PlayerController : MonoBehaviour
         {
             TakeDamage(10, collision.gameObject.transform.position);
         }
+        if (collision.gameObject.CompareTag("DropKill"))
+        {
+            Die();
+        }
     }
 
     public void RopeOut()

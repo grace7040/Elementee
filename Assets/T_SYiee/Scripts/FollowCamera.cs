@@ -8,6 +8,7 @@ public class FollowCamera : MonoBehaviour
 
 	public Transform Target;
 	public float Target_y;
+	public Transform DropKillChecking;
 
 	[Header("Shaking")]
 	// How long the object should shake for.
@@ -18,45 +19,52 @@ public class FollowCamera : MonoBehaviour
 	public float decreaseFactor = 1.0f;
 
 
-	private Transform camTransform;
-	private float FollowSpeed = 5f;
+	private Transform _camTransform;
+	private float _followSpeed = 5f;
 
 	Vector3 originalPos;
 
 	void Awake()
 	{
 		Cursor.visible = false;
-		if (camTransform == null)
+		if (_camTransform == null)
 		{
-			camTransform = GetComponent(typeof(Transform)) as Transform;
+			_camTransform = GetComponent(typeof(Transform)) as Transform;
 		}
 	}
 
 	void OnEnable()
 	{
-		originalPos = camTransform.localPosition;
+		originalPos = _camTransform.localPosition;
 	}
 
 	private void Update()
 	{
+
+		if (_camTransform.localPosition.y <= DropKillChecking.position.y)
+		{
+			return;
+		}
+
 		Vector3 newPosition = Target.position;
 		newPosition.z = -8;
 		newPosition.y = newPosition.y + Target_y;
-		transform.position = Vector3.Slerp(transform.position, newPosition, FollowSpeed * Time.deltaTime);
+		transform.position = Vector3.Slerp(transform.position, newPosition, _followSpeed * Time.deltaTime);
 
 		originalPos = transform.position;
 
 		if (shakeDuration > 0)
 		{
-			camTransform.localPosition = originalPos + Random.insideUnitSphere * shakeAmount;
+			_camTransform.localPosition = originalPos + Random.insideUnitSphere * shakeAmount;
 
 			shakeDuration -= Time.deltaTime * decreaseFactor;
 		}
+
 	}
 
 	public void ShakeCamera()
 	{
-		originalPos = camTransform.localPosition;
+		originalPos = _camTransform.localPosition;
 		shakeDuration = 0.5f;
 	}
 }
