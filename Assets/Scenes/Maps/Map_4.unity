@@ -963,6 +963,10 @@ PrefabInstance:
       propertyPath: Target
       value: 
       objectReference: {fileID: 1721300197}
+    - target: {fileID: 1014887859512018334, guid: 423e8512ee925c44a978af2ba7fcffe1, type: 3}
+      propertyPath: DropKillChecking
+      value: 
+      objectReference: {fileID: 2010029064}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 423e8512ee925c44a978af2ba7fcffe1, type: 3}
 --- !u!1 &220533534 stripped
@@ -6618,6 +6622,7 @@ Transform:
   - {fileID: 1526584384}
   - {fileID: 185643278}
   - {fileID: 234459713}
+  - {fileID: 2010029064}
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7459,6 +7464,64 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a992f63460582c745b2e09d3c8745c22, type: 3}
+--- !u!1 &2010029063
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2010029064}
+  - component: {fileID: 2010029065}
+  m_Layer: 0
+  m_Name: Drop Kill Checking
+  m_TagString: DropKill
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2010029064
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2010029063}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 135, y: -42, z: 0}
+  m_LocalScale: {x: 1.7369251, y: 1.7369251, z: 1.7369251}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1851615991}
+  m_RootOrder: 40
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &2010029065
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2010029063}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 300, y: 1}
+  m_EdgeRadius: 0
 --- !u!1001 &2010735006
 PrefabInstance:
   m_ObjectHideFlags: 0
