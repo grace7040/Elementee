@@ -53,10 +53,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] LayerMask _whatIsGround;                          
     [SerializeField] Transform _groundCheck;                           
     [SerializeField] Transform _wallCheck;                             
-    Collider2D[] _colliders;
+    Collider2D[] _colliders; //colliders : 닿아있는 바닥수만큼 존재, 공중에 떠있으면 0개 바닥에 닿아있으면 1개
     Collider2D[] _collidersWall;
 
     bool _isGrounded;
+    bool _wasGrounded;
     const float _groundedRadius = .2f; // Radius of the overlap circle to determine if grounded
 
 
@@ -128,19 +129,18 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //colliders : 닿아있는 바닥수만큼 존재, 공중에 떠있으면 0개 바닥에 닿아있으면 1개
         if (!_isRope)
         {
-            bool wasGrounded = _isGrounded;
+            _wasGrounded = _isGrounded;
             _isGrounded = false;
 
             _colliders = Physics2D.OverlapCircleAll(_groundCheck.position, _groundedRadius, _whatIsGround);
-            for (int i = 0; i < _colliders.Length; i++) // 이 for문이 왜 필요하지
+            for (int i = 0; i < _colliders.Length; i++) 
             {
                 if (_colliders[i].gameObject != gameObject)
                 {
                     _isGrounded = true;
-                    if (!wasGrounded)
+                    if (!_wasGrounded)
                     {
                         OnLandEvent.Invoke();
                         if (!_isWall && !_isDashing)
@@ -174,7 +174,7 @@ public class PlayerController : MonoBehaviour
 
         if (_limitVelOnWallJump) 
         {
-            if (_rigidbody.velocity.y < -0.5f) // 이게 몰까
+            if (_rigidbody.velocity.y < -0.5f) 
                 _limitVelOnWallJump = false;
             _jumpWallDistX = (_jumpWallStartX - transform.position.x) * transform.localScale.x;
             if (_jumpWallDistX < -0.5f && _jumpWallDistX > -1f)
@@ -209,9 +209,6 @@ public class PlayerController : MonoBehaviour
             _finishDashForRoll = false;
         }
 
-
-        // print(_rigidbody.velocity.x + ", isRoll: " + _isRoll);
-        
     }
 
 
@@ -261,9 +258,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             _animator.SetBool("IsRolling", false);
-
         }
-
 
         // Jump
         if (_isGrounded && jump)
@@ -305,9 +300,9 @@ public class PlayerController : MonoBehaviour
             // Do jump while WallSliding
             if (jump && _isWallSliding)
             {
-                _animator.SetBool("IsJumping", true); //
-                _animator.SetBool("JumpUp", true); //
-                _rigidbody.velocity = Vector2.zero; //
+                _animator.SetBool("IsJumping", true); 
+                _animator.SetBool("JumpUp", true); 
+                _rigidbody.velocity = Vector2.zero; 
                 _rigidbody.AddForce(new Vector2(transform.localScale.x * _jumpForce * 1.2f, _jumpForce));
                 _jumpWallStartX = transform.position.x;
                 _limitVelOnWallJump = true;
@@ -339,12 +334,10 @@ public class PlayerController : MonoBehaviour
         _rigidbody.velocity += (targetVelocity - _rigidbody.velocity) * _accelerationRate * Time.fixedDeltaTime;
 
 
-        // If the input is moving the player right and the player is facing left...
         if (move > 0 && !_facingRight && !_isWallSliding)
         {
             Flip();
         }
-        // Otherwise if the input is moving the player left and the player is facing right...
         else if (move < 0 && _facingRight && !_isWallSliding)
         {
             Flip();
@@ -429,12 +422,11 @@ public class PlayerController : MonoBehaviour
             if (CurrentHealth > 100)
                 CurrentHealth = 100;
 
-            //넉백
-            Vector2 damageDir = Vector3.Normalize(transform.position - enemyPos) * 40f;
+            // 넉백
             _rigidbody.velocity = Vector2.zero;
-            _rigidbody.AddForce(damageDir * _knockBackForce);
+            _rigidbody.AddForce(Vector3.Normalize(transform.position - enemyPos) * 40f * _knockBackForce);
 
-            //UI Update
+            // UI Update
             GameManager.Instance.UIGame.UpdateHPBar(CurrentHealth, _maxHealth);
 
             if (CurrentHealth <= 0)
