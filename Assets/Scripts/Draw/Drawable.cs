@@ -32,7 +32,7 @@ namespace FreeDraw
 
 
         // MUST HAVE READ/WRITE enabled set in the file editor of Unity
-        Sprite _drawbleSprite;
+        Sprite _drawableSprite;
         Texture2D _drawableTexture;
 
         Vector2 _previousDragPosition;
@@ -41,6 +41,14 @@ namespace FreeDraw
         Color[] _curColors;
         bool _mouseWasPreviouslyHeldDown = false;
         bool _noDrawingOnCurrentDrag = false;
+        bool _hasDrawn;
+
+        public bool HasDrawn { get { return _hasDrawn; } }
+
+        private void OnEnable()
+        {
+            _hasDrawn = false;
+        }
 
 
 
@@ -150,6 +158,7 @@ namespace FreeDraw
                 {
                     // We're over the texture we're drawing on!
                     // Use whatever function the current brush is
+                    _hasDrawn = true;
                     CurrentBrush(mouseWorldPosition);
                 }
 
@@ -209,7 +218,7 @@ namespace FreeDraw
             for (int x = centerX - penThickness; x <= centerX + penThickness; x++)
             {
                 // Check if the X wraps around the image, so we don't draw pixels on the other side of the image
-                if (x >= (int)_drawbleSprite.rect.width || x < 0)
+                if (x >= (int)_drawableSprite.rect.width || x < 0)
                     continue;
 
                 for (int y = centerY - penThickness; y <= centerY + penThickness; y++)
@@ -221,7 +230,7 @@ namespace FreeDraw
         public void MarkPixelToChange(int x, int y, Color color)
         {
             // Need to transform x and y coordinates to flat coordinates of array
-            var arrayPos = y * (int)_drawbleSprite.rect.width + x;
+            var arrayPos = y * (int)_drawableSprite.rect.width + x;
 
             // Check if this is a valid position
             if (arrayPos > _curColors.Length || arrayPos < 0)
@@ -264,9 +273,9 @@ namespace FreeDraw
             var localPos = transform.InverseTransformPoint(world_position);
 
             // Change these to coordinates of pixels
-            var pixelWidth = _drawbleSprite.rect.width;
-            var pixelHeight = _drawbleSprite.rect.height;
-            var unitsToPixels = pixelWidth / _drawbleSprite.bounds.size.x * transform.localScale.x;
+            var pixelWidth = _drawableSprite.rect.width;
+            var pixelHeight = _drawableSprite.rect.height;
+            var unitsToPixels = pixelWidth / _drawableSprite.bounds.size.x * transform.localScale.x;
 
             // Need to center our coordinates
             var centeredX = localPos.x * unitsToPixels + pixelWidth / 2;
@@ -284,6 +293,7 @@ namespace FreeDraw
         {
             _drawableTexture.SetPixels(_cleanColorsArray);
             _drawableTexture.Apply();
+            _hasDrawn = false;
         }
 
 
@@ -293,12 +303,12 @@ namespace FreeDraw
             // DEFAULT BRUSH SET HERE
             CurrentBrush = PenBrush;
 
-            _drawbleSprite = this.GetComponent<SpriteRenderer>().sprite;
+            _drawableSprite = this.GetComponent<SpriteRenderer>().sprite;
             
-            _drawableTexture = _drawbleSprite.texture;
+            _drawableTexture = _drawableSprite.texture;
 
             // Initialize clean pixels to use
-            _cleanColorsArray = new Color[(int)_drawbleSprite.rect.width * (int)_drawbleSprite.rect.height];
+            _cleanColorsArray = new Color[(int)_drawableSprite.rect.width * (int)_drawableSprite.rect.height];
             for (int x = 0; x < _cleanColorsArray.Length; x++)
                 _cleanColorsArray[x] = _resetColor;
 
@@ -309,8 +319,8 @@ namespace FreeDraw
 
         public void UpdateCanvas()
         {
-            _drawbleSprite = this.GetComponent<SpriteRenderer>().sprite;
-            _drawableTexture = _drawbleSprite.texture;
+            _drawableSprite = this.GetComponent<SpriteRenderer>().sprite;
+            _drawableTexture = _drawableSprite.texture;
             _drawableTexture.Apply();
         }
     }

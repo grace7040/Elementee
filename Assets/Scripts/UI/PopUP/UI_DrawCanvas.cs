@@ -55,6 +55,14 @@ public class UI_DrawCanvas : UI_Popup
 
         if (_player != null)
         {
+            if (!_basicWeapon)
+            {
+                if (!DrawManager.Instance.DrawbleObject.GetComponent<Drawable>().HasDrawn)
+                {
+                    Debug.Log("무기 그리고 다시 ok 누르삼");
+                    return;
+                }
+            }
             _player.GetComponent<PlayerAttack>().SetCustomWeapon();
             ClosePopupUI();
 
