@@ -298,7 +298,7 @@ public class MonsterController : MonoBehaviour
 
     void DisplayDamageText(int damage)
     {
-        var damageText = ObjectPoolManager.Instance.GetGo("DamageText");
+        var damageText = ObjectPoolManager.Instance.GetGameObject("DamageText");
         damageText.GetComponent<TextMeshPro>().text = damage.ToString();
         damageText.transform.position = transform.position;
         damageText.transform.SetParent(this.transform);
@@ -349,7 +349,7 @@ public class MonsterController : MonoBehaviour
         enabled = false;
         Animator.speed = 0f;
 
-        _spark = ObjectPoolManager.Instance.GetGo("Spark");
+        _spark = ObjectPoolManager.Instance.GetGameObject("Spark");
         _spark.transform.SetParent(transform);
         _spark.transform.localPosition = Vector3.zero;
 

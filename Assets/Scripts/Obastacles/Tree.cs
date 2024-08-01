@@ -17,7 +17,7 @@ public class Tree : MonoBehaviour
 
             _life--;
             _canHit = false;
-            var effect = ObjectPoolManager.Instance.GetGo("Tree");
+            var effect = ObjectPoolManager.Instance.GetGameObject("Tree");
             effect.transform.position = collision.bounds.ClosestPoint(transform.position);
 
             this.CallOnDelay(0.1f, () => { _canHit = true; });

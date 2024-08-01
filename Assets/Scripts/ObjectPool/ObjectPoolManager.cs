@@ -1,54 +1,51 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
-using System.Threading;
 using UnityEngine;
 using UnityEngine.Pool;
 
 public class ObjectPoolManager : MonoBehaviour
 {
     [System.Serializable]
-    private class ObjectInfo
+    class ObjectInfo
     {
-        public string objectName;
-        public GameObject perfab;
-        public int count;
+        public string ObjectName;
+        public GameObject Prefab;
+        public int Count;
     }
 
     string currentColorName = null;
 
-    [SerializeField]
-    private ObjectInfo[] objectInfos = null;
+    [SerializeField] ObjectInfo[] _objectInfos = null;
 
     // 생성할 오브젝트의 key값지정을 위한 변수
-    private string objectName;
+    string _objectName;
 
     // 오브젝트풀들을 관리할 딕셔너리
-    private Dictionary<string, IObjectPool<GameObject>> ojbectPoolDic = new Dictionary<string, IObjectPool<GameObject>>();
+    Dictionary<string, IObjectPool<GameObject>> _poolDict = new();
 
     // 오브젝트풀에서 오브젝트를 새로 생성할때 사용할 딕셔너리
-    private readonly Dictionary<string, GameObject> goDic = new Dictionary<string, GameObject>();
+    readonly Dictionary<string, GameObject> _gameObjectDict = new();
 
-    private static ObjectPoolManager instance = null;
+    static ObjectPoolManager _instance = null;
     public static ObjectPoolManager Instance
     {
         get
         {
-            if (null == instance)
+            if (null == _instance)
             {
                 return null;
             }
-            return instance;
+            return _instance;
         }
     }
 
 
-    private void Awake()
+    void Awake()
     {
-        if (null == instance)
+        if (null == _instance)
         {
-            instance = this;
-            //SetColorName(Colors.def);
+            _instance = this;
         }
         else
         {
@@ -56,34 +53,33 @@ public class ObjectPoolManager : MonoBehaviour
         }
     }
 
-    private void Start()
+    void Start()
     {
         StartCoroutine(Init());
     }
 
     IEnumerator Init()
     {
-        for (int idx = 0; idx < objectInfos.Length; idx++)
+        for (int idx = 0; idx < _objectInfos.Length; idx++)
         {
-            IObjectPool<GameObject> pool = new ObjectPool<GameObject>(CreatePooledItem, OnTakeFromPool, OnReturnedToPool,
-            OnDestroyPoolObject, true, objectInfos[idx].count, objectInfos[idx].count);
+            var pool = new ObjectPool<GameObject>(CreatePooledItem, OnTakeFromPool, OnReturnedToPool,
+            OnDestroyPooledItem, true, _objectInfos[idx].Count, _objectInfos[idx].Count);
 
-            if (goDic.ContainsKey(objectInfos[idx].objectName))
+            if (_gameObjectDict.ContainsKey(_objectInfos[idx].ObjectName))
             {
-                Debug.Log($"{objectInfos[idx].objectName} 이미 등록된 오브젝트입니다.");
+                Debug.Log($"{_objectInfos[idx].ObjectName} 이미 등록된 오브젝트입니다.");
                 yield return null;
             }
 
-            goDic.Add(objectInfos[idx].objectName, objectInfos[idx].perfab);
-            ojbectPoolDic.Add(objectInfos[idx].objectName, pool);
+            _gameObjectDict.Add(_objectInfos[idx].ObjectName, _objectInfos[idx].Prefab);
+            _poolDict.Add(_objectInfos[idx].ObjectName, pool);
 
             // 미리 오브젝트 생성
-            for (int i = 0; i < objectInfos[idx].count; i++)
+            for (int i = 0; i < _objectInfos[idx].Count; i++)
             {
-                objectName = objectInfos[idx].objectName;
-                CreatePooledItem().GetComponent<PoolAble>();
-                PoolAble poolAbleGo = CreatePooledItem().GetComponent<PoolAble>();
-                poolAbleGo.Pool.Release(poolAbleGo.gameObject);
+                _objectName = _objectInfos[idx].ObjectName;
+                var pooledItem = CreatePooledItem().GetComponent<PoolAble>();
+                pooledItem.Pool.Release(pooledItem.gameObject);
             }
 
             yield return 3;
@@ -93,65 +89,61 @@ public class ObjectPoolManager : MonoBehaviour
     }
 
     // 생성
-    private GameObject CreatePooledItem()
+    GameObject CreatePooledItem()
     {
-        GameObject poolGo = Instantiate(goDic[objectName], this.transform.position, Quaternion.identity);
-        //Debug.Log($"생성: {poolGo.name}");
-        poolGo.GetComponent<PoolAble>().Pool = ojbectPoolDic[objectName];
-        poolGo.transform.SetParent(this.transform);
-        return poolGo;
+        var pooledItem = Instantiate(_gameObjectDict[_objectName], this.transform.position, Quaternion.identity, this.transform);
+        pooledItem.GetComponent<PoolAble>().Pool = _poolDict[_objectName];
+        return pooledItem;
     }
 
     // 대여
-    private void OnTakeFromPool(GameObject poolGo)
+    void OnTakeFromPool(GameObject pooledItem)
     {
-        //Debug.Log($"대여: {poolGo.name}");
-        poolGo.SetActive(true);
+        pooledItem.SetActive(true);
     }
 
     // 반환
-    private void OnReturnedToPool(GameObject poolGo)
+    void OnReturnedToPool(GameObject pooledItem)
     {
-        poolGo.SetActive(false);
-        //Debug.Log($"반환: {poolGo.name}");
+        pooledItem.SetActive(false);
     }
 
     // 삭제
-    private void OnDestroyPoolObject(GameObject poolGo)
+    void OnDestroyPooledItem(GameObject pooledItem)
     {
-        Destroy(poolGo);
+        Destroy(pooledItem);
     }
 
-    public GameObject GetGo(string goName)
+    public GameObject GetGameObject(string objectName)
     {
-        objectName = goName;
+        _objectName = objectName;
 
-        if (goDic.ContainsKey(goName) == false)
+        if (_gameObjectDict.ContainsKey(objectName) == false)
         {
-            Debug.Log($"<{goName}> 은 오브젝트풀에 등록되지 않은 오브젝트입니다.");
+            Debug.Log($"<{objectName}> 은 오브젝트풀에 등록되지 않은 오브젝트입니다.");
             return null;
         }
-        //Debug.Log(goName);
-        return ojbectPoolDic[goName].Get();
+
+        return _poolDict[objectName].Get();
     }
 
 
     public GameObject GetCurrentColorBlood()
     {
-        objectName = currentColorName;
-        if (goDic.ContainsKey(currentColorName) == false)
+        _objectName = currentColorName;
+        if (_gameObjectDict.ContainsKey(currentColorName) == false)
         {
             Debug.Log($"<{currentColorName}> 은 오브젝트풀에 등록되지 않은 오브젝트입니다.");
             return null;
         }
-        //Debug.Log(currentColorName);
-        return ojbectPoolDic[currentColorName].Get();
+
+        return _poolDict[currentColorName].Get();
     }
 
     public GameObject GetColorBlood(Colors color)
     {
-        string name = GetBloodNameByColor(color);
-        return ojbectPoolDic[name].Get();
+        var bloodName = GetBloodNameByColor(color);
+        return _poolDict[bloodName].Get();
     }
 
     public void SetColorName(Colors color)
@@ -159,7 +151,7 @@ public class ObjectPoolManager : MonoBehaviour
         currentColorName = GetBloodNameByColor(color);
     }
 
-    public string GetBloodNameByColor(Colors color)
+    string GetBloodNameByColor(Colors color)
     {
         var colorName = new StringBuilder();
         colorName.Append(color.ToString() + "Blood");

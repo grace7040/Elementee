@@ -40,8 +40,7 @@ public class Star : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            // ¿Ã∆Â∆Æ ≥÷±‚
-            var effect = ObjectPoolManager.Instance.GetGo("Star");
+            var effect = ObjectPoolManager.Instance.GetGameObject("Star");
             effect.transform.position = this.transform.position;
             GameManager.Instance.CurrentStar++;
             GameManager.Instance.UIGame.UpdateStarUI();

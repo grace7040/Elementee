@@ -44,61 +44,61 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20bd6bb5cca7b834dbd777b77923cf8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectInfos:
-  - objectName: DefaultBlood
-    perfab: {fileID: 1352115355870245317, guid: 12d6cdd87211c5d4eae7f0013c309bd6, type: 3}
-    count: 3
-  - objectName: RedBlood
-    perfab: {fileID: 8414648424815299743, guid: 81db9cc8e6bbd2e4d86e7eb1c634e192, type: 3}
-    count: 3
-  - objectName: YellowBlood
-    perfab: {fileID: 2121182351626877047, guid: 7f28ddee342b3124faa7606f763d9dc3, type: 3}
-    count: 3
-  - objectName: BlueBlood
-    perfab: {fileID: 2294974195892277643, guid: ba5338b7b1ae8944fb235d6ef7e3ea91, type: 3}
-    count: 3
-  - objectName: OrangeBlood
-    perfab: {fileID: 2294974195892277643, guid: 8d4d1e378ba0da341b3837881acfd82a, type: 3}
-    count: 3
-  - objectName: GreenBlood
-    perfab: {fileID: 2294974195892277643, guid: 7b0b1f056efbd29449db45c1e60a70b5, type: 3}
-    count: 3
-  - objectName: PurpleBlood
-    perfab: {fileID: 2294974195892277643, guid: 7a528f2fd7f2e0849846c61599cf9670, type: 3}
-    count: 3
-  - objectName: BlackBlood
-    perfab: {fileID: 2294974195892277643, guid: 07e7582ee05cadd4fa45744448096d51, type: 3}
-    count: 3
-  - objectName: GreenWeapon
-    perfab: {fileID: 5532974359214069763, guid: 8a771508af072cb438119cf043179025, type: 3}
-    count: 3
-  - objectName: BlueWeapon
-    perfab: {fileID: 5532974359214069763, guid: 6a26987dd065ed349a3b6dbb4ddf0295, type: 3}
-    count: 3
-  - objectName: MonsterWater
-    perfab: {fileID: 5824670795371433373, guid: d20d5aa595bbe8142ae3172174546412, type: 3}
-    count: 3
-  - objectName: DamageText
-    perfab: {fileID: 8935910989285545547, guid: 699b2e8e04a5ee74abe5117fc4db2ae1, type: 3}
-    count: 5
-  - objectName: GreenLeafEffect
-    perfab: {fileID: 7914911873680407959, guid: 4a69b87d4ce9fa4499acec7af8f89288, type: 3}
-    count: 3
-  - objectName: LeafCut
-    perfab: {fileID: 2999072420754868778, guid: 014f34c6d7bffda4db20140b6ad0422d, type: 3}
-    count: 3
-  - objectName: Rock
-    perfab: {fileID: 1462327970484030, guid: 96bb0484cab0cd24086b1ae34242f763, type: 3}
-    count: 3
-  - objectName: Spark
-    perfab: {fileID: 100000, guid: 6ce171f5cfe7c744bb314353681615b1, type: 3}
-    count: 5
-  - objectName: Star
-    perfab: {fileID: 100006, guid: 364bc15b3097fb342b9739f5ef8bf42f, type: 3}
-    count: 3
-  - objectName: Box
-    perfab: {fileID: 1462327970484030, guid: d7deed31ab0606a46be683382317e753, type: 3}
-    count: 3
-  - objectName: Tree
-    perfab: {fileID: 1462327970484030, guid: 3f6d6fc14bef48b4b9fae0bcb53b9d37, type: 3}
-    count: 3
+  _objectInfos:
+  - ObjectName: DefaultBlood
+    Prefab: {fileID: 1352115355870245317, guid: 12d6cdd87211c5d4eae7f0013c309bd6, type: 3}
+    Count: 3
+  - ObjectName: RedBlood
+    Prefab: {fileID: 8414648424815299743, guid: 81db9cc8e6bbd2e4d86e7eb1c634e192, type: 3}
+    Count: 3
+  - ObjectName: YellowBlood
+    Prefab: {fileID: 2121182351626877047, guid: 7f28ddee342b3124faa7606f763d9dc3, type: 3}
+    Count: 3
+  - ObjectName: BlueBlood
+    Prefab: {fileID: 2294974195892277643, guid: ba5338b7b1ae8944fb235d6ef7e3ea91, type: 3}
+    Count: 3
+  - ObjectName: OrangeBlood
+    Prefab: {fileID: 2294974195892277643, guid: 8d4d1e378ba0da341b3837881acfd82a, type: 3}
+    Count: 3
+  - ObjectName: GreenBlood
+    Prefab: {fileID: 2294974195892277643, guid: 7b0b1f056efbd29449db45c1e60a70b5, type: 3}
+    Count: 3
+  - ObjectName: PurpleBlood
+    Prefab: {fileID: 2294974195892277643, guid: 7a528f2fd7f2e0849846c61599cf9670, type: 3}
+    Count: 3
+  - ObjectName: BlackBlood
+    Prefab: {fileID: 2294974195892277643, guid: 07e7582ee05cadd4fa45744448096d51, type: 3}
+    Count: 3
+  - ObjectName: GreenWeapon
+    Prefab: {fileID: 5532974359214069763, guid: 8a771508af072cb438119cf043179025, type: 3}
+    Count: 3
+  - ObjectName: BlueWeapon
+    Prefab: {fileID: 5532974359214069763, guid: 6a26987dd065ed349a3b6dbb4ddf0295, type: 3}
+    Count: 3
+  - ObjectName: MonsterWater
+    Prefab: {fileID: 5824670795371433373, guid: d20d5aa595bbe8142ae3172174546412, type: 3}
+    Count: 3
+  - ObjectName: DamageText
+    Prefab: {fileID: 8935910989285545547, guid: 699b2e8e04a5ee74abe5117fc4db2ae1, type: 3}
+    Count: 5
+  - ObjectName: GreenLeafEffect
+    Prefab: {fileID: 7914911873680407959, guid: 4a69b87d4ce9fa4499acec7af8f89288, type: 3}
+    Count: 3
+  - ObjectName: LeafCut
+    Prefab: {fileID: 2999072420754868778, guid: 014f34c6d7bffda4db20140b6ad0422d, type: 3}
+    Count: 3
+  - ObjectName: Rock
+    Prefab: {fileID: 1462327970484030, guid: 96bb0484cab0cd24086b1ae34242f763, type: 3}
+    Count: 3
+  - ObjectName: Spark
+    Prefab: {fileID: 100000, guid: 6ce171f5cfe7c744bb314353681615b1, type: 3}
+    Count: 5
+  - ObjectName: Star
+    Prefab: {fileID: 100006, guid: 364bc15b3097fb342b9739f5ef8bf42f, type: 3}
+    Count: 3
+  - ObjectName: Box
+    Prefab: {fileID: 1462327970484030, guid: d7deed31ab0606a46be683382317e753, type: 3}
+    Count: 3
+  - ObjectName: Tree
+    Prefab: {fileID: 1462327970484030, guid: 3f6d6fc14bef48b4b9fae0bcb53b9d37, type: 3}
+    Count: 3

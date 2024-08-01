@@ -16,7 +16,7 @@ public class Box : MonoBehaviour
 
             _life--;
             _canHit = false;
-            var effect = ObjectPoolManager.Instance.GetGo("Box");
+            var effect = ObjectPoolManager.Instance.GetGameObject("Box");
             effect.transform.position = collision.bounds.ClosestPoint(transform.position);
 
             this.CallOnDelay(0.1f, () => { _canHit = true; });

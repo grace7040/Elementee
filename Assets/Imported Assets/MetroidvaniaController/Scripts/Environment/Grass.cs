@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Grass : MonoBehaviour
 {
@@ -21,7 +19,7 @@ public class Grass : MonoBehaviour
 
     public void ApplyDamage()
     {
-        var leaf = ObjectPoolManager.Instance.GetGo("LeafCut");
+        var leaf = ObjectPoolManager.Instance.GetGameObject("LeafCut");
         leaf.transform.position = transform.position;
 
         Destroy(gameObject);
