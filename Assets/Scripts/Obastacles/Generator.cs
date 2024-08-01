@@ -6,6 +6,7 @@ using TMPro;
 public class Generator : MonoBehaviour
 {
     public int count;
+    public float posY = -1f;
     public string objectName;
     public GameObject Object;
 
@@ -36,7 +37,7 @@ public class Generator : MonoBehaviour
                 CountTxt.text = count.ToString();
                 this.CallOnDelay(0.5f, () => {
                     
-                    Instantiate(Object, new Vector3(transform.position.x, transform.position.y -1f, transform.position.z), Quaternion.identity, this.transform.parent);
+                    Instantiate(Object, new Vector3(transform.position.x, transform.position.y+ posY, transform.position.z), Quaternion.identity, this.transform.parent);
                     isGenerating = false;
                 });  
             }
