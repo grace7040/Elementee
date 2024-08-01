@@ -10,7 +10,7 @@ public class OrangeColor : IColorState
     public bool WallSliding { get { return false; } }
     public float CoolTime { get { return 6f; } }
 
-    public float durationTime = 5f;
+    float _durationTime = 5f;
 
     Action<float> OnOrangeAttacked = null;
 
@@ -23,6 +23,6 @@ public class OrangeColor : IColorState
     public void Attack(Vector3 playerPosition, float playerLocalScaleX)
     {
         AudioManager.Instacne.PlaySFX("Orange");
-        OnOrangeAttacked(durationTime);
+        OnOrangeAttacked(_durationTime);
     }
 }

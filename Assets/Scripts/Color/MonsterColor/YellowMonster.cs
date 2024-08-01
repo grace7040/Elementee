@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class YellowMonster : MonsterController
 {
-    public GameObject voltObject;
+    public GameObject VoltObject;
 
     protected override void Start()
     {
@@ -23,8 +23,8 @@ public class YellowMonster : MonsterController
     {
         StartCoroutine(Charge());
 
-        voltObject.SetActive(true);
-        this.CallOnDelay(1f, () => voltObject.SetActive(false));
+        VoltObject.SetActive(true);
+        this.CallOnDelay(1f, () => VoltObject.SetActive(false));
     }
 
     protected IEnumerator Charge()

@@ -1,21 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 
 public class ColorBrushButton : MonoBehaviour
 {
-    
-
     public Colors color;
 
-    private Button button;
+    Button _button;
 
-    private void Start()
+    void Start()
     {
-        button = GetComponent<Button>();
-        button.onClick.AddListener(() => DrawManager.Instance.SetBrushColor(color));
+        _button = GetComponent<Button>();
+        _button.onClick.AddListener(() => DrawManager.Instance.SetBrushColor(color));
     }
 
 }

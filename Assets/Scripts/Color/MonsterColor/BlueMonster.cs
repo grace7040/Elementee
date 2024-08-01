@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BlueMonster : MonsterController
 {
-    GameObject Water;
+    GameObject _waterObject;
 
     protected override void Start()
     {
@@ -20,8 +20,8 @@ public class BlueMonster : MonsterController
 
     public override void Attack()
     {
-        Water = ObjectPoolManager.Instance.GetGo("MonsterWater");
-        Water.transform.position = transform.position;
-        Water.GetComponent<M_Water>().direction = IsFlip ? new Vector3(-1, 0, 0) : new Vector3(1, 0, 0);
+        _waterObject = ObjectPoolManager.Instance.GetGo("MonsterWater");
+        _waterObject.transform.position = transform.position;
+        _waterObject.GetComponent<M_Water>().direction = IsFlip ? new Vector3(-1, 0, 0) : new Vector3(1, 0, 0);
     }
 }

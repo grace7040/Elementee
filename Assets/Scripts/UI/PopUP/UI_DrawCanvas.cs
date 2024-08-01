@@ -43,7 +43,7 @@ public class UI_DrawCanvas : UI_Popup
         GetButton((int)Buttons.BasicBtn).gameObject.BindEvent(BasictBtnClicked);
 
         // 안내문 Text 설정
-        if (!DrawManager.Instance.face_mode)
+        if (!DrawManager.Instance.IsDrawingFace)
             GuideText.text = DrawManager.Instance.DrawText[(int)_color];
         else
             GuideText.text = DrawManager.Instance.DrawText[8];

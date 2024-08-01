@@ -618,10 +618,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be02e1ed94e735d43824e17bb9b1e1fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_AudioMixer: {fileID: 24100000, guid: b9a9c6895ec87d34b94e7d3e9a33ebcc, type: 2}
-  m_MusicMasterSlider: {fileID: 7165946554612795987}
-  m_MusicBGMSlider: {fileID: 7165946554215190243}
-  m_MusicSFXSlider: {fileID: 7165946554182780409}
+  _audioMixer: {fileID: 24100000, guid: b9a9c6895ec87d34b94e7d3e9a33ebcc, type: 2}
+  _musicMasterSlider: {fileID: 7165946554612795987}
+  _musicBGMSlider: {fileID: 7165946554215190243}
+  _musicSFXSlider: {fileID: 7165946554182780409}
 --- !u!1001 &34190142994743025
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,35 +1,33 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
 
 public class AudioMixerController : MonoBehaviour
 {
-    [SerializeField] private AudioMixer m_AudioMixer;
-    [SerializeField] private Slider m_MusicMasterSlider;
-    [SerializeField] private Slider m_MusicBGMSlider;
-    [SerializeField] private Slider m_MusicSFXSlider;
+    [SerializeField] AudioMixer _audioMixer;
+    [SerializeField] Slider _musicMasterSlider;
+    [SerializeField] Slider _musicBGMSlider;
+    [SerializeField] Slider _musicSFXSlider;
 
-    private void Awake()
+    void Awake()
     {
-        m_MusicMasterSlider.onValueChanged.AddListener(SetMasterVolume);
-        m_MusicBGMSlider.onValueChanged.AddListener(SetMusicVolume);
-        m_MusicSFXSlider.onValueChanged.AddListener(SetSFXVolume);
+        _musicMasterSlider.onValueChanged.AddListener(SetMasterVolume);
+        _musicBGMSlider.onValueChanged.AddListener(SetBGMVolume);
+        _musicSFXSlider.onValueChanged.AddListener(SetSFXVolume);
     }
 
-    public void SetMasterVolume(float volume)
+    void SetMasterVolume(float volume)
     {
-        m_AudioMixer.SetFloat("Master", Mathf.Log10(volume) * 20);
+        _audioMixer.SetFloat("Master", Mathf.Log10(volume) * 20);
     }
 
-    public void SetMusicVolume(float volume)
+    void SetBGMVolume(float volume)
     {
-        m_AudioMixer.SetFloat("BGM", Mathf.Log10(volume) * 20);
+        _audioMixer.SetFloat("BGM", Mathf.Log10(volume) * 20);
     }
 
-    public void SetSFXVolume(float volume)
+    void SetSFXVolume(float volume)
     {
-        m_AudioMixer.SetFloat("SFX", Mathf.Log10(volume) * 20);
+        _audioMixer.SetFloat("SFX", Mathf.Log10(volume) * 20);
     }
 }

@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
 using System.Threading;
+using System;
+using Random = UnityEngine.Random;
 
 public class MonsterController : MonoBehaviour
 {
@@ -55,7 +57,7 @@ public class MonsterController : MonoBehaviour
     [HideInInspector]
     public Vector3 CurrentEndpoint;
 
-    float _EndpointDirection;
+    float _endpointDirection;
     float _distanceX;
 
     [HideInInspector]
@@ -86,8 +88,7 @@ public class MonsterController : MonoBehaviour
     public bool CanFlip = true;
 
     // Die
-    delegate void Del();
-    Del OnDie = null;
+    Action OnDie = null;
 
     // HP Bar
     Image _hpBar;
@@ -146,8 +147,8 @@ public class MonsterController : MonoBehaviour
 
         if (stateMachine.CurrentState is IdleState)
         {
-            _EndpointDirection = CurrentEndpoint.x - transform.position.x;
-            IsFlip = _EndpointDirection < 0f;
+            _endpointDirection = CurrentEndpoint.x - transform.position.x;
+            IsFlip = _endpointDirection < 0f;
             MonsterBody.rotation = IsFlip ? Quaternion.identity : FlipQuaternion;
         }
 
@@ -170,7 +171,7 @@ public class MonsterController : MonoBehaviour
         }
     }
 
-    private void SetEndpoints()
+    void SetEndpoints()
     {
         _leftEndpoint = GetEndpoint(Vector2.left, _ignoreLayers);
         _rightEndpoint = GetEndpoint(Vector2.right, _ignoreLayers);
@@ -190,7 +191,7 @@ public class MonsterController : MonoBehaviour
         }
     }
 
-    private void MoveTowardsEndpoint()
+    void MoveTowardsEndpoint()
     {
         if (_isStopped)
         {
@@ -202,7 +203,7 @@ public class MonsterController : MonoBehaviour
         }
     }
 
-    private void HandleStopAndSetNextEndpoint()
+    void HandleStopAndSetNextEndpoint()
     {
         _stopTime -= Time.deltaTime;
         if (_stopTime <= 0)
@@ -213,7 +214,7 @@ public class MonsterController : MonoBehaviour
         }
     }
 
-    private void HandleMovement()
+    void HandleMovement()
     {
         _timeSinceLastStop += Time.deltaTime;
 
@@ -228,7 +229,7 @@ public class MonsterController : MonoBehaviour
 
         Animator.SetBool("IsWalking", MyColor != Colors.Default);
 
-        if (CheckCliff() || Mathf.Abs(_EndpointDirection) < 0.2f)
+        if (CheckCliff() || Mathf.Abs(_endpointDirection) < 0.2f)
         {
             SetNextEndpoint();
         }
@@ -256,7 +257,7 @@ public class MonsterController : MonoBehaviour
         return _hit.collider == null;
     }
 
-    private void SetNextEndpoint()
+    void SetNextEndpoint()
     {
         CurrentEndpoint = IsFlip ? _rightEndpoint : _leftEndpoint;
     }
@@ -289,13 +290,13 @@ public class MonsterController : MonoBehaviour
         }
     }
 
-    private void PlayDamageEffects()
+    void PlayDamageEffects()
     {
         _monsterSprite.DOFade(0.2f, 0.25f).SetLoops(4, LoopType.Yoyo);
         this.CallOnDelay(1f, () => { _monsterSprite.DOFade(1f, 0f); });
     }
 
-    private void DisplayDamageText(int damage)
+    void DisplayDamageText(int damage)
     {
         var damageText = ObjectPoolManager.Instance.GetGo("DamageText");
         damageText.GetComponent<TextMeshPro>().text = damage.ToString();
@@ -303,7 +304,7 @@ public class MonsterController : MonoBehaviour
         damageText.transform.SetParent(this.transform);
     }
 
-    private void ApplyKnockback(Vector3 playerPos)
+    void ApplyKnockback(Vector3 playerPos)
     {
         Rb.velocity = Vector2.zero;
         Vector2 damageDir = new Vector2(transform.position.x - playerPos.x, 0).normalized * 2f;
@@ -343,7 +344,7 @@ public class MonsterController : MonoBehaviour
         Destroy(gameObject, 2.5f);
     }
 
-    private IEnumerator Electrocuted()
+    IEnumerator Electrocuted()
     {
         enabled = false;
         Animator.speed = 0f;
@@ -359,7 +360,7 @@ public class MonsterController : MonoBehaviour
         Animator.speed = 1f;
     }
 
-    private IEnumerator ShakeMonster()
+    IEnumerator ShakeMonster()
     {
         float shakeDuration = 1.5f;
         float shakeIntensity = 0.05f;
@@ -372,7 +373,7 @@ public class MonsterController : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerEnter2D(Collider2D other)
     {
         if (IsDie) return;
 
@@ -390,7 +391,7 @@ public class MonsterController : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    void OnTriggerStay2D(Collider2D collision)
     {
         if (!_canTakeDamage_RangeAttack || IsDie) return;
 
@@ -408,12 +409,12 @@ public class MonsterController : MonoBehaviour
         this.CallOnDelay(0.5f, () => { _canTakeDamage_RangeAttack = true; });
     }
 
-    private void ApplyKnockbackForce(Vector2 direction, float force, float duration)
+    void ApplyKnockbackForce(Vector2 direction, float force, float duration)
     {
         StartCoroutine(KnockbackCoroutine(direction, force, duration));
     }
 
-    private IEnumerator KnockbackCoroutine(Vector2 direction, float force, float duration)
+    IEnumerator KnockbackCoroutine(Vector2 direction, float force, float duration)
     {
         float timer = 0f;
         _isKnockedBack = true;
@@ -429,7 +430,7 @@ public class MonsterController : MonoBehaviour
         _isKnockedBack = false;
     }
 
-    private void OnDieByGreenPlayer()
+    void OnDieByGreenPlayer()
     {
         if (GameManager.Instance.PlayerColor == Colors.Green)
         {
@@ -441,7 +442,7 @@ public class MonsterController : MonoBehaviour
         }
     }
 
-    private void UpdateHPBar()
+    void UpdateHPBar()
     {
         _hpBar.fillAmount = (float)_currentHealth / _maxHealth;
     }
@@ -456,8 +457,8 @@ public class MonsterController : MonoBehaviour
         Animator.enabled = false;
         IsDie = true;
 
-        if (MyColor == Colors.Yellow) GetComponent<YellowMonster>().voltObject.SetActive(false);
-        else if (MyColor == Colors.Red) GetComponent<RedMonster>().fireObject.SetActive(false);
+        if (MyColor == Colors.Yellow) GetComponent<YellowMonster>().VoltObject.SetActive(false);
+        else if (MyColor == Colors.Red) GetComponent<RedMonster>().FireObject.SetActive(false);
 
         enabled = false;
         Rb.mass = 0.0f;

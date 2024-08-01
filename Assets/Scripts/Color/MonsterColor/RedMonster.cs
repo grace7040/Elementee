@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RedMonster : MonsterController
 {
-    public GameObject fireObject;
+    public GameObject FireObject;
 
     protected override void Start()
     {
@@ -20,7 +20,7 @@ public class RedMonster : MonsterController
 
     public override void Attack()
     {
-        fireObject.SetActive(true);
-        this.CallOnDelay(1.5f, () => fireObject.SetActive(false));
+        FireObject.SetActive(true);
+        this.CallOnDelay(1.5f, () => FireObject.SetActive(false));
     }
 }

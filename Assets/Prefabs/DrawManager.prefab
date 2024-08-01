@@ -257,9 +257,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38f84a9fe7a1c78468d251e36231b3a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sr: {fileID: 4058981379462855988}
-  width: 0.25
-  height: 0.33333
 --- !u!1 &4058981380131913906
 GameObject:
   m_ObjectHideFlags: 0
@@ -351,14 +348,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7204ff8be71288741b5ced40f6544045, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 0}
-  testRenderer: {fileID: 0}
-  Drawing: {fileID: 4095121407885336104}
   DrawbleObject: {fileID: 4058981380410658268}
-  face_mode: 0
-  Cam: {fileID: 0}
-  DrawCam: {fileID: 1538361924}
-  BackGround: {fileID: 1527272910}
+  _drawing: {fileID: 4095121407885336104}
+  IsDrawingFace: 0
+  _drawCam: {fileID: 1538361924}
   WeaponCanvas:
   - {fileID: 21300000, guid: 385151ec4cfc9c64392514db5ecf3219, type: 3}
   - {fileID: 21300000, guid: c842cd1b882dc1242b61f21c39486b70, type: 3}
@@ -379,26 +372,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 8c13b087e52acdf408bec5d5c8a62c22, type: 3}
   - {fileID: 21300000, guid: 6d0afdd2028baaf4fb396b10069e226c, type: 3}
   - {fileID: 21300000, guid: 6d0afdd2028baaf4fb396b10069e226c, type: 3}
-  BasicWeaponBG:
-  - {fileID: 21300000, guid: 8be49bc6ee1cbdd45b2908d6c11af938, type: 3}
-  - {fileID: 21300000, guid: 8140fbdf201cc5441becb1191869aa02, type: 3}
-  - {fileID: 21300000, guid: 6730e3c8840615b45a8d24cb8726d813, type: 3}
-  - {fileID: 21300000, guid: a147e274b9960104d8aa205e38ad6cb3, type: 3}
-  - {fileID: 21300000, guid: 9a20a3d03ea637d409ac354c2e344623, type: 3}
-  - {fileID: 21300000, guid: 0fd83ac2899c11d47bb0a0c6756e542a, type: 3}
-  - {fileID: 21300000, guid: ef31f5c261c406749977ecea927dda32, type: 3}
-  - {fileID: 21300000, guid: 8be49bc6ee1cbdd45b2908d6c11af938, type: 3}
-  - {fileID: 21300000, guid: eed5591795e12054684cc4c896e1e138, type: 3}
-  WeaponCanvasBG:
-  - {fileID: 21300000, guid: 8be49bc6ee1cbdd45b2908d6c11af938, type: 3}
-  - {fileID: 21300000, guid: bf21222babb49cd439207bfa70fbaf6e, type: 3}
-  - {fileID: 21300000, guid: 6671944c220a75646a1771fc9c330eac, type: 3}
-  - {fileID: 21300000, guid: 5d24d721114845f47893a29d7b6e5ea3, type: 3}
-  - {fileID: 21300000, guid: fd419b56416202d4299eae9a68442fd0, type: 3}
-  - {fileID: 21300000, guid: f0b09cae1af6fcc4ab0b091d8dcf861e, type: 3}
-  - {fileID: 21300000, guid: 781c9ddcc83be9c4584dc67440a9a08c, type: 3}
-  - {fileID: 21300000, guid: 8be49bc6ee1cbdd45b2908d6c11af938, type: 3}
-  - {fileID: 21300000, guid: eed5591795e12054684cc4c896e1e138, type: 3}
   DrawText:
   - "\uBB34\uAE30\uB97C \uADF8\uB824\uC8FC\uC138\uC694"
   - "\uBE68\uAC04\uC0C9 \uBB34\uAE30\uB97C \uADF8\uB824\uC8FC\uC138\uC694"
@@ -409,9 +382,27 @@ MonoBehaviour:
   - "\uBCF4\uB77C\uC0C9 \uBB34\uAE30\uB97C \uADF8\uB824\uC8FC\uC138\uC694"
   - "\uBB34\uAE30\uB97C \uADF8\uB824\uC8FC\uC138\uC694"
   - "\uC5BC\uAD74\uC5D0 \uB9DE\uAC8C \uD45C\uC815\uC744 \uADF8\uB824\uC8FC\uC138\uC694"
-  WeaponWidth: 30
-  FaceWidth: 40
-  DrawSetting: {fileID: 0}
+  _sketch: {fileID: 1527272910}
+  _basicWeaponBG:
+  - {fileID: 21300000, guid: 8be49bc6ee1cbdd45b2908d6c11af938, type: 3}
+  - {fileID: 21300000, guid: 8140fbdf201cc5441becb1191869aa02, type: 3}
+  - {fileID: 21300000, guid: 6730e3c8840615b45a8d24cb8726d813, type: 3}
+  - {fileID: 21300000, guid: a147e274b9960104d8aa205e38ad6cb3, type: 3}
+  - {fileID: 21300000, guid: 9a20a3d03ea637d409ac354c2e344623, type: 3}
+  - {fileID: 21300000, guid: 0fd83ac2899c11d47bb0a0c6756e542a, type: 3}
+  - {fileID: 21300000, guid: ef31f5c261c406749977ecea927dda32, type: 3}
+  - {fileID: 21300000, guid: 8be49bc6ee1cbdd45b2908d6c11af938, type: 3}
+  - {fileID: 21300000, guid: eed5591795e12054684cc4c896e1e138, type: 3}
+  _weaponCanvasBG:
+  - {fileID: 21300000, guid: 8be49bc6ee1cbdd45b2908d6c11af938, type: 3}
+  - {fileID: 21300000, guid: bf21222babb49cd439207bfa70fbaf6e, type: 3}
+  - {fileID: 21300000, guid: 6671944c220a75646a1771fc9c330eac, type: 3}
+  - {fileID: 21300000, guid: 5d24d721114845f47893a29d7b6e5ea3, type: 3}
+  - {fileID: 21300000, guid: fd419b56416202d4299eae9a68442fd0, type: 3}
+  - {fileID: 21300000, guid: f0b09cae1af6fcc4ab0b091d8dcf861e, type: 3}
+  - {fileID: 21300000, guid: 781c9ddcc83be9c4584dc67440a9a08c, type: 3}
+  - {fileID: 21300000, guid: 8be49bc6ee1cbdd45b2908d6c11af938, type: 3}
+  - {fileID: 21300000, guid: eed5591795e12054684cc4c896e1e138, type: 3}
 --- !u!1 &4058981380410658268
 GameObject:
   m_ObjectHideFlags: 0

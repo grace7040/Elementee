@@ -8,43 +8,37 @@ using UnityEngine.UI;
 
 public class DrawManager : MonoBehaviour
 {
-    Colors color;
+    Colors _color;
 
-    public TMP_Text text;
-    public SpriteRenderer testRenderer;
-
-    public GameObject Drawing;
     public GameObject DrawbleObject;
+    [SerializeField] GameObject _drawing;
 
-    public bool face_mode;
+    public bool IsDrawingFace;
 
     [Header("Camera")]
-    public GameObject Cam;
-    public GameObject DrawCam;
+    [SerializeField] GameObject _drawCam;
+    GameObject Cam;
 
 
     [Header("Sprites")]
-    public GameObject BackGround;
     public Sprite[] WeaponCanvas;
     public Sprite[] BasicWeapon;
-    public Sprite[] BasicWeaponBG;
-    public Sprite[] WeaponCanvasBG;
     public List<string> DrawText;
+    [SerializeField] GameObject _sketch;
+    [SerializeField] Sprite[] _basicWeaponBG;
+    [SerializeField] Sprite[] _weaponCanvasBG;
 
 
     [Header("PenWidth")]
-    public int WeaponWidth = 10;
-    public int FaceWidth = 22;
+    int _weaponWidth = 30;
+    int _faceWidth = 40;
 
-
-    [HideInInspector]
-    public DrawingSettings DrawSetting;
-
+    DrawingSettings DrawSetting;
 
     string _weaponDir;
     string _soundDir;
 
-    private static DrawManager _instance = null;
+    static DrawManager _instance = null;
     public static DrawManager Instance
     {
         get
@@ -75,41 +69,41 @@ public class DrawManager : MonoBehaviour
 
     public void SetBrushColor(Colors color)
     {
-        this.color = color;
+        this._color = color;
         Color c = ColorManager.Instance.GetColor(color);
 
-        BackGround.GetComponent<Image>().sprite = WeaponCanvasBG[(int)color];
+        _sketch.GetComponent<Image>().sprite = _weaponCanvasBG[(int)color];
         DrawbleObject.GetComponent<SpriteRenderer>().sprite = WeaponCanvas[(int)color];
         DrawbleObject.GetComponent<Drawable>().UpdateCanvas();
-        DrawSetting.SetMarkerWidth(WeaponWidth);
+        DrawSetting.SetMarkerWidth(_weaponWidth);
         DrawSetting.SetMarkerColour(c);
     }
 
     public void OpenDrawing()
     {
         Cam.SetActive(false);
-        DrawCam.SetActive(true);
-        Drawing.SetActive(true);
+        _drawCam.SetActive(true);
+        _drawing.SetActive(true);
     }
 
     public void CloseDrawing()
     {
         Cam.SetActive(true);
-        DrawCam.SetActive(false);
-        Drawing.SetActive(false);
+        _drawCam.SetActive(false);
+        _drawing.SetActive(false);
     }
 
 
     public void SetFaceColor()
     {
-        face_mode = true;
+        IsDrawingFace = true;
         Color c = ColorManager.Instance.GetColor(Colors.Black);
 
-        BackGround.GetComponent<Image>().sprite = WeaponCanvasBG[8];
+        _sketch.GetComponent<Image>().sprite = _weaponCanvasBG[8];
 
         DrawbleObject.GetComponent<SpriteRenderer>().sprite = WeaponCanvas[8];
         DrawbleObject.GetComponent<Drawable>().UpdateCanvas();
-        DrawSetting.SetMarkerWidth(FaceWidth);
+        DrawSetting.SetMarkerWidth(_faceWidth);
 
         DrawSetting.SetMarkerColour(c);
 
@@ -120,9 +114,9 @@ public class DrawManager : MonoBehaviour
 
         // 다시 원래 카메라로
         Cam.SetActive(true);
-        DrawCam.SetActive(false);
+        _drawCam.SetActive(false);
 
-        Drawing.SetActive(false);
+        _drawing.SetActive(false);
 
         // Face 저장 - 8번
         GameManager.Instance.PlayerFace = WeaponCanvas[8];
@@ -135,9 +129,9 @@ public class DrawManager : MonoBehaviour
     public void BasicWeapons(int num)
     {
         if (num == 1)
-            BackGround.GetComponent<Image>().sprite = BasicWeaponBG[(int)color];
+            _sketch.GetComponent<Image>().sprite = _basicWeaponBG[(int)_color];
         else
-            BackGround.GetComponent<Image>().sprite = WeaponCanvasBG[(int)color];
+            _sketch.GetComponent<Image>().sprite = _weaponCanvasBG[(int)_color];
     }
 
 
