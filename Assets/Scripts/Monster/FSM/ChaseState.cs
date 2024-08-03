@@ -17,7 +17,7 @@ public class ChaseState : BaseState
         monster.IsFlip = monster.Player.position.x < monster.transform.position.x;
         monster.MonsterBody.rotation = monster.IsFlip ? Quaternion.identity : monster.FlipQuaternion;
 
-        if (Vector2.Distance(monster.transform.position, monster.Player.position) <= monster.AttackRange && monster.DistanceY <= 1.0f)
+        if (Vector2.Distance(monster.transform.position, monster.Player.position) <= monster.AttackRange && monster.DistanceY <= 0.7f)
         {
             monster.ChangeState(new AttackState(monster));
         }

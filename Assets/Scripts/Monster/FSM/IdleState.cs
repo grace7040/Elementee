@@ -21,7 +21,7 @@ public class IdleState : BaseState
         }
         else
         {
-            if (Vector2.Distance(monster.transform.position, monster.Player.position) <= monster.DetectionRange && monster.DistanceY <= 1.0f)
+            if (Vector2.Distance(monster.transform.position, monster.Player.position) <= monster.DetectionRange && monster.DistanceY <= 0.7f)
             {
                 monster.ChangeState(new ChaseState(monster));
             }
