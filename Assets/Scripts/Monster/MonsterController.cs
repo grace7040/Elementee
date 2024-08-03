@@ -69,10 +69,10 @@ public class MonsterController : MonoBehaviour
     protected Vector2 dir;
 
     float _moveRange = 50.0f;
-    float _stopTime = 0;
-    float _timeSinceLastStop = 0;
+    float _stopDuration = 0;
+    float _stopCoolTime = 0;
     bool _isStopped = false;
-    bool _canMove = true;
+    bool _canStop = true;
     float _timer = 0.0f;
     float _interval = 0.1f;
 
@@ -179,23 +179,32 @@ public class MonsterController : MonoBehaviour
 
     private Vector3 GetEndpoint(Vector2 direction, LayerMask ignoreLayers)
     {
-        RaycastHit2D _hit = Physics2D.Raycast(new Vector2 (transform.position.x, transform.position.y) + (direction * 1.0f) , direction, _moveRange, ~ignoreLayers);
+        float[] heightOffsets = { -0.5f, 0f, 0.5f };
+        float rayLength = _moveRange;
 
-        if (_hit.collider != null)
+        foreach (float heightOffset in heightOffsets)
         {
-            return _hit.point - (direction * 1.0f);
+            Vector2 origin = new Vector2(transform.position.x, transform.position.y + heightOffset) + (direction * 1.0f);
+            RaycastHit2D hit = Physics2D.Raycast(origin, direction, rayLength, ~ignoreLayers);
+
+            if (hit.collider != null)
+            {
+                return hit.point - (direction * 2.0f);
+            }
         }
-        else
-        {
-            return transform.position + (Vector3)(direction * _moveRange / 2);
-        }
+        return transform.position + (Vector3)(direction * _moveRange / 2);
     }
 
     void MoveTowardsEndpoint()
     {
         if (_isStopped)
         {
-            HandleStopAndSetNextEndpoint();
+            _stopDuration -= Time.deltaTime;
+            if (_stopDuration <= 0)
+            {
+                _isStopped = false;
+                SetNextEndpoint();
+            }
         }
         else
         {
@@ -203,23 +212,13 @@ public class MonsterController : MonoBehaviour
         }
     }
 
-    void HandleStopAndSetNextEndpoint()
-    {
-        _stopTime -= Time.deltaTime;
-        if (_stopTime <= 0)
-        {
-            _isStopped = false;
-            SetNextEndpoint();
-        }
-    }
-
     void HandleMovement()
     {
-        _timeSinceLastStop += Time.deltaTime;
+        _stopCoolTime += Time.deltaTime;
 
-        if (_timeSinceLastStop >= 2.0f)
+        if (_stopCoolTime >= 2.0f)
         {
-            _canMove = true;
+            _canStop = true;
         }
 
         MoveDirection = (CurrentEndpoint - transform.position).normalized;
@@ -233,16 +232,21 @@ public class MonsterController : MonoBehaviour
             SetNextEndpoint();
         }
 
-        if (_canMove && Random.value < 0.3f * Time.deltaTime)
+        if (_canStop && Random.value < 0.3f * Time.deltaTime)
         {
-            _stopTime = Random.Range(0.4f, 1.0f);
-            _isStopped = true;
-            _canMove = false;
-            _timeSinceLastStop = 0;
-            Rb.velocity = Vector2.zero;
-
-            Animator.SetBool("IsWalking", MyColor != Colors.Default && false);
+            StartStopping();
         }
+    }
+
+    void StartStopping()
+    {
+        _stopDuration = Random.Range(0.8f, 1.6f);
+        _isStopped = true;
+        _canStop = false;
+        _stopCoolTime = 0;
+        Rb.velocity = Vector2.zero;
+
+        Animator.SetBool("IsWalking", MyColor != Colors.Default && false);
     }
 
     public bool CheckCliff()
