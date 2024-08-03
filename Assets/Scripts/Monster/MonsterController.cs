@@ -209,7 +209,6 @@ public class MonsterController : MonoBehaviour
         if (_stopTime <= 0)
         {
             _isStopped = false;
-            Rb.velocity = Vector2.zero;
             SetNextEndpoint();
         }
     }
@@ -240,6 +239,7 @@ public class MonsterController : MonoBehaviour
             _isStopped = true;
             _canMove = false;
             _timeSinceLastStop = 0;
+            Rb.velocity = Vector2.zero;
 
             Animator.SetBool("IsWalking", MyColor != Colors.Default && false);
         }
