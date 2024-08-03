@@ -5,6 +5,7 @@ using UnityEngine;
 public class RandomBox : MonoBehaviour
 {
     public GameObject[] randomObjects;
+    public GameObject destroyEffect;
     public float posY = 2f;
     private Animator anim;
 
@@ -26,8 +27,13 @@ public class RandomBox : MonoBehaviour
 
             anim.Play("RandomBox", -1, 0f);
 
-            this.CallOnDelay(1f, () => { 
+            this.CallOnDelay(1f, () => {
                 Instantiate(randomObjects[randomIdx], new Vector3(transform.position.x, transform.position.y + posY, transform.position.z), Quaternion.identity, this.transform.parent);
+
+                if (destroyEffect != null)
+                {
+                    Instantiate(destroyEffect, transform.position, Quaternion.identity);
+                }
                 Destroy(gameObject, 0.5f);
             });
         }
