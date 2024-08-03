@@ -24,7 +24,7 @@ public class YellowMonster : MonsterController
         StartCoroutine(Charge());
 
         VoltObject.SetActive(true);
-        this.CallOnDelay(1f, () => VoltObject.SetActive(false));
+        this.CallOnDelay(1.6f, () => VoltObject.SetActive(false));
     }
 
     protected IEnumerator Charge()
