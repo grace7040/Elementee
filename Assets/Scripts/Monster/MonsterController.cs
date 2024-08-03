@@ -130,9 +130,9 @@ public class MonsterController : MonoBehaviour
         SetEndpoints();
         CurrentEndpoint = _leftEndpoint;
 
-        _hpBar = transform.Find("HPBar").GetChild(1).gameObject.GetComponent<Image>();
+        _hpBar = transform.GetChild(0).Find("HPBar").GetChild(1).gameObject.GetComponent<Image>();
         _hpBarMAX = _hpBar.gameObject.GetComponent<RectTransform>().rect.width;
-        _hpBarBG = transform.Find("HPBar").GetChild(0).gameObject.GetComponent<Image>();
+        _hpBarBG = transform.GetChild(0).Find("HPBar").GetChild(0).gameObject.GetComponent<Image>();
 
         stateMachine = new StateMachine();
         stateMachine.ChangeState(new IdleState(this));
@@ -292,7 +292,7 @@ public class MonsterController : MonoBehaviour
 
     void PlayDamageEffects()
     {
-        _monsterSprite.DOFade(0.2f, 0.25f).SetLoops(4, LoopType.Yoyo);
+        _monsterSprite.DOFade(0.2f, 0.25f).SetLoops(2, LoopType.Yoyo);
         this.CallOnDelay(1f, () => { _monsterSprite.DOFade(1f, 0f); });
     }
 
@@ -332,16 +332,17 @@ public class MonsterController : MonoBehaviour
                 break;
         }
 
-        Animator.enabled = false;
         gameObject.GetComponent<CapsuleCollider2D>().isTrigger = true;
+        gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
         Rb.velocity = Vector2.zero;
         dir.x = 0;
 
         OnDie?.Invoke();
 
-        _monsterSprite.DOFade(0, 2.5f);
+        Animator.SetTrigger("Death");
         _hpBarBG.DOFade(0, 2f);
-        Destroy(gameObject, 2.5f);
+        //_monsterSprite.DOFade(0, 2.5f);
+        //Destroy(gameObject, 2.5f);
     }
 
     IEnumerator Electrocuted()
