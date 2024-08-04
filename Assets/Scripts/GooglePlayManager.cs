@@ -7,15 +7,39 @@ using GooglePlayGames;
 using GooglePlayGames.BasicApi;
 using TMPro;
 
-public class GooglePlayManager : MonoBehaviour
+public class GooglePlayManager : Singleton<GooglePlayManager>
 {
+    bool _isLogined = false;
     void Awake()
     {
         PlayGamesPlatform.InitializeInstance(new PlayGamesClientConfiguration.Builder().Build());
         PlayGamesPlatform.DebugLogEnabled = true;
         PlayGamesPlatform.Activate();
+        Login();
     }
 
+    public void Login()
+    {
+        if (_isLogined) {
+            return;
+        }
+
+        if (!Social.localUser.authenticated)
+        {
+            Social.localUser.Authenticate((bool isSuccess, string error) =>
+            {
+                if (!isSuccess)
+                {
+                    Debug.Log($"Fail: {error}");
+                }
+                else
+                {
+                    _isLogined = true;
+                }
+                return;
+            });
+         }
+    }
     public void Login(Action OnLogin)
     {
         if (!Social.localUser.authenticated)
@@ -34,19 +58,6 @@ public class GooglePlayManager : MonoBehaviour
         OnLogin.Invoke();
     }
 
-    public void Login()
-    {
-        if (!Social.localUser.authenticated)
-        {
-            Social.localUser.Authenticate((bool isSuccess, string error) =>
-            {
-                if (!isSuccess)
-                    Debug.Log($"Fail: {error}");
-
-                return;
-            });
-        }
-    }
 
     public void OnShowLeaderBoard()
     {

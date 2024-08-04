@@ -2,6 +2,7 @@ using GoogleMobileAds.Api;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public enum AdType { Revival, ReDraw }
@@ -13,6 +14,11 @@ public class AdMob : MonoBehaviour
 
     public void Start()
     {
+        //adUnitId 설정
+#if UNITY_ANDROID
+        adUnitId = "ca-app-pub-3940256099942544/5224354917";
+#endif
+
         // 모바일 광고 SDK를 초기화함.
         MobileAds.Initialize(initStatus => { });
 
@@ -20,11 +26,6 @@ public class AdMob : MonoBehaviour
         AdRequest request = new AdRequest.Builder().Build();
         this.rewardedAd = new RewardedAd(adUnitId);
         this.rewardedAd.LoadAd(request);
-
-        //adUnitId 설정
-#if UNITY_ANDROID
-        adUnitId = "ca-app-pub-3115045377477281/4539879882";
-#endif
 
         this.rewardedAd.OnAdLoaded += HandleRewardedAdLoaded; // 광고 로드가 완료되면 호출
         this.rewardedAd.OnAdFailedToLoad += HandleRewardedAdFailedToLoad; // 광고 로드가 실패했을 때 호출
@@ -78,6 +79,10 @@ public class AdMob : MonoBehaviour
         if (this.rewardedAd.IsLoaded())
         {
             this.rewardedAd.Show();
+        }
+        else
+        {
+            Debug.Log("Not Loaded");
         }
     }
 
