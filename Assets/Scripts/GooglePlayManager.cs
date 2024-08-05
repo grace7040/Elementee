@@ -10,11 +10,26 @@ using TMPro;
 public class GooglePlayManager : Singleton<GooglePlayManager>
 {
     bool _isLogined = false;
+    AdMob _adMob;
     void Awake()
     {
+        DontDestroyOnLoad(this);
+
+        //GPGS Setting
         PlayGamesPlatform.InitializeInstance(new PlayGamesClientConfiguration.Builder().Build());
         PlayGamesPlatform.DebugLogEnabled = true;
         PlayGamesPlatform.Activate();
+
+        //AdMob
+        if(_adMob == null)
+        {
+            gameObject.AddComponent<AdMob>();
+            _adMob = GetComponent<AdMob>();
+        }
+    }
+
+    void Start()
+    {
         Login();
     }
 
@@ -68,6 +83,11 @@ public class GooglePlayManager : Singleton<GooglePlayManager>
     public void OnShowAchievement()
     {
         Login(Social.ShowAchievementsUI);
+    }
+
+    public void ShowAds(AdType adType)
+    {
+        _adMob.ShowAds(adType);
     }
 
 }

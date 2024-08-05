@@ -34,12 +34,6 @@ public class AudioManager : MonoBehaviour
         else
             Destroy(gameObject);
 
-        var obj = FindObjectsOfType<AudioManager>();
-        if (obj.Length == 1)
-            DontDestroyOnLoad(gameObject);
-        else
-            Destroy(gameObject);
-
         _audioDir = Application.persistentDataPath + _audioDir;
     }
     private void Start()

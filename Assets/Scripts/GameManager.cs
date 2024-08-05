@@ -22,7 +22,7 @@ public class GameManager : Singleton<GameManager>
 
     [Header("Player")]
     public GameObject Player;
-    //public Transform sponPos;
+    public Transform RevivalPos;
     public Colors PlayerColor = Colors.Default;
     public Sprite PlayerFace;
 
@@ -71,7 +71,7 @@ public class GameManager : Singleton<GameManager>
     {
         CurrentCoin = 0;
         IsFirstPlay = true;
-
+        RevivalPos = null;
     }
 
     public void GameOver()
@@ -122,7 +122,7 @@ public class GameManager : Singleton<GameManager>
     public void Revival()
     {
         ResumeGame();
-        Player.GetComponent<PlayerController>().Revival();
+        Player.GetComponent<PlayerController>().Revival(RevivalPos.position);
         IsFirstPlay = false;
     }
 }

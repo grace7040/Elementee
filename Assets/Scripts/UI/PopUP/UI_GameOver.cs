@@ -8,7 +8,6 @@ using UnityEngine.EventSystems;
 
 public class UI_GameOver : UI_Popup
 {
-    AdMob _adMob;
     enum Buttons
     {
         ToMainBtn,
@@ -33,12 +32,11 @@ public class UI_GameOver : UI_Popup
             GetButton((int)Buttons.RevivalBtn).gameObject.BindEvent(RevivalBtnClicked);
             GetButton((int)Buttons.RevivalBtn).interactable = true;
         }
-        _adMob = GetComponent<AdMob>();
     }
 
     public void RevivalBtnClicked(PointerEventData data)
     {
-        _adMob.ShowAds();
+        GooglePlayManager.Instance.ShowAds(AdType.Revival);
         UIManager.Instance.ClosePopupUI();
         // 광고 + 부활하는거 여기에~
     }

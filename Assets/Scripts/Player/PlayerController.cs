@@ -531,7 +531,7 @@ public class PlayerController : MonoBehaviour
         GameManager.Instance.GameOver();
     }
 
-    public void Revival()
+    public void Revival(Vector3 revivalPos)
     {
         _animator.SetBool("IsDead", false);
         _isDie = false;
@@ -539,6 +539,7 @@ public class PlayerController : MonoBehaviour
         _canGetDamage = true;
         CurrentHealth = _maxHealth;
         UIManager.Instance.ClosePopupUI();
+        transform.position = revivalPos;
     }
 
     void SetAnimatorBool(string name, bool value)

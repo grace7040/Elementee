@@ -1,61 +1,94 @@
 using GoogleMobileAds.Api;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public enum AdType { Revival, ReDraw }
 public class AdMob : MonoBehaviour
 {
-    public AdType adType;
-    string adUnitId;
-    RewardedAd rewardedAd;
+    AdType _adType;
+    string _adUnitId;
+    RewardedAd _rewardedAd;
 
     public void Start()
     {
         //adUnitId 설정
 #if UNITY_ANDROID
-        adUnitId = "ca-app-pub-3940256099942544/5224354917";
+        _adUnitId = "ca-app-pub-3940256099942544/5224354917";
 #endif
 
         // 모바일 광고 SDK를 초기화함.
         MobileAds.Initialize(initStatus => { });
 
-        //광고 로드 : RewardedAd 객체의 loadAd메서드에 AdRequest 인스턴스를 넣음
-        AdRequest request = new AdRequest.Builder().Build();
-        this.rewardedAd = new RewardedAd(adUnitId);
-        this.rewardedAd.LoadAd(request);
-
-        this.rewardedAd.OnAdLoaded += HandleRewardedAdLoaded; // 광고 로드가 완료되면 호출
-        this.rewardedAd.OnAdFailedToLoad += HandleRewardedAdFailedToLoad; // 광고 로드가 실패했을 때 호출
-        this.rewardedAd.OnAdOpening += HandleRewardedAdOpening; // 광고가 표시될 때 호출(기기 화면을 덮음)
-        this.rewardedAd.OnAdFailedToShow += HandleRewardedAdFailedToShow; // 광고 표시가 실패했을 때 호출
-        this.rewardedAd.OnUserEarnedReward += HandleUserEarnedReward;// 광고를 시청한 후 보상을 받아야할 때 호출
-        this.rewardedAd.OnAdClosed += HandleRewardedAdClosed; // 닫기 버튼을 누르거나 뒤로가기 버튼을 눌러 동영상 광고를 닫을 때 호출
+        LoadAds();
     }
 
-    public void HandleRewardedAdLoaded(object sender, EventArgs args) {
+    void LoadAds()
+    {
+        if (_rewardedAd != null)
+        {
+            _rewardedAd.Destroy();
+            _rewardedAd = null;
+        }
+        //광고 로드 : RewardedAd 객체의 loadAd메서드에 AdRequest 인스턴스를 넣음
+
+        _rewardedAd = new RewardedAd(_adUnitId);
+
+        _rewardedAd.OnAdLoaded += HandleRewardedAdLoaded; // 광고 로드가 완료되면 호출
+        _rewardedAd.OnAdFailedToLoad += HandleRewardedAdFailedToLoad; // 광고 로드가 실패했을 때 호출
+        _rewardedAd.OnAdOpening += HandleRewardedAdOpening; // 광고가 표시될 때 호출(기기 화면을 덮음)
+        _rewardedAd.OnAdFailedToShow += HandleRewardedAdFailedToShow; // 광고 표시가 실패했을 때 호출
+        _rewardedAd.OnUserEarnedReward += HandleUserEarnedReward;// 광고를 시청한 후 보상을 받아야할 때 호출
+        _rewardedAd.OnAdClosed += HandleRewardedAdClosed; // 닫기 버튼을 누르거나 뒤로가기 버튼을 눌러 동영상 광고를 닫을 때 호출
+
+        var adRequest = new AdRequest.Builder().Build();
+
+        _rewardedAd.LoadAd(adRequest);
+    }
+
+    public void ShowAds(AdType adType)
+    {
+        if (this._rewardedAd.IsLoaded())
+        {
+            this._rewardedAd.Show();
+            _adType = adType;
+        }
+        else
+        {
+            Debug.Log("Ad Load ERROR : Not Loaded");
+        }
+    }
+
+    void HandleRewardedAdLoaded(object sender, EventArgs args)
+    {
         Debug.Log("광고 로드 완료~!!!");
     }
 
-    public void HandleRewardedAdFailedToLoad(object sender, AdFailedToLoadEventArgs args)
+    void HandleRewardedAdFailedToLoad(object sender, AdFailedToLoadEventArgs args)
     {
-        //Quiz_Manager.StopADs();
         Debug.Log("광고 로딩 실패..");
     }
 
-    public void HandleRewardedAdOpening(object sender, EventArgs args) {
+    void HandleRewardedAdOpening(object sender, EventArgs args)
+    {
         Debug.Log("광고 시작~~!");
     }
 
-    public void HandleRewardedAdFailedToShow(object sender, EventArgs args) {
+    void HandleRewardedAdFailedToShow(object sender, EventArgs args)
+    {
         Debug.Log("광고 표시 실패");
     }
 
-    public void HandleRewardedAdClosed(object sender, EventArgs args) {
+    void HandleRewardedAdClosed(object sender, EventArgs args)
+    {
         Debug.Log("광고 종료~");
-        switch (adType)
+        LoadAds();
+    }
+
+    void HandleUserEarnedReward(object sender, Reward args)
+    {
+        Debug.Log("부활!");
+        switch (_adType)
         {
             case AdType.Revival:
                 GameManager.Instance.Revival();
@@ -64,37 +97,5 @@ public class AdMob : MonoBehaviour
                 ColorManager.Instance.StartDrawing(GameManager.Instance.PlayerColor);
                 break;
         }
-        
-    }
-
-    public void HandleUserEarnedReward(object sender, Reward args)
-    {
-        //if (Quiz_Manager == null) Quiz_Manager = GameObject.FindObjectOfType<Quiz_Manager>();
-        //Quiz_Manager.PostADs();
-        Debug.Log("부활!");
-    }
-
-    public void ShowAds()
-    {
-        if (this.rewardedAd.IsLoaded())
-        {
-            this.rewardedAd.Show();
-        }
-        else
-        {
-            Debug.Log("Not Loaded");
-        }
-    }
-
-    public void InitAds()
-    {
-        MobileAds.Initialize(initStatus => { });
-
-        AdRequest request = new AdRequest.Builder().Build();
-        this.rewardedAd = new RewardedAd(adUnitId);
-        this.rewardedAd.LoadAd(request);
-
-        Debug.Log("광고 초기화~!!");
-
     }
 }

@@ -192,7 +192,7 @@ public class UI_Palette : UI_Popup
 
     public void ReDrawBtnClicked(PointerEventData data)
     {
-        GetComponent<AdMob>().ShowAds();
+        GooglePlayManager.Instance.ShowAds(AdType.ReDraw);
         UIManager.Instance.ClosePopupUI();
         //ColorManager.Instance.StartDrawing(currentColor);
         //GameManager.Instance.ReDrawItemColor = Colors.def;
