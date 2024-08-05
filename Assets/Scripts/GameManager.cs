@@ -36,14 +36,8 @@ public class GameManager : Singleton<GameManager>
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
-    }
-
-    void Start()
-    {
-        //DataManager.Instance.JsonClear(); // 데이터 초기화
         DataManager.Instance.JsonLoad();
     }
-
 
     public void PauseGame()
     {
