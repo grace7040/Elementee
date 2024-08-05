@@ -18,7 +18,11 @@ public class GameManager : Singleton<GameManager>
     public int CurrentStar = 0;
     public GameObject CurrentPotal;
     public UI_Game UIGame;
-    public bool IsFirstPlay = true;
+    bool _hasBeenRevived = false;
+    public bool CanRevival
+    {
+        get { return (!_hasBeenRevived && (RevivalPos != null)); }
+    }
 
     [Header("Player")]
     public GameObject Player;
@@ -64,7 +68,7 @@ public class GameManager : Singleton<GameManager>
     public void InitGame()
     {
         CurrentCoin = 0;
-        IsFirstPlay = true;
+        _hasBeenRevived = false;
         RevivalPos = null;
     }
 
@@ -117,6 +121,6 @@ public class GameManager : Singleton<GameManager>
     {
         ResumeGame();
         Player.GetComponent<PlayerController>().Revival(RevivalPos.position);
-        IsFirstPlay = false;
+        _hasBeenRevived = true;
     }
 }
