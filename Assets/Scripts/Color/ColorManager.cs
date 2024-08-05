@@ -100,7 +100,7 @@ public class ColorManager : Singleton<ColorManager>
             Colors.Orange => new Color32(255, 175, 61, 255),
             Colors.Green => new Color32(111, 189, 111, 255),
             Colors.Purple => new Color32(153, 93, 227, 255),
-            Colors.Black => Color.black,
+            Colors.Black => new Color32(80, 80, 80, 255),
             _ => Color.black,
         };
     }
