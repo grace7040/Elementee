@@ -23,7 +23,7 @@ public class UI_Shop : UI_Popup
 
 
     private void Start()
-    {
+    {   
         Init();
 
         for(int i=0; i<ShopItemsSO.Length; i++)
