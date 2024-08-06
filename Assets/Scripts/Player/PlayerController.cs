@@ -70,7 +70,6 @@ public class PlayerController : MonoBehaviour
     public class BoolEvent : UnityEvent<bool> { }
 
     // Move
-    bool _canMove = true;
     bool _facingRight = true;  // For determining which way the player is currently facing.
     float _limitFallSpeed = 25f;
     float _accelerationRate = 5f;
@@ -180,13 +179,8 @@ public class PlayerController : MonoBehaviour
 
             _jumpWallDistX = (_jumpWallStartX - transform.position.x) * transform.localScale.x;
 
-            if (_jumpWallDistX < -0.5f && _jumpWallDistX > -1f)
+            if (_jumpWallDistX < -1f && _jumpWallDistX >= -2f)
             {
-                _canMove = true;
-            }
-            else if (_jumpWallDistX < -1f && _jumpWallDistX >= -2f)
-            {
-                _canMove = true;
                 _rigidbody.velocity = new Vector2(10f * transform.localScale.x, _rigidbody.velocity.y);
             }
             else if (_jumpWallDistX < -2f)
@@ -218,8 +212,6 @@ public class PlayerController : MonoBehaviour
     public void Move(float moveInput, bool jumpInput, bool dashInput)
     {
         if (_isDie) return;
-
-        if (!_canMove) return;
 
         // Dash
         if (dashInput && _canDash && !_isWallSliding)
@@ -285,7 +277,6 @@ public class PlayerController : MonoBehaviour
                 _jumpWallStartX = transform.position.x;
                 _limitVelOnWallJump = true;
                 EndWallSliding();
-                _canMove = false;
             }
 
             // Do dash while WallSliding
@@ -481,7 +472,6 @@ public class PlayerController : MonoBehaviour
     {
         _animator.SetBool("IsDead", true);
         _isDie = true;
-        _canMove = false;
         _canGetDamage = false;
         yield return new WaitForSeconds(0.4f);
         _rigidbody.velocity = new Vector2(0, _rigidbody.velocity.y);
@@ -493,7 +483,6 @@ public class PlayerController : MonoBehaviour
     {
         _animator.SetBool("IsDead", false);
         _isDie = false;
-        _canMove = true;
         _canGetDamage = true;
         CurrentHealth = _maxHealth;
         UIManager.Instance.ClosePopupUI();
