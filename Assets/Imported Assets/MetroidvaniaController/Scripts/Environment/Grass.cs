@@ -4,9 +4,9 @@ public class Grass : MonoBehaviour
 {
     public ParticleSystem leafParticle;
 
-    void OnTriggerEnter2D(Collider2D col)
+    void OnTriggerEnter2D(Collider2D collision)
     {
-        if (transform.position.x - col.transform.position.x > 0) 
+        if (transform.position.x - collision.transform.position.x > 0) 
         {
             GetComponent<Animator>().Play("MovingGrassL");
         }
@@ -14,7 +14,12 @@ public class Grass : MonoBehaviour
         {
             GetComponent<Animator>().Play("MovingGrassR");
         }
-        if (col.gameObject.CompareTag("Player")) AudioManager.Instacne.PlaySFX("GrassPass");
+        if (collision.gameObject.CompareTag("Player")) AudioManager.Instacne.PlaySFX("GrassPass");
+
+        if (collision.gameObject.CompareTag("Weapon") || collision.gameObject.CompareTag("WeaponB") || collision.gameObject.CompareTag("WeaponThrow") || collision.gameObject.CompareTag("WeaponOrange") || collision.gameObject.CompareTag("WeaponYellow"))
+        {
+            ApplyDamage();
+        }
     }
 
     public void ApplyDamage()

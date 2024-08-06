@@ -175,36 +175,6 @@ MonoBehaviour:
     m_Bits: 4405
   _groundCheck: {fileID: 4291727345091452}
   _wallCheck: {fileID: 4986330650710208}
-  OnFallEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 248749117310158783}
-        m_TargetAssemblyTypeName: CharacterMove, Assembly-CSharp
-        m_MethodName: OnFall
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnLandEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 248749117310158783}
-        m_TargetAssemblyTypeName: CharacterMove, Assembly-CSharp
-        m_MethodName: OnLanding
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &248749117310158783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50342,6 +50312,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &6640942543077438933
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 7393956604057472845, guid: 56c1cf511144a4844ba2f8f37c776f6f, type: 3}
+  m_PrefabInstance: {fileID: 6480658791907884374}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4572121804437565988}
+  m_Layer: 0
+  m_Name: 'Jump Candidate Variant (Missing Prefab with guid: 56c1cf511144a4844ba2f8f37c776f6f)'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4572121804437565988
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 7393956604057472882, guid: 56c1cf511144a4844ba2f8f37c776f6f, type: 3}
+  m_PrefabInstance: {fileID: 6480658791907884374}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6640942543077438933}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7358796680991470667}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6818171763737220404
 GameObject:
   m_ObjectHideFlags: 0
@@ -50661,7 +50662,6 @@ GameObject:
   - component: {fileID: 276935597225697510}
   - component: {fileID: 4659771621703042495}
   - component: {fileID: 3448254477277948382}
-  - component: {fileID: 5993093576809244761}
   m_Layer: 3
   m_Name: AttackCollider
   m_TagString: Weapon
@@ -50741,18 +50741,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1bb24004fa75ffc44a3d6c7aad360ee2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &5993093576809244761
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7882964214442036755}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53b3ff682ea266842a8f7fa6b36df905, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &8410189878276244301
@@ -52012,11 +52000,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 56c1cf511144a4844ba2f8f37c776f6f, type: 3}
---- !u!4 &4572121804437565988 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7393956604057472882, guid: 56c1cf511144a4844ba2f8f37c776f6f, type: 3}
-  m_PrefabInstance: {fileID: 6480658791907884374}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6865268268901126236
 PrefabInstance:
   m_ObjectHideFlags: 0
