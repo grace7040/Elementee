@@ -79,7 +79,7 @@ public class PlayerController : MonoBehaviour
     // Jump
     float _jumpForce = 850f;
     bool _canDoubleJump = true;
-    bool _canControlWhileJump = true;
+
 
     // WallSliding
     bool _isWall = false;
@@ -88,15 +88,13 @@ public class PlayerController : MonoBehaviour
     bool _limitVelOnWallJump = false; //For limit wall jump distance with low fps
     float _jumpWallDistX = 0; //Distance between player and wall
     float _jumpWallStartX = 0;
-    bool _oldWallSlidding = false; //If player is sliding in a wall in the previous frame
+    bool _wasWallSlidding = false; //If player is sliding in a wall in the previous frame
     bool _canCheck = false; //For check if player is wallsliding
 
     // Dash
     bool _isDashing = false;
-    bool _finishDashForRoll = false;
     bool _canDash = true;
     float _dashForce = 25f;
-    float _prevVelocityX = 0f;
 
     // Rope
     FixedJoint2D _fixJoint;
@@ -123,7 +121,7 @@ public class PlayerController : MonoBehaviour
         if (OnLandEvent == null)
             OnLandEvent = new UnityEvent();
 
-        ColorManager.Instance.SetColorState(Colors.Default);
+        ColorManager.Instance.SetColorState(Colors.Purple);
     }
 
 
@@ -134,12 +132,15 @@ public class PlayerController : MonoBehaviour
             _wasGrounded = _isGrounded;
             _isGrounded = false;
 
+            //_isGrounded를 판단하기 위한 콜리전 체크 로직
             _colliders = Physics2D.OverlapCircleAll(_groundCheck.position, _groundedRadius, _whatIsGround);
-            for (int i = 0; i < _colliders.Length; i++) 
+            for (int i = 0; i < _colliders.Length; i++)
             {
                 if (_colliders[i].gameObject != gameObject)
                 {
                     _isGrounded = true;
+
+                    //최초로 땅에 착지한 경우
                     if (!_wasGrounded)
                     {
                         OnLandEvent.Invoke();
@@ -156,9 +157,11 @@ public class PlayerController : MonoBehaviour
         }
 
         _isWall = false;
-        if (!_isGrounded) //땅에 닿아있지 않을 때 
+        if (!_isGrounded) //땅에 닿아있지 않을 때 (위에서 오버랩 체킹 했는데 하나도 안 걸린 경우)
         {
             OnFallEvent.Invoke(); //chaingin animation -> isjumping : true
+
+            //벽에 닿아있는지 체크
             _collidersWall = Physics2D.OverlapCircleAll(_wallCheck.position, _groundedRadius, _whatIsGround);
             for (int i = 0; i < _collidersWall.Length; i++)
             {
@@ -169,14 +172,16 @@ public class PlayerController : MonoBehaviour
                     break;
                 }
             }
-            _prevVelocityX = _rigidbody.velocity.x; // 현재 속도를 저장
         }
 
-        if (_limitVelOnWallJump) 
+        //벽타기
+        if (_limitVelOnWallJump)
         {
-            if (_rigidbody.velocity.y < -0.5f) 
+            if (_rigidbody.velocity.y < -0.5f)
                 _limitVelOnWallJump = false;
+
             _jumpWallDistX = (_jumpWallStartX - transform.position.x) * transform.localScale.x;
+
             if (_jumpWallDistX < -0.5f && _jumpWallDistX > -1f)
             {
                 _canMove = true;
@@ -198,17 +203,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if(Math.Abs(_rigidbody.velocity.x) < 9f)
-        {
-            _isRoll = false;
-
-        }
-        else if (_finishDashForRoll && _isGrounded)
-        {
-            _isRoll = true;
-            _finishDashForRoll = false;
-        }
-
+        _isRoll = _isGrounded && Math.Abs(_rigidbody.velocity.x) > 9f;
     }
 
 
@@ -220,60 +215,46 @@ public class PlayerController : MonoBehaviour
         Vector3 theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;
-
-        //:: FIX ME :: 리팩을 위한 잠시 주석
-        //Vector3 yellowScale = YellowWeaponEffect.transform.localScale;
-        //yellowScale.x *= -1;
-        //YellowWeaponEffect.transform.localScale = yellowScale;
     }
-
-    public void Move(float move, bool jump, bool dash)
+    
+    public void Move(float moveInput, bool jumpInput, bool dashInput)
     {
         if (_isDie) return;
 
         if (!_canMove) return;
 
         // Dash
-        if (dash && _canDash && !_isWallSliding)
+        if (dashInput && _canDash && !_isWallSliding)
         {
-            _isRoll = false;
             StartCoroutine(DashCooldown());
         }
         if (_isDashing)
         {
             _rigidbody.velocity = new Vector2(transform.localScale.x * _dashForce, 0);
-            _isRoll = false;
-        }
-
-        // NomalMove & Flip
-        else if (_isGrounded || _canControlWhileJump)
-        {
-            NomalMove(move);
-        }
-        
-        if(_isRoll)
-        {
-            _animator.SetBool("IsRolling", true);
         }
         else
         {
-            _animator.SetBool("IsRolling", false);
+            Walk(moveInput);
         }
 
-        // Jump
-        if (_isGrounded && jump)
+        _animator.SetBool("IsRolling", _isRoll);
+
+        // 1단 점프
+        if (jumpInput && _isGrounded)
         {
             Jump();
         }
-        else if(!_isGrounded && jump && _canDoubleJump && !_isWallSliding)
+        // 2단 점프
+        else if(jumpInput && !_isGrounded && _canDoubleJump && !_isWallSliding)
         {
             DoubleJump();
         }
 
-        //Wall Sliding
-        else if (_canWallSliding && _isWall && !_isGrounded)
+        //Wall Sliding: 벽이 근처에 있고, wallsliding이 가능하며, 땅에 닿아있지 않을 때(점프시 or 공중)
+        else if (_isWall && _canWallSliding && !_isGrounded)
         {
-            if (!_oldWallSlidding && _rigidbody.velocity.y < 0 || _isDashing)
+            // 떨어지고 있을 때 or Dash 중일 때
+            if (!_wasWallSlidding && _rigidbody.velocity.y < 0 || _isDashing)// || _isDashing
             {
                 _isWallSliding = true;
                 _wallCheck.localPosition = new Vector3(-_wallCheck.localPosition.x, _wallCheck.localPosition.y, 0);
@@ -286,19 +267,19 @@ public class PlayerController : MonoBehaviour
 
             if (_isWallSliding)
             {
-                if (move * transform.localScale.x > 0.1f)
+                if (moveInput * transform.localScale.x > 0.1f)
                 {
                     StartCoroutine(WaitToEndSliding());
                 }
                 else
                 {
-                    _oldWallSlidding = true;
+                    _wasWallSlidding = true;
                     _rigidbody.velocity = new Vector2(-transform.localScale.x * 2, -5);
                 }
             }
 
             // Do jump while WallSliding
-            if (jump && _isWallSliding)
+            if (jumpInput && _isWallSliding)
             {
                 _animator.SetBool("IsJumping", true); 
                 _animator.SetBool("JumpUp", true); 
@@ -311,7 +292,7 @@ public class PlayerController : MonoBehaviour
             }
 
             // Do dash while WallSliding
-            else if (dash && _canDash)
+            else if (dashInput && _canDash)
             {
                 EndWallSliding();
                 StartCoroutine(DashCooldown());
@@ -325,7 +306,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    private void NomalMove(float move)
+    private void Walk(float move)
     {
         if (_rigidbody.velocity.y < -_limitFallSpeed)
             _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, -_limitFallSpeed);
@@ -367,7 +348,7 @@ public class PlayerController : MonoBehaviour
     {
         _isWallSliding = false;
         _animator.SetBool("IsWallSliding", false);
-        _oldWallSlidding = false;
+        _wasWallSlidding = false;
         _wallCheck.localPosition = new Vector3(Mathf.Abs(_wallCheck.localPosition.x), _wallCheck.localPosition.y, 0);
         _canDoubleJump = true;
     }
@@ -381,9 +362,6 @@ public class PlayerController : MonoBehaviour
         //_rigidbody.velocity = new Vector2(transform.localScale.x * _dashForce, 0);
         yield return new WaitForSeconds(0.1f); // dash 지속시간
         _isDashing = false;
-
-        yield return new WaitForSeconds(0.5f);
-        _finishDashForRoll = true;
 
         //yield return new WaitForSeconds(0.0f); // dash cooltime
         _canDash = true;
@@ -402,7 +380,7 @@ public class PlayerController : MonoBehaviour
         _canDoubleJump = true;
         _isWallSliding = false;
         _animator.SetBool("IsWallSliding", false);
-        _oldWallSlidding = false;
+        _wasWallSlidding = false;
         _wallCheck.localPosition = new Vector3(Mathf.Abs(_wallCheck.localPosition.x), _wallCheck.localPosition.y, 0);
     }
 
