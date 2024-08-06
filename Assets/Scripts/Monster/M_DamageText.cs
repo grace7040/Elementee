@@ -9,8 +9,8 @@ public class M_DamageText : PoolAble
     // Start is called before the first frame update
     void Start()
     {
-        transform.DOLocalMoveY(13, 1.3f);
-        this.gameObject.GetComponent<TextMeshPro>().DOFade(0,2f);
+        transform.DOLocalMoveY(3, 1.3f);
+        this.gameObject.GetComponent<TextMeshPro>().DOFade(0,3f);
         Destroy(this.gameObject, 2f);
     }
 

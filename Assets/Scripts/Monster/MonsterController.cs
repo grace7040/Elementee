@@ -304,7 +304,7 @@ public class MonsterController : MonoBehaviour
     {
         var damageText = ObjectPoolManager.Instance.GetGameObject("DamageText");
         damageText.GetComponent<TextMeshPro>().text = damage.ToString();
-        damageText.transform.position = transform.position;
+        damageText.transform.position = new Vector3(transform.position.x + 0.2f, transform.position.y + 1f, transform.position.z)  ;
         damageText.transform.SetParent(this.transform);
     }
 
@@ -338,6 +338,7 @@ public class MonsterController : MonoBehaviour
 
         gameObject.GetComponent<CapsuleCollider2D>().isTrigger = true;
         gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+        gameObject.tag = "Untagged";
         Rb.velocity = Vector2.zero;
         dir.x = 0;
 
