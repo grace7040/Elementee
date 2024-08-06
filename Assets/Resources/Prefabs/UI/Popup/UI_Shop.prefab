@@ -1612,13 +1612,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dca8563a580cdf34bbb67909eb6f410e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coins: 0
-  coinUI: {fileID: 8554276854924956955}
-  shopItemsSO:
+  TotalCoin: 0
+  CoinUI: {fileID: 8554276854924956955}
+  ShopItemsSO:
   - {fileID: 11400000, guid: 0eb221983224c6b4399bf3287a25dff9, type: 2}
   - {fileID: 11400000, guid: 342d03dc3df8fdc47a4b57ea7db6cd4c, type: 2}
   - {fileID: 11400000, guid: b956c1bc982c8864f8753a734cb7436c, type: 2}
-  shopPanelsGO:
+  ShopPanelsGO:
   - {fileID: 4097217607207793867}
   - {fileID: 910950596236511212}
   - {fileID: 910950597687152074}
@@ -1629,7 +1629,7 @@ MonoBehaviour:
   - {fileID: 1327457540589223966}
   - {fileID: 8791285815473071470}
   - {fileID: 7838955293626064881}
-  shopPanels:
+  ShopPanels:
   - {fileID: 785675614349621574}
   - {fileID: 4512363593911356001}
   - {fileID: 4512363592694415431}
@@ -1640,7 +1640,7 @@ MonoBehaviour:
   - {fileID: 2330447759252540819}
   - {fileID: 5204913930716424419}
   - {fileID: 6841788296316162684}
-  myPurchaseBtns:
+  MyPurchaseBtns:
   - {fileID: 830689843729414386}
   - {fileID: 4611493655357098965}
   - {fileID: 4611493654023766515}

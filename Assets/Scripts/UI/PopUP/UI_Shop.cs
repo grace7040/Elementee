@@ -9,12 +9,12 @@ using UnityEngine.SceneManagement;
 
 public class UI_Shop : UI_Popup
 {
-    public int coins;
-    public TMP_Text coinUI;
-    public ShopItemSO[] shopItemsSO;
-    public GameObject[] shopPanelsGO;
-    public ShopTemplate[] shopPanels;
-    public Button[] myPurchaseBtns;
+    public int TotalCoin;
+    public TMP_Text CoinUI;
+    public ShopItemSO[] ShopItemsSO;
+    public GameObject[] ShopPanelsGO;
+    public ShopTemplate[] ShopPanels;
+    public Button[] MyPurchaseBtns;
 
     enum Buttons
     {
@@ -26,11 +26,11 @@ public class UI_Shop : UI_Popup
     {
         Init();
 
-        for(int i=0; i<shopItemsSO.Length; i++)
-            shopPanelsGO[i].SetActive(true);
+        for(int i=0; i<ShopItemsSO.Length; i++)
+            ShopPanelsGO[i].SetActive(true);
 
-        coins = GameManager.Instance.TotalCoin;
-        coinUI.text = coins.ToString();
+        TotalCoin = GameManager.Instance.TotalCoin;
+        CoinUI.text = TotalCoin.ToString();
         LoadPanels();
        // CheckPurchaseable(); -> 살 수 없을 경우 버튼 막기
     }
@@ -64,12 +64,12 @@ public class UI_Shop : UI_Popup
 
     public void PurchaseItem(int btnNo)
     {
-        if(coins >= shopItemsSO[btnNo].baseCost)
+        if(TotalCoin >= ShopItemsSO[btnNo].baseCost)
         {
-            coins -= shopItemsSO[btnNo].baseCost;
-            GameManager.Instance.TotalCoin = coins;
+            TotalCoin -= ShopItemsSO[btnNo].baseCost;
+            GameManager.Instance.TotalCoin = TotalCoin;
             DataManager.Instance.JsonSave();
-            coinUI.text = coins.ToString();
+            CoinUI.text = TotalCoin.ToString();
            // CheckPurchaseable();
 
         }
@@ -77,11 +77,11 @@ public class UI_Shop : UI_Popup
 
     public void LoadPanels()
     {
-        for(int i =0; i < shopItemsSO.Length; i++)
+        for(int i =0; i < ShopItemsSO.Length; i++)
         {
-            shopPanels[i].titleText.text = shopItemsSO[i].title;
-            shopPanels[i].descriptionText.text = shopItemsSO[i].description;
-            shopPanels[i].costText.text = shopItemsSO[i].baseCost.ToString();
+            ShopPanels[i].titleText.text = ShopItemsSO[i].title;
+            ShopPanels[i].descriptionText.text = ShopItemsSO[i].description;
+            ShopPanels[i].costText.text = ShopItemsSO[i].baseCost.ToString();
         }
     }
     
