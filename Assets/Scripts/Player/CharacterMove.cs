@@ -40,16 +40,6 @@ public class CharacterMove : MonoBehaviour
 
 	}
 
-	public void OnFall()
-	{
-		_animator.SetBool("IsJumping", true);
-	}
-
-	public void OnLanding()
-	{
-		_animator.SetBool("IsJumping", false);
-	}
-
 	void FixedUpdate()
 	{
 		// Move our character

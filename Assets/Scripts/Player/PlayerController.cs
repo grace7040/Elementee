@@ -60,12 +60,6 @@ public class PlayerController : MonoBehaviour
     bool _wasGrounded;
     const float _groundedRadius = .2f; // Radius of the overlap circle to determine if grounded
 
-
-    [Header("Events")]
-    [Space]
-    public UnityEvent OnFallEvent;
-    public UnityEvent OnLandEvent;
-
     [System.Serializable]
     public class BoolEvent : UnityEvent<bool> { }
 
@@ -105,20 +99,15 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        CurrentHealth = _maxHealth;
+
         _rigidbody = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _fixJoint = GetComponent<FixedJoint2D>();
-        CurrentHealth = _maxHealth;
         _followCamera = FindObjectOfType<FollowCamera>();
+
         ColorManager.Instance.InitPlayer(this, SetAnimatorBool, ShakeCamera);
-
-        if (OnFallEvent == null)
-            OnFallEvent = new UnityEvent();
-
-        if (OnLandEvent == null)
-            OnLandEvent = new UnityEvent();
-
         ColorManager.Instance.SetColorState(Colors.Purple);
     }
 
@@ -141,11 +130,10 @@ public class PlayerController : MonoBehaviour
                     //최초로 땅에 착지한 경우
                     if (!_wasGrounded)
                     {
-                        OnLandEvent.Invoke();
+                        _animator.SetBool("IsJumping", false);
                         ParticleJumpDown.Play();
                         _canDoubleJump = true;
-                        if (_rigidbody.velocity.y < 0f)
-                            _limitVelOnWallJump = false;
+                        _limitVelOnWallJump = _rigidbody.velocity.y >= 0f;
                     }
 
                     break;
@@ -156,7 +144,7 @@ public class PlayerController : MonoBehaviour
         _isWall = false;
         if (!_isGrounded) //땅에 닿아있지 않을 때 (위에서 오버랩 체킹 했는데 하나도 안 걸린 경우)
         {
-            OnFallEvent.Invoke(); //chaingin animation -> isjumping : true
+            _animator.SetBool("IsJumping", true);
 
             //벽에 닿아있는지 체크
             _collidersWall = Physics2D.OverlapCircleAll(_wallCheck.position, _groundedRadius, _whatIsGround);
