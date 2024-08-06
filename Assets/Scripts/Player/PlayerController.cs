@@ -89,7 +89,6 @@ public class PlayerController : MonoBehaviour
     float _jumpWallDistX = 0; //Distance between player and wall
     float _jumpWallStartX = 0;
     bool _wasWallSlidding = false; //If player is sliding in a wall in the previous frame
-    bool _canCheck = false; //For check if player is wallsliding
 
     // Dash
     bool _isDashing = false;
@@ -144,8 +143,7 @@ public class PlayerController : MonoBehaviour
                     if (!_wasGrounded)
                     {
                         OnLandEvent.Invoke();
-                        if (!_isWall && !_isDashing)
-                            ParticleJumpDown.Play();
+                        ParticleJumpDown.Play();
                         _canDoubleJump = true;
                         if (_rigidbody.velocity.y < 0f)
                             _limitVelOnWallJump = false;
@@ -259,7 +257,6 @@ public class PlayerController : MonoBehaviour
                 _isWallSliding = true;
                 _wallCheck.localPosition = new Vector3(-_wallCheck.localPosition.x, _wallCheck.localPosition.y, 0);
                 Flip();
-                StartCoroutine(WaitToCheck(0.1f));
                 _canDoubleJump = true;
                 _animator.SetBool("IsWallSliding", true);
             }
@@ -269,7 +266,7 @@ public class PlayerController : MonoBehaviour
             {
                 if (moveInput * transform.localScale.x > 0.1f)
                 {
-                    StartCoroutine(WaitToEndSliding());
+                    EndWallSliding();
                 }
                 else
                 {
@@ -299,7 +296,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        else if (_isWallSliding && !_isWall && _canCheck)
+        else if (_isWallSliding && !_isWall)
         {
             EndWallSliding();
         }
@@ -359,29 +356,12 @@ public class PlayerController : MonoBehaviour
         _isDashing = true;
         _canDash = false;
 
-        //_rigidbody.velocity = new Vector2(transform.localScale.x * _dashForce, 0);
         yield return new WaitForSeconds(0.1f); // dash 지속시간
+        _rigidbody.velocity = new Vector2(transform.localScale.x * _dashForce, 0);
         _isDashing = false;
 
-        //yield return new WaitForSeconds(0.0f); // dash cooltime
+        yield return new WaitForSeconds(0.5f); // dash cooltime
         _canDash = true;
-    }
-
-    IEnumerator WaitToCheck(float time)
-    {
-        _canCheck = false;
-        yield return new WaitForSeconds(time);
-        _canCheck = true;
-    }
-
-    IEnumerator WaitToEndSliding()
-    {
-        yield return new WaitForSeconds(0.1f);
-        _canDoubleJump = true;
-        _isWallSliding = false;
-        _animator.SetBool("IsWallSliding", false);
-        _wasWallSlidding = false;
-        _wallCheck.localPosition = new Vector3(Mathf.Abs(_wallCheck.localPosition.x), _wallCheck.localPosition.y, 0);
     }
 
     public void Die()
