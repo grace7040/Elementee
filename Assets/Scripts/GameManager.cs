@@ -9,10 +9,15 @@ public class GameManager : Singleton<GameManager>
 
     [Header("GameManage")]
     // JSON 저장될 Data
-    public List<int> MapStar = new List<int>();
-    public int MapBest;
+    public List<int> StarCountsPerMap = new List<int>();
+    public int CompletedMap;
     public int TotalCoin;
 
+    [Header("ShopItem")]
+    public List<ShopItemSO> ShopItemPurchaseList = new List<ShopItemSO>();
+    public ShopItemSO CurrentShopItemSO;
+
+    [Header("CurrentData")]
     public int CurrentCoin = 0;
     public int CurrentMapNum = 0;
     public int CurrentStar = 0;
@@ -86,16 +91,16 @@ public class GameManager : Singleton<GameManager>
         TotalCoin += CurrentCoin;
 
         // Data Save
-        if (MapBest <= CurrentMapNum)
+        if (CompletedMap <= CurrentMapNum)
         {
-            MapStar.Add(CurrentStar);
-            MapBest += 1;
+            StarCountsPerMap.Add(CurrentStar);
+            CompletedMap += 1;
         }
         else
         {
-            if (MapStar[CurrentMapNum] < CurrentStar)
+            if (StarCountsPerMap[CurrentMapNum] < CurrentStar)
             {
-                MapStar[CurrentMapNum] = CurrentStar;
+                StarCountsPerMap[CurrentMapNum] = CurrentStar;
             }
         }
         DataManager.Instance.JsonSave();

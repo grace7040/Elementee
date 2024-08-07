@@ -6,10 +6,12 @@ using System.IO;
 [System.Serializable]
 public class SaveData
 {
-    public List<int> MapStar = new List<int>();
+    public List<int> StarCountsPerMap = new List<int>();
     //public List<int> mapFlag = new List<int>();
-    public int MapBest;
+    public int CompletedMap;
     public int TotalCoin;
+    public List<ShopItemSO> ShopItemPurchaseList = new List<ShopItemSO>();
+    public ShopItemSO CurrentShopItemSO;
 }
 
 public class DataManager : Singleton<DataManager>
@@ -27,7 +29,7 @@ public class DataManager : Singleton<DataManager>
 
         if (!File.Exists(_path))
         {
-            GameManager.Instance.MapBest = 0;
+            GameManager.Instance.CompletedMap = 0;
             JsonSave();
         }
         else
@@ -37,13 +39,18 @@ public class DataManager : Singleton<DataManager>
 
             if (saveData != null)
             {
-                for (int i = 0; i < saveData.MapStar.Count; i++)
+                for (int i = 0; i < saveData.StarCountsPerMap.Count; i++)
                 {
-                    GameManager.Instance.MapStar.Add(saveData.MapStar[i]);
+                    GameManager.Instance.StarCountsPerMap.Add(saveData.StarCountsPerMap[i]);
                     //GameManager.Instance.mapFlag.Add(saveData.mapFlag[i]);
                 }
-                GameManager.Instance.MapBest = saveData.MapBest;
+                for (int i = 0; i < saveData.ShopItemPurchaseList.Count; i++)
+                {
+                    GameManager.Instance.ShopItemPurchaseList.Add(saveData.ShopItemPurchaseList[i]);
+                }
+                GameManager.Instance.CompletedMap = saveData.CompletedMap;
                 GameManager.Instance.TotalCoin = saveData.TotalCoin;
+                GameManager.Instance.CurrentShopItemSO = saveData.CurrentShopItemSO;
             }
         }
     }
@@ -55,13 +62,19 @@ public class DataManager : Singleton<DataManager>
         SaveData saveData = new SaveData();
 
         // Data Load
-        for (int i = 0; i < GameManager.Instance.MapStar.Count; i++)
+        for (int i = 0; i < GameManager.Instance.StarCountsPerMap.Count; i++)
         {
-            saveData.MapStar.Add(GameManager.Instance.MapStar[i]);
+            saveData.StarCountsPerMap.Add(GameManager.Instance.StarCountsPerMap[i]);
             //saveData.mapFlag.Add(GameManager.Instance.mapFlag[i]);
         }
-        saveData.MapBest = GameManager.Instance.MapBest;
+        for (int i = 0; i < GameManager.Instance.ShopItemPurchaseList.Count; i++)
+        {
+            Debug.Log(GameManager.Instance.ShopItemPurchaseList.Count);
+            saveData.ShopItemPurchaseList.Add(GameManager.Instance.ShopItemPurchaseList[i]);
+        }
+        saveData.CompletedMap = GameManager.Instance.CompletedMap;
         saveData.TotalCoin = GameManager.Instance.TotalCoin;
+        saveData.CurrentShopItemSO = GameManager.Instance.CurrentShopItemSO;
 
         // Data Save
         string json = JsonUtility.ToJson(saveData, true);
@@ -73,7 +86,7 @@ public class DataManager : Singleton<DataManager>
         _path = Path.Combine(Application.persistentDataPath, "database.json");
 
         SaveData saveData = new SaveData();
-        saveData.MapBest = 0;
+        saveData.CompletedMap = 0;
         saveData.TotalCoin = 0;
 
         string json = JsonUtility.ToJson(saveData, true);
