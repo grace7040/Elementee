@@ -20,6 +20,6 @@ public class RedColor :  IColorState
     public void Attack(Vector3 playerPosition, float playerLocalScaleX)
     {
         SetPlayerAnimatorBool("IsRedAttacking", true);
-        AudioManager.Instacne.PlaySFX("Red");
+        AudioManager.Instance.PlaySFX("Red");
     }
 }

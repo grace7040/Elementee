@@ -127,12 +127,12 @@ public class PlayerAttack : MonoBehaviour
         if (_isHoldingEnemy)
         {
             BlackThrow();
-            AudioManager.Instacne.PlaySFX("BlackRelease");
+            AudioManager.Instance.PlaySFX("BlackRelease");
         }
         else
         {
             BlackPull();
-            AudioManager.Instacne.PlaySFX("Black");
+            AudioManager.Instance.PlaySFX("Black");
         }
     }
 

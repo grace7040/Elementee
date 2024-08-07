@@ -44,7 +44,7 @@ public class Star : MonoBehaviour
             effect.transform.position = this.transform.position;
             GameManager.Instance.CurrentStar++;
             GameManager.Instance.UIGame.UpdateStarUI();
-            AudioManager.Instacne.PlaySFX("Star");
+            AudioManager.Instance.PlaySFX("Star");
             Destroy(this.gameObject);
         }
     }

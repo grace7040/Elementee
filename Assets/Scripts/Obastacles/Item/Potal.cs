@@ -19,7 +19,7 @@ public class Potal : MonoBehaviour
             if (collision.CompareTag("Player"))
             {
                 // Sound
-                AudioManager.Instacne.PlaySFX("Star");
+                AudioManager.Instance.PlaySFX("Star");
                 IsClear = true;
                 Invoke("EndGame", 2f);
             }

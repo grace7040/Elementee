@@ -21,7 +21,7 @@ public class Sponge : MonoBehaviour
             if (collision.GetComponent<PlayerController>().myColor == Colors.Default) 
                 return;
 
-            AudioManager.Instacne.PlaySFX("Sponge");
+            AudioManager.Instance.PlaySFX("Sponge");
             var bulletGo = ObjectPoolManager.Instance.GetCurrentColorBlood();
             bulletGo.transform.position = transform.position;
 

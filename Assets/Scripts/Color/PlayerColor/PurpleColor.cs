@@ -24,6 +24,6 @@ public class PurpleColor : IColorState
     {
         ShakeCamera();
         SetPlayerAnimatorBool("IsPurpleAttacking", true);
-        AudioManager.Instacne.PlaySFX("Purple");
+        AudioManager.Instance.PlaySFX("Purple");
     }
 }

@@ -45,21 +45,21 @@ public class UI_Custom : UI_Popup
         DrawManager.Instance.SetFaceColor();
         DrawManager.Instance.OpenDrawing();
 
-        AudioManager.Instacne.PlaySFX("UiClick");
+        AudioManager.Instance.PlaySFX("UiClick");
     }
 
 
     public void SoundBtnClicked(PointerEventData data)
     {
         UIManager.Instance.ShowPopupUI<UI_SoundCustom>();
-        AudioManager.Instacne.PlaySFX("UiClick");
+        AudioManager.Instance.PlaySFX("UiClick");
     }
 
 
     public void SceneJump(PointerEventData data)
     {
         GameManager.Instance.GoToMainMenu();
-        AudioManager.Instacne.PlaySFX("UiClick");
+        AudioManager.Instance.PlaySFX("UiClick");
     }
 
     public void ToLobbyBtn(PointerEventData data)

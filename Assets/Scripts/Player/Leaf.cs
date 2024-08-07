@@ -8,7 +8,7 @@ public class Leaf : MonoBehaviour
 
     private void Start()
     {
-        AudioManager.Instacne.PlaySFX("LeafGrow");
+        AudioManager.Instance.PlaySFX("LeafGrow");
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

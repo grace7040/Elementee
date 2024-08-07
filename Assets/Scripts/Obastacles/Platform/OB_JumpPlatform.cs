@@ -35,7 +35,7 @@ public class OB_JumpPlatform : MonoBehaviour
             // 애니메이션 재생
             anim.Play("spring", -1, 0.3f);
             // 효과음 재생
-            AudioManager.Instacne.PlaySFX("Spring");
+            AudioManager.Instance.PlaySFX("Spring");
         }
     }
 }

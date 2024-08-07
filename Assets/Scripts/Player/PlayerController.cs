@@ -108,7 +108,6 @@ public class PlayerController : MonoBehaviour
         _followCamera = FindObjectOfType<FollowCamera>();
 
         ColorManager.Instance.InitPlayer(this, SetAnimatorBool, ShakeCamera);
-        ColorManager.Instance.SetColorState(Colors.Purple);
     }
 
 
@@ -383,7 +382,7 @@ public class PlayerController : MonoBehaviour
     public void Heal(int health)
     {
         CurrentHealth += health;
-        AudioManager.Instacne.PlaySFX("Heal");
+        AudioManager.Instance.PlaySFX("Heal");
         if (CurrentHealth > 100)
             CurrentHealth = 100;
 

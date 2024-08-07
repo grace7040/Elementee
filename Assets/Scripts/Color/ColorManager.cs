@@ -71,6 +71,7 @@ public class ColorManager : Singleton<ColorManager>
         _playerController = player;
         SetPlayerAnimatorBool = setAnimBoolAction;
         ShakeCamera = shakeCameraAction;
+        SetColorState(Colors.Default);
     }
 
     public void InitPlayerAttack(PlayerAttack playerAttack, Action<float> onOrangeAttackedAction, Action onYellowAttackedAction, Action onBlackAttackedAction, Action onSetBlackAction)

@@ -9,6 +9,8 @@ using UnityEngine.UI;
 public class DrawManager : MonoBehaviour
 {
     Colors _color;
+    
+    //public TMP_Text text;
 
     public GameObject DrawbleObject;
     [SerializeField] GameObject _drawing;

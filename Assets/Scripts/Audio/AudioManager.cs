@@ -1,5 +1,6 @@
 using System.Collections;
 using System.IO;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -12,7 +13,7 @@ public class Sound
 
 public class AudioManager : MonoBehaviour
 {
-    public static AudioManager Instacne;
+    public static AudioManager Instance;
 
     public Sound[] Sfx = null;
     public Sound[] Bgm = null;
@@ -21,18 +22,20 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioSource BgmPlayer = null;
     [SerializeField] AudioSource[] SfxPlayer = null;
 
-    int _customSoundCnt = 2; //UI_SoundCustom의 커스텀 soundObjects개수
+    int _customSoundCnt = 13; //UI_SoundCustom의 커스텀 soundObjects개수
     string _audioDir = "/audios";
 
     private void Awake()
     {
-        if (Instacne == null)
+        if (Instance == null)
         {
-            Instacne = this;
-            DontDestroyOnLoad(Instacne);
+            Instance = this;
+            DontDestroyOnLoad(Instance);
         }
         else
+        {
             Destroy(gameObject);
+        }
 
         _audioDir = Application.persistentDataPath + _audioDir;
     }
@@ -119,25 +122,22 @@ public class AudioManager : MonoBehaviour
     {
         for (int i = 0; i < _customSoundCnt; i++)
         {
-            using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(_audioDir + "/" + Sfx[i].Name + ".wav", AudioType.WAV))
+            using UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(_audioDir + "/" + Sfx[i].Name + ".wav", AudioType.WAV);
+            /* 기존코드
+            yield return www.Send();
+            if (www.isNetworkError){ Debug.Log(www.error); }
+             */
+
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.ConnectionError)
             {
-                /* 기존코드
-                yield return www.Send();
-                if (www.isNetworkError){ Debug.Log(www.error); }
-                 */
-
-                yield return www.SendWebRequest();
-
-                if (www.result == UnityWebRequest.Result.ConnectionError)
-                {
-                    Debug.Log(www.error);
-                }
-                else
-                {
-                    Sfx[i].Clip = DownloadHandlerAudioClip.GetContent(www);
-                    Sfx[i].Clip.name = Sfx[i].Name;
-                }
-
+                Debug.Log(www.error);
+            }
+            else
+            {
+                //Sfx[i].Clip = DownloadHandlerAudioClip.GetContent(www);
+                Sfx[i].Clip.name = Sfx[i].Name;
             }
         }
     }

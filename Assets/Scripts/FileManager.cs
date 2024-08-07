@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class FileManager : MonoBehaviour
 {
-    public DrawManager DrawManager;
     //public TMP_Text Text;
 
     string weaponDir = "/weapons";
@@ -34,14 +33,14 @@ public class FileManager : MonoBehaviour
 
         //Text.text = "WeaponDir 생성 완료. 스프라이트 저장 시작";
 
-        for (int i = 0; i<DrawManager.WeaponCanvas.Length; i++)
+        for (int i = 0; i<DrawManager.Instance.WeaponCanvas.Length; i++)
         {
-            string filename = "/" + DrawManager.WeaponCanvas[i].name;
+            string filename = "/" + DrawManager.Instance.WeaponCanvas[i].name;
             File.Create(dir + filename);
             //Text.text = "스프라이트 저장: "+ dir + filename;
         }
         //Text.text = "스프라이트 저장 완료";
-        DrawManager.SaveWeapons(weaponDir);
+        DrawManager.Instance.SaveWeapons(weaponDir);
     }
 
 }

@@ -9,7 +9,7 @@ public class BloodEffect : MonoBehaviour
     {
         if (collision.CompareTag("Enemy") || collision.CompareTag("Untagged"))
         {
-            AudioManager.Instacne.PlaySFX("PaintPop");
+            AudioManager.Instance.PlaySFX("PaintPop");
             var bulletGo = ObjectPoolManager.Instance.GetCurrentColorBlood();
             bulletGo.transform.position = collision.bounds.ClosestPoint(transform.position);
         }

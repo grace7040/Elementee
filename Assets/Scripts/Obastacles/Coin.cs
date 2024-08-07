@@ -12,7 +12,7 @@ public class Coin : MonoBehaviour
             GameManager.Instance.CurrentCoin++;
             GameManager.Instance.UIGame.UpdateCoinUI();
 
-            AudioManager.Instacne.PlaySFX("Star");
+            AudioManager.Instance.PlaySFX("Star");
             Destroy(this.gameObject);
         }
     }

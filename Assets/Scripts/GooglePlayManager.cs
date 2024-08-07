@@ -6,11 +6,16 @@ using UnityEngine.UI;
 using GooglePlayGames;
 using GooglePlayGames.BasicApi;
 using TMPro;
+using UnityEngine.SceneManagement;
+using Google.Android.PerformanceTuner;
 
 public class GooglePlayManager : Singleton<GooglePlayManager>
 {
     bool _isLogined = false;
     AdMob _adMob;
+
+    AndroidPerformanceTuner<FidelityParams, Annotation> tuner =
+    new AndroidPerformanceTuner<FidelityParams, Annotation>();
     void Awake()
     {
         DontDestroyOnLoad(this);
@@ -20,17 +25,21 @@ public class GooglePlayManager : Singleton<GooglePlayManager>
         PlayGamesPlatform.DebugLogEnabled = true;
         PlayGamesPlatform.Activate();
 
-        //AdMob
-        if(_adMob == null)
-        {
-            gameObject.AddComponent<AdMob>();
-            _adMob = GetComponent<AdMob>();
-        }
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     void Start()
     {
         Login();
+
+        tuner.EnableLocalEndpoint();
+        ErrorCode startErrorCode = tuner.Start();
+        Debug.Log("Android Performance Tuner started with code: " + startErrorCode);
+
+        tuner.onReceiveUploadLog += request =>
+        {
+            Debug.Log("Telemetry uploaded with request name: " + request.name);
+        };
     }
 
     public void Login()
@@ -88,6 +97,25 @@ public class GooglePlayManager : Singleton<GooglePlayManager>
     public void ShowAds(AdType adType)
     {
         _adMob.ShowAds(adType);
+    }
+
+    public void LoadAds()
+    {
+        _adMob.LoadAds();
+    }
+
+    void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "Lobby" || scene.name == "LevelMenu")
+            return;
+
+        //AdMob
+        if (_adMob == null)
+        {
+            gameObject.AddComponent<AdMob>();
+            _adMob = GetComponent<AdMob>();
+        }
+        LoadAds();
     }
 
 }

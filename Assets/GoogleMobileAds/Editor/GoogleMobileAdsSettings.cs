@@ -1,10 +1,10 @@
+using System;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
 
 namespace GoogleMobileAds.Editor
 {
-
     internal class GoogleMobileAdsSettings : ScriptableObject
     {
         private const string MobileAdsSettingsResDir = "Assets/GoogleMobileAds/Resources";
@@ -13,7 +13,32 @@ namespace GoogleMobileAds.Editor
 
         private const string MobileAdsSettingsFileExtension = ".asset";
 
-        private static GoogleMobileAdsSettings instance;
+        internal static GoogleMobileAdsSettings LoadInstance()
+        {
+            //Read from resources.
+            var instance = Resources.Load<GoogleMobileAdsSettings>(MobileAdsSettingsFile);
+
+            //Create instance if null.
+            if (instance == null)
+            {
+                Directory.CreateDirectory(MobileAdsSettingsResDir);
+                instance = ScriptableObject.CreateInstance<GoogleMobileAdsSettings>();
+                string assetPath = Path.Combine(
+                    MobileAdsSettingsResDir,
+                    MobileAdsSettingsFile + MobileAdsSettingsFileExtension);
+                AssetDatabase.CreateAsset(instance, assetPath);
+                AssetDatabase.SaveAssets();
+                Version agp = Version.Parse(Utils.AndroidGradlePluginVersion);
+                instance.validateGradleDependencies = true;
+                // Turn on Gradle Dependency Validation if AGP < 4.2.2
+                if (agp.Major > 4 || (agp.Major == 4 && agp.Minor >= 2 && agp.Build >= 2))
+                {
+                    instance.validateGradleDependencies = false;
+                }
+            }
+
+            return instance;
+        }
 
         [SerializeField]
         private string adMobAndroidAppId = string.Empty;
@@ -22,58 +47,67 @@ namespace GoogleMobileAds.Editor
         private string adMobIOSAppId = string.Empty;
 
         [SerializeField]
-        private bool delayAppMeasurementInit = false;
+        private bool enableKotlinXCoroutinesPackagingOption = true;
+
+        [SerializeField]
+        private bool optimizeInitialization;
+
+        [SerializeField]
+        private bool optimizeAdLoading;
+
+        [SerializeField]
+        private string userTrackingUsageDescription;
+
+        [SerializeField]
+        private bool validateGradleDependencies;
 
         public string GoogleMobileAdsAndroidAppId
         {
-            get { return Instance.adMobAndroidAppId; }
+            get { return adMobAndroidAppId; }
 
-            set { Instance.adMobAndroidAppId = value; }
+            set { adMobAndroidAppId = value; }
+        }
+
+        public bool EnableKotlinXCoroutinesPackagingOption
+        {
+            get { return enableKotlinXCoroutinesPackagingOption; }
+
+            set { enableKotlinXCoroutinesPackagingOption = value; }
         }
 
         public string GoogleMobileAdsIOSAppId
         {
-            get { return Instance.adMobIOSAppId; }
+            get { return adMobIOSAppId; }
 
-            set { Instance.adMobIOSAppId = value; }
+            set { adMobIOSAppId = value; }
         }
 
-        public bool DelayAppMeasurementInit
+        public bool OptimizeInitialization
         {
-            get { return Instance.delayAppMeasurementInit; }
+            get { return optimizeInitialization; }
 
-            set { Instance.delayAppMeasurementInit = value; }
+            set { optimizeInitialization = value; }
         }
 
-        public static GoogleMobileAdsSettings Instance
+        public bool OptimizeAdLoading
         {
-            get
-            {
-                if (instance != null)
-                {
-                    return instance;
-                }
+            get { return optimizeAdLoading; }
 
-                instance = Resources.Load<GoogleMobileAdsSettings>(MobileAdsSettingsFile);
+            set { optimizeAdLoading = value; }
+        }
 
-                if(instance != null)
-                {
-                    return instance;
-                }
+        public string UserTrackingUsageDescription
+        {
+            get { return userTrackingUsageDescription; }
 
-                Directory.CreateDirectory(MobileAdsSettingsResDir);
+            set { userTrackingUsageDescription = value; }
+        }
 
-                instance = ScriptableObject.CreateInstance<GoogleMobileAdsSettings>();
+        public bool ValidateGradleDependencies
+        {
+            get { return validateGradleDependencies; }
 
-                string assetPath = Path.Combine(MobileAdsSettingsResDir, MobileAdsSettingsFile);
-                string assetPathWithExtension = Path.ChangeExtension(
-                                                        assetPath, MobileAdsSettingsFileExtension);
-                AssetDatabase.CreateAsset(instance, assetPathWithExtension);
-
-                AssetDatabase.SaveAssets();
-
-                return instance;
-            }
+            set { validateGradleDependencies = value; }
         }
     }
 }

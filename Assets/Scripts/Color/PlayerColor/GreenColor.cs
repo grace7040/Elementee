@@ -22,7 +22,7 @@ public class GreenColor : IColorState
 
         //player.canAttack = false;
         SetPlayerAnimatorBool("IsGreenAttacking", true);
-        AudioManager.Instacne.PlaySFX("Green");
+        AudioManager.Instance.PlaySFX("Green");
 
         var throwableWeapon = ObjectPoolManager.Instance.GetGameObject("GreenWeapon");
         throwableWeapon.GetComponent<ThrowableWeapon>().Throw(playerPosition, playerLocalScaleX);

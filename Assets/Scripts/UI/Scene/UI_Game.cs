@@ -8,6 +8,7 @@ using UnityEngine.EventSystems;
 
 public class UI_Game : UI_Scene
 {
+    public TMP_Text text;
 
     public TextMeshProUGUI Coin;
     public List<Image> Stars = new List<Image>();

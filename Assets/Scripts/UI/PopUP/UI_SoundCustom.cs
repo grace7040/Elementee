@@ -137,8 +137,8 @@ public class UI_SoundCustom : UI_Popup
     public void DafaultBtnClicked(PointerEventData data)
     {
         string name = Enum.GetName(typeof(CustomSound), CurrentObject);
-        AudioManager.Instacne.SetSFX(name, AudioManager.Instacne.DefaultSfx[(int)CurrentObject-1].Clip);
-        _aud.clip = AudioManager.Instacne.DefaultSfx[(int)CurrentObject - 1].Clip;
+        AudioManager.Instance.SetSFX(name, AudioManager.Instance.DefaultSfx[(int)CurrentObject-1].Clip);
+        _aud.clip = AudioManager.Instance.DefaultSfx[(int)CurrentObject - 1].Clip;
     }
 
 
@@ -148,7 +148,7 @@ public class UI_SoundCustom : UI_Popup
         {
             if (_aud.clip == null)
             {
-                _aud.clip = AudioManager.Instacne.Sfx[(int)CurrentObject - 1].Clip;
+                _aud.clip = AudioManager.Instance.Sfx[(int)CurrentObject - 1].Clip;
             }
 
             _aud.Play();
@@ -165,7 +165,7 @@ public class UI_SoundCustom : UI_Popup
     public void BackBtnClicked(PointerEventData data)
     {
         UIManager.Instance.ClosePopupUI();
-        AudioManager.Instacne.SaveAudios();
+        AudioManager.Instance.SaveAudios();
     }
 
     public void SaveClip(PointerEventData data)
@@ -174,7 +174,7 @@ public class UI_SoundCustom : UI_Popup
 
         if(CurrentObject != CustomSound.def)
         {
-            AudioManager.Instacne.SetSFX(name, _aud.clip);
+            AudioManager.Instance.SetSFX(name, _aud.clip);
         }
 
     }

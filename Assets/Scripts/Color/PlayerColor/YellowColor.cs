@@ -20,6 +20,6 @@ public class YellowColor : IColorState
     public void Attack(Vector3 playerPosition, float playerLocalScaleX)
     {
         OnYellowAttacked();
-        AudioManager.Instacne.PlaySFX("Yellow");
+        AudioManager.Instance.PlaySFX("Yellow");
     }
 }

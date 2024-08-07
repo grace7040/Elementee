@@ -22,7 +22,7 @@ public class OrangeColor : IColorState
     }
     public void Attack(Vector3 playerPosition, float playerLocalScaleX)
     {
-        AudioManager.Instacne.PlaySFX("Orange");
+        AudioManager.Instance.PlaySFX("Orange");
         OnOrangeAttacked(_durationTime);
     }
 }

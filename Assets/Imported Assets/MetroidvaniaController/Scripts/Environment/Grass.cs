@@ -14,7 +14,7 @@ public class Grass : MonoBehaviour
         {
             GetComponent<Animator>().Play("MovingGrassR");
         }
-        if (collision.gameObject.CompareTag("Player")) AudioManager.Instacne.PlaySFX("GrassPass");
+        if (collision.gameObject.CompareTag("Player")) AudioManager.Instance.PlaySFX("GrassPass");
 
         if (collision.gameObject.CompareTag("Weapon") || collision.gameObject.CompareTag("WeaponB") || collision.gameObject.CompareTag("WeaponThrow") || collision.gameObject.CompareTag("WeaponOrange") || collision.gameObject.CompareTag("WeaponYellow"))
         {

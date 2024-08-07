@@ -46,6 +46,14 @@ public class GameManager : Singleton<GameManager>
     {
         DontDestroyOnLoad(gameObject);
         DataManager.Instance.JsonLoad();
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+    void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "Lobby" || scene.name == "LevelMenu")
+            return;
+
+        InitGame();
     }
 
     public void PauseGame()
@@ -63,11 +71,7 @@ public class GameManager : Singleton<GameManager>
     public void RetryGame()
     {
         ResumeGame();
-        InitGame();
-
-        ColorManager.Instance.ResetColorState();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);    
-
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void InitGame()
@@ -75,8 +79,8 @@ public class GameManager : Singleton<GameManager>
         CurrentCoin = 0;
         _hasBeenRevived = false;
         RevivalPos = null;
+        ColorManager.Instance.ResetColorState();
     }
-
     public void GameOver()
     {
         Time.timeScale = 0;

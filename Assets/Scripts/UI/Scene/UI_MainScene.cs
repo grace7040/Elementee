@@ -36,7 +36,7 @@ public class UI_MainScene : UI_Scene
     public void StartBtnClicked(PointerEventData data)
     {
         SceneManager.LoadScene("LevelMenu");
-        AudioManager.Instacne.PlaySFX("UiClick");
+        AudioManager.Instance.PlaySFX("UiClick");
     }
 
     public void SettingBtnClicked(PointerEventData data)
@@ -49,7 +49,7 @@ public class UI_MainScene : UI_Scene
         SceneManager.LoadScene("Custom");
         Time.timeScale = 1;
 
-        AudioManager.Instacne.PlaySFX("UiClick");
+        AudioManager.Instance.PlaySFX("UiClick");
     }
 
     public void StoreBtnClicked(PointerEventData data)
@@ -57,6 +57,6 @@ public class UI_MainScene : UI_Scene
         SceneManager.LoadScene("Store");
         Time.timeScale = 1;
 
-        AudioManager.Instacne.PlaySFX("UiClick");
+        AudioManager.Instance.PlaySFX("UiClick");
     }
 }

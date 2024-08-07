@@ -21,7 +21,7 @@ public class BlueColor : IColorState
 
         //player.canAttack = false;
         SetPlayerAnimatorBool("IsBlueAttacking", true);
-        AudioManager.Instacne.PlaySFX("Blue");
+        AudioManager.Instance.PlaySFX("Blue");
 
         var throwableWeapon = ObjectPoolManager.Instance.GetGameObject("BlueWeapon");
         throwableWeapon.GetComponent<ThrowableWeapon>().Throw(playerPosition, playerLocalScaleX);        

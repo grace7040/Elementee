@@ -54,7 +54,6 @@ public class UI_Palette : UI_Popup
         GetButton((int)Buttons.OkayBtn).gameObject.BindEvent(OkayBtnClicked);
         GetButton((int)Buttons.ResetBtn).gameObject.BindEvent(ResetBtnBtnClicked);
         GetButton((int)Buttons.BackBtn).gameObject.BindEvent(BackBtnClicked);
-        GetButton((int)Buttons.ReDrawBtn).gameObject.BindEvent(ReDrawBtnClicked);
 
         _canvasImg = GetImage((int)Images.ColorImg).gameObject.GetComponent<Image>();
         _redrawImg = GetButton((int)Buttons.ReDrawBtn).gameObject.GetComponent<Image>();
@@ -62,7 +61,11 @@ public class UI_Palette : UI_Popup
         if (GameManager.Instance.PlayerColor == Colors.Default)
             GetButton((int)Buttons.ReDrawBtn).interactable = false;
         else
+        {
             _redrawImg.color = ColorManager.Instance.GetColor(GameManager.Instance.PlayerColor);
+            GetButton((int)Buttons.ReDrawBtn).gameObject.BindEvent(ReDrawBtnClicked);
+        }
+            
     }
 
 

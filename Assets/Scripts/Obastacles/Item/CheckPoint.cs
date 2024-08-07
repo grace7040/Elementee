@@ -6,7 +6,7 @@ public class CheckPoint : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            AudioManager.Instacne.PlaySFX("CheckPoint");
+            AudioManager.Instance.PlaySFX("CheckPoint");
             GameManager.Instance.RevivalPos = this.transform;
             //DataManager.Instance.JsonSave();
         }
