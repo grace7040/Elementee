@@ -27,7 +27,7 @@ public class UI_LevelMenu : UI_Scene
 
     private void Start()
     {
-        _mapBest = GameManager.Instance.MapBest;
+        _mapBest = GameManager.Instance.CompletedMap;
         Init();
     }
 

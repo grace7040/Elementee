@@ -582,21 +582,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   developMode: 0
-  mapStar: 
-  mapFlag: 
-  yehh: []
-  mapBest: 0
-  mapCoin: 0
-  currentMapNum: 0
-  Potal: {fileID: 0}
-  isGameOver: 0
-  starCount: 10
-  sponPos: {fileID: 0}
-  playerColor: 0
-  playerFace: {fileID: 0}
-  playerHP: 100
-  playerMAXHP: 100
-  coin: 0
+  StarCountsPerMap: 
+  CompletedMap: 0
+  TotalCoin: 0
+  ShopItemPurchaseList: []
+  CurrentShopItemSO: {fileID: 0}
+  CurrentCoin: 0
+  CurrentMapNum: 0
+  CurrentStar: 0
+  CurrentPotal: {fileID: 0}
+  UIGame: {fileID: 0}
+  Player: {fileID: 0}
+  RevivalPos: {fileID: 0}
+  PlayerColor: 0
+  PlayerFace: {fileID: 0}
   ReDrawItemColor: 0
 --- !u!4 &828407975
 Transform:
@@ -705,7 +704,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1453131332
 Transform:
   m_ObjectHideFlags: 0
@@ -1164,6 +1163,58 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 815554956207456183, guid: ead09c5ce9e859c4d9d92870facdd8f6, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.68
+      objectReference: {fileID: 0}
+    - target: {fileID: 815554956207456183, guid: ead09c5ce9e859c4d9d92870facdd8f6, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.59
+      objectReference: {fileID: 0}
+    - target: {fileID: 815554956207456183, guid: ead09c5ce9e859c4d9d92870facdd8f6, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.68
+      objectReference: {fileID: 0}
+    - target: {fileID: 815554956207456183, guid: ead09c5ce9e859c4d9d92870facdd8f6, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -109.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 815554956207456183, guid: ead09c5ce9e859c4d9d92870facdd8f6, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 830689843729414386, guid: ead09c5ce9e859c4d9d92870facdd8f6, type: 3}
+      propertyPath: m_Interactable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1626741998567809408, guid: ead09c5ce9e859c4d9d92870facdd8f6, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5640681120100708451, guid: ead09c5ce9e859c4d9d92870facdd8f6, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5640681120100708451, guid: ead09c5ce9e859c4d9d92870facdd8f6, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5640681120100708451, guid: ead09c5ce9e859c4d9d92870facdd8f6, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5640681120100708451, guid: ead09c5ce9e859c4d9d92870facdd8f6, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7124395871294207721, guid: ead09c5ce9e859c4d9d92870facdd8f6, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7518605917497117034, guid: ead09c5ce9e859c4d9d92870facdd8f6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7530006213532850672, guid: ead09c5ce9e859c4d9d92870facdd8f6, type: 3}
       propertyPath: m_Name
       value: UI_Shop
@@ -1256,6 +1307,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1128504296}
+    - target: {fileID: 8052220358447365174, guid: ead09c5ce9e859c4d9d92870facdd8f6, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ead09c5ce9e859c4d9d92870facdd8f6, type: 3}
 --- !u!224 &3972088066429926412
@@ -1605,17 +1660,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cede4abe440f73c47a23c59d0469e794, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapBtns:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  MapBtns: []
   Lines:
   - {fileID: 0}
   - {fileID: 0}

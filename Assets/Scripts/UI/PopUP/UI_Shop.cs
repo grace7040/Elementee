@@ -23,16 +23,18 @@ public class UI_Shop : UI_Popup
 
 
     private void Start()
-    {   
+    {
         Init();
 
         for(int i=0; i<ShopItemsSO.Length; i++)
             ShopPanelsGO[i].SetActive(true);
 
+
+
         TotalCoin = GameManager.Instance.TotalCoin;
         CoinUI.text = TotalCoin.ToString();
         LoadPanels();
-       // CheckPurchaseable(); -> 살 수 없을 경우 버튼 막기
+        CheckPurchaseable();
     }
 
     public override void Init()
@@ -50,28 +52,43 @@ public class UI_Shop : UI_Popup
         SceneManager.LoadScene("Lobby");
     }
 
-    //public void CheckPurchaseable()
-    //{
-    //    for(int i=0; i< shopItemsSO.Length; i++)
-    //    {
-    //        if (coins >= shopItemsSO[i].baseCost)
-    //            myPurchaseBtns[i].interactable = true;
-    //        else
-    //            myPurchaseBtns[i].interactable = false;
-    //    }
+    public void CheckPurchaseable()
+    {
+        for (int i = 0; i < ShopItemsSO.Length; i++)
+        {
+            // Coin이 부족한경우
+            if (TotalCoin >= ShopItemsSO[i].BaseCost)
+            {
+                MyPurchaseBtns[i].interactable = true;
+                ShopPanels[i].BlockOkayBtn.SetActive(false);
+            }
+            else
+            {
+                MyPurchaseBtns[i].interactable = false;
+                ShopPanels[i].BlockOkayBtn.SetActive(true);
+            }
 
-    //}
+            // 이미 구매 완료한 경우
+            if (GameManager.Instance.ShopItemPurchaseList.Contains(ShopItemsSO[i]))
+            {
+                ShopPanels[i].PurchasedUI.SetActive(true);
+            }
+        }
+
+    }
 
     public void PurchaseItem(int btnNo)
     {
-        if(TotalCoin >= ShopItemsSO[btnNo].baseCost)
+        if(TotalCoin >= ShopItemsSO[btnNo].BaseCost)
         {
-            TotalCoin -= ShopItemsSO[btnNo].baseCost;
+            TotalCoin -= ShopItemsSO[btnNo].BaseCost;
             GameManager.Instance.TotalCoin = TotalCoin;
+            GameManager.Instance.ShopItemPurchaseList.Add(ShopItemsSO[btnNo]);
+            GameManager.Instance.CurrentShopItemSO = ShopItemsSO[btnNo];
             DataManager.Instance.JsonSave();
             CoinUI.text = TotalCoin.ToString();
-           // CheckPurchaseable();
 
+            CheckPurchaseable();
         }
     }
 
@@ -79,9 +96,10 @@ public class UI_Shop : UI_Popup
     {
         for(int i =0; i < ShopItemsSO.Length; i++)
         {
-            ShopPanels[i].titleText.text = ShopItemsSO[i].title;
-            ShopPanels[i].descriptionText.text = ShopItemsSO[i].description;
-            ShopPanels[i].costText.text = ShopItemsSO[i].baseCost.ToString();
+            ShopPanels[i].TitleText.text = ShopItemsSO[i].Title;
+            ShopPanels[i].DescriptionText.text = ShopItemsSO[i].Description;
+            ShopPanels[i].CostText.text = ShopItemsSO[i].BaseCost.ToString();
+            ShopPanels[i].ItemSprite.sprite = ShopItemsSO[i].ItemSprite;
         }
     }
     
