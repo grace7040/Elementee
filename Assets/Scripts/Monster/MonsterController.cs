@@ -125,7 +125,7 @@ public class MonsterController : MonoBehaviour
         _monsterSprite = GetComponentInChildren<SpriteRenderer>();
         Rb = GetComponent<Rigidbody2D>();
 
-        _ignoreLayers = LayerMask.GetMask("Player", "TransparentFX", "Coins");
+        _ignoreLayers = LayerMask.GetMask("Player", "TransparentFX", "Coins", "Sponge");
 
         SetEndpoints();
         CurrentEndpoint = _leftEndpoint;

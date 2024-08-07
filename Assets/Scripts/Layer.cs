@@ -11,5 +11,7 @@ public enum Layer
     Obstacle,
     Monster,
     OrangeAttack,
-    Coins
+    Coins,
+    Platforms,
+    Sponge
 }
