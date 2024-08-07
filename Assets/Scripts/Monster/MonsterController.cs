@@ -411,7 +411,11 @@ public class MonsterController : MonoBehaviour
         {
             TakeDamage(25, collision.transform.position);
         }
-
+        if (collision.gameObject.CompareTag("DropKill"))
+        {
+            Die();
+            gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+        }
         this.CallOnDelay(0.5f, () => { _canTakeDamage_RangeAttack = true; });
     }
 
