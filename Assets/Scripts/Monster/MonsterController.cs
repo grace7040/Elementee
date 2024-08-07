@@ -337,7 +337,6 @@ public class MonsterController : MonoBehaviour
         }
 
         gameObject.GetComponent<CapsuleCollider2D>().isTrigger = true;
-        gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
         gameObject.tag = "Untagged";
         Rb.velocity = Vector2.zero;
         dir.x = 0;
@@ -346,8 +345,9 @@ public class MonsterController : MonoBehaviour
 
         Animator.SetTrigger("Death");
         _hpBarBG.DOFade(0, 2f);
-        //_monsterSprite.DOFade(0, 2.5f);
-        //Destroy(gameObject, 2.5f);
+        //_monsterSprite.DOFade(0, 4.5f);
+
+        Destroy(gameObject, 4f);
     }
 
     IEnumerator Electrocuted()
@@ -414,7 +414,6 @@ public class MonsterController : MonoBehaviour
         if (collision.gameObject.CompareTag("DropKill"))
         {
             Die();
-            gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
         }
         this.CallOnDelay(0.5f, () => { _canTakeDamage_RangeAttack = true; });
     }
