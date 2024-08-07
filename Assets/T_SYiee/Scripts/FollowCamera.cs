@@ -7,23 +7,19 @@ public class FollowCamera : MonoBehaviour
 	[Header("Target Player")]
 
 	public Transform Target;
-	public float Target_y;
-	public Transform DropKillChecking;
 
-	//Shacking
-	// How long the object should shake for.
-	float _shakeDuration = 0f;
+	bool _enableFollow = true;
+	float _targetVerticalScale = 2f;
+	float _followSpeed = 3.5f;
 
-	// Amplitude of the shake. A larger value shakes the camera harder.
-	float _shakeAmount = 0.1f;
-	float _decreaseFactor = 1.0f;
-
-
-	private Transform _camTransform;
-	private float _followSpeed = 3.5f;
-
+	Transform _camTransform;
 	Vector3 _originalPos;
 	Vector3 _newPosition;
+
+	//Shacking
+	float _shakeDuration = 0f;  // How long the object should shake for.
+	float _shakeAmount = 0.1f;  // Amplitude of the shake. A larger value shakes the camera harder.
+	float _decreaseFactor = 1.0f;
 
 	void Awake()
 	{
@@ -41,15 +37,12 @@ public class FollowCamera : MonoBehaviour
 
 	private void Update()
 	{
-
-		if (_camTransform.localPosition.y <= DropKillChecking.position.y)
-		{
+		if (!_enableFollow)
 			return;
-		}
 
 		_newPosition = Target.position;
 		_newPosition.z = -8;
-		_newPosition.y = _newPosition.y + Target_y;
+		_newPosition.y += _targetVerticalScale;
 		transform.position = Vector3.Slerp(transform.position, _newPosition, _followSpeed * Time.deltaTime);
 
 		_originalPos = transform.position;
@@ -57,7 +50,6 @@ public class FollowCamera : MonoBehaviour
 		if (_shakeDuration > 0)
 		{
 			_camTransform.localPosition = _originalPos + Random.insideUnitSphere * _shakeAmount;
-
 			_shakeDuration -= Time.deltaTime * _decreaseFactor;
 		}
 
@@ -68,4 +60,14 @@ public class FollowCamera : MonoBehaviour
 		_originalPos = _camTransform.localPosition;
 		_shakeDuration = 0.5f;
 	}
+
+	public void StopFollow()
+    {
+		_enableFollow = false;
+    }
+
+	public void StartFollow()
+    {
+		_enableFollow = true;
+    }
 }
