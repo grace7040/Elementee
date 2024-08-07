@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FollowCamera : MonoBehaviour
@@ -8,26 +6,24 @@ public class FollowCamera : MonoBehaviour
 
 	public Transform Target;
 
+	//Follow Setting
 	bool _enableFollow = true;
-	float _targetVerticalScale = 2f;
-	float _followSpeed = 3.5f;
+	readonly float _targetVerticalScale = 2f;
+    readonly float _followSpeed = 3.5f;
+
+    //Shacking
+    float _shakeDuration = 0f;  // How long the object should shake for.
+    readonly float _shakeAmount = 0.1f;  // Amplitude of the shake. A larger value shakes the camera harder.
+    readonly float _decreaseFactor = 1.0f;
 
 	Transform _camTransform;
 	Vector3 _originalPos;
 	Vector3 _newPosition;
 
-	//Shacking
-	float _shakeDuration = 0f;  // How long the object should shake for.
-	float _shakeAmount = 0.1f;  // Amplitude of the shake. A larger value shakes the camera harder.
-	float _decreaseFactor = 1.0f;
-
 	void Awake()
 	{
 		Cursor.visible = false;
-		if (_camTransform == null)
-		{
-			_camTransform = GetComponent(typeof(Transform)) as Transform;
-		}
+		_camTransform = GetComponent<Transform>();
 	}
 
 	void OnEnable()
@@ -35,39 +31,40 @@ public class FollowCamera : MonoBehaviour
 		_originalPos = _camTransform.localPosition;
 	}
 
-	private void Update()
+	void Update()
 	{
 		if (!_enableFollow)
 			return;
 
+		FollowTarget();
+		UpdateOnShake();
+	}
+
+	void FollowTarget()
+    {
 		_newPosition = Target.position;
 		_newPosition.z = -8;
 		_newPosition.y += _targetVerticalScale;
 		transform.position = Vector3.Slerp(transform.position, _newPosition, _followSpeed * Time.deltaTime);
 
 		_originalPos = transform.position;
-
-		if (_shakeDuration > 0)
-		{
-			_camTransform.localPosition = _originalPos + Random.insideUnitSphere * _shakeAmount;
-			_shakeDuration -= Time.deltaTime * _decreaseFactor;
-		}
-
 	}
-
+	
+	public void EnableFollowing(bool value)
+    {
+		_enableFollow = value;
+    }
 	public void ShakeCamera()
 	{
 		_originalPos = _camTransform.localPosition;
 		_shakeDuration = 0.5f;
 	}
 
-	public void StopFollow()
+	void UpdateOnShake()
     {
-		_enableFollow = false;
-    }
+		if (_shakeDuration <= 0) return;
 
-	public void StartFollow()
-    {
-		_enableFollow = true;
-    }
+		_camTransform.localPosition = _originalPos + Random.insideUnitSphere * _shakeAmount;
+		_shakeDuration -= Time.deltaTime * _decreaseFactor;
+	}
 }

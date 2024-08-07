@@ -442,7 +442,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("DropKill"))
         {
             Die();
-            _followCamera.StopFollow();
+            _followCamera.EnableFollowing(false);
         }
     }
 
@@ -475,7 +475,7 @@ public class PlayerController : MonoBehaviour
         CurrentHealth = _maxHealth;
         UIManager.Instance.ClosePopupUI();
         transform.position = revivalPos;
-        _followCamera.StartFollow();
+        _followCamera.EnableFollowing(true);
     }
 
     void SetAnimatorBool(string name, bool value)
