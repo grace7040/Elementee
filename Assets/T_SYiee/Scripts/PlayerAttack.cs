@@ -142,10 +142,12 @@ public class PlayerAttack : MonoBehaviour
     }
     IEnumerator OnSetBlackColorCo()
     {
+
         while (true)
         {
             if (_playerController.myColor == Colors.Black)
             {
+
                 if (_isHoldingEnemy)
                 {
                     // _enemy.transform.localPosition = new Vector2(0, 0);
@@ -178,6 +180,7 @@ public class PlayerAttack : MonoBehaviour
                 StartCoroutine(CheckNearbyEnemiesCoroutine());
 
                 _enemy = closestEnemy.gameObject;
+                _enemy.transform.GetChild(0).Find("HPBar").gameObject.SetActive(false); // ::FIX:: delete Find() method
                 _enemy.SendMessage("PulledByBlack");
                 //closestEnemy.AddComponent<BloodEffect>();
 
