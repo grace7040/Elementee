@@ -15,6 +15,7 @@ public class UI_Shop : UI_Popup
     public GameObject[] ShopPanelsGO;
     public ShopTemplate[] ShopPanels;
     public Button[] MyPurchaseBtns;
+    public Button[] MySelectBtns;
 
     enum Buttons
     {
@@ -29,6 +30,10 @@ public class UI_Shop : UI_Popup
         for(int i=0; i<ShopItemsSO.Length; i++)
             ShopPanelsGO[i].SetActive(true);
 
+
+        DataManager.Instance.JsonClear();
+        GameManager.Instance.TotalCoin = 100;
+        DataManager.Instance.JsonSave();
 
 
         TotalCoin = GameManager.Instance.TotalCoin;
@@ -68,10 +73,23 @@ public class UI_Shop : UI_Popup
                 ShopPanels[i].BlockOkayBtn.SetActive(true);
             }
 
-            // 이미 구매 완료한 경우
-            if (GameManager.Instance.ShopItemPurchaseList.Contains(ShopItemsSO[i]))
+            // 이미 구매한 경우
+            if(GameManager.Instance.CurrentShopItemSO == ShopItemsSO[i])
             {
-                ShopPanels[i].PurchasedUI.SetActive(true);
+                ShopPanels[i].SelectedUI.SetActive(true);
+                ShopPanels[i].PurchasedUI.SetActive(false);
+                MySelectBtns[i].interactable = true;
+
+            }
+            else
+            {
+                if (GameManager.Instance.ShopItemPurchaseList.Contains(ShopItemsSO[i]))
+                {
+                    ShopPanels[i].PurchasedUI.SetActive(true);
+                    ShopPanels[i].SelectedUI.SetActive(false);
+                    MySelectBtns[i].interactable = true;
+
+                }
             }
         }
 
@@ -84,12 +102,19 @@ public class UI_Shop : UI_Popup
             TotalCoin -= ShopItemsSO[btnNo].BaseCost;
             GameManager.Instance.TotalCoin = TotalCoin;
             GameManager.Instance.ShopItemPurchaseList.Add(ShopItemsSO[btnNo]);
-            GameManager.Instance.CurrentShopItemSO = ShopItemsSO[btnNo];
             DataManager.Instance.JsonSave();
             CoinUI.text = TotalCoin.ToString();
+            MySelectBtns[btnNo].interactable = true;
 
             CheckPurchaseable();
         }
+    }
+
+    public void SelectItem(int btnNo)
+    {
+        GameManager.Instance.CurrentShopItemSO = ShopItemsSO[btnNo];
+        DataManager.Instance.JsonSave();
+        CheckPurchaseable();
     }
 
     public void LoadPanels()

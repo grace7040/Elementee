@@ -12,4 +12,5 @@ public class ShopTemplate : MonoBehaviour
     public Image ItemSprite;
     public GameObject BlockOkayBtn;
     public GameObject PurchasedUI;
+    public GameObject SelectedUI;
 }
