@@ -65,13 +65,14 @@ public class DrawManager : MonoBehaviour
         }
         Cam = GameObject.Find("Camera");
         DrawSetting = GetComponentInChildren<DrawingSettings>();
+        LoadAllWeaponsFromDevice();
     }
 
 
 
     public void SetBrushColor(Colors color)
     {
-        this._color = color;
+        _color = color;
         Color c = ColorManager.Instance.GetColor(color);
 
         _sketch.GetComponent<Image>().sprite = _weaponCanvasBG[(int)color];
@@ -111,37 +112,30 @@ public class DrawManager : MonoBehaviour
 
     }
 
-    public void SaveFaceDrawing()
+    public void SaveFaceDrawingOnDevice()
     {
 
-        // 다시 원래 카메라로
-        Cam.SetActive(true);
-        _drawCam.SetActive(false);
-
-        _drawing.SetActive(false);
+        CloseDrawing();
 
         // Face 저장 - 8번
         GameManager.Instance.PlayerFace = WeaponCanvas[8];
-        SaveWeapon(8);
+        SaveWeaponOnDevice(8);
 
     }
 
 
     // 캔버스 기본 무기 on off
-    public void BasicWeapons(int num)
+    public void UseBasicWeapons(bool value)
     {
-        if (num == 1)
+        if (value)
             _sketch.GetComponent<Image>().sprite = _basicWeaponBG[(int)_color];
         else
             _sketch.GetComponent<Image>().sprite = _weaponCanvasBG[(int)_color];
     }
 
 
-    public void LoadWeapons(string _weaponDir)
+    public void LoadAllWeaponsFromDevice()
     {
-
-        this._weaponDir = _weaponDir;
-
         for (int i = 0; i < WeaponCanvas.Length; i++)
         {
             Texture2D texture = new Texture2D(0, 0);
@@ -160,14 +154,14 @@ public class DrawManager : MonoBehaviour
 
     }
 
-    public void SaveWeapon(int i)
+    public void SaveWeaponOnDevice(int i)
     {
         byte[] bytes = WeaponCanvas[i].texture.EncodeToPNG();
         string filename = _weaponDir + "/" + WeaponCanvas[i].name + ".png";
         File.WriteAllBytes(Application.persistentDataPath + filename, bytes);
     }
 
-    public void SaveWeapons(string _weaponDir)
+    public void SaveAllWeaponsOnDevice(string _weaponDir)
     {
         for (int i = 0; i < WeaponCanvas.Length; i++)
         {

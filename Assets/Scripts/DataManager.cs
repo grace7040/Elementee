@@ -6,26 +6,27 @@ using System.IO;
 [System.Serializable]
 public class SaveData
 {
-    public List<int> StarCountsPerMap = new List<int>();
-    //public List<int> mapFlag = new List<int>();
+    public List<int> StarCountsPerMap = new();
     public int CompletedMap;
     public int TotalCoin;
-    public List<ShopItemSO> ShopItemPurchaseList = new List<ShopItemSO>();
+    public List<ShopItemSO> ShopItemPurchaseList = new();
     public ShopItemSO CurrentShopItemSO;
+    public List<Colors> HasBeenUsedColorList = new();
 }
 
 public class DataManager : Singleton<DataManager>
 {
     string _path;
+    const string _dbFileName = "database.json";
     void Start()
     {
-        _path = Path.Combine(Application.persistentDataPath, "database.json");
+        _path = Path.Combine(Application.persistentDataPath, _dbFileName);
     }
 
     public void JsonLoad()
     {
         SaveData saveData = new SaveData();
-        _path = Path.Combine(Application.persistentDataPath, "database.json");
+        _path = Path.Combine(Application.persistentDataPath, _dbFileName);
 
         if (!File.Exists(_path))
         {
@@ -42,7 +43,6 @@ public class DataManager : Singleton<DataManager>
                 for (int i = 0; i < saveData.StarCountsPerMap.Count; i++)
                 {
                     GameManager.Instance.StarCountsPerMap.Add(saveData.StarCountsPerMap[i]);
-                    //GameManager.Instance.mapFlag.Add(saveData.mapFlag[i]);
                 }
                 for (int i = 0; i < saveData.ShopItemPurchaseList.Count; i++)
                 {
@@ -57,7 +57,7 @@ public class DataManager : Singleton<DataManager>
 
     public void JsonSave()
     {
-        _path = Path.Combine(Application.persistentDataPath, "database.json");
+        _path = Path.Combine(Application.persistentDataPath, _dbFileName);
 
         SaveData saveData = new SaveData();
 
@@ -65,7 +65,6 @@ public class DataManager : Singleton<DataManager>
         for (int i = 0; i < GameManager.Instance.StarCountsPerMap.Count; i++)
         {
             saveData.StarCountsPerMap.Add(GameManager.Instance.StarCountsPerMap[i]);
-            //saveData.mapFlag.Add(GameManager.Instance.mapFlag[i]);
         }
         for (int i = 0; i < GameManager.Instance.ShopItemPurchaseList.Count; i++)
         {
@@ -83,7 +82,7 @@ public class DataManager : Singleton<DataManager>
 
     public void JsonClear() // Clear Data
     {
-        _path = Path.Combine(Application.persistentDataPath, "database.json");
+        _path = Path.Combine(Application.persistentDataPath, _dbFileName);
 
         SaveData saveData = new SaveData();
         saveData.CompletedMap = 0;

@@ -13,7 +13,7 @@ public class UI_DrawCanvas : UI_Popup
     GameObject _player;
     public TextMeshProUGUI GuideText;
 
-    bool _basicWeapon = false;
+    bool _useBasicWeapon = false;
     Colors _color;
 
     enum Buttons
@@ -55,7 +55,7 @@ public class UI_DrawCanvas : UI_Popup
 
         if (_player != null)
         {
-            if (!_basicWeapon)
+            if (!_useBasicWeapon)
             {
                 if (!DrawManager.Instance.DrawbleObject.GetComponent<Drawable>().HasDrawn)
                 {
@@ -70,7 +70,7 @@ public class UI_DrawCanvas : UI_Popup
             DrawManager.Instance.CloseDrawing();
 
             // 무기 바꾸기
-            ColorManager.Instance.UseBasicWeapon(_basicWeapon);
+            ColorManager.Instance.UseBasicWeapon(_useBasicWeapon);
             ColorManager.Instance.SetColorState(GameManager.Instance.PlayerColor);
 
 
@@ -78,7 +78,7 @@ public class UI_DrawCanvas : UI_Popup
         else  // 얼굴 그릴 때
         {
             ClosePopupUI();
-            DrawManager.Instance.SaveFaceDrawing();
+            DrawManager.Instance.SaveFaceDrawingOnDevice();
           //  DrawManager.Instance.SaveWeapon((int)_color);
         }
 
@@ -88,18 +88,18 @@ public class UI_DrawCanvas : UI_Popup
     public void BasictBtnClicked(PointerEventData data)
     {
         // 그리던거 지우고 기본 무기 보여주기
-        _basicWeapon = true;
+        _useBasicWeapon = true;
         DrawManager.Instance.DrawbleObject.GetComponent<Drawable>().ResetCanvas();
-        DrawManager.Instance.BasicWeapons(1);
+        DrawManager.Instance.UseBasicWeapons(_useBasicWeapon);
 
     }
 
 
     public void ResetBtnClicked(PointerEventData data)
     {
-        _basicWeapon = false;
+        _useBasicWeapon = false;
         DrawManager.Instance.DrawbleObject.GetComponent<Drawable>().ResetCanvas();
-        DrawManager.Instance.BasicWeapons(0);
+        DrawManager.Instance.UseBasicWeapons(_useBasicWeapon);
     }
 
 

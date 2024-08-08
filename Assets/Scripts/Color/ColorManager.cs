@@ -5,24 +5,23 @@ using UnityEngine;
 
 public class ColorManager : Singleton<ColorManager>
 {
+    Dictionary<Colors, bool> _colorDict = new();    // Red, Yellow, Blue
+    List<Colors> _hasBeenUsedColorList = new();     // :: FIX ME :: json으로 저장해야 할 듯.
     PlayerAttack _playerAttack;
-    List<Colors> _hasBeenUsedColor = new();
+
+    public bool IsUsingBasicWeapon = false;
 
     //Delegetes
     public Action OnSetColor = null;
     public Action OnSaveColor = null;
+    Action<string, bool> SetPlayerAnimatorBool = null;
+    Action ShakeCamera = null;
+    Action<float> OnOrangeAttacked = null;
+    Action OnYellowAttacked = null;
+    Action OnBlackAttacked = null;
+    Action OnSetBlackColor = null;
     Action<Colors> SetPlayerColor = null;
     Action<IColorState> SetPlayerColorState = null;
-    public Action<string, bool> SetPlayerAnimatorBool = null;
-    public Action ShakeCamera = null;
-    public Action<float> OnOrangeAttacked = null;
-    public Action OnYellowAttacked = null;
-    public Action OnBlackAttacked = null;
-    public Action OnSetBlackColor = null;
-
-    public bool IsUsingBasicWeapon = false;
-
-    Dictionary<Colors, bool> _colorDict = new();
 
     public bool HasRed
     {
@@ -40,14 +39,14 @@ public class ColorManager : Singleton<ColorManager>
 
     private void Awake()
     {
-        _hasBeenUsedColor.Add(Colors.Default);
+        _hasBeenUsedColorList.Add(Colors.Default);
         Init();
     }
     public void Init()
     {
-        _colorDict.Add(Colors.Red, false);
-        _colorDict.Add(Colors.Yellow, false);
-        _colorDict.Add(Colors.Blue, false);
+        _colorDict.TryAdd(Colors.Red, false);
+        _colorDict.TryAdd(Colors.Yellow, false);
+        _colorDict.TryAdd(Colors.Blue, false);
     }
 
     public void InitPlayer(Action<Colors> setMyColorAction, Action<IColorState> setColorStateAction, Action<string, bool> setAnimBoolAction, Action shakeCameraAction)
@@ -99,19 +98,19 @@ public class ColorManager : Singleton<ColorManager>
         GameManager.Instance.PlayerColor = _color;
 
         // 새로운 색 사용할 때 무기 그리도록 UI 띄우기
-        if (!_hasBeenUsedColor.Contains(_color) && _color != Colors.Black)
+        if (!_hasBeenUsedColorList.Contains(_color) && _color != Colors.Black)
         {
             PlayerWeaponOff();
             StartDrawing(_color);
         }
         else
         {
-            _playerAttack.canAttack = true;
+            _playerAttack.CanAttack = true;
             ChangeColorStateByColors(_color);
             UseBasicWeapon(IsUsingBasicWeapon);
 
             ObjectPoolManager.Instance.SetColorName(_color);
-            DrawManager.Instance.SaveWeapon((int)_color);
+            DrawManager.Instance.SaveWeaponOnDevice((int)_color);
             OnSetColor?.Invoke();
         }
 
@@ -131,7 +130,7 @@ public class ColorManager : Singleton<ColorManager>
                 _playerAttack.RedWeapon.SetActive(true);
                 break;
             case Colors.Yellow:
-                _playerAttack.canAttack = false;
+                _playerAttack.CanAttack = false;
                 ChangeColorState(new YellowColor(OnYellowAttacked));
                 _playerAttack.YellowAttackEffect.SetActive(true);
                 break;
@@ -182,7 +181,7 @@ public class ColorManager : Singleton<ColorManager>
         GameManager.Instance.PauseGame();
 
         UIManager.Instance.ShowPopupUI<UI_DrawCanvas>();
-        _hasBeenUsedColor.Add(_color);
+        _hasBeenUsedColorList.Add(_color);
 
         DrawManager.Instance.SetBrushColor(_color);
         DrawManager.Instance.OpenDrawing();

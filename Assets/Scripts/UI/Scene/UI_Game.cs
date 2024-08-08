@@ -38,7 +38,6 @@ public class UI_Game : UI_Scene
     PlayerController _playerController;
     PlayerAttack _playerAttack;
     CharacterMove _characterMove;
-    GameObject _player;
 
     //Potal
     float _angle;
@@ -75,10 +74,10 @@ public class UI_Game : UI_Scene
     {
         Init();
 
-        _player = GameManager.Instance.Player;
-        _playerController = GameManager.Instance.Player.GetComponent<PlayerController>();
-        _playerAttack = GameManager.Instance.Player.GetComponent<PlayerAttack>();
-        _characterMove = GameManager.Instance.Player.GetComponent<CharacterMove>();
+        var player = GameManager.Instance.Player;
+        _playerController = player.GetComponent<PlayerController>();
+        _playerAttack = player.GetComponent<PlayerAttack>();
+        _characterMove = player.GetComponent<CharacterMove>();
 
         GameManager.Instance.UIGame = this;
 
@@ -144,7 +143,6 @@ public class UI_Game : UI_Scene
 
         GetButton((int)Buttons.SettingBtn).gameObject.BindEvent(OnSettingBtnClicked);
         GetButton((int)Buttons.Palette).gameObject.BindEvent(PaletteBtnClicked);
-        //GetButton((int)Buttons.Attack).gameObject.BindEvent(AttackBtnClicked);
         _hpBar = GetImage((int)Images.HP);
 
 
@@ -207,7 +205,7 @@ public class UI_Game : UI_Scene
 
     public void AttackBtnClickedDown(PointerEventData data)
     {
-        if (_playerAttack.canAttack)
+        if (_playerAttack.CanAttack)
         {
             _playerAttack.AttackDown();
             _attack_cool_time = _playerController.AttackCoolTime;

@@ -22,13 +22,13 @@ public class PlayerAttack : MonoBehaviour
     public GameObject PurpleAttackEffect;
 
     //Attack
-    [HideInInspector] public bool canAttack = true;
+    [HideInInspector] public bool CanAttack = true;
 
     // Black
     public GameObject WeaponPosition;
     bool _isHoldingEnemy = false;
     GameObject _enemy;
-    Transform closestEnemy;
+    Transform _closestEnemy;
     float _pullForce = 15f;
     float _throwForce = 15f;
 
@@ -43,7 +43,7 @@ public class PlayerAttack : MonoBehaviour
 
     public void AttackDown()
     {
-        if (!canAttack) return;
+        if (!CanAttack) return;
 
         _playerController.ColorState.Attack(transform.position, transform.localScale.x);
         if (_playerController.MyColor == Colors.Black) 
@@ -51,8 +51,8 @@ public class PlayerAttack : MonoBehaviour
             return;
         }
 
-        canAttack = false;
-        this.CallOnDelay(_playerController.ColorState.CoolTime, () => { canAttack = true; });   // ::TODO:: 노랑일 경우 예외처리 해야함
+        CanAttack = false;
+        this.CallOnDelay(_playerController.ColorState.CoolTime, () => { CanAttack = true; });   // ::TODO:: 노랑일 경우 예외처리 해야함
     }
 
     public void AttackUp()
@@ -170,16 +170,16 @@ public class PlayerAttack : MonoBehaviour
 
     private IEnumerator PullCoroutine()
     {
-        if (!_isHoldingEnemy && canAttack)
+        if (!_isHoldingEnemy && CanAttack)
         {
             FindClosestEnemy();
 
-            if (closestEnemy != null)
+            if (_closestEnemy != null)
             {
-                canAttack = false;
+                CanAttack = false;
                 StartCoroutine(CheckNearbyEnemiesCoroutine());
 
-                _enemy = closestEnemy.gameObject;
+                _enemy = _closestEnemy.gameObject;
                 _enemy.transform.GetChild(0).Find("HPBar").gameObject.SetActive(false); // ::FIX:: delete Find() method
                 _enemy.SendMessage("PulledByBlack");
                 //closestEnemy.AddComponent<BloodEffect>();
@@ -202,7 +202,7 @@ public class PlayerAttack : MonoBehaviour
     {
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 7.5f);
         float closestDistance = 7.5f;
-        closestEnemy = null;
+        _closestEnemy = null;
 
         foreach (Collider2D collider in colliders)
         {
@@ -216,7 +216,7 @@ public class PlayerAttack : MonoBehaviour
                     if (distance < closestDistance)
                     {
                         closestDistance = distance;
-                        closestEnemy = collider.transform;
+                        _closestEnemy = collider.transform;
                     }
                 }
             }
@@ -288,7 +288,7 @@ public class PlayerAttack : MonoBehaviour
                     childTransform.localPosition = Vector2.zero;
 
                     _isHoldingEnemy = true;
-                    canAttack = true;
+                    CanAttack = true;
                 }
             }
         }

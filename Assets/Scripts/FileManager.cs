@@ -40,7 +40,7 @@ public class FileManager : MonoBehaviour
             //Text.text = "스프라이트 저장: "+ dir + filename;
         }
         //Text.text = "스프라이트 저장 완료";
-        DrawManager.Instance.SaveWeapons(weaponDir);
+        DrawManager.Instance.SaveAllWeaponsOnDevice(weaponDir);
     }
 
 }
