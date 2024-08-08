@@ -203,7 +203,7 @@ MonoBehaviour:
   - {fileID: 3364718941259214008}
   - {fileID: 7563759527471843738}
   - {fileID: 7556410489127752601}
-  - {fileID: 3258715048601368542}
+  - {fileID: 687123771381802620}
   - {fileID: 7165747113895478536}
   - {fileID: 8533986571667845559}
   - {fileID: 7608925706783770372}
@@ -15727,7 +15727,7 @@ GameObject:
   - component: {fileID: 4638134327208811465}
   - component: {fileID: 687123771381802620}
   m_Layer: 3
-  m_Name: Cloud IMG for test
+  m_Name: OrangeWeapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15740,14 +15740,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2848074692684364129}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.23, y: -1.13, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0.6979432, w: 0.71615314}
+  m_LocalPosition: {x: -0.02, y: -1.15, z: 0}
+  m_LocalScale: {x: 0.19709988, y: 0.23132198, z: 0.70078456}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9046471506050898516}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -88.524}
 --- !u!212 &687123771381802620
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -15789,7 +15789,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: c6c2d582f523de84ba8185e171ca5ba5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 86579257c2161434096c357d16c9133a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
