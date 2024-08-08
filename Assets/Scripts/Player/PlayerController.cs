@@ -9,17 +9,10 @@ using Unity.VisualScripting;
 
 public class PlayerController : MonoBehaviour
 {
-    private IColorState color;
-    public IColorState Color
+    IColorState _colorState;
+    public IColorState ColorState
     {
-        get { return color; }
-        set
-        {
-            color = value;
-            Damage = value.Damage;
-            _canWallSliding = value.WallSliding;
-            AttackCoolTime = value.CoolTime;
-        }
+        get { return _colorState; }
     }
 
     FollowCamera _followCamera;
@@ -30,7 +23,12 @@ public class PlayerController : MonoBehaviour
     public GameObject HealEffect;
 
     [Header("Player Properties")]
-    public Colors myColor = Colors.Default;
+    Colors _myColor = Colors.Default;
+    public Colors MyColor
+    {
+        get { return _myColor; }
+    }
+
     public SpriteRenderer FaceSprite;
     [HideInInspector] public float AttackCoolTime;
     float _knockBackForce = 10f;
@@ -39,11 +37,11 @@ public class PlayerController : MonoBehaviour
     SpriteRenderer _spriteRenderer;
 
     [Header("Health Management")]
-    public int CurrentHealth;
     bool _isDie = false;
     int _maxHealth = 100;
-    bool _isFountainHealReady = true;
-    bool _canGetDamage = true;
+    int _currentHealth;
+    bool _fountainHealCoolDown = true;
+    bool _canTakeDamage = true;
     [HideInInspector] public int Damage = 0;
 
     [Header("Movement Customizing")]
@@ -99,7 +97,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        CurrentHealth = _maxHealth;
+        _currentHealth = _maxHealth;
 
         _rigidbody = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
@@ -107,7 +105,7 @@ public class PlayerController : MonoBehaviour
         _fixJoint = GetComponent<FixedJoint2D>();
         _followCamera = FindObjectOfType<FollowCamera>();
 
-        ColorManager.Instance.InitPlayer(this, SetAnimatorBool, ShakeCamera);
+        ColorManager.Instance.InitPlayer(SetMyColor, SetColorState, SetAnimatorBool, ShakeCamera);
     }
 
 
@@ -281,6 +279,20 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    IEnumerator DashCooldown()
+    {
+        _animator.SetBool("IsDashing", true);
+        _isDashing = true;
+        _canDash = false;
+
+        yield return new WaitForSeconds(0.1f); // dash 지속시간
+        _rigidbody.velocity = new Vector2(transform.localScale.x * _dashForce, 0);
+        _isDashing = false;
+
+        yield return new WaitForSeconds(0.5f); // dash cooltime
+        _canDash = true;
+    }
+
     private void Walk(float move)
     {
         if (_rigidbody.velocity.y < -_limitFallSpeed)
@@ -328,18 +340,69 @@ public class PlayerController : MonoBehaviour
         _canDoubleJump = true;
     }
 
-    IEnumerator DashCooldown()
+    public void RopeOut()
     {
-        _animator.SetBool("IsDashing", true);
-        _isDashing = true;
-        _canDash = false;
+        if (!_isRope) return;
 
-        yield return new WaitForSeconds(0.1f); // dash 지속시간
-        _rigidbody.velocity = new Vector2(transform.localScale.x * _dashForce, 0);
-        _isDashing = false;
+        _fixJoint.connectedBody = null;
+        _fixJoint.enabled = false;
 
-        yield return new WaitForSeconds(0.5f); // dash cooltime
-        _canDash = true;
+        this.CallOnDelay(0.1f, () => { _isRope = false; });
+    }
+
+
+    public void TakeDamage(int damage, Vector3 enemyPos)
+    {
+        if (_canTakeDamage)
+        {
+            _animator.SetBool("Hit", true);
+            _currentHealth -= damage;
+
+            if (_currentHealth > 100)
+                _currentHealth = 100;
+
+            // 넉백
+            _rigidbody.velocity = Vector2.zero;
+            _rigidbody.AddForce(Vector3.Normalize(transform.position - enemyPos) * 40f * _knockBackForce);
+
+            // UI Update
+            GameManager.Instance.UIGame.UpdateHPBar(_currentHealth, _maxHealth);
+
+            if (_currentHealth <= 0)
+            {
+                Die();
+            }
+            else
+            {
+                _canTakeDamage = false;
+                _spriteRenderer.DOFade(0.2f, 0.25f).SetLoops(4, LoopType.Yoyo);
+                this.CallOnDelay(1f, () => { _canTakeDamage = true; });
+            }
+        }
+
+    }
+
+    public void TakeHeal(int healAmount)
+    {
+        _currentHealth += healAmount;
+        AudioManager.Instance.PlaySFX("Heal");
+        if (_currentHealth > 100)
+            _currentHealth = 100;
+
+        HealEffect.SetActive(true);
+        this.CallOnDelay(1f, () => { HealEffect.SetActive(false); });
+
+        //UI Update
+        GameManager.Instance.UIGame.UpdateHPBar(_currentHealth, _maxHealth);
+    }
+
+    public void TakeHealByFountain(int healAmount)
+    {
+        if (!_fountainHealCoolDown) return;
+
+        TakeHeal(healAmount);
+        _fountainHealCoolDown = false;
+        this.CallOnDelay(1f, () => { _fountainHealCoolDown = true; });
     }
 
     public void Die()
@@ -348,58 +411,49 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(WaitToDead());
     }
 
-    public void TakeDamage(int damage, Vector3 enemyPos)
+    IEnumerator WaitToDead()
     {
-        if (_canGetDamage)
-        {
-            _animator.SetBool("Hit", true);
-            CurrentHealth -= damage;
-
-            if (CurrentHealth > 100)
-                CurrentHealth = 100;
-
-            // 넉백
-            _rigidbody.velocity = Vector2.zero;
-            _rigidbody.AddForce(Vector3.Normalize(transform.position - enemyPos) * 40f * _knockBackForce);
-
-            // UI Update
-            GameManager.Instance.UIGame.UpdateHPBar(CurrentHealth, _maxHealth);
-
-            if (CurrentHealth <= 0)
-            {
-                Die();
-            }
-            else
-            {
-                _canGetDamage = false;
-                _spriteRenderer.DOFade(0.2f, 0.25f).SetLoops(4, LoopType.Yoyo);
-                this.CallOnDelay(1f, () => { _canGetDamage = true; });
-            }
-        }
-
+        _animator.SetBool("IsDead", true);
+        _isDie = true;
+        _canTakeDamage = false;
+        yield return new WaitForSeconds(0.4f);
+        _rigidbody.velocity = new Vector2(0, _rigidbody.velocity.y);
+        yield return new WaitForSeconds(1.1f);
+        GameManager.Instance.GameOver();
+    }
+    public void Revive(Vector3 revivalPos)
+    {
+        _animator.SetBool("IsDead", false);
+        _isDie = false;
+        _canTakeDamage = true;
+        _currentHealth = _maxHealth;
+        UIManager.Instance.ClosePopupUI();
+        transform.position = revivalPos;
+        _followCamera.EnableFollowing(true);
     }
 
-    public void Heal(int health)
+    void SetMyColor(Colors color)
     {
-        CurrentHealth += health;
-        AudioManager.Instance.PlaySFX("Heal");
-        if (CurrentHealth > 100)
-            CurrentHealth = 100;
-
-        HealEffect.SetActive(true);
-        this.CallOnDelay(1f, () => { HealEffect.SetActive(false); });
-
-        //UI Update
-        GameManager.Instance.UIGame.UpdateHPBar(CurrentHealth, _maxHealth);
+        _myColor = color;
     }
 
-    public void HealByFountain(int health)
+    void SetColorState(IColorState colorState)
     {
-        if (!_isFountainHealReady) return;
+        _colorState = colorState;
+        _canWallSliding = colorState.WallSliding;
+        Damage = colorState.Damage;
+        AttackCoolTime = colorState.CoolTime;
+    }
 
-        Heal(health);
-        _isFountainHealReady = false;
-        this.CallOnDelay(1f, () => { _isFountainHealReady = true; });
+
+    void SetAnimatorBool(string name, bool value)
+    {
+        _animator.SetBool(name, value);
+    }
+
+    void ShakeCamera()
+    {
+        _followCamera.ShakeCamera();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -430,7 +484,7 @@ public class PlayerController : MonoBehaviour
             _isGrounded = true;
 
         }
-        
+
         if (collision.gameObject.CompareTag("EnemyWeapon"))
         {
             TakeDamage(15, collision.gameObject.transform.position);
@@ -444,48 +498,6 @@ public class PlayerController : MonoBehaviour
             Die();
             _followCamera.EnableFollowing(false);
         }
-    }
-
-    public void RopeOut()
-    {
-        if (!_isRope) return;
-
-        _fixJoint.connectedBody = null;
-        _fixJoint.enabled = false;
-
-        this.CallOnDelay(0.1f, () => { _isRope = false; });
-    }
-
-    IEnumerator WaitToDead()
-    {
-        _animator.SetBool("IsDead", true);
-        _isDie = true;
-        _canGetDamage = false;
-        yield return new WaitForSeconds(0.4f);
-        _rigidbody.velocity = new Vector2(0, _rigidbody.velocity.y);
-        yield return new WaitForSeconds(1.1f);
-        GameManager.Instance.GameOver();
-    }
-
-    public void Revival(Vector3 revivalPos)
-    {
-        _animator.SetBool("IsDead", false);
-        _isDie = false;
-        _canGetDamage = true;
-        CurrentHealth = _maxHealth;
-        UIManager.Instance.ClosePopupUI();
-        transform.position = revivalPos;
-        _followCamera.EnableFollowing(true);
-    }
-
-    void SetAnimatorBool(string name, bool value)
-    {
-        _animator.SetBool(name, value);
-    }
-
-    void ShakeCamera()
-    {
-        _followCamera.ShakeCamera();
     }
 
 }

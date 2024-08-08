@@ -16,7 +16,7 @@ public class Pencil : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            GameManager.Instance.ReDrawItemColor = collision.GetComponent<PlayerController>().myColor;
+            GameManager.Instance.ReDrawItemColor = collision.GetComponent<PlayerController>().MyColor;
             Destroy(this.gameObject);
         }
     }

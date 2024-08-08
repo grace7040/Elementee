@@ -129,7 +129,7 @@ public class GameManager : Singleton<GameManager>
     public void Revival()
     {
         ResumeGame();
-        Player.GetComponent<PlayerController>().Revival(RevivalPos.position);
+        Player.GetComponent<PlayerController>().Revive(RevivalPos.position);
         _hasBeenRevived = true;
     }
 }

@@ -5,20 +5,20 @@ using UnityEngine;
 
 public class ColorManager : Singleton<ColorManager>
 {
-    PlayerController _playerController;
     PlayerAttack _playerAttack;
     List<Colors> _colorList = new();
 
     //Delegetes
     public Action OnSetColor = null;
     public Action OnSaveColor = null;
+    Action<Colors> SetPlayerColor = null;
+    Action<IColorState> SetPlayerColorState = null;
     public Action<string, bool> SetPlayerAnimatorBool = null;
     public Action ShakeCamera = null;
     public Action<float> OnOrangeAttacked = null;
     public Action OnYellowAttacked = null;
     public Action OnBlackAttacked = null;
     public Action OnSetBlackColor = null;
-
 
     public bool IsUsingBasicWeapon = false;
 
@@ -66,9 +66,10 @@ public class ColorManager : Singleton<ColorManager>
         _colorList.Add(Colors.Default);
     }
 
-    public void InitPlayer(PlayerController player, Action<string, bool> setAnimBoolAction, Action shakeCameraAction)
+    public void InitPlayer(Action<Colors> setMyColorAction, Action<IColorState> setColorStateAction, Action<string, bool> setAnimBoolAction, Action shakeCameraAction)
     {
-        _playerController = player;
+        SetPlayerColor = setMyColorAction;
+        SetPlayerColorState = setColorStateAction;
         SetPlayerAnimatorBool = setAnimBoolAction;
         ShakeCamera = shakeCameraAction;
         SetColorState(Colors.Default);
@@ -110,19 +111,19 @@ public class ColorManager : Singleton<ColorManager>
     /*플레이어의 Color을 변경할 시 무조건 이 함수를 통해 변경해야 함.*/
     public void SetColorState(Colors _color)
     {
-        _playerController.myColor = _color;
+        SetPlayerColor(_color);
         GameManager.Instance.PlayerColor = _color;
 
         // 새로운 색 사용할 때 무기 그리도록 UI 띄우기
         if (!_colorList.Contains(_color) && _color != Colors.Black)
         {
-            OffPlayerWeapon();
+            PlayerWeaponOff();
             StartDrawing(_color);
         }
         else
         {
             _playerAttack.canAttack = true;
-            SetPlayerColorState(_color);
+            ChangeColorStateByColors(_color);
             UseBasicWeapon(IsUsingBasicWeapon);
 
             ObjectPoolManager.Instance.SetColorName(_color);
@@ -134,54 +135,54 @@ public class ColorManager : Singleton<ColorManager>
 
 
     // hasXXX 변수 설정 & 플레이어 무기 활성화
-    void SetPlayerColorState(Colors _color)
+    void ChangeColorStateByColors(Colors _color)
     {
         switch (_color)
         {
             case Colors.Default:
-                SetColorState(new DefaultColor(SetPlayerAnimatorBool));
+                ChangeColorState(new DefaultColor(SetPlayerAnimatorBool));
                 break;
             case Colors.Red:
-                SetColorState(new RedColor(SetPlayerAnimatorBool));
+                ChangeColorState(new RedColor(SetPlayerAnimatorBool));
                 _playerAttack.RedWeapon.SetActive(true);
                 break;
             case Colors.Yellow:
                 _playerAttack.canAttack = false;
-                SetColorState(new YellowColor(OnYellowAttacked));
+                ChangeColorState(new YellowColor(OnYellowAttacked));
                 _playerAttack.YellowAttackEffect.SetActive(true);
                 break;
             case Colors.Blue:
                 //_playerAttack.BlueWeapon.SetActive(true);
-                SetColorState(new BlueColor(SetPlayerAnimatorBool));
+                ChangeColorState(new BlueColor(SetPlayerAnimatorBool));
                 break;
             case Colors.Green:
                 //_playerAttack.GreenWeapon.SetActive(true);
-                SetColorState(new GreenColor(SetPlayerAnimatorBool));
+                ChangeColorState(new GreenColor(SetPlayerAnimatorBool));
                 break;
             case Colors.Purple:
-                SetColorState(new PurpleColor(SetPlayerAnimatorBool, ShakeCamera));
+                ChangeColorState(new PurpleColor(SetPlayerAnimatorBool, ShakeCamera));
                 _playerAttack.PurpleWeapon.SetActive(true);
                 break;
             case Colors.Orange:
-                SetColorState(new OrangeColor(OnOrangeAttacked));
+                ChangeColorState(new OrangeColor(OnOrangeAttacked));
                 break;
             case Colors.Black:
                 _playerAttack.BlackWeapon.SetActive(true);
-                SetColorState(new BlackColor(OnBlackAttacked));
+                ChangeColorState(new BlackColor(OnBlackAttacked));
                 OnSetBlackColor.Invoke();
                 break;
         }
     }
 
-    void SetColorState(IColorState _color)
+    void ChangeColorState(IColorState _color)
     {
-        _playerController.Color = _color;
+        SetPlayerColorState(_color);
         _playerAttack.RedWeapon.SetActive(false);
         _playerAttack.YellowAttackEffect.SetActive(false);
         _playerAttack.PurpleWeapon.SetActive(false);
     }
 
-    void OffPlayerWeapon()
+    void PlayerWeaponOff()
     {
         _playerAttack.RedWeapon.SetActive(false);
         _playerAttack.YellowAttackEffect.SetActive(false);

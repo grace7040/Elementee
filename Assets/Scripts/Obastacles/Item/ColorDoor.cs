@@ -23,7 +23,7 @@ public class ColorDoor : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            if (collision.gameObject.GetComponent<PlayerController>().myColor == doorColor)
+            if (collision.gameObject.GetComponent<PlayerController>().MyColor == doorColor)
             {
                 boxcollider.enabled = false;
                 return;

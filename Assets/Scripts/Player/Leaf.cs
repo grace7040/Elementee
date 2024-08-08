@@ -14,7 +14,7 @@ public class Leaf : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            collision.GetComponent<PlayerController>().Heal(healAmount);
+            collision.GetComponent<PlayerController>().TakeHeal(healAmount);
             Destroy(gameObject);
         }
     }

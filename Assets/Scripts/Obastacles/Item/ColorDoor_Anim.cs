@@ -20,7 +20,7 @@ public class ColorDoor_Anim : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             // 플레이어와 다른 색일 경우만 동작
-            if (collision.gameObject.GetComponent<PlayerController>().myColor != ColorDoor.GetComponent<ColorDoor>().doorColor)
+            if (collision.gameObject.GetComponent<PlayerController>().MyColor != ColorDoor.GetComponent<ColorDoor>().doorColor)
             {
                 ShutDownDoor();
             }  

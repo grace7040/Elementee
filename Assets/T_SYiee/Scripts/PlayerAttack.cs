@@ -45,14 +45,14 @@ public class PlayerAttack : MonoBehaviour
     {
         if (!canAttack) return;
 
-        _playerController.Color.Attack(transform.position, transform.localScale.x);
-        if (_playerController.myColor == Colors.Black) 
+        _playerController.ColorState.Attack(transform.position, transform.localScale.x);
+        if (_playerController.MyColor == Colors.Black) 
         {
             return;
         }
 
         canAttack = false;
-        this.CallOnDelay(_playerController.Color.CoolTime, () => { canAttack = true; });   // ::TODO:: 노랑일 경우 예외처리 해야함
+        this.CallOnDelay(_playerController.ColorState.CoolTime, () => { canAttack = true; });   // ::TODO:: 노랑일 경우 예외처리 해야함
     }
 
     public void AttackUp()
@@ -62,10 +62,10 @@ public class PlayerAttack : MonoBehaviour
 
     public void SetCustomWeapon()
     {
-        ColorWeapons[(int)_playerController.myColor].sprite = DrawManager.Instance.WeaponCanvas[(int)_playerController.myColor];
+        ColorWeapons[(int)_playerController.MyColor].sprite = DrawManager.Instance.WeaponCanvas[(int)_playerController.MyColor];
 
         // Yellow 경우, 자식들에도 sprite 할당이 필요함
-        if (_playerController.myColor == Colors.Yellow)
+        if (_playerController.MyColor == Colors.Yellow)
         {
             for (int i = 0; i < 4; i++)
             {
@@ -76,9 +76,9 @@ public class PlayerAttack : MonoBehaviour
 
     public void SetBasicWeapon()
     {
-        ColorWeapons[(int)_playerController.myColor].sprite = DrawManager.Instance.BasicWeapon[(int)_playerController.myColor];
+        ColorWeapons[(int)_playerController.MyColor].sprite = DrawManager.Instance.BasicWeapon[(int)_playerController.MyColor];
 
-        if (_playerController.myColor == Colors.Yellow)
+        if (_playerController.MyColor == Colors.Yellow)
         {
             for (int i = 0; i < 4; i++)
             {
@@ -145,7 +145,7 @@ public class PlayerAttack : MonoBehaviour
 
         while (true)
         {
-            if (_playerController.myColor == Colors.Black)
+            if (_playerController.MyColor == Colors.Black)
             {
 
                 if (_isHoldingEnemy)
@@ -153,7 +153,7 @@ public class PlayerAttack : MonoBehaviour
                     // _enemy.transform.localPosition = new Vector2(0, 0);
                 }
             }
-            else if (_playerController.myColor != Colors.Black)
+            else if (_playerController.MyColor != Colors.Black)
             {
                 Destroy(_enemy, 0.1f);
                 break;
@@ -274,7 +274,7 @@ public class PlayerAttack : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            if (_playerController.myColor == Colors.Black)
+            if (_playerController.MyColor == Colors.Black)
             {
                 if (!collision.gameObject.GetComponent<MonsterController>().isActiveAndEnabled)
                 {

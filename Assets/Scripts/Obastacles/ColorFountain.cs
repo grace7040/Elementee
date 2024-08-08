@@ -21,8 +21,8 @@ public class ColorFountain : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             _player = collision.gameObject.GetComponent<PlayerController>();
-            if (_player.myColor == fountainColor)
-                _player.HealByFountain(_healAmount);
+            if (_player.MyColor == fountainColor)
+                _player.TakeHealByFountain(_healAmount);
             else
                 _player.TakeDamage(_damage, this.transform.position);
 
