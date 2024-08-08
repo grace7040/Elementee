@@ -9,38 +9,38 @@ public class FileManager : MonoBehaviour
 {
     //public TMP_Text Text;
 
-    string weaponDir = "/weapons";
-    void Start()
-    {
-        //Text.text = "파일관리자 Start";
-        CheckWeaponDir();
-    }
+    //string weaponDir = "/weapons";
+    //void Start()
+    //{
+    //    //Text.text = "파일관리자 Start";
+    //    CheckWeaponDir();
+    //}
     
 
-    void CheckWeaponDir()
-    {
-        //Text.text = "CheckWeaponDir";
-        string dir = Application.persistentDataPath + weaponDir;
-        if (Directory.Exists(dir))
-        {
-            //Text.text = "WeaponDir 존재함";
-            return;
-        }
+    //void CheckWeaponDir()
+    //{
+    //    //Text.text = "CheckWeaponDir";
+    //    string dir = Application.persistentDataPath + weaponDir;
+    //    if (Directory.Exists(dir))
+    //    {
+    //        //Text.text = "WeaponDir 존재함";
+    //        return;
+    //    }
 
-        //Text.text = "WeaponDir 존재하지 않음";
+    //    //Text.text = "WeaponDir 존재하지 않음";
 
-        Directory.CreateDirectory(dir);
+    //    Directory.CreateDirectory(dir);
 
-        //Text.text = "WeaponDir 생성 완료. 스프라이트 저장 시작";
+    //    //Text.text = "WeaponDir 생성 완료. 스프라이트 저장 시작";
 
-        for (int i = 0; i<DrawManager.Instance.WeaponCanvas.Length; i++)
-        {
-            string filename = "/" + DrawManager.Instance.WeaponCanvas[i].name;
-            File.Create(dir + filename);
-            //Text.text = "스프라이트 저장: "+ dir + filename;
-        }
-        //Text.text = "스프라이트 저장 완료";
-        DrawManager.Instance.SaveAllWeaponsOnDevice(weaponDir);
-    }
+    //    for (int i = 0; i<DrawManager.Instance.WeaponCanvas.Length; i++)
+    //    {
+    //        string filename = "/" + DrawManager.Instance.WeaponCanvas[i].name;
+    //        File.Create(dir + filename);
+    //        //Text.text = "스프라이트 저장: "+ dir + filename;
+    //    }
+    //    //Text.text = "스프라이트 저장 완료";
+    //    DrawManager.Instance.SaveAllWeaponsOnDevice(weaponDir);
+    //}
 
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using Unity.VisualScripting;
 
 [System.Serializable]
 public class SaveData
@@ -11,31 +12,30 @@ public class SaveData
     public int TotalCoin;
     public List<ShopItemSO> ShopItemPurchaseList = new();
     public ShopItemSO CurrentShopItemSO;
-    public List<Colors> HasBeenUsedColorList = new();
+}
+
+public class WeaponSprites
+{
+    public List<Sprite> CurrentWeaponSpriteList;
 }
 
 public class DataManager : Singleton<DataManager>
 {
-    string _path;
     const string _dbFileName = "database.json";
-    void Start()
-    {
-        _path = Path.Combine(Application.persistentDataPath, _dbFileName);
-    }
-
+    const string _weaponSpriteFileName = "sprites.json";
     public void JsonLoad()
     {
         SaveData saveData = new SaveData();
-        _path = Path.Combine(Application.persistentDataPath, _dbFileName);
+        var path = Path.Combine(Application.persistentDataPath, _dbFileName);
 
-        if (!File.Exists(_path))
+        if (!File.Exists(path))
         {
             GameManager.Instance.CompletedMap = 0;
             JsonSave();
         }
         else
         {
-            string loadJson = File.ReadAllText(_path);
+            string loadJson = File.ReadAllText(path);
             saveData = JsonUtility.FromJson<SaveData>(loadJson);
 
             if (saveData != null)
@@ -54,10 +54,9 @@ public class DataManager : Singleton<DataManager>
             }
         }
     }
-
     public void JsonSave()
     {
-        _path = Path.Combine(Application.persistentDataPath, _dbFileName);
+        var path = Path.Combine(Application.persistentDataPath, _dbFileName);
 
         SaveData saveData = new SaveData();
 
@@ -77,19 +76,51 @@ public class DataManager : Singleton<DataManager>
 
         // Data Save
         string json = JsonUtility.ToJson(saveData, true);
-        File.WriteAllText(_path, json);
+        File.WriteAllText(path, json);
+    }
+
+    public void JsonLoadWeaponSprites()
+    {
+        WeaponSprites weaponSprites = new WeaponSprites();
+        var path = Path.Combine(Application.persistentDataPath, _weaponSpriteFileName);
+
+        if (!File.Exists(path))
+        {
+            return;
+        }
+        else
+        {
+            string loadJson = File.ReadAllText(path);
+            weaponSprites = JsonUtility.FromJson<WeaponSprites>(loadJson);
+
+            if (weaponSprites != null)
+            {
+                GameManager.Instance.CurrentWeaponSpriteList = weaponSprites.CurrentWeaponSpriteList;
+            }
+        }
+    }
+
+    public void JsonSaveWeaponSprites()
+    {
+        var path = Path.Combine(Application.persistentDataPath, _weaponSpriteFileName);
+
+        WeaponSprites weaponSprites = new WeaponSprites();
+        weaponSprites.CurrentWeaponSpriteList = GameManager.Instance.CurrentWeaponSpriteList;
+
+        string json = JsonUtility.ToJson(weaponSprites, true);
+        File.WriteAllText(path, json);
     }
 
     public void JsonClear() // Clear Data
     {
-        _path = Path.Combine(Application.persistentDataPath, _dbFileName);
+        var path = Path.Combine(Application.persistentDataPath, _dbFileName);
 
         SaveData saveData = new SaveData();
         saveData.CompletedMap = 0;
         saveData.TotalCoin = 0;
 
         string json = JsonUtility.ToJson(saveData, true);
-        File.WriteAllText(_path, json);
+        File.WriteAllText(path, json);
     }
 
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -34,7 +35,9 @@ public class GameManager : Singleton<GameManager>
     public Transform RevivalPos;
     public Colors PlayerColor = Colors.Default;
     public Sprite PlayerFace;
+    public List<Sprite> CurrentWeaponSpriteList = new();
 
+    public Action SaveCurrentWeaponSprite = null;
 
     public delegate void Del();
     //public Del SetJoystick = null;
@@ -46,6 +49,7 @@ public class GameManager : Singleton<GameManager>
     {
         DontDestroyOnLoad(gameObject);
         DataManager.Instance.JsonLoad();
+        DataManager.Instance.JsonLoadWeaponSprites();
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
     void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, LoadSceneMode mode)
@@ -107,11 +111,14 @@ public class GameManager : Singleton<GameManager>
                 StarCountsPerMap[CurrentMapNum] = CurrentStar;
             }
         }
+        SaveCurrentWeaponSprite?.Invoke();
         DataManager.Instance.JsonSave();
+        DataManager.Instance.JsonSaveWeaponSprites();
 
         CurrentStar = 0;
         CurrentCoin = 0;
     }
+
 
     public void GoToMainMenu()
     {

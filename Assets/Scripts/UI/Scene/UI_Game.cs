@@ -72,8 +72,6 @@ public class UI_Game : UI_Scene
 
     public void Start()
     {
-        Init();
-
         var player = GameManager.Instance.Player;
         _playerController = player.GetComponent<PlayerController>();
         _playerAttack = player.GetComponent<PlayerAttack>();
@@ -81,6 +79,7 @@ public class UI_Game : UI_Scene
 
         GameManager.Instance.UIGame = this;
 
+        Init();
     }
     public void UpdateHPBar(int current, int max)
     {

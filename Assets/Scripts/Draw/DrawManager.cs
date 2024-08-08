@@ -5,6 +5,7 @@ using FreeDraw;
 using System.IO;
 using TMPro;
 using UnityEngine.UI;
+using System;
 
 public class DrawManager : MonoBehaviour
 {
@@ -65,7 +66,7 @@ public class DrawManager : MonoBehaviour
         }
         Cam = GameObject.Find("Camera");
         DrawSetting = GetComponentInChildren<DrawingSettings>();
-        LoadAllWeaponsFromDevice();
+        //LoadAllWeaponsFromDevice();
     }
 
 
@@ -134,25 +135,27 @@ public class DrawManager : MonoBehaviour
     }
 
 
-    public void LoadAllWeaponsFromDevice()
-    {
-        for (int i = 0; i < WeaponCanvas.Length; i++)
-        {
-            Texture2D texture = new Texture2D(0, 0);
-            string filename = this._weaponDir + "/" + WeaponCanvas[i].name + ".png";
-            byte[] byteTexture = File.ReadAllBytes(Application.persistentDataPath + filename);
+    //public void LoadAllWeaponsFromDevice()
+    //{
+    //    for (int i = 0; i < WeaponCanvas.Length; i++)
+    //    {
+    //        Texture2D texture = new Texture2D(0, 0);
+    //        string filename = this._weaponDir + "/" + WeaponCanvas[i].name + ".png";
+    //        byte[] byteTexture = File.ReadAllBytes(Application.persistentDataPath + filename);
 
-            if (byteTexture.Length > 0)
-            {
-                texture.LoadImage(byteTexture);
-            }
+    //        if (byteTexture.Length > 0)
+    //        {
+    //            texture.LoadImage(byteTexture);
+    //        }
 
-            Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
-            sprite.name = WeaponCanvas[i].name;
-            WeaponCanvas[i] = sprite;
-        }
+    //        Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+    //        sprite.name = WeaponCanvas[i].name;
+    //        WeaponCanvas[i] = sprite;
+    //        //SetPlayerWeaponSprite(i, sprite);
+    //    }
 
-    }
+    //}
+
 
     public void SaveWeaponOnDevice(int i)
     {

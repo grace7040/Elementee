@@ -15,13 +15,13 @@ public class ThrowableWeapon : PoolAble
     void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        _spriteRenderer.sprite = DrawManager.Instance.WeaponCanvas[(int)WeaponColor];
+        _spriteRenderer.sprite = GameManager.Instance.CurrentWeaponSpriteList[(int)WeaponColor];
     }
 
     void OnEnable()
     {
         _isReleased = false;
-        SetWeaponSprite();
+        //SetWeaponSprite();
         this.CallOnDelay(3f, ReleaseThrowableWeapon);
     }
 
@@ -45,17 +45,17 @@ public class ThrowableWeapon : PoolAble
         ThrowDirection = new Vector2(playerLocalScaleX, 0);
     }
 
-    void SetWeaponSprite()
-    {
-        if(ColorManager.Instance.IsUsingBasicWeapon)
-        {
-            _spriteRenderer.sprite = DrawManager.Instance.BasicWeapon[(int)WeaponColor];
-        }
-        else
-        {
-            _spriteRenderer.sprite = DrawManager.Instance.WeaponCanvas[(int)WeaponColor];
-        }
-    }
+    //void SetWeaponSprite()
+    //{
+    //    if(ColorManager.Instance.IsUsingBasicWeapon)
+    //    {
+    //        _spriteRenderer.sprite = DrawManager.Instance.BasicWeapon[(int)WeaponColor];
+    //    }
+    //    else
+    //    {
+    //        _spriteRenderer.sprite = DrawManager.Instance.WeaponCanvas[(int)WeaponColor];
+    //    }
+    //}
 
     void ReleaseThrowableWeapon()
     {

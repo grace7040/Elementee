@@ -33,11 +33,11 @@ public class AdMob : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        text = FindObjectOfType<UI_Game>().text;
+        //text = FindObjectOfType<UI_Game>().text;
 
-        text.text = "Start";
+        //text.text = "Start";
         MobileAds.RaiseAdEventsOnUnityMainThread = true;
-        text.text = "RaiseAdEventsOnUnityMainThread";
+        //text.text = "RaiseAdEventsOnUnityMainThread";
 
         InitializeGoogleMobileAds();
     }
@@ -48,7 +48,7 @@ public class AdMob : MonoBehaviour
     private void InitializeGoogleMobileAds()
     {
         
-        text.text = "Start Initailize";
+        //text.text = "Start Initailize";
 
         // The Google Mobile Ads Unity plugin needs to be run only once and before loading any ads.
         if (_isInitialized.HasValue)
@@ -61,14 +61,14 @@ public class AdMob : MonoBehaviour
 
         // Initialize the Google Mobile Ads Unity plugin.
         Debug.Log("Google Mobile Ads Initializing.");
-        text.text = "Initializing";
+        //text.text = "Initializing";
 
         MobileAds.Initialize((InitializationStatus initstatus) =>
         {
             if (initstatus == null)
             {
                 Debug.LogError("Google Mobile Ads initialization failed.");
-                text.text = $"AdMob initialization failed.";
+                //text.text = $"AdMob initialization failed.";
                 _isInitialized = null;
                 return;
             }
@@ -79,9 +79,9 @@ public class AdMob : MonoBehaviour
             {
                 foreach (var item in adapterStatusMap)
                 {
-                    text.text = string.Format("Adapter {0} is {1}",
-                        item.Key,
-                        item.Value.InitializationState);
+                    //text.text = string.Format("Adapter {0} is {1}",
+                        //item.Key,
+                        //item.Value.InitializationState);
                     Debug.Log(string.Format("Adapter {0} is {1}",
                         item.Key,
                         item.Value.InitializationState));
@@ -89,7 +89,7 @@ public class AdMob : MonoBehaviour
             }
 
             Debug.Log("Google Mobile Ads initialization complete.");
-            text.text = $"AdMob initialized complete";
+            //text.text = $"AdMob initialized complete";
             _isInitialized = true;
         });
     }
@@ -118,7 +118,7 @@ public class AdMob : MonoBehaviour
     /// </summary>
     public void LoadAds()
     {
-        text = FindObjectOfType<UI_Game>().text;
+        //text = FindObjectOfType<UI_Game>().text;
         //text.text = "Loading rewarded ad.";
         // Clean up the old ad before loading a new one.
         if (_rewardedAd != null)
@@ -134,7 +134,7 @@ public class AdMob : MonoBehaviour
         // Send the request to load the ad.
         RewardedAd.Load(_adUnitId, adRequest, (RewardedAd ad, LoadAdError error) =>
         {
-            text.text = _adUnitId;
+            //text.text = _adUnitId;
             // If the operation failed with a reason.
             if (error != null)
             {
@@ -153,7 +153,7 @@ public class AdMob : MonoBehaviour
 
             // The operation completed successfully.
             Debug.Log("Rewarded ad loaded with response : " + ad.GetResponseInfo());
-            text.text = $"Rewarded ad loaded with response : \n{ad.GetResponseInfo()}";
+            //text.text = $"Rewarded ad loaded with response : \n{ad.GetResponseInfo()}";
             _rewardedAd = ad;
 
             // Register to ad events to extend functionality.
@@ -172,7 +172,7 @@ public class AdMob : MonoBehaviour
         if (_rewardedAd != null && _rewardedAd.CanShowAd())
         {
             Debug.Log("Showing rewarded ad.");
-            text.text = $"Showing rewarded ad.";
+            //text.text = $"Showing rewarded ad.";
             _rewardedAd.Show((Reward reward) =>
             {
                 Reward(adType);
@@ -184,7 +184,7 @@ public class AdMob : MonoBehaviour
         else
         {
             Debug.LogError("Rewarded ad is not ready yet.");
-            text.text = $"Rewarded ad is not ready yet.";
+            //text.text = $"Rewarded ad is not ready yet.";
         }
     }
 
@@ -198,7 +198,7 @@ public class AdMob : MonoBehaviour
             Debug.Log("Destroying rewarded ad.");
             _rewardedAd.Destroy();
             _rewardedAd = null;
-            text.text = $"Destroyed";
+            //text.text = $"Destroyed";
         }
     }
 
@@ -210,33 +210,33 @@ public class AdMob : MonoBehaviour
             Debug.Log(String.Format("Rewarded ad paid {0} {1}.",
                 adValue.Value,
                 adValue.CurrencyCode));
-            text.text = String.Format("Rewarded ad paid {0} {1}.",
-                adValue.Value,
-                adValue.CurrencyCode);
+            //text.text = String.Format("Rewarded ad paid {0} {1}.",
+                //adValue.Value,
+                //adValue.CurrencyCode);
         };
         // Raised when an impression is recorded for an ad.
         ad.OnAdImpressionRecorded += () =>
         {
             Debug.Log("Rewarded ad recorded an impression.");
-            text.text = $"Rewarded ad recorded an impression. ";
+            //text.text = $"Rewarded ad recorded an impression. ";
         };
         // Raised when a click is recorded for an ad.
         ad.OnAdClicked += () =>
         {
             Debug.Log("Rewarded ad was clicked.");
-            text.text = "clicked";
+            //text.text = "clicked";
         };
         // Raised when the ad opened full screen content.
         ad.OnAdFullScreenContentOpened += () =>
         {
             Debug.Log("Rewarded ad full screen content opened.");
-            text.text = "clicked";
+            //text.text = "clicked";
         };
         // Raised when the ad closed full screen content.
         ad.OnAdFullScreenContentClosed += () =>
         {
             Debug.Log("Rewarded ad full screen content closed.");
-            text.text = "clicked";
+            //text.text = "clicked";
             LoadAds();
         };
         // Raised when the ad failed to open full screen content.
@@ -244,14 +244,14 @@ public class AdMob : MonoBehaviour
         {
             Debug.LogError("Rewarded ad failed to open full screen content with error : "
                 + error);
-            text.text = $"Rewarded ad failed to open full screen content with error : \n{error} ";
+            //text.text = $"Rewarded ad failed to open full screen content with error : \n{error} ";
 
         };
     }
     void Reward(AdType adType)
     {
         Debug.Log("EearnedReward");
-        text.text = "EearnedReward";
+        //text.text = "EearnedReward";
         switch (adType)
         {
             case AdType.Revival:

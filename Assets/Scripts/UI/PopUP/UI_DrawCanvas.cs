@@ -70,6 +70,7 @@ public class UI_DrawCanvas : UI_Popup
             DrawManager.Instance.CloseDrawing();
 
             // 무기 바꾸기
+            GameManager.Instance.SaveCurrentWeaponSprite(); ;
             ColorManager.Instance.UseBasicWeapon(_useBasicWeapon);
             ColorManager.Instance.SetColorState(GameManager.Instance.PlayerColor);
 

@@ -41,6 +41,8 @@ public class PlayerAttack : MonoBehaviour
         _playerController = GetComponent<PlayerController>();
         ColorManager.Instance.InitPlayerAttack(this, OnOrangeAttacked, OnYellowAttacked, OnBlackAttacked, OnSetBlackColor);
         _rigidbody = GetComponent<Rigidbody2D>();
+        GameManager.Instance.SaveCurrentWeaponSprite = SaveCurrentWeaponSprites;
+        LoadCurrentWeaponSprites();
     }
 
 
@@ -61,6 +63,28 @@ public class PlayerAttack : MonoBehaviour
     public void AttackUp()
     {
         //isAttack = false;
+    }
+
+    void SaveCurrentWeaponSprites()
+    {
+        var weaponSprites = new List<Sprite>(ColorWeapons.Length);
+        for (int i = 0; i < ColorWeapons.Length; i++)
+        {
+            weaponSprites.Add(ColorWeapons[i].sprite);
+        }
+        GameManager.Instance.CurrentWeaponSpriteList = weaponSprites;
+    }
+
+    void LoadCurrentWeaponSprites()
+    {
+        for (int i = 0; i < ColorWeapons.Length; i++)
+        {
+            var sprite = GameManager.Instance.CurrentWeaponSpriteList[i];
+            if (sprite == null)
+                continue;
+
+            ColorWeapons[i].sprite = sprite;
+        }
     }
 
     public void SetCustomWeapon()
