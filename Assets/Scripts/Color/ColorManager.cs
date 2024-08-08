@@ -7,8 +7,6 @@ public class ColorManager : Singleton<ColorManager>
 {
     Dictionary<Colors, bool> _hasColorDict = new();    // Red, Yellow, Blue
     PlayerAttack _playerAttack;
-
-    public bool IsUsingBasicWeapon = false;
      
     //Delegetes
     public Action OnSetColor = null;
@@ -103,8 +101,6 @@ public class ColorManager : Singleton<ColorManager>
         {
             _playerAttack.CanAttack = true;
             ChangeColorStateByColors(_color);
-            UseBasicWeapon(IsUsingBasicWeapon);
-
             ObjectPoolManager.Instance.SetColorName(_color);
             OnSetColor?.Invoke();
         }
@@ -127,7 +123,7 @@ public class ColorManager : Singleton<ColorManager>
             case Colors.Yellow:
                 _playerAttack.CanAttack = false;
                 ChangeColorState(new YellowColor(OnYellowAttacked));
-                _playerAttack.YellowAttackEffect.SetActive(true);
+                _playerAttack.YellowWeapon.SetActive(true);
                 break;
             case Colors.Blue:
                 _playerAttack.BlueWeapon.SetActive(true);
@@ -156,7 +152,7 @@ public class ColorManager : Singleton<ColorManager>
     {
         SetPlayerColorState(_color);
         _playerAttack.RedWeapon.SetActive(false);
-        _playerAttack.YellowAttackEffect.SetActive(false);
+        _playerAttack.YellowWeapon.SetActive(false);
         _playerAttack.PurpleWeapon.SetActive(false);
     }
 
@@ -172,16 +168,4 @@ public class ColorManager : Singleton<ColorManager>
         DrawManager.Instance.SetBrushColor(_color);
         DrawManager.Instance.OpenDrawing();
     }
-
-    public void UseBasicWeapon(bool value)
-    {
-        IsUsingBasicWeapon = value;
-        if (value)
-            _playerAttack.SetBasicWeapon();
-        //else
-        //    _playerAttack.SetCustomWeapon();
-
-        OnSaveColor?.Invoke();
-    }
-
 }

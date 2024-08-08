@@ -17,7 +17,7 @@ public class PlayerAttack : MonoBehaviour
     public GameObject BlackWeapon;
 
     [Header("AttackEffect")]
-    public GameObject YellowAttackEffect;
+    public GameObject YellowWeapon;
     public GameObject OrangeAttackEffect;
     public GameObject OrangeAttackWeaponCo;
     public GameObject PurpleAttackEffect;
@@ -85,6 +85,10 @@ public class PlayerAttack : MonoBehaviour
 
             ColorWeapons[i].sprite = sprite;
         }
+        for (int i = 0; i < 4; i++)
+        {
+            YellowWeapon.transform.GetChild(i).GetComponent<SpriteRenderer>().sprite = ColorWeapons[(int)Colors.Yellow].sprite;
+        }
     }
 
     public void SetCustomWeapon()
@@ -96,7 +100,7 @@ public class PlayerAttack : MonoBehaviour
         {
             for (int i = 0; i < 4; i++)
             {
-                YellowAttackEffect.transform.GetChild(i).GetComponent<SpriteRenderer>().sprite = ColorWeapons[(int)Colors.Yellow].sprite;
+                YellowWeapon.transform.GetChild(i).GetComponent<SpriteRenderer>().sprite = ColorWeapons[(int)Colors.Yellow].sprite;
             }
         }
     }
@@ -109,7 +113,7 @@ public class PlayerAttack : MonoBehaviour
         {
             for (int i = 0; i < 4; i++)
             {
-                YellowAttackEffect.transform.GetChild(i).GetComponent<SpriteRenderer>().sprite = ColorWeapons[(int)Colors.Yellow].sprite;
+                YellowWeapon.transform.GetChild(i).GetComponent<SpriteRenderer>().sprite = ColorWeapons[(int)Colors.Yellow].sprite;
             }
         }
     }
@@ -154,8 +158,8 @@ public class PlayerAttack : MonoBehaviour
 
     void OnYellowAttacked()
     {
-        YellowAttackEffect.SetActive(true);
-        YellowAttackEffect.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = ColorWeapons[(int)Colors.Yellow].sprite;
+        YellowWeapon.SetActive(true);
+        YellowWeapon.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = ColorWeapons[(int)Colors.Yellow].sprite;
     }
 
     void OnBlackAttacked()

@@ -52,7 +52,6 @@ public class UI_DrawCanvas : UI_Popup
 
     public void OkayBtnClicked(PointerEventData data)
     {
-
         if (_player != null)
         {
             if (!_useBasicWeapon)
@@ -62,18 +61,21 @@ public class UI_DrawCanvas : UI_Popup
                     Debug.Log("무기 그리고 다시 ok 누르삼");
                     return;
                 }
+                _player.GetComponent<PlayerAttack>().SetCustomWeapon();
             }
-            _player.GetComponent<PlayerAttack>().SetCustomWeapon();
+            else
+            {
+                _player.GetComponent<PlayerAttack>().SetBasicWeapon();
+            }
+            
             ClosePopupUI();
 
             GameManager.Instance.ResumeGame();
             DrawManager.Instance.CloseDrawing();
 
             // 무기 바꾸기
-            GameManager.Instance.SaveCurrentWeaponSprite(); ;
-            ColorManager.Instance.UseBasicWeapon(_useBasicWeapon);
+            GameManager.Instance.SaveCurrentWeaponSprite();
             ColorManager.Instance.SetColorState(GameManager.Instance.PlayerColor);
-
 
         }
         else  // 얼굴 그릴 때

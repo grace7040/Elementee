@@ -15,6 +15,7 @@ public class ThrowableWeapon : PoolAble
     void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        _spriteRenderer.sprite = GameManager.Instance.CurrentWeaponSpriteList[(int)WeaponColor];
     }
 
     void OnEnable()
