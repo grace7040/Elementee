@@ -103,7 +103,7 @@ public class ColorManager : Singleton<ColorManager>
         {
             _playerAttack.CanAttack = true;
             ChangeColorStateByColors(_color);
-            //UseBasicWeapon(IsUsingBasicWeapon);
+            UseBasicWeapon(IsUsingBasicWeapon);
 
             ObjectPoolManager.Instance.SetColorName(_color);
             OnSetColor?.Invoke();
@@ -176,8 +176,8 @@ public class ColorManager : Singleton<ColorManager>
     public void UseBasicWeapon(bool value)
     {
         IsUsingBasicWeapon = value;
-        //if (value)
-        //    _playerAttack.SetBasicWeapon();
+        if (value)
+            _playerAttack.SetBasicWeapon();
         //else
         //    _playerAttack.SetCustomWeapon();
 
