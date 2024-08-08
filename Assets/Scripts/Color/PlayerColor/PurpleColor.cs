@@ -13,8 +13,8 @@ public class PurpleColor : IColorState
     public Action ShakeCamera = null;
     public PurpleColor(Action<string, bool> setPlayerAnimatorBoolAction, Action shakeCamera)
     {
-        ColorManager.Instance.HasRed = false;
-        ColorManager.Instance.HasBlue = false;
+        ColorManager.Instance.HasColor(Colors.Red, false);
+        ColorManager.Instance.HasColor(Colors.Blue, false);
         SetPlayerAnimatorBool = setPlayerAnimatorBoolAction;
         ShakeCamera = shakeCamera;
     }

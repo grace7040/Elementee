@@ -83,8 +83,6 @@ public class UI_Game : UI_Scene
         GameManager.Instance.UIGame = this;
 
     }
-
-
     public void UpdateHPBar(int current, int max)
     {
         _hpBar.fillAmount = (float)current / max;
@@ -131,11 +129,9 @@ public class UI_Game : UI_Scene
             _dash.GetComponent<Image>().color = alpha_color32_1;
 
         }
-        if (player_color == Colors.Yellow)
-            GetImage((int)Images.Attack_Cool_Time).gameObject.SetActive(true);
-        else
-            GetImage((int)Images.Attack_Cool_Time).gameObject.SetActive(false);
 
+        var playerColorIsYellow = player_color == Colors.Yellow;
+        GetImage((int)Images.Attack_Cool_Time).gameObject.SetActive(playerColorIsYellow);
     }
 
     public override void Init()
@@ -181,11 +177,6 @@ public class UI_Game : UI_Scene
         // Palette 세팅
         SetPalette();
         ColorManager.Instance.OnSetColor += SetPalette;
-
-        //GameManager.Instance.SetJoystick = () => {
-        //    FindObjectOfType<CharacterMove>().joystick = joystick;
-        //};
-
 
         // HpBar
         HpBarMAX = _hpBar.gameObject.GetComponent<RectTransform>().rect.width;

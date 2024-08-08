@@ -321,19 +321,9 @@ public class MonsterController : MonoBehaviour
         if (IsDie) return;
 
         IsDie = true;
-        switch (MyColor)
+        if(MyColor != Colors.Default)
         {
-            case Colors.Default:
-                break;
-            case Colors.Red:
-                ColorManager.Instance.HasRed = true;
-                break;
-            case Colors.Blue:
-                ColorManager.Instance.HasBlue = true;
-                break;
-            case Colors.Yellow:
-                ColorManager.Instance.HasYellow = true;
-                break;
+            ColorManager.Instance.HasColor(MyColor, true);
         }
 
         gameObject.GetComponent<CapsuleCollider2D>().isTrigger = true;

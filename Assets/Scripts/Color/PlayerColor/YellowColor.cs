@@ -12,7 +12,7 @@ public class YellowColor : IColorState
     Action OnYellowAttacked = null;
     public YellowColor(Action onYellowAttackedAction)
     {
-        ColorManager.Instance.HasYellow = false;
+        ColorManager.Instance.HasColor(Colors.Yellow, false);
         OnYellowAttacked = onYellowAttackedAction;
     }
 

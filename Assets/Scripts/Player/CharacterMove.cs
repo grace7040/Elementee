@@ -38,6 +38,14 @@ public class CharacterMove : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.X))
 			_playerAttack.AttackDown();
 
+
+		// :: Debug :: 디버깅을 위한 코드이므로 추후 삭제.
+		if (Input.GetKeyDown(KeyCode.Return))
+        {
+			ColorManager.Instance.HasColor(Colors.Red, true);
+			ColorManager.Instance.HasColor(Colors.Yellow, true);
+			ColorManager.Instance.HasColor(Colors.Blue, true);
+		}
 	}
 
 	void FixedUpdate()

@@ -6,7 +6,7 @@ using UnityEngine;
 public class ColorManager : Singleton<ColorManager>
 {
     PlayerAttack _playerAttack;
-    List<Colors> _colorList = new();
+    List<Colors> _hasBeenUsedColor = new();
 
     //Delegetes
     public Action OnSetColor = null;
@@ -22,48 +22,32 @@ public class ColorManager : Singleton<ColorManager>
 
     public bool IsUsingBasicWeapon = false;
 
-
-    [Header("Color State")]
-    [SerializeField]
-    bool _hasRed = false;
-    [SerializeField]
-    bool _hasBlue = false;
-    [SerializeField]
-    bool _hasYellow = false;
+    Dictionary<Colors, bool> _colorDict = new();
 
     public bool HasRed
     {
-        get { return _hasRed; }
-        set
-        {
-            _hasRed = value;
-            OnSetColor?.Invoke();
-        }
+        get { return _colorDict[Colors.Red]; }
     }
-
-    public bool HasBlue
-    {
-        get { return _hasBlue; }
-        set
-        {
-            _hasBlue = value;
-            OnSetColor?.Invoke();
-        }
-    }
-
     public bool HasYellow
     {
-        get { return _hasYellow; }
-        set
-        {
-            _hasYellow = value;
-            OnSetColor?.Invoke();
-        }
+        get { return _colorDict[Colors.Yellow]; }
     }
+    public bool HasBlue
+    {
+        get { return _colorDict[Colors.Blue]; }
+    }
+
 
     private void Awake()
     {
-        _colorList.Add(Colors.Default);
+        _hasBeenUsedColor.Add(Colors.Default);
+        Init();
+    }
+    public void Init()
+    {
+        _colorDict.Add(Colors.Red, false);
+        _colorDict.Add(Colors.Yellow, false);
+        _colorDict.Add(Colors.Blue, false);
     }
 
     public void InitPlayer(Action<Colors> setMyColorAction, Action<IColorState> setColorStateAction, Action<string, bool> setAnimBoolAction, Action shakeCameraAction)
@@ -83,11 +67,11 @@ public class ColorManager : Singleton<ColorManager>
         OnBlackAttacked = onBlackAttackedAction;
         OnSetBlackColor = onSetBlackAction;
     }
-    public void ResetColorState()
+
+    public void HasColor(Colors color, bool value)
     {
-        _hasYellow = false;
-        _hasRed = false;
-        _hasBlue = false;
+        _colorDict[color] = value;
+        OnSetColor?.Invoke();
     }
 
     /*Colors별 실제 색상값 반환하는 함수. 색상값 설정 및 변경은 여기서만. */
@@ -115,7 +99,7 @@ public class ColorManager : Singleton<ColorManager>
         GameManager.Instance.PlayerColor = _color;
 
         // 새로운 색 사용할 때 무기 그리도록 UI 띄우기
-        if (!_colorList.Contains(_color) && _color != Colors.Black)
+        if (!_hasBeenUsedColor.Contains(_color) && _color != Colors.Black)
         {
             PlayerWeaponOff();
             StartDrawing(_color);
@@ -198,7 +182,7 @@ public class ColorManager : Singleton<ColorManager>
         GameManager.Instance.PauseGame();
 
         UIManager.Instance.ShowPopupUI<UI_DrawCanvas>();
-        _colorList.Add(_color);
+        _hasBeenUsedColor.Add(_color);
 
         DrawManager.Instance.SetBrushColor(_color);
         DrawManager.Instance.OpenDrawing();

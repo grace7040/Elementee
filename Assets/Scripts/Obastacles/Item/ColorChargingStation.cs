@@ -33,19 +33,7 @@ public class ColorChargingStation : MonoBehaviour
             }
             
             GetComponent<BoxCollider2D>().isTrigger = true;
-
-            switch (paintColor)
-            {
-                case Colors.Red:
-                    ColorManager.Instance.HasRed = true;
-                    break;
-                case Colors.Blue:
-                    ColorManager.Instance.HasBlue = true;
-                    break;
-                case Colors.Yellow:
-                    ColorManager.Instance.HasYellow = true;
-                    break;
-            }
+            ColorManager.Instance.HasColor(paintColor, true);
 
             anim.Play("Paint", -1, 0.4f);
             this.CallOnDelay(3f, ()=> { gameObject.SetActive(false); isSelected = false; });

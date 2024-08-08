@@ -79,7 +79,7 @@ public class GameManager : Singleton<GameManager>
         CurrentCoin = 0;
         _hasBeenRevived = false;
         RevivalPos = null;
-        ColorManager.Instance.ResetColorState();
+        ColorManager.Instance.Init();
     }
     public void GameOver()
     {

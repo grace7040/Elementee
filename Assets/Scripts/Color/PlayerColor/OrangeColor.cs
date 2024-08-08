@@ -16,8 +16,8 @@ public class OrangeColor : IColorState
 
     public OrangeColor(Action<float> onOrangeAttacked)
     {
-        ColorManager.Instance.HasRed = false;
-        ColorManager.Instance.HasYellow = false;
+        ColorManager.Instance.HasColor(Colors.Red, false);
+        ColorManager.Instance.HasColor(Colors.Yellow, false);
         OnOrangeAttacked = onOrangeAttacked;
     }
     public void Attack(Vector3 playerPosition, float playerLocalScaleX)
