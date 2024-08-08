@@ -19,6 +19,7 @@ public class PlayerAttack : MonoBehaviour
     [Header("AttackEffect")]
     public GameObject YellowAttackEffect;
     public GameObject OrangeAttackEffect;
+    public GameObject OrangeAttackWeaponCo;
     public GameObject PurpleAttackEffect;
 
     //Attack
@@ -33,11 +34,13 @@ public class PlayerAttack : MonoBehaviour
     float _throwForce = 15f;
 
     PlayerController _playerController;
+    Rigidbody2D _rigidbody;
 
     private void Start()
     {
         _playerController = GetComponent<PlayerController>();
         ColorManager.Instance.InitPlayerAttack(this, OnOrangeAttacked, OnYellowAttacked, OnBlackAttacked, OnSetBlackColor);
+        _rigidbody = GetComponent<Rigidbody2D>();
     }
 
 
@@ -101,9 +104,17 @@ public class PlayerAttack : MonoBehaviour
 
     void OnOrangeAttacked(float durationTime)
     {
-        gameObject.layer = (int)Layer.OrangeAttack; // layer 변경으로 충돌 처리 막음
 
+        _rigidbody.velocity = Vector2.zero;
+        _rigidbody.AddForce(new Vector2(0f, 500f));
+
+        gameObject.layer = (int)Layer.OrangeAttack; // layer 변경으로 충돌 처리 막음
         OrangeAttackEffect.SetActive(true);
+
+        this.CallOnDelay(0.1f, () =>
+        {
+            OrangeAttackWeaponCo.SetActive(true);
+        });
 
         var originalMoveSpeed = _playerController.MoveSpeed;
         _playerController.MoveSpeed = 20f;
@@ -111,6 +122,7 @@ public class PlayerAttack : MonoBehaviour
         this.CallOnDelay(durationTime, () =>
         {
             OrangeAttackEffect.SetActive(false);
+            OrangeAttackWeaponCo.SetActive(false);
             gameObject.layer = (int)Layer.Player;
             _playerController.MoveSpeed = originalMoveSpeed;
         });
