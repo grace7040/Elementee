@@ -100,7 +100,6 @@ public class ColorManager : Singleton<ColorManager>
         // 새로운 색 사용할 때 무기 그리도록 UI 띄우기
         if (!_hasBeenUsedColorList.Contains(_color) && _color != Colors.Black)
         {
-            PlayerWeaponOff();
             StartDrawing(_color);
         }
         else
@@ -165,15 +164,6 @@ public class ColorManager : Singleton<ColorManager>
         _playerAttack.PurpleWeapon.SetActive(false);
     }
 
-    void PlayerWeaponOff()
-    {
-        _playerAttack.RedWeapon.SetActive(false);
-        _playerAttack.YellowAttackEffect.SetActive(false);
-        _playerAttack.PurpleWeapon.SetActive(false);
-        _playerAttack.GreenWeapon.SetActive(false);
-        _playerAttack.BlueWeapon.SetActive(false);
-        _playerAttack.BlackWeapon.SetActive(false);
-    }
 
     public void StartDrawing(Colors _color)
     {
