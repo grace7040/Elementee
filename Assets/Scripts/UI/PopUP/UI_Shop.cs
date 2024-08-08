@@ -31,11 +31,6 @@ public class UI_Shop : UI_Popup
             ShopPanelsGO[i].SetActive(true);
 
 
-        DataManager.Instance.JsonClear();
-        GameManager.Instance.TotalCoin = 100;
-        DataManager.Instance.JsonSave();
-
-
         TotalCoin = GameManager.Instance.TotalCoin;
         CoinUI.text = TotalCoin.ToString();
         LoadPanels();
