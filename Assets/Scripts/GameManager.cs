@@ -75,6 +75,7 @@ public class GameManager : Singleton<GameManager>
     public void RetryGame()
     {
         ResumeGame();
+        ClearGameData();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
