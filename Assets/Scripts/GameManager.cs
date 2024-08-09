@@ -114,9 +114,16 @@ public class GameManager : Singleton<GameManager>
         SaveCurrentWeaponSprite?.Invoke();
         DataManager.Instance.JsonSave();
         DataManager.Instance.JsonSaveWeaponSprites();
+        ClearGameData();
+    }
 
+    public void ClearGameData()
+    {
         CurrentStar = 0;
         CurrentCoin = 0;
+        ColorManager.Instance.HasColor(Colors.Red, false);
+        ColorManager.Instance.HasColor(Colors.Blue, false);
+        ColorManager.Instance.HasColor(Colors.Yellow, false);
     }
 
 
