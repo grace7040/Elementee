@@ -30,6 +30,8 @@ public class ColorDoor : MonoBehaviour
             }
             else
             {
+                AudioManager.Instance.PlaySFX("ColorDoor");
+
                 collision.rigidbody.velocity = Vector2.zero;
 
                 dir = collision.transform.position - transform.position;

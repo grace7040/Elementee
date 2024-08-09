@@ -19,6 +19,8 @@ public class Box : MonoBehaviour
             var effect = ObjectPoolManager.Instance.GetGameObject("Box");
             effect.transform.position = collision.bounds.ClosestPoint(transform.position);
 
+            AudioManager.Instance.PlaySFX("Box");
+
             this.CallOnDelay(0.1f, () => { _canHit = true; });
             if (_life < 1)
             {

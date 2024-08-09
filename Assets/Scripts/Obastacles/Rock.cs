@@ -30,6 +30,7 @@ public class Rock : MonoBehaviour
 
     void DestroyObject()
     {
+        AudioManager.Instance.PlaySFX("Rock");
         _isDestroyed = true;
         Destroy(gameObject);
     }

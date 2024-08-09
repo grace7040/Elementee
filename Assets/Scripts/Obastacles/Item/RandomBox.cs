@@ -28,6 +28,8 @@ public class RandomBox : MonoBehaviour
             anim.Play("RandomBox", -1, 0f);
 
             this.CallOnDelay(1f, () => {
+                AudioManager.Instance.PlaySFX("RandomBox");
+
                 Instantiate(randomObjects[randomIdx], new Vector3(transform.position.x, transform.position.y + posY, transform.position.z), Quaternion.identity, this.transform.parent);
 
                 if (destroyEffect != null)
