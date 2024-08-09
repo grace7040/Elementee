@@ -32,6 +32,7 @@ public class Generator : MonoBehaviour
         {
             if(count > 0)
             {
+                AudioManager.Instance.PlaySFX("Generator");
                 isGenerating = true;
                 count--;
                 CountTxt.text = count.ToString();
